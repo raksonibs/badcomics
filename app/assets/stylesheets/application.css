@@ -11,7 +11,8 @@
  *= require_self
  *= require_tree .
  */
-td {
+td, #eventbrite
+{
         width: 100px;
         height: 100px;
         border: 1px solid black;
@@ -20,4 +21,10 @@ td {
 
 td:hover {
         background-color: lightblue;
+}
+
+#eventbrite {
+
+	width: 500px;
+        height: 500px;
 }

@@ -3,7 +3,7 @@
 will allow multiple selections (up to three).multiple words, different moods so each time seems different.
 click up to n moods, then say how much money you have in your pocket. select range
 then your location based on ip address find your stuff. want to put javascript to make it move to next task which is money. this is all a form mind you.-->
-
+<%= @data %>
 You're bored. But how are you feeling:
 
 <table>
@@ -26,3 +26,17 @@ You're bored. But how are you feeling:
     <td>Geeky</td>
   </tr>
 </table>
+<div id="eventbrite">
+right now event brite stuff showing on page via ajax
+</div>
+<script type='text/javascript' src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+<script type='text/javascript' src="http://evbdn.eventbrite.com/s3-s3/static/js/platform/Eventbrite.jquery.js"></script>
+<script type='text/javascript'>
+$("#eventbrite").click(function(){
+  Eventbrite({'app_key': "GUBRP2USZMDRRVPPSF"}, function(eb){
+    eb.event_search( {'city': "Toronto"}, function( response ){
+      $("#eventbrite").html(eb.utils.eventList( response, eb.utils.eventListRow ));
+    });
+  });
+});
+</script>
