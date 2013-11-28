@@ -78,4 +78,6 @@ class WelcomeController < ApplicationController
 
   def getIP
   end
+
+  
 end
