@@ -12,7 +12,7 @@ require 'nokogiri'
 #need to remove location
 class WelcomeController < ApplicationController
   def index
-  	#@data=cityhall
+  	@data=nowmagazine
   end
 
 
@@ -48,8 +48,13 @@ class WelcomeController < ApplicationController
   end
 
   def nowmagazine
-  	Nokogiri::HTML(open("http://www.nowtoronto.com/news/listings/"))
-  	.css(".listing-entry")
+  	info={}
+  	date=Date.today
+  	data=Nokogiri::HTML(open("http://www.nowtoronto.com/news/listings/"))
+  	.css(".listing-entry")[0]
+  	
+  	#data.each do |val|
+  		#info[val.css("")]
   	#need to categorize event
 
   end
