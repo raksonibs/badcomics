@@ -11,9 +11,14 @@ require 'nokogiri'
 #tags based on 12 options right now. Will have to match based on description or title
 #need to remove location
 #need to worry aout if events have sold tickets
+#need to normalize for each
+#need basic general categories, also find keywords for them?
+#attractions for touristy
+#also want like facebook friend parties
+#also funny things like sleep? maybe shouldnt tell them what to do lol
 class WelcomeController < ApplicationController
   def index
-  	@data=cityhall
+  	@data=nowmagazine
   end
 
   def home
@@ -74,11 +79,12 @@ class WelcomeController < ApplicationController
   	info={}
   	date=DateTime.now
   	data=Nokogiri::HTML(open("http://www.nowtoronto.com/news/listings/"))
-  	.css(".listing-entry")[0].css("div.day#{date.day}month#{date.month}")
-  	data.css("div.day#{date.day}month#{date.month}")
+  	.css(".listing-entry")[0].css("div[class^='listing-item']")
+  	#data.css("div.day#{date.day}month#{date.month}")
   	#data.each do |val|
   		#info[val.css("")]
   	#need to categorize event
+  	data
 
   end
 
