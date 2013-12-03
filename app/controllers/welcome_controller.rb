@@ -21,7 +21,7 @@ class WelcomeController < ApplicationController
 
 
   def getdata
-  	"[cityhall need to get just today,
+  	"[cityhall,
   	nowmagazine not working,
   	eventbrite working,
   	justshows -need to fix all ages advance door part, maybe only grab price?
@@ -35,8 +35,8 @@ class WelcomeController < ApplicationController
   end
 
   def cityhall
-  	info=[]
-  	date=Date.today.strftime("%B %01d, %Y")
+  	info={}
+  	date=Date.today#.strftime("%B %01d, %Y")
   	data=Nokogiri::HTML(open("http://wx.toronto.ca/festevents.nsf/tpaview?readviewentries")).xpath("//viewentry")
   	countend=data.size
   	count=0
@@ -44,20 +44,29 @@ class WelcomeController < ApplicationController
   	#info[name]=date start, time start, date end, time end, price, address, category
   	#should only get events with current date, not all dates
   	#.text method on xpath?
-  	info<<data[0].xpath("//entrydata[@name='DateBeginShow']")[0].text
-  	info << data[0].xpath("//entrydata[@name='DateEndShow']")[0].text
-  	#.each do |val|
-  		#if 
-  		#info[val.xpath("//entrydata[@name='EventName']")[count]]=[val.xpath("//entrydata[@name='DateBeginShow']")[count],
-  																  #val.xpath("//entrydata[@name='TimeBegin']")[count], 
-  																  #val.xpath("//entrydata[@name='DateEndShow']")[count], 
-  																 # val.xpath("//entrydata[@name='TimeEnd']")[count],
-  																  #val.xpath("//entrydata[@name='Admission']")[count],
-  																  #val.xpath("//entrydata[@name='Location']")[count],
-  																 # val.xpath("//entrydata[@name='CategoryList']")[count]] unless val==nil
+  	
+  	
+  	
+
+  	data.each do |val|
+  		range = Date.parse(val.xpath("//entrydata[@name='DateBeginShow']")[count].text) .. Date.parse(val.xpath("//entrydata[@name='DateEndShow']")[count].text)
+  		if range.include?(date)
+  			info[val.xpath("//entrydata[@name='EventName']")[count].text]=[val.xpath("//entrydata[@name='DateBeginShow']")[count].text,
+  																  	val.xpath("//entrydata[@name='TimeBegin']")[count].text, 
+  																  	val.xpath("//entrydata[@name='DateEndShow']")[count].text, 
+  																 	 val.xpath("//entrydata[@name='TimeEnd']")[count].text,
+  																  	val.xpath("//entrydata[@name='Admission']")[count].text,
+  																  	val.xpath("//entrydata[@name='Location']")[count].text,
+  																 	val.xpath("//entrydata[@name='CategoryList']")[count]] unless val==nil
+  		end
+  		count+=1
+  	end
+
   		#count+=1
   	#end
+  	#date===range
   	info
+  	#December 4, 2013
   end
 
   def nowmagazine
@@ -76,6 +85,7 @@ class WelcomeController < ApplicationController
   def xlsattraction
   	#need to make list of things. i guess snakes and lattes and other things
   	# we curate can be in here. blog to entries added to this list?
+  	#feeling touristry
   end
 
   def eventbrite
