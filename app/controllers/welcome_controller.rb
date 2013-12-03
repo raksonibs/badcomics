@@ -15,6 +15,9 @@ class WelcomeController < ApplicationController
   	@data=nowmagazine
   end
 
+  def home
+  end
+
 
   def getdata
   	"[cityhall,
