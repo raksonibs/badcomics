@@ -16,6 +16,7 @@ require 'nokogiri'
 #attractions for touristy
 #also want like facebook friend parties
 #also funny things like sleep? maybe shouldnt tell them what to do lol
+#tag based on season
 class WelcomeController < ApplicationController
   def index
   	@data=nowmagazine
@@ -76,6 +77,7 @@ class WelcomeController < ApplicationController
 
   def nowmagazine
   	#trouble with getting the values out to get the date
+  	#time, price, address
   	info={}
   	date=DateTime.now
   	data=Nokogiri::HTML(open("http://www.nowtoronto.com/news/listings/"))
@@ -84,7 +86,21 @@ class WelcomeController < ApplicationController
   	#data.each do |val|
   		#info[val.css("")]
   	#need to categorize event
-  	data
+	string1="European-inspired festival with musical performances, family activities, handcrafted products, food and more. Nov 29 to Dec 15. Free. Distillery District, 55 Mill, torontochristmasmarket.com."
+	string2="Illustrated talk on the astrophysicist by colleague Steno Ferluga. 6:30 pm. Free. Italian Cultural Institute, 496 Huron, 416-921-3802 ext 221."  	
+	string3="Lecture by Rick Phillips of Sound Advice. Dec 3, Dec 10 and Dec 17, 7 pm. Free. Palmerston Library, 560 Palmerston, 416-393-7674."
+	data.each do |val|
+  		info[val.css("span.List-Name").text]=[]
+
+  		price=val.css("div.List-Body").text[/\$\w+|[fF]ree|Donation/]
+  		if price==nil
+  			price="Price Varies"
+  		end
+  		address= val.css("div.List-Body").text[/[0-9]+\s+[A-Za-z]+,$/]
+  		info[val.css("span.List-Name").text]=[price,address]
+  		
+  	end
+  	info
 
   end
 
