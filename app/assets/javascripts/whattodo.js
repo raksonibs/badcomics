@@ -13,9 +13,26 @@ $(document).ready(function() {
 	$(".categories").animate({ opacity: 0 }, 0);
 	$(".categories").delay(200).animate({left:"+=20", opacity: 1},1800);
 
-	// This is where 6 new boxes need to be brought in via ajax
-	$(".categorybox").click(function() {
-  	alert('clicked')
+	// This is where 6 new boxes need to be brought in ajax
+
+	$(".categories1").hide();
+	$(".categories1").animate({ opacity: 0 }, 0);
+
+	$(".price").hide();
+	$(".price").animate({ opacity: 0 }, 0);
+
+	$(".categories").one('click', function() {
+  		$(".categories").fadeOut( "slow", function() {
+  			$(".categories1").show().animate({left:"+=20", opacity: 1},1800);
+  		});
+  		
+	});
+
+	$(".categories1").one('click', function() {
+  		$(".categories1, .question").fadeOut( "slow", function() {
+  			$(".price").show().animate({left:"+=20", opacity: 1},1800);
+  		});
+  		
 	});
 	
 });
