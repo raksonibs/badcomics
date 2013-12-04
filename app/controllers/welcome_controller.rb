@@ -19,7 +19,11 @@ require 'nokogiri'
 #tag based on season
 class WelcomeController < ApplicationController
   def index
-  	@data=""
+  	#@data=getdata
+  end
+
+  def test
+  	@data=getdata
   end
 
   def home
@@ -30,14 +34,15 @@ class WelcomeController < ApplicationController
   	[cityhall,
   	nowmagazine,
   	eventbrite,
-  	justshows ,
+  	justshows,
   	clubcrawlers]
   	
   	#everything needs cateogry
+  	#nomagazine problem with preregister location
+  	#justshows isnt appearing?
   	#problem with price for jsutshows
   	#parks,
   	#eventful,
-  	#clubcrawlers,
   	#xlsattraction,
   	#facebook
   	#meetup
@@ -78,7 +83,8 @@ class WelcomeController < ApplicationController
   	info
   	#December 4, 2013
   end
-
+#toronto christmas market time
+#
   def nowmagazine
   	#trouble with getting the values out to get the date
   	#trouble if in description says:  Nov 28 to Dec 8 weekdays and Sat 10 am-9 pm, Thu 10 am-11 pm, Sun 10 am-6 pm
@@ -104,6 +110,9 @@ class WelcomeController < ApplicationController
 	  			address=address[0...-1]
 	  		end
 	  		time=val.css("div.List-Body").text[/([0-9]+:)?[0-9]+\s(a|p)m(-[0-9]+\s(a|p)m)?/]
+	  		if time==nil
+	  			time="Not provided"
+	  		end
 	  		info[val.css("span.List-Name").text]=[price,address,time]
 	  		
 	  	end
@@ -125,17 +134,10 @@ class WelcomeController < ApplicationController
   	data=JSON.parse((open("http://www.eventbrite.com/json/event_search?app_key=GUBRP2USZMDRRVPPSF&city=Toronto&date=today&max=100")).read)
   	data=data["events"]
   	data[1..100].each do |event|
-		info[event["event"]["title"]]=[event["event"]["start_date"][/\d+:\d+:\d+/],event["event"]["tickets"][0]["ticket"]["price"]=="0.00" ? "Free" : event["event"]["tickets"][0]["ticket"]["price"] ,event["event"]["venue"]["address"]]
+		info[event["event"]["title"]]=[event["event"]["start_date"][/\d+:\d+:\d+/],event["event"]["tickets"][0]["ticket"]["price"]=="0.00" || event["event"]["tickets"][0]["ticket"]["price"]==nil ? "Free" : event["event"]["tickets"][0]["ticket"]["price"] ,event["event"]["venue"]["address"]]
 	end
 	info
-  	#data.each do |val|
-  		#info[val["event"]["title"]]=[]
-  	#end
-
-  	#<% @data["events"][1..100].each do |event|%>
-	#<%= event["event"]["title"] %><br>
-#<% end %>
-#need to categorize
+  	
   end
   	
   def parks

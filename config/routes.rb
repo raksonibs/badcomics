@@ -1,6 +1,7 @@
 Whattodo::Application.routes.draw do
   root 'welcome#index'
   get "/whattodo" => "welcome#home"
+  get "/test"=>"welcome#test"
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
