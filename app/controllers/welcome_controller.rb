@@ -17,9 +17,11 @@ require 'nokogiri'
 #also want like facebook friend parties
 #also funny things like sleep? maybe shouldnt tell them what to do lol
 #tag based on season
+#mirvish toronto
+#foursquare
 class WelcomeController < ApplicationController
   def index
-  	@data=meetup
+  	@data=roo
   end
 
   def test
@@ -30,12 +32,14 @@ class WelcomeController < ApplicationController
   end
 
 
+
   def getdata
   	[cityhall,
   	nowmagazine,
   	eventbrite,
   	justshows,
-  	clubcrawlers]
+  	clubcrawlers,
+  	meetup]
   	
   	#everything needs cateogry
   	#nomagazine problem with preregister location
@@ -237,6 +241,11 @@ class WelcomeController < ApplicationController
 		end
 	end
 	info 	
+  end
+
+  def roo
+  	attracts
+  	
   end
 
 
