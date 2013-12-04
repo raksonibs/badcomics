@@ -21,7 +21,7 @@ require 'nokogiri'
 #foursquare
 class WelcomeController < ApplicationController
   def index
-  	@data=roo
+  	@data=getdata
   end
 
   def test
@@ -39,7 +39,8 @@ class WelcomeController < ApplicationController
   	eventbrite,
   	justshows,
   	clubcrawlers,
-  	meetup]
+  	meetup,
+  	roo]
   	
   	#everything needs cateogry
   	#nomagazine problem with preregister location
