@@ -19,7 +19,7 @@ require 'nokogiri'
 #tag based on season
 class WelcomeController < ApplicationController
   def index
-  	@data=nowmagazine
+  	@data=""
   end
 
   def home
@@ -27,11 +27,14 @@ class WelcomeController < ApplicationController
 
 
   def getdata
-  	"[cityhall,
-  	nowmagazine not working,
-  	eventbrite working,
-  	justshows -need to fix all ages advance door part, maybe only grab price?
-  	]"
+  	[cityhall,
+  	nowmagazine,
+  	eventbrite,
+  	justshows ,
+  	clubcrawlers]
+  	
+  	#everything needs cateogry
+  	#problem with price for jsutshows
   	#parks,
   	#eventful,
   	#clubcrawlers,
@@ -58,12 +61,13 @@ class WelcomeController < ApplicationController
   		range = Date.parse(val.xpath("//entrydata[@name='DateBeginShow']")[count].text) .. Date.parse(val.xpath("//entrydata[@name='DateEndShow']")[count].text)
   		if range.include?(date)
   			info[val.xpath("//entrydata[@name='EventName']")[count].text]=[val.xpath("//entrydata[@name='DateBeginShow']")[count].text,
-  																  	val.xpath("//entrydata[@name='TimeBegin']")[count].text, 
+  																  	val.xpath("//entrydata[@name='TimeBegin']")[count].text=="" ? "Start time not listed" : val.xpath("//entrydata[@name='TimeBegin']")[count].text, 
   																  	val.xpath("//entrydata[@name='DateEndShow']")[count].text, 
-  																 	 val.xpath("//entrydata[@name='TimeEnd']")[count].text,
-  																  	val.xpath("//entrydata[@name='Admission']")[count].text,
+  																 	val.xpath("//entrydata[@name='TimeEnd']")[count].text=="" ? "End time not listed" : val.xpath("//entrydata[@name='TimeEnd']")[count].text,
+  																  	val.xpath("//entrydata[@name='Admission']")[count].text=="" ? "Price not listed" : val.xpath("//entrydata[@name='Admission']")[count].text,
   																  	val.xpath("//entrydata[@name='Location']")[count].text,
-  																 	val.xpath("//entrydata[@name='CategoryList']")[count]] unless val==nil
+  																 	val.xpath("//entrydata[@name='CategoryList']")[count].text]
+
   		end
   		count+=1
   	end
@@ -77,29 +81,34 @@ class WelcomeController < ApplicationController
 
   def nowmagazine
   	#trouble with getting the values out to get the date
+  	#trouble if in description says:  Nov 28 to Dec 8 weekdays and Sat 10 am-9 pm, Thu 10 am-11 pm, Sun 10 am-6 pm
   	#time, price, address
+  	#NEEDS CATEGORY
   	info={}
   	date=DateTime.now
   	data=Nokogiri::HTML(open("http://www.nowtoronto.com/news/listings/"))
   	.css(".listing-entry")[0].css("div[class^='listing-item']")
   	#data.css("div.day#{date.day}month#{date.month}")
-  	#data.each do |val|
-  		#info[val.css("")]
-  	#need to categorize event
-	string1="European-inspired festival with musical performances, family activities, handcrafted products, food and more. Nov 29 to Dec 15. Free. Distillery District, 55 Mill, torontochristmasmarket.com."
-	string2="Illustrated talk on the astrophysicist by colleague Steno Ferluga. 6:30 pm. Free. Italian Cultural Institute, 496 Huron, 416-921-3802 ext 221."  	
-	string3="Lecture by Rick Phillips of Sound Advice. Dec 3, Dec 10 and Dec 17, 7 pm. Free. Palmerston Library, 560 Palmerston, 416-393-7674."
-	data.each do |val|
-  		info[val.css("span.List-Name").text]=[]
 
-  		price=val.css("div.List-Body").text[/\$\w+|[fF]ree|Donation/]
-  		if price==nil
-  			price="Price Varies"
-  		end
-  		address= val.css("div.List-Body").text[/[0-9]+\s+[A-Za-z]+,$/]
-  		info[val.css("span.List-Name").text]=[price,address]
-  		
-  	end
+	data.each do |val|
+	  		info[val.css("span.List-Name").text]=[]
+	
+	  		price=val.css("div.List-Body").text[/\$\w+|[fF]ree|Donation/]
+	  		if price==nil
+	  			price="Price Varies"
+	  		end
+	  		address= val.css("div.List-Body").text[/\s[0-9]+\s[A-Z][a-z]+.+,/]
+	  		if address==nil || address.size>20
+	  			address=val.css("div.List-Body").text.split(",")[-2]
+	  		else
+	  			address=address[0...-1]
+	  		end
+	  		time=val.css("div.List-Body").text[/([0-9]+:)?[0-9]+\s(a|p)m(-[0-9]+\s(a|p)m)?/]
+	  		info[val.css("span.List-Name").text]=[price,address,time]
+	  		
+	  	end
+  	#string4[/[0-9]+\s[A-Z][a-z]+(\b[A-Z][a-z]+)*?/]
+  	#i know that second last thing is always location so can split on that?! not always
   	info
 
   end
@@ -107,7 +116,7 @@ class WelcomeController < ApplicationController
   def xlsattraction
   	#need to make list of things. i guess snakes and lattes and other things
   	# we curate can be in here. blog to entries added to this list?
-  	#feeling touristry
+  	#feeling touristry and not too late (if event happeneing late would be mentioned on city of toronto)
   end
 
   def eventbrite
@@ -116,7 +125,7 @@ class WelcomeController < ApplicationController
   	data=JSON.parse((open("http://www.eventbrite.com/json/event_search?app_key=GUBRP2USZMDRRVPPSF&city=Toronto&date=today&max=100")).read)
   	data=data["events"]
   	data[1..100].each do |event|
-		info[event["event"]["title"]]=[event["event"]["start_date"],event["event"]["tickets"][0]["ticket"]["price"],event["event"]["venue"]["address"]]
+		info[event["event"]["title"]]=[event["event"]["start_date"][/\d+:\d+:\d+/],event["event"]["tickets"][0]["ticket"]["price"]=="0.00" ? "Free" : event["event"]["tickets"][0]["ticket"]["price"] ,event["event"]["venue"]["address"]]
 	end
 	info
   	#data.each do |val|
@@ -139,9 +148,16 @@ class WelcomeController < ApplicationController
   end
 
   def clubcrawlers
+  	#only if like five pm time or later
+  	info={}
   	even=Nokogiri::HTML(open("http://www.clubcrawlers.com/toronto/nightclubs/allvenues?crowd=&sort=p#listings")).css(".club-block")
   	odd=Nokogiri::HTML(open("http://www.clubcrawlers.com/toronto/nightclubs/allvenues?crowd=&sort=p#listings")).css(".club-block.odd")
-  	even+odd
+  	clubs=even+odd
+  	clubs.each do |val|
+  		info[val.css("div.event-info h2 a").text]=[val.css("div.event-info p.club-listing-address").text]
+  	end
+  	info
+
   end
 
   def justshows
@@ -153,16 +169,15 @@ class WelcomeController < ApplicationController
 
   	data=Nokogiri::HTML(open("http://justshows.com/toronto/")).css("ul.shows li")
   	data[0..1].each do |val| 
-  		p date
-  		p val.css("strong.day").text
+  		
   		if date == val.css("strong.day").text
-  			p val.css("title").text
-  			p val.css("span.time").text 
-  			p val.css("strong.location").text
-  			p val.css("span.venue-meta br")[0].text
+  			#p val.css("title").text
+  			#p val.css("span.time").text 
+  			#p val.css("strong.location").text
+  			#p val.css("span.venue-meta").text[/\$\d+\.\d+\s(-\d*)?[^All]+/]
   			info1[val.css("strong.summary").text]=[val.css("span.time").text, 
   													val.css("strong.location").text, 
-  													(val.css("span.venue-meta").text)]
+  													(val.css("span.venue-meta").text[/\$\d+\.\d+\s(-$\d+\.\d+)?[^All]+/])]
   		end
   	end
   	info1
