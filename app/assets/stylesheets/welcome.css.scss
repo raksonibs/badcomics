@@ -71,13 +71,17 @@ body {
 	width: 100%;
 }
 
-.wrapper .question {
+.wrapper .question,
+.wrapper .question2,
+.wrapper .question3 {
 	height: 70px;
 	width: 100%;
 	margin-bottom: 20px;
 }
 
-.wrapper .question p {
+.wrapper .question p,
+.wrapper .question2 p,
+ .wrapper .question3 p {
 	text-align: center;
 	font-size: 2em;
 }
