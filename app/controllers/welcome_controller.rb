@@ -19,7 +19,7 @@ require 'nokogiri'
 #tag based on season
 class WelcomeController < ApplicationController
   def index
-  	#@data=getdata
+  	@data=meetup
   end
 
   def test
@@ -170,7 +170,7 @@ class WelcomeController < ApplicationController
   	date=Date.today.strftime("%a")+" "+ Date.today.strftime("%B")[0..2]+" " + Date.today.strftime("%01d")
 
   	data=Nokogiri::HTML(open("http://justshows.com/toronto/")).css("ul.shows li")
-  	data[0..1].each do |val| 
+  	data.each do |val| 
   		
   		if date == val.css("strong.day").text
   			#p val.css("title").text
@@ -178,8 +178,13 @@ class WelcomeController < ApplicationController
   			#p val.css("strong.location").text
   			#p val.css("span.venue-meta").text[/\$\d+\.\d+\s(-\d*)?[^All]+/]
   			info1[val.css("strong.summary").text]=[val.css("span.time").text, 
-  													val.css("strong.location").text, 
-  													(val.css("span.venue-meta").text[/\$\d+\.\d+\s(-$\d+\.\d+)?[^All]+/])]
+  													val.css("strong.location").text 
+  													]
+  			if (val.css("span.venue-meta").text[/\$\d+\.\d+\s(-$\d+\.\d+)?[^All]+/])==nil
+  				info1[val.css("strong.summary").text]<<val.css("span.venue-meta").text[/\$\d+\s[^all]+/i]
+  			else
+  				info1[val.css("strong.summary").text] << val.css("span.venue-meta").text[/\$\d+\.\d+\s(-$\d+\.\d+)?[^All]+/]
+  			end
   		end
   	end
   	info1
@@ -200,12 +205,41 @@ class WelcomeController < ApplicationController
   end
 
   def getIP
+  	#need ip to get distances for everyone. lazy, travel
   end
 
   def meetup
-  	#&lat=43.7&lon=79.4
-	JSON.parse(open("https://api.meetup.com/2/open_events?status=upcoming&radius=25.0&city=Toronto&format=json&lat=43.7&lon=79.4&sig_id=122316042&sig=abfea66017a637350ba99380aecfb8e48811436f&key=7b794c3657477db4e107a7e366f7b5f").read)  	 	
+  	#time, price, location
+  	info={}
+
+	data=JSON.parse(open("https://api.meetup.com/2/open_events?&sign=true&city=Toronto&country=ca&time=0d,1d&status=upcoming&key=7b794c3657477db4e107a7e366f7b5f").read)['results']
+	data.each do |val|
+		today=Time.at(val["time"]/1000).strftime(("%B %01d, %Y"))
+		#"December 4, 2013"
+		date=Date.today.strftime("%B %01d, %Y")
+		#Wed, 04 Dec 2013
+		
+		if today==date
+			info[val["name"]]=[Time.at(val["time"]/1000).strftime("%I:%M %p")]
+			if val["fee"]
+				info[val["name"]]<<val["fee"]["amount"]
+			else
+				info[val["name"]] << "Free"
+			end
+			if val["venue"]!=nil
+
+				info[val["name"]]<< val["venue"]["address_1"] if val["venue"]["city"]=="Toronto" 
+		
+				info[val["name"]]<< val["venue"]["address_1"]+ " " + val["venue"]["city"] if val["venue"]["city"]!="Toronto"
+			else
+				info[val["name"]] << "No location listed"
+			end
+		end
+	end
+	info 	
   end
 
 
 end
+
+
