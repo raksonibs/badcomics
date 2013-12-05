@@ -1,0 +1,7 @@
+-want to have machine learning language parsing
+	* giving feeling based on text and match
+	* match based on probablity
+-delayjob /chron job
+-get ip
+	* around 100 don't have location. What to do then?
+	

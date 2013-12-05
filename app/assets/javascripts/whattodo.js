@@ -33,6 +33,7 @@ $(document).ready(function() {
   			$(".price, .question3").show().animate({left:"+15", opacity: 1}, 800);
   		});
   		e.stopPropogation();
+  		$.ajax
 	});
 
 	$(".categories1").on("click", function(e) {
