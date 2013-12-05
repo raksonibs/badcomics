@@ -20,11 +20,14 @@ require 'nokogiri'
 #mirvish toronto
 #foursquare
 class WelcomeController < ApplicationController
-	@@called={Date.today=>false}
+	@@called={Date.today.strftime("%B %01d, %Y")=>false}
 	#doesn't work when close browser. need to do the script thing
   def index
-  	makeevents unless @@called[Date.today]
-  	@data=Event.all
+  	makeevents unless @@called[Date.today.strftime("%B %01d, %Y")]
+  	respond_to do |format|
+  		format.html{ @data=Event.all }
+  		format.js{ }
+  	end
   	@called=@@called
   end
 
@@ -44,7 +47,7 @@ class WelcomeController < ApplicationController
 
   	  		end
   	  	end
-  	@@called[Date.today]=true
+  	@@called[Date.today.strftime("%B %01d, %Y")]=true
   end
 
   def home

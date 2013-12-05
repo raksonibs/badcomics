@@ -12,7 +12,7 @@ You're bored. But how are you feeling:
     <td>Happy</td> <!-- snakes and lattees -->
     <td>Sad</td> <!-- comdey show -->
     <td>Outgoing</td> <!-- club interaction -->
-    <td>Lazy</td> <!-- limit distance -->
+    <td id="clickable">Lazy</td> <!-- limit distance -->
   </tr>
   <tr>
     <td>Festive</td> <!-- celebrate good times -->
@@ -28,7 +28,9 @@ You're bored. But how are you feeling:
   </tr>
 </table>
 
-<%= @data %>
+<div id="data">
+	<%= render "data" %>
+</div>
 
 
 <div id="eventbrite">
@@ -44,4 +46,29 @@ $("#eventbrite").click(function(){
     });
   });
 });
+//if they select lazy, this needs to run
+$("#clickable").on("click",function(){
+	var thiss= this;
+	if ("geolocation" in navigator) {
+		var longitude;
+		var latitude;
+		var button;
+  		navigator.geolocation.getCurrentPosition(function(position){
+  			$.ajax({
+  				url: "/",
+  				type: "GET",
+  				dataType: "script",
+  				data: {
+  					button: $(thiss).text(),
+  					longitude: position.coords.longitude,
+  					latitude: position.coords.latitude
+  				}
+  				
+  			})
+  		})
+	} else {
+		//will need to guess
+  		alert("no geolocation")
+	}
+})
 </script>
