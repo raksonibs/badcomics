@@ -22,8 +22,9 @@ require 'nokogiri'
 class WelcomeController < ApplicationController
 	@@called={Date.today=>false}
   def index
-  	makeevents unless @@called[Date.today] || !(Event.all.size==0)
+  	makeevents unless @@called[Date.today]
   	@data=Event.all
+  	@called=@@called
   end
 
   def makeevents
@@ -31,6 +32,7 @@ class WelcomeController < ApplicationController
   	#need to standardize each one so don't have to conditional. make
   	#each data name=>[time, price, location, category]
   	#feeling will always be none
+  	Event.all.delete_all
   	@data=getdata
   	  	@data.each do |source|
   	  		source.keys.each do |k|
