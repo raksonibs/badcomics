@@ -3,9 +3,23 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 
-@font-face {
+/*@font-face {
   font-family: 'Comfortaa';
   src: font-url('Comfortaa.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}*/
+
+@font-face {
+  font-family: 'Roboto';
+  src: font-url('Roboto-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Robotothin';
+  src: font-url('Roboto-Thin.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
 }
@@ -17,7 +31,7 @@ body {
 	background: image-url("toronto_skyline.jpg") no-repeat;
 	background-height: 100%;
 	color: white;
-	font-family: Comfortaa;
+	font-family: Robotothin;
 }
 
 .wrapper {
@@ -73,17 +87,19 @@ body {
 
 .wrapper .question,
 .wrapper .question2,
-.wrapper .question3 {
+.wrapper .question3,
+.wrapper .question4 {
 	height: 70px;
 	width: 100%;
-	margin-bottom: 20px;
+	margin-bottom: 40px;
 }
 
 .wrapper .question p,
 .wrapper .question2 p,
- .wrapper .question3 p {
+.wrapper .question3 p,
+.wrapper .question4 p  {
 	text-align: center;
-	font-size: 2em;
+	font-size: 3em;
 }
 
 .wrapper .categories,
@@ -108,7 +124,7 @@ body {
 	border: white solid 2px;
 	background-color: rgba(255,255,255,0.31);
 	border-radius: 6px;
-	font-family: Comfortaa; 
+	font-family: Robotothin; 
 	font-size: 1.7em;
 	color: white;
 	
@@ -122,7 +138,7 @@ body {
 .wrapper .price button {
 	background-color: rgba(255,255,255,0.45);
 	outline: 0;
-	font-family: Comfortaa; 
+	font-family: Robotothin; 
 	font-size: 1.7em;
 	color: white;
 	-o-transition: .8s;
@@ -147,6 +163,15 @@ body {
 /*.wrapper .categories .categorybox p {
 	display: inline-block;
 }*/
+
+.wrapper .output {
+	height: 320px;
+	width: 780px;
+	font-size: 2em;
+	position: relative;
+	margin: auto;
+	display: block;
+}
 
 .wrapper .bottom {
 	text-align: center;
