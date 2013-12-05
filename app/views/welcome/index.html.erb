@@ -29,7 +29,7 @@ You're bored. But how are you feeling:
 </table>
 
 <div id="data">
-	<%= render "data" %>
+	<%= render "event" %>
 </div>
 
 
@@ -39,13 +39,6 @@ right now event brite stuff showing on page via ajax
 <script type='text/javascript' src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
 <script type='text/javascript' src="http://evbdn.eventbrite.com/s3-s3/static/js/platform/Eventbrite.jquery.js"></script>
 <script type='text/javascript'>
-$("#eventbrite").click(function(){
-  Eventbrite({'app_key': "GUBRP2USZMDRRVPPSF"}, function(eb){
-    eb.event_search( {'city': "Toronto"}, function( response ){
-      $("#eventbrite").html(eb.utils.eventList( response, eb.utils.eventListRow ));
-    });
-  });
-});
 //if they select lazy, this needs to run
 $("#clickable").on("click",function(){
 	var thiss= this;

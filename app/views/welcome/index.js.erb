@@ -1,1 +1,3 @@
-$("data").html("<%= j(render(:partial=> 'data')) %>");
+
+
+$("#data").html("<%= escape_javascript(render(partial: 'event', locals: { data: @data })) %>");

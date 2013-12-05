@@ -23,10 +23,19 @@ class WelcomeController < ApplicationController
 	@@called={Date.today.strftime("%B %01d, %Y")=>false}
 	#doesn't work when close browser. need to do the script thing
   def index
-  	makeevents unless @@called[Date.today.strftime("%B %01d, %Y")]
+  	#makeevents unless @@called[Date.today.strftime("%B %01d, %Y")]
   	respond_to do |format|
-  		format.html{ @data=Event.all }
-  		format.js{ }
+  		
+  		if params[:button]=="Lazy"
+  			
+  			
+  			@data=Event.near([params[:latitude],params[:longitude]],1, :units => :km)
+  
+  			format.js{}
+  		else
+
+  			format.html{ @data=Event.all }
+  		end
   	end
   	@called=@@called
   end
