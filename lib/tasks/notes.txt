@@ -1,0 +1,7 @@
+-want to have machine learning language parsing
+	* giving feeling based on text and match
+	* match based on probablity
+- build model event
+-categorize data
+-delayjob /chron job
+-
