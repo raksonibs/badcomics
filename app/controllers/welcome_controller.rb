@@ -21,6 +21,7 @@ require 'nokogiri'
 #foursquare
 class WelcomeController < ApplicationController
 	@@called={Date.today=>false}
+	#doesn't work when close browser. need to do the script thing
   def index
   	makeevents unless @@called[Date.today]
   	@data=Event.all
