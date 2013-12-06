@@ -51,6 +51,13 @@ class WelcomeController < ApplicationController
   end
 
   def home
+    # if params[:button]
+    #   @feeling = Event.find(params[:button]
+    #   elsif params[:button1]
+    #   @category = Event.find(params[:button1])
+    #   elsif params[:button1]
+    #   @price = Event.find(params[:button2])
+    # end
   end
 
 

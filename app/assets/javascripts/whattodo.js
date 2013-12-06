@@ -16,10 +16,6 @@ $(document).ready(function() {
 	// Need to stop massive delay!! Maybe roll back to old version?
 
 	$(".categories1, .price, .output, .question2, .question3, .question4").hide().animate({ opacity: 0 });
-
-	var firstpick;
-	var secondpick;
-	var thirdpick;
 	
 	$(".categories").one('click', function(e) {
    		$(".categories, .question").fadeOut( function() {
@@ -33,7 +29,6 @@ $(document).ready(function() {
   			$(".price, .question3").show().animate({left:"+15", opacity: 1}, 800);
   		});
   		e.stopPropogation();
-  		//adjadjashdkjash
 	});
 
 	$(".categories1").on("click", function(e) {
@@ -48,6 +43,33 @@ $(document).ready(function() {
   			$(".output, .question4").show().animate({left:"+15", opacity: 1}, 800);
   		});
   		e.stopPropogation();
+	});
+
+	$(".categorybox").on('click', function() {
+		$.ajax({
+       		url: "/whattodo",
+       		type: "GET",
+       		dataType: "script",
+       		data: { button: $(this).text() }
+       	})
+	});
+
+	$(".categorybox1").on('click', function() {
+		$.ajax({
+       		url: "/whattodo",
+       		type: "GET",
+       		dataType: "script",
+       		data: { button1: $(this).text() }
+       	})
+	});
+
+	$(".categorybox2").on('click', function() {
+		$.ajax({
+       		url: "/whattodo",
+       		type: "GET",
+       		dataType: "script",
+       		data: { button2: $(this).text() }
+       	})
 	});
 
 });
