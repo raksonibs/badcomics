@@ -24,7 +24,7 @@ class WelcomeController < ApplicationController
 	#doesn't work when close browser. need to do the script thing
 
 	def index
-  	makeevents unless @@called[Date.today.strftime("%B %01d, %Y")]
+  	#makeevents unless @@called[Date.today.strftime("%B %01d, %Y")]
   	respond_to do |format|
   		
   		if params[:button]=="Lazy"
@@ -70,11 +70,16 @@ class WelcomeController < ApplicationController
   		#want to make better loop
   		@data=[]
 
-  		Event.all.each do |e|
+  		Event.all[0..40].each do |e|
   			if e.time=="Time not listed" || Time.parse(e.time) > timenow 
 
   				if e.price =="Free" || e.price=="Price not listed" || e.price <= params[:money]
-  					@data << e
+  					
+  					if e.category.match(/#{activity}/i)
+  						
+
+  						@data << e
+  					end
   				end
   			end
 
@@ -82,88 +87,118 @@ class WelcomeController < ApplicationController
   		#@data=Event.where("price<=#{params[:money]} AND time>#{timenow}") + Event.where("price=='Free' AND time>#{timenow}")
   	end
   	#greater for time means in the future?
-  	@data=@data.where("category[/#{params[:activity]}/i]")
+
   	first={}
   	firstn=""
   	second={}
   	secondn=""
   	third={}
   	thirdn=""
+  	@scores=[]
   	@data.each_with_index do |val,i|
   		#no distance yet in alg
-  		score=score(calculateprice(val), 33.3, calculatepurity(val))
-  		if i==1
+
+  		score=score(calculateprice(val), 25, calculatepurity(val), calculatetime(val))
+  		@scores << {score=>val.name}
+  		if i==0
   			firstn=val.name
   			first[val.name]=score
   		else
   			#should do recursive
-  			if first[firstn] < score
+  			if score> first[firstn]
   				if secondn==""
   					secondn=firstn
   					second[secondn]=first[firstn]
+  					first.delete(firstn)
+  					firstn=val.name
+  					first[firstn]=score
   				else
+
+  					third.delete(thirdn) if thirdn!="" #if second exists, delete third
+  					thirdn=secondn
+  					third[thirdn]=second[secondn]
+  					second.delete(secondn)
   					secondn=firstn
   					second[secondn]=first[firstn]
-  					thirdn=secondn
-  					third[thirdn]=second[secondn]
+  					first.delete(firstn)
+  					firstn=val.name
+  					first[firstn]=score
   				end
-  				first.delete(firstn)
-  				firstn=val.name
-  				first[firstn]=score
-  			elsif second[secondn] < score || secondn==""
-  				if thirdn=="" && secondn!=""
-  					thirdn=secondn
-  					third[thirdn]=second[secondn]
+  			elsif secondn=="" || score>second[secondn] 
+  				if secondn==""
+  					secondn=val.name
+  					second[secondn]=score
   				else
-  					if secondn!=""
-  						thirdn=secondn
-  						third[thirdn]=second[secondn]
-  					end
-  				end
-  				second.delete(secondn)
-  				secondn=val.name
-  				second[secondn]=score
 
-  			else third[thirdn] < score || thirdn==""
-  				third.delete(thirdn)
-  				thirdn=val.name
+  					third.delete(thirdn) if thirdn!="" #if second exists, delete third
+  					thirdn=secondn
+  					third[thirdn]=second[secondn]
+  					second.delete(secondn)
+  					secondn=val.name
+  					second[secondn]=score
+  					
+  				end
+  			elsif thirdn=="" || score>third[thirdn]
+  				third.delete(thirdn) if thirdn!="" #if second exists, delete third
+  				thirdn=secondn
   				third[thirdn]=score
   			end
   		end
 
-  	end
-  		result=[first,second,third]		
 
+  	end
+  		@result=[first,second,third]		
+
+
+  end
+
+  def calculatetime(val)
+  	mult=0
+  	time=val.time
+
+  	if time=="Time not listed"
+  		mult=rand()
+  	else
+  		mult=1
+  	end
+  	
+  	score =mult*((33.33-25)*2)
 
   end
 
   def calculateprice(val)
   	price=val.price
   	mult=0
+  	
   	if price== "Free"
   		mult=1
-  	elsif price <= 10
+  	elsif price=="Price not listed"
+
+  		mult=rand()
+  		
+  	elsif price.to_i <= 10
   		mult=0.9
-  	elsif price <=20
+  	elsif price.to_i <=20
   		mult=0.8
-  	elsif price <= 30
+  	elsif price.to_i <= 30
   		mult=0.7
   	elsif price <= 40
   		mult=0.6
-  	elsif price <= 50
+  	elsif price.to_i <= 50
   		mult=0.5
-  	elsif price <= 75
+  	elsif price.to_i <= 75
   		mult=0.4
-  	elsif price <= 100
+  	elsif price.to_i <= 100
   		mult=0.3
-  	elsif price <= 150
+  	elsif price.to_i <= 150
   		mult=0.2
-  	elsif price <= 200
+  	elsif price.to_i <= 200
   		mult=0.1
   	else
+
   		mult=rand()
   	end
-  	score=mult*33.3333
+  	score=mult*25
 
 
   end
@@ -213,8 +248,8 @@ class WelcomeController < ApplicationController
 
   end
 
-  def score(val,val2,val3)
-  	val+val2+val3
+  def score(val,val2,val3,val4)
+  	val+val2+val3+val4
   end
 
   def makeevents
@@ -249,13 +284,13 @@ class WelcomeController < ApplicationController
 
 
   def getdata
-  	[#cityhall,
-  	nowmagazine
-  	#eventbrite,
-  	#justshows,
-  	#clubcrawlers,
-  	#meetup,
-  	#roo
+  	[cityhall,
+  	nowmagazine,
+  	eventbrite,
+  	justshows,
+  	clubcrawlers,
+  	meetup,
+  	roo
   	]
   	
   	#everything needs cateogry
