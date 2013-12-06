@@ -4,4 +4,9 @@
 -delayjob /chron job
 -get ip
 	* around 100 don't have location. What to do then?
-	
+
+- algorhtim
+	-need to get each distance from ip
+	-top 3 by price, distance, or our rank algorithm  (ascending descending)
+	-need to format time to be same everythwere
+	-need to have when time not listed to be "time not availble" same with price not available

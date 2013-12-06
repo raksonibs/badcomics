@@ -25,6 +25,7 @@ class WelcomeController < ApplicationController
 
 	def index
   	#makeevents unless @@called[Date.today.strftime("%B %01d, %Y")]
+  	#/result/happy/art/20
   	respond_to do |format|
   		
   		if params[:button]=="Lazy"
@@ -36,7 +37,7 @@ class WelcomeController < ApplicationController
   		else
   			@cat=[]
   			Event.all.each_with_index do |e,i|
-  				@cat<<e.category if !(@cat.include?(e.category))
+  				@cat<<e.time if !(@cat.include?(e.time))
   				
   			end
   			format.html{ @data=Event.all }
@@ -45,16 +46,30 @@ class WelcomeController < ApplicationController
   	@called=@@called
   end
 
+=begin
+  def index
+  	#need to formalize times and prices
+  	@cat=[]
+  			Event.all.each_with_index do |e,i|
+  				@cat<<e.time if !(@cat.include?(e.time))
+  				
+  			end
+  			@data=getdata
+  end
+=end
+  private
   def algorthim
-  	#feeling,activity,money=params[:feeling], params[:activity], params[:money] #also params[geolocation]
+  	feeling,activity,money=params[:feeling], params[:activity], params[:money].to_i #also params[geolocation]
   	timenow=Time.now
   	if money=="Free"
   		@data=Event.all
   	else
-  		@data=Event.where("price== 'Price not listed' OR price <=#{params[:money]} OR price== 'Free'")
+  		
+  		#price not listed not accounted for
+  		#have to format time ugh
+  		@data=Event.where("price<=#{params[:money]} AND time>#{timenow}") + Event.where("price=='Free' AND time>#{timenow}")
   	end
   	#greater for time means in the future?
-  	@data=@data.where("time>#{timenow}")
   	@data=@data.where("category[/#{params[:activity]}/i]")
   	first={}
   	firstn=""
@@ -63,7 +78,8 @@ class WelcomeController < ApplicationController
   	third={}
   	thirdn=""
   	@data.each_with_index do |val,i|
-  		score=score(calculateprice(val), calculatedistance(val), calculatepurity(val))
+  		#no distance yet in alg
+  		score=score(calculateprice(val), 33.3, calculatepurity(val))
   		if i==1
   			firstn=val.name
   			first[val.name]=score
@@ -83,12 +99,14 @@ class WelcomeController < ApplicationController
   				firstn=val.name
   				first[firstn]=score
   			elsif second[secondn] < score || secondn==""
-  				if thirdn==""
-  					thirdn=firstn
-  					third[thirdn]=second[secondn]
-  				else
+  				if thirdn=="" && secondn!=""
   					thirdn=secondn
   					third[thirdn]=second[secondn]
+  				else
+  					if secondn!=""
+  						thirdn=secondn
+  						third[thirdn]=second[secondn]
+  					end
   				end
   				second.delete(secondn)
   				secondn=val.name
@@ -99,7 +117,10 @@ class WelcomeController < ApplicationController
   				thirdn=val.name
   				third[thirdn]=score
   			end
-  				
+  		end
+
+  	end
+  		result=[first,second,third]		
 
 
   end
@@ -208,7 +229,7 @@ class WelcomeController < ApplicationController
   	clubcrawlers,
   	meetup,
   	roo
-  ]
+  	]
   	
   	#everything needs cateogry
   	#nomagazine problem with preregister location
@@ -239,7 +260,7 @@ class WelcomeController < ApplicationController
   		range = Date.parse(val.xpath("//entrydata[@name='DateBeginShow']")[count].text) .. Date.parse(val.xpath("//entrydata[@name='DateEndShow']")[count].text)
   		if range.include?(date)
   			info[val.xpath("//entrydata[@name='EventName']")[count].text]=[
-  																  	val.xpath("//entrydata[@name='TimeBegin']")[count].text=="" ? "Start time not listed" : val.xpath("//entrydata[@name='TimeBegin']")[count].text, 
+  																  	val.xpath("//entrydata[@name='TimeBegin']")[count].text=="" ? "Time not listed" : Time.parse(val.xpath("//entrydata[@name='TimeBegin']")[count].text).strftime("%I:%M %p"), 
   																  	
   																 
   																  	val.xpath("//entrydata[@name='Admission']")[count].text=="" ? "Price not listed" : val.xpath("//entrydata[@name='Admission']")[count].text,
@@ -311,7 +332,7 @@ class WelcomeController < ApplicationController
 	
 	  		price=val.css("div.List-Body").text[/\$\w+|[fF]ree|Donation/]
 	  		if price==nil
-	  			price="Price Varies"
+	  			price="Price not listed"
 	  		end
 	  		address = val.css("div.List-Body").text[/\s[0-9]+\s[A-Z][a-z]+.+,/]
 	  		if address==nil || address.size>20
@@ -325,7 +346,7 @@ class WelcomeController < ApplicationController
 	  			end
 	  		end
 	  		if address==nil
-	  			address="Not provided"
+	  			address="Address not listed"
 	  		end
 	  		
 
@@ -333,7 +354,9 @@ class WelcomeController < ApplicationController
 	  		
 	  		time=val.css("div.List-Body").text[/([0-9]+:)?[0-9]+\s(a|p)m(-[0-9]+\s(a|p)m)?/]
 	  		if time==nil
-	  			time="Not provided"
+	  			time="Time not listed"
+	  		else
+	  			time=Time.parse(time).strftime("%I:%M %p")
 	  		end
 	  		value=val.css("div.List-Body").text
 	  		if value[/talk/i] || value[/symposium/i] || value[/screening/i] || value[/lecture/i] || value[/speak/i] || value[/dicuss/i]
@@ -384,12 +407,6 @@ class WelcomeController < ApplicationController
 
   end
 
-  def xlsattraction
-  	#need to make list of things. i guess snakes and lattes and other things
-  	# we curate can be in here. blog to entries added to this list?
-  	#feeling touristry and not too late (if event happeneing late would be mentioned on city of toronto)
-  end
-
   def eventbrite
   	info={}
   	#name=time (need to extract time), tickets[price], address NEED CATEGORY TO ATTRBIUTE
@@ -397,7 +414,7 @@ class WelcomeController < ApplicationController
   	data=data["events"]
   	data[1..100].each do |event|
   		unless event["event"]["category"][/seminar/] || event["event"]["category"][/sales/]
-		info[event["event"]["title"]]=[event["event"]["start_date"][/\d+:\d+:\d+/],event["event"]["tickets"][0]["ticket"]["price"]=="0.00" || event["event"]["tickets"][0]["ticket"]["price"]==nil ? "Free" : event["event"]["tickets"][0]["ticket"]["price"] ,event["event"]["venue"]["address"]]
+		info[event["event"]["title"]]=[Time.parse(event["event"]["start_date"][/\d+:\d+:\d+/]).strftime("%I:%M %p"),event["event"]["tickets"][0]["ticket"]["price"]=="0.00" || event["event"]["tickets"][0]["ticket"]["price"]==nil ? "Free" : event["event"]["tickets"][0]["ticket"]["price"] ,event["event"]["venue"]["address"]]
 		desc= event["event"]["category"]==""|| event["event"]["category"]==nil ? "Misc." : event["event"]["category"]
 		if desc[/seminar/] || desc[/conference/] 
 	  		category="Talk"
@@ -449,7 +466,7 @@ class WelcomeController < ApplicationController
   	odd=Nokogiri::HTML(open("http://www.clubcrawlers.com/toronto/nightclubs/allvenues?crowd=&sort=p#listings")).css(".club-block.odd")
   	clubs=even+odd
   	clubs.each do |val|
-  		info[val.css("div.event-info h2 a").text]=["Time Depends", "Price Depends", val.css("div.event-info p.club-listing-address").text,"Party"]
+  		info[val.css("div.event-info h2 a").text]=["Time not listed", "Price not listed", val.css("div.event-info p.club-listing-address").text,"Party"]
   	end
   	info
 
@@ -470,7 +487,7 @@ class WelcomeController < ApplicationController
   			#p val.css("span.time").text 
   			#p val.css("strong.location").text
   			#p val.css("span.venue-meta").text[/\$\d+\.\d+\s(-\d*)?[^All]+/]
-  			info1[val.css("strong.summary").text]=[val.css("span.time").text 
+  			info1[val.css("strong.summary").text]=[Time.parse(val.css("span.time").text).strftime("%I:%M %p")
   											
   									
   													]
@@ -527,7 +544,7 @@ class WelcomeController < ApplicationController
 		
 				info[val["name"]]<< val["venue"]["address_1"]+ " " + val["venue"]["city"] if val["venue"]["city"]!="Toronto"
 			else
-				info[val["name"]] << "No location listed"
+				info[val["name"]] << "Address not listed"
 			end
 			desc=val["description"]
 			if desc[/talk/i] || desc[/symposium/i] || desc[/screening/i] || desc[/lecture/i] || desc[/speak/i] || desc[/dicuss/i]

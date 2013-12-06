@@ -3,6 +3,7 @@ Whattodo::Application.routes.draw do
   get "/whattodo" => "welcome#home"
   get "/test"=>"welcome#test"
   get "/events"=> "events#populate"
+  get "/result/:feeling/:activity/:money"=>"welcome#algorthim"
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
