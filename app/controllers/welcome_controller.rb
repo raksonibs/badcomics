@@ -22,7 +22,8 @@ require 'nokogiri'
 class WelcomeController < ApplicationController
 	@@called={Date.today.strftime("%B %01d, %Y")=>false}
 	#doesn't work when close browser. need to do the script thing
-  def index
+
+	def index
   	#makeevents unless @@called[Date.today.strftime("%B %01d, %Y")]
   	respond_to do |format|
   		
@@ -30,14 +31,149 @@ class WelcomeController < ApplicationController
   			
   			
   			@data=Event.near([params[:latitude],params[:longitude]],1, :units => :km)
-  
+
   			format.js{}
   		else
-
+  			@cat=[]
+  			Event.all.each_with_index do |e,i|
+  				@cat<<e.category if !(@cat.include?(e.category))
+  				
+  			end
   			format.html{ @data=Event.all }
   		end
   	end
   	@called=@@called
+  end
+
+  def algorthim
+  	#feeling,activity,money=params[:feeling], params[:activity], params[:money] #also params[geolocation]
+  	timenow=Time.now
+  	if money=="Free"
+  		@data=Event.all
+  	else
+  		@data=Event.where("price== 'Price not listed' OR price <=#{params[:money]} OR price== 'Free'")
+  	end
+  	#greater for time means in the future?
+  	@data=@data.where("time>#{timenow}")
+  	@data=@data.where("category[/#{params[:activity]}/i]")
+  	first={}
+  	firstn=""
+  	second={}
+  	secondn=""
+  	third={}
+  	thirdn=""
+  	@data.each_with_index do |val,i|
+  		score=score(calculateprice(val), calculatedistance(val), calculatepurity(val))
+  		if i==1
+  			firstn=val.name
+  			first[val.name]=score
+  		else
+  			#should do recursive
+  			if first[firstn] < score
+  				if secondn==""
+  					secondn=firstn
+  					second[secondn]=first[firstn]
+  				else
+  					secondn=firstn
+  					second[secondn]=first[firstn]
+  					thirdn=secondn
+  					third[thirdn]=second[secondn]
+  				end
+  				first.delete(firstn)
+  				firstn=val.name
+  				first[firstn]=score
+  			elsif second[secondn] < score || secondn==""
+  				if thirdn==""
+  					thirdn=firstn
+  					third[thirdn]=second[secondn]
+  				else
+  					thirdn=secondn
+  					third[thirdn]=second[secondn]
+  				end
+  				second.delete(secondn)
+  				secondn=val.name
+  				second[secondn]=score
+
+  			else third[thirdn] < score || thirdn==""
+  				third.delete(thirdn)
+  				thirdn=val.name
+  				third[thirdn]=score
+  			end
+  				
+
+
+  end
+
+  def calculateprice(val)
+  	price=val.price
+  	mult=0
+  	if price== "Free"
+  		mult=1
+  	elsif price <= 20
+  		mult=0.85
+  	elsif price <=50
+  		mult=0.70
+  	elsif price <= 100
+  		mult=0.55
+  	elsif price <= 300
+  		mult=0.35
+  	elsif price <= 500
+  		mult=0.1
+  	else
+  		mult=rand()
+  	end
+  	score=mult*33.3333
+
+
+  end
+
+  def calculatedistance(val)
+  	#need their ip
+  	#from params location, get distance from then use val.distance_from(ip address location) and find smallest distance
+  	distance=val.distance
+  	mult=0
+  	if distance<=1
+  		mult=1
+  	elsif distance>1 && distance<=3
+  		mult=0.85
+  	elsif distance>3 && distance<=6
+  		mult=0.70
+  	elsif distance>6 && distance<=10
+  		mult=0.55
+  	elsif distance>10 && distance<=15
+  		mult=0.35
+  	elsif distance>15 && distance<=25
+  		mult=0.1
+  	else
+  		mult=0
+  	end
+  	score=mult*33.3333
+  end
+
+  def calculatepurity(val)
+  	category=val.category.count("/")
+  	mult=0
+  	if category==0
+  		mult=1
+  	elsif category==1
+  		mult=0.8
+  	elsif category==2
+  		mult=0.6
+  	elsif category==3
+  		mult=0.4
+  	elsif category==4
+  		mult=0.2
+  	elsif category>=5
+  		mult=0.1
+  	else
+  		mult=0
+  	end
+  	score=mult*33.3333
+
+  end
+
+  def score(val,val2,val3)
+  	val+val2+val3
   end
 
   def makeevents
@@ -71,7 +207,8 @@ class WelcomeController < ApplicationController
   	justshows,
   	clubcrawlers,
   	meetup,
-  	roo]
+  	roo
+  ]
   	
   	#everything needs cateogry
   	#nomagazine problem with preregister location
@@ -106,9 +243,45 @@ class WelcomeController < ApplicationController
   																  	
   																 
   																  	val.xpath("//entrydata[@name='Admission']")[count].text=="" ? "Price not listed" : val.xpath("//entrydata[@name='Admission']")[count].text,
-  																  	val.xpath("//entrydata[@name='Location']")[count].text,
-  																 	val.xpath("//entrydata[@name='CategoryList']")[count].text]
-
+  																  	val.xpath("//entrydata[@name='Location']")[count].text]
+  			value=val.xpath("//entrydata[@name='CategoryList']")[count].text
+  			if value[/talk/i] || value[/symposium/i] || value[/screening/i] || value[/lecture/i] || value[/speak/i] || value[/dicuss/i]
+	  			category="Talk"
+	  		end
+	  		if value[/music/i]
+	  			category = category==nil ? "Music" : category+"/Music"
+	  		end
+	  		if value[/perform.*/i]
+	  			category = category==nil ? "Theatre" : category+"/Theatre"
+	  		end
+	  		if value[/read.*/i] || value[/novel/i]
+	  			category = category==nil ? "Reading" : category+"/Reading"
+	  		end
+	  		if value[/festiv.*/i] || value[/holiday/i] || value[/christmas/i] || value[/carol/i] || value[/celebra.*/i]
+	  			category = category==nil ? "Seasonal" : category+"/Seasonal"
+	  		end
+	  		if value[/party/i] || value[/bash/i]
+	  			category = category==nil ? "Party" : category+"/Party"
+	  		end
+	  		if value[/fundrais.*/i] || value[/auction/i]
+	  			category = category==nil ? "Charity" : category+"/Charity"
+	  		end
+	  		if value[/comed.*/i] || value[/laugh/i]
+	  			category = category==nil ? "Comedy" : category+"/Comedy"
+	  		end
+	  		if value[/^art.*/i] || value[/gallery/i]
+	  			category = category==nil ? "Art" : category+"/Art"
+	  		end
+	  		if value[/sport.*/i] || value[/dance/i]|| value[/athletic/i] || value[/hockey/i] || value[/basketball/i] || value[/baseball/i] || value[/swimming/i] || value[/football/i] || value[/tennis/i] || value[/golf/i] || value[/soccer/i]
+	  			category = category==nil ? "Sport" : category+"/Sport"
+	  		end
+	  		if value[/family.*/i] || value[/children/i]
+	  			category = category==nil ? "Family" : category+"/Family"
+	  		end
+	  		if category==nil
+	  			category="Misc."
+	  		end
+	  		info[val.xpath("//entrydata[@name='EventName']")[count].text] << category
   		end
   		count+=1
   	end
@@ -122,7 +295,7 @@ class WelcomeController < ApplicationController
 #toronto christmas market time
 #
   def nowmagazine
-  	#trouble with getting the values out to get the date
+  	#trouble with getting the descs out to get the date
   	#trouble if in description says:  Nov 28 to Dec 8 weekdays and Sat 10 am-9 pm, Thu 10 am-11 pm, Sun 10 am-6 pm
   	#time, price, address
   	#NEEDS CATEGORY
@@ -165,19 +338,38 @@ class WelcomeController < ApplicationController
 	  		value=val.css("div.List-Body").text
 	  		if value[/talk/i] || value[/symposium/i] || value[/screening/i] || value[/lecture/i] || value[/speak/i] || value[/dicuss/i]
 	  			category="Talk"
-	  		elsif value[/music/i]
-	  			category="Music"
-	  		elsif value[/perform.*/i]
-	  			category="Theatre"
-	  		elsif value[/read.*/i] || value[/novel/i]
-	  			category="Reading"
-	  		elsif value[/festiv.*/i] || value[/holiday/i] || value[/christmas/i] || value[/carol/i]
-	  			category="Seasonal"
-	  		elsif value[/party/i] || value[/bash/i]
-	  			category="Party"
-	  		elsif value[/fundrais.*/i] || value[/auction/i]
-	  			category="Charity"
-	  		else
+	  		end
+	  		if value[/music/i]
+	  			category = category==nil ? "Music" : category+"/Music"
+	  		end
+	  		if value[/perform.*/i]
+	  			category = category==nil ? "Theatre" : category+"/Theatre"
+	  		end
+	  		if value[/read.*/i] || value[/novel/i]
+	  			category = category==nil ? "Reading" : category+"/Reading"
+	  		end
+	  		if value[/festiv.*/i] || value[/holiday/i] || value[/christmas/i] || value[/carol/i]
+	  			category = category==nil ? "Seasonal" : category+"/Seasonal"
+	  		end
+	  		if value[/party/i] || value[/bash/i]
+	  			category = category==nil ? "Party" : category+"/Party"
+	  		end
+	  		if value[/fundrais.*/i] || value[/auction/i]
+	  			category = category==nil ? "Charity" : category+"/Charity"
+	  		end
+	  		if value[/comed.*/i] || value[/laugh/i]
+	  			category = category==nil ? "Comedy" : category+"/Comedy"
+	  		end
+	  		if value[/^art.*/i] || value[/gallery/i]
+	  			category = category==nil ? "Art" : category+"/Art"
+	  		end
+	  		if value[/sport.*/i] || value[/athletic/i] || value[/hockey/i] || value[/basketball/i] || value[/baseball/i] || value[/swimming/i] || value[/football/i] || value[/tennis/i] || value[/golf/i] || value[/soccer/i]
+	  			category = category==nil ? "Sport" : category+"/Sport"
+	  		end
+	  		if value[/family.*/i] || value[/children/i]
+	  			category = category==nil ? "Family" : category+"/Family"
+	  		end
+	  		if category==nil
 	  			category="Misc."
 	  		end
 
@@ -204,7 +396,38 @@ class WelcomeController < ApplicationController
   	data=JSON.parse((open("http://www.eventbrite.com/json/event_search?app_key=GUBRP2USZMDRRVPPSF&city=Toronto&date=today&max=100")).read)
   	data=data["events"]
   	data[1..100].each do |event|
-		info[event["event"]["title"]]=[event["event"]["start_date"][/\d+:\d+:\d+/],event["event"]["tickets"][0]["ticket"]["price"]=="0.00" || event["event"]["tickets"][0]["ticket"]["price"]==nil ? "Free" : event["event"]["tickets"][0]["ticket"]["price"] ,event["event"]["venue"]["address"], event["event"]["category"]==nil ? "Misc." : event["event"]["category"]]
+  		unless event["event"]["category"][/seminar/] || event["event"]["category"][/sales/]
+		info[event["event"]["title"]]=[event["event"]["start_date"][/\d+:\d+:\d+/],event["event"]["tickets"][0]["ticket"]["price"]=="0.00" || event["event"]["tickets"][0]["ticket"]["price"]==nil ? "Free" : event["event"]["tickets"][0]["ticket"]["price"] ,event["event"]["venue"]["address"]]
+		desc= event["event"]["category"]==""|| event["event"]["category"]==nil ? "Misc." : event["event"]["category"]
+		if desc[/seminar/] || desc[/conference/] 
+	  		category="Talk"
+	  	end
+	  	if desc[/music/i] || desc[/performan/i]
+	  		category = category==nil ? "Music" : category+"/Music"
+	  	end
+	  	if desc[/comedy/i]
+	  		category = category==nil ? "Comedy" : category+"/Comedy"
+	  	end
+	  	if desc[/entertainment/i]
+	  		category = category==nil ? "Party" : category+"/Party"
+	  	end
+	  	if desc[/party/i]
+	  		category = category==nil ? "Party" : category+"/Party"
+	  	end
+	  	if desc[/Sport/i]
+	  		category = category==nil ? "Sport" : category+"/Sport"
+	  	end
+	  	if desc[/Social/i]
+	  		category = category==nil ? "Hang Out" : category+"/Hang Out"
+	  	end
+	  	if desc[/fundrais/i]
+	  		category = category==nil ? "Charity" : category+"/Charity"
+	  	end
+	  	if category==nil
+	  		category="Misc."
+	  	end
+	  	info[event["event"]["title"]] << category
+	  end
 	end
 	info
   	
@@ -282,17 +505,15 @@ class WelcomeController < ApplicationController
   end
 
   def meetup
-  	#time, price, location
-  	#no way to categorize
   	info={}
-
 	data=JSON.parse(open("https://api.meetup.com/2/open_events?&sign=true&city=Toronto&country=ca&time=0d,1d&status=upcoming&key=7b794c3657477db4e107a7e366f7b5f").read)['results']
 	data.each do |val|
+
 		today=Time.at(val["time"]/1000).strftime(("%B %01d, %Y"))
 		#"December 4, 2013"
 		date=Date.today.strftime("%B %01d, %Y")
 		#Wed, 04 Dec 2013
-		
+
 		if today==date
 			info[val["name"]]=[Time.at(val["time"]/1000).strftime("%I:%M %p")]
 			if val["fee"]
@@ -308,10 +529,48 @@ class WelcomeController < ApplicationController
 			else
 				info[val["name"]] << "No location listed"
 			end
-			info[val["name"]] << "Misc."
+			desc=val["description"]
+			if desc[/talk/i] || desc[/symposium/i] || desc[/screening/i] || desc[/lecture/i] || desc[/speak/i] || desc[/dicuss/i]
+	  			category="Talk"
+	  		end
+	  		if desc[/music/i]
+	  			category = category==nil ? "Music" : category+"/Music"
+	  		end
+	  		if desc[/perform.*/i]
+	  			category = category==nil ? "Theatre" : category+"/Theatre"
+	  		end
+	  		if desc[/read.*/i] || desc[/novel/i]
+	  			category = category==nil ? "Reading" : category+"/Reading"
+	  		end
+	  		if desc[/festiv.*/i] || desc[/holiday/i] || desc[/christmas/i] || desc[/carol/i]
+	  			category = category==nil ? "Seasonal" : category+"/Seasonal"
+	  		end
+	  		if desc[/party/i] || desc[/bash/i]
+	  			category = category==nil ? "Party" : category+"/Party"
+	  		end
+	  		if desc[/fundrais.*/i] || desc[/auction/i]
+	  			category = category==nil ? "Charity" : category+"/Charity"
+	  		end
+	  		if desc[/comed.*/i] || desc[/laugh/i]
+	  			category = category==nil ? "Comedy" : category+"/Comedy"
+	  		end
+	  		if desc[/^art.*/i] || desc[/gallery/i]
+	  			category = category==nil ? "Art" : category+"/Art"
+	  		end
+	  		if desc[/sport.*/i] || desc[/athletic/i] || desc[/hockey/i] || desc[/basketball/i] || desc[/baseball/i] || desc[/swimming/i] || desc[/football/i] || desc[/tennis/i] || desc[/golf/i] || desc[/soccer/i]
+	  			category = category==nil ? "Sport" : category+"/Sport"
+	  		end
+	  		if desc[/family.*/i] || desc[/children/i]
+	  			category = category==nil ? "Family" : category+"/Family"
+	  		end
+	  		if category==nil
+	  			category="Misc."
+	  		end
+
+			info[val["name"]] << category
 		end
 	end
-	info 	
+	info	
   end
 
   def roo
