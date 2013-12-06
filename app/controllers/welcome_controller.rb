@@ -24,8 +24,7 @@ class WelcomeController < ApplicationController
 	#doesn't work when close browser. need to do the script thing
 
 	def index
-  	#makeevents unless @@called[Date.today.strftime("%B %01d, %Y")]
-  	#/result/happy/art/20
+  	makeevents unless @@called[Date.today.strftime("%B %01d, %Y")]
   	respond_to do |format|
   		
   		if params[:button]=="Lazy"
@@ -37,7 +36,7 @@ class WelcomeController < ApplicationController
   		else
   			@cat=[]
   			Event.all.each_with_index do |e,i|
-  				@cat<<e.time if !(@cat.include?(e.time))
+  				@cat<<e.price if !(@cat.include?(e.price))
   				
   			end
   			format.html{ @data=Event.all }
@@ -51,14 +50,15 @@ class WelcomeController < ApplicationController
   	#need to formalize times and prices
   	@cat=[]
   			Event.all.each_with_index do |e,i|
-  				@cat<<e.time if !(@cat.include?(e.time))
+  				@cat<<e.price if !(@cat.include?(e.price))
   				
   			end
-  			@data=getdata
+  			@data=nowmagazine
   end
 =end
-  private
+  
   def algorthim
+  	#/result/happy/art/20
   	feeling,activity,money=params[:feeling], params[:activity], params[:money].to_i #also params[geolocation]
   	timenow=Time.now
   	if money=="Free"
@@ -67,7 +67,19 @@ class WelcomeController < ApplicationController
   		
   		#price not listed not accounted for
   		#have to format time ugh
-  		@data=Event.where("price<=#{params[:money]} AND time>#{timenow}") + Event.where("price=='Free' AND time>#{timenow}")
+  		#want to make better loop
+  		@data=[]
+
+  		Event.all.each do |e|
+  			if e.time=="Time not listed" || Time.parse(e.time) > timenow 
+
+  				if e.price =="Free" || e.price=="Price not listed" || e.price <= params[:money]
+  					@data << e
+  				end
+  			end
+
+  		end
+  		#@data=Event.where("price<=#{params[:money]} AND time>#{timenow}") + Event.where("price=='Free' AND time>#{timenow}")
   	end
   	#greater for time means in the future?
   	@data=@data.where("category[/#{params[:activity]}/i]")
@@ -130,15 +142,23 @@ class WelcomeController < ApplicationController
   	mult=0
   	if price== "Free"
   		mult=1
-  	elsif price <= 20
-  		mult=0.85
-  	elsif price <=50
-  		mult=0.70
+  	elsif price <= 10
+  		mult=0.9
+  	elsif price <=20
+  		mult=0.8
+  	elsif price <= 30
+  		mult=0.7
+  	elsif price <= 40
+  		mult=0.6
+  	elsif price <= 50
+  		mult=0.5
+  	elsif price <= 75
+  		mult=0.4
   	elsif price <= 100
-  		mult=0.55
-  	elsif price <= 300
-  		mult=0.35
-  	elsif price <= 500
+  		mult=0.3
+  	elsif price <= 150
+  		mult=0.2
+  	elsif price <= 200
   		mult=0.1
   	else
   		mult=rand()
@@ -229,13 +249,13 @@ class WelcomeController < ApplicationController
 
 
   def getdata
-  	[cityhall,
-  	nowmagazine,
-  	eventbrite,
-  	justshows,
-  	clubcrawlers,
-  	meetup,
-  	roo
+  	[#cityhall,
+  	nowmagazine
+  	#eventbrite,
+  	#justshows,
+  	#clubcrawlers,
+  	#meetup,
+  	#roo
   	]
   	
   	#everything needs cateogry
@@ -261,17 +281,28 @@ class WelcomeController < ApplicationController
   	#.text method on xpath?
   	
   	
-  	
+  	#taking only high price
 
   	data.each do |val|
   		range = Date.parse(val.xpath("//entrydata[@name='DateBeginShow']")[count].text) .. Date.parse(val.xpath("//entrydata[@name='DateEndShow']")[count].text)
   		if range.include?(date)
   			info[val.xpath("//entrydata[@name='EventName']")[count].text]=[
-  																  	val.xpath("//entrydata[@name='TimeBegin']")[count].text=="" ? "Time not listed" : Time.parse(val.xpath("//entrydata[@name='TimeBegin']")[count].text).strftime("%I:%M %p"), 
+  																  	val.xpath("//entrydata[@name='TimeBegin']")[count].text=="" ? "Time not listed" : Time.parse(val.xpath("//entrydata[@name='TimeBegin']")[count].text).strftime("%I:%M %p")]
   																  	
   																 
-  																  	val.xpath("//entrydata[@name='Admission']")[count].text=="" ? "Price not listed" : val.xpath("//entrydata[@name='Admission']")[count].text,
-  																  	val.xpath("//entrydata[@name='Location']")[count].text]
+  			price=val.xpath("//entrydata[@name='Admission']")[count].text=="" ? "Price not listed" : val.xpath("//entrydata[@name='Admission']")[count].text
+  			if price[/ - /]
+  				price=price[/\s\$\d+/]
+  				price=price[/\d+/]
+  				info[val.xpath("//entrydata[@name='EventName']")[count].text] << price
+  			else
+  				if price=="Free" || price=="Price not listed"
+  					info[val.xpath("//entrydata[@name='EventName']")[count].text] << price
+  				else
+  					info[val.xpath("//entrydata[@name='EventName']")[count].text]<< price[/\d+/]
+  				end
+  			end
+  			info[val.xpath("//entrydata[@name='EventName']")[count].text]<< val.xpath("//entrydata[@name='Location']")[count].text
   			value=val.xpath("//entrydata[@name='CategoryList']")[count].text
   			if value[/talk/i] || value[/symposium/i] || value[/screening/i] || value[/lecture/i] || value[/speak/i] || value[/dicuss/i]
 	  			category="Talk"
@@ -341,7 +372,8 @@ class WelcomeController < ApplicationController
 	  		if price==nil
 	  			price="Price not listed"
 	  		end
-	  		address = val.css("div.List-Body").text[/\s[0-9]+\s[A-Z][a-z]+.+,/]
+	  		address = val.css("div.List-Body").text[/[0-9]+\s[A-Z][a-z]+.+/]
+
 	  		if address==nil || address.size>20
 	  			address=val.css("div.List-Body").text.split(",")[-2]
 	 
@@ -405,7 +437,7 @@ class WelcomeController < ApplicationController
 
 	  			
 	  			
-	  		info[val.css("span.List-Name").text]=[time,price,address,category]
+	  		info[val.css("span.List-Name").text]=[time,price[/\$/]!=nil ? price[/\w+/] : price ,address[1..address.size]+", Toronto, ON, Canada",category]
 	  		
 	  	end
   	#string4[/[0-9]+\s[A-Z][a-z]+(\b[A-Z][a-z]+)*?/]
@@ -498,11 +530,23 @@ class WelcomeController < ApplicationController
   											
   									
   													]
-  			if (val.css("span.venue-meta").text[/\$\d+\.\d+\s(-$\d+\.\d+)?[^All]+/])==nil
-  				info1[val.css("strong.summary").text]<<val.css("span.venue-meta").text[/\$\d+\s[^all]+/i]
+  			if (val.css("span.venue-meta").text[/\$\d+(\.\d+\s)?(-$\d+\.\d+)?[^All]+/])==nil
+
+  				price=val.css("span.venue-meta").text[/\$\d+\s[^all]+/i]
+
+  				if val.css("span.venue-meta").text=="Free"
+  					price="Free"
+  				else
+  					price=price[/\d+/]
+
+  				end
+
+  				
   			else
-  				info1[val.css("strong.summary").text] << val.css("span.venue-meta").text[/\$\d+\.\d+\s(-$\d+\.\d+)?[^All]+/]
+  				price=val.css("span.venue-meta").text[/\$\d+(\.\d+\s)?(-$\d+\.\d+)?[^All]+/]
+  				price=price[/\d+/]
   			end
+  			info1[val.css("strong.summary").text]<< price
   			info1[val.css("strong.summary").text] << val.css("strong.location").text
   			info1[val.css("strong.summary").text] << "Music"
   		end

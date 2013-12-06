@@ -10,3 +10,4 @@
 	-top 3 by price, distance, or our rank algorithm  (ascending descending)
 	-need to format time to be same everythwere
 	-need to have when time not listed to be "time not availble" same with price not available
+-need to do strong params/hide keys, facebook authenticate, lightbox, make algorthim work
