@@ -48,30 +48,47 @@
 				<button id='6' class='categorybox'></button>
 			</div>
 			<script type="text/javascript">
-
+			isInArray=function(value, array) {
+  				return array.indexOf(value) > -1 ? true : false;
+			}
 			  var bank=["Happy", "sad", "lonely", "excited", "bored", "lazy", "celebratory", "Romantic", "Isolated", "Merry", "Restless"];
-
+			  var indexes=[]
 			  for (var i=6; i>=0; i--) {
-			    $("#"+i).text(bank[Math.ceil(Math.random()*bank.length)])
+			  	var num=Math.ceil(Math.random()*(bank.length)-1)
+			  	while (isInArray(num,indexes)) {
+			    	num=Math.ceil(Math.random()*(bank.length))
+			     }
+			     indexes.push(num)
+			    $("#"+i).text(bank[num])
+			    
 			  }
 
 			</script>
 
 			<div class='categories1'>
-				<button id= "7" class='categorybox1'>Party</button>
-				<button id='8' class='categorybox1'>Chill</button>
-				<button id='9' class='categorybox1'>Outdoors</button>
-				<button id='10' class='categorybox1'>Romantic</button>
-				<button id='11' class='categorybox1'>Sports</button>
-				<button id='12' class='categorybox1'>Geek Out</button>
+				<button id="7" class='categorybox1'></button>
+				<button id='8' class='categorybox1'></button>
+				<button id='9' class='categorybox1'></button>
+				<button id='10' class='categorybox1'></button>
+				<button id='11' class='categorybox1'></button>
+				<button id='12' class='categorybox1'></button>
 			</div>
 
 			<script type="text/javascript">
 
-			  var bank=["Get cultured", "Learn", "Geek out", "Trying new things", "Be Merry", "Hangout with Strangers", "Laugh", "Be a tourist", "Jam out", "Be a good person", "Party Hardy", "Spend Spend Spend", "Family Channel", "Sporting Around"];
-
+			  var bank1=["Get Cultured", "Learn", "Trying New Things", "Be Merry", "Hangout with Strangers", "Laugh", "Be a Tourist", "Jam Out", "Be a Good Person", "Party Hardy", "Spend Spend Spend", "Family Channel", "Sporting Around"];
+			  var indexes1=[]
+			  isInArray= function(value, array) {
+  				return array.indexOf(value) > -1 ? true : false;
+				}
 			  for (var i=12; i>=7; i--) {
-			    $("#"+i).text(bank[Math.ceil(Math.random()*bank.length)])
+			  	var num1=Math.ceil(Math.random()*(bank1.length)-1)
+			  	while (isInArray(num1,indexes1)) {
+			    	num1=Math.ceil(Math.random()*(bank1.length)-1)
+			     }
+			     indexes1.push(num1)
+			    $("#"+i).text(bank1[num1])
+			    
 			  }
 
 			</script>

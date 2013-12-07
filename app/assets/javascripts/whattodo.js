@@ -48,30 +48,23 @@ $(window).load(function() {
 	});
 
 	$(".categorybox").on('click', function() {
-		$.ajax({
-       		url: "/whattodo",
-       		type: "GET",
-       		dataType: "script",
-       		data: { button: $(this).text() }
-       	})
-	});
+    choice1=$(this).text()
+  });
 
-	$(".categorybox1").on('click', function() {
-		$.ajax({
-       		url: "/whattodo",
-       		type: "GET",
-       		dataType: "script",
-       		data: { button1: $(this).text() }
-       	})
-	});
+  $(".categorybox1").on('click', function() {
+    choice2=$(this).text()
+  });
 
-	$(".categorybox2").on('click', function() {
-		$.ajax({
-       		url: "/whattodo",
-       		type: "GET",
-       		dataType: "script",
-       		data: { button2: $(this).text() }
-       	})
-	});
+  $(".categorybox2").on('click', function() {
+    choice3=$(this).text()
+    $.ajax({
+          url: "/whattodo",
+          type: "GET",
+          dataType: "script",
+          data: { choice1: choice1,
+                  choice2: choice2,
+                  choice3: choice3 }
+        })
+  });
 
 });
