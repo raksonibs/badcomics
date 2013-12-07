@@ -40,22 +40,41 @@
 			<!-- This div is where all the categories will be 
 			held (including an ad box for advertisers). -->
 			<div class='categories'>
-				<button id='1' class='categorybox'>Excited</button>
-				<button id='2' class='categorybox'>Lazy</button>
-				<button id='3' class='categorybox'>Happy</button>
-				<button id='4' class='categorybox'>Moody</button>
-				<button id='5' class='categorybox'>Sad</button>
-				<button id='6' class='categorybox'>Relaxed</button>
+				<button id='1' class='categorybox'></button>
+				<button id='2' class='categorybox'></button>
+				<button id='3' class='categorybox'></button>
+				<button id='4' class='categorybox'></button>
+				<button id='5' class='categorybox'></button>
+				<button id='6' class='categorybox'></button>
 			</div>
+			<script type="text/javascript">
+
+			  var bank=["Happy", "sad", "lonely", "excited", "bored", "lazy", "celebratory", "Romantic", "Isolated", "Merry", "Restless"];
+
+			  for (var i=6; i>=0; i--) {
+			    $("#"+i).text(bank[Math.ceil(Math.random()*bank.length)])
+			  }
+
+			</script>
 
 			<div class='categories1'>
-				<button class='categorybox1'>Party</button>
+				<button id= "7" class='categorybox1'>Party</button>
 				<button id='8' class='categorybox1'>Chill</button>
 				<button id='9' class='categorybox1'>Outdoors</button>
 				<button id='10' class='categorybox1'>Romantic</button>
 				<button id='11' class='categorybox1'>Sports</button>
 				<button id='12' class='categorybox1'>Geek Out</button>
 			</div>
+
+			<script type="text/javascript">
+
+			  var bank=["Get cultured", "Learn", "Geek out", "Trying new things", "Be Merry", "Hangout with Strangers", "Laugh", "Be a tourist", "Jam out", "Be a good person", "Party Hardy", "Spend Spend Spend", "Family Channel", "Sporting Around"];
+
+			  for (var i=12; i>=7; i--) {
+			    $("#"+i).text(bank[Math.ceil(Math.random()*bank.length)])
+			  }
+
+			</script>
 
 			<div class='price'>
 				<button id='13' class='categorybox2'>Free!</button>

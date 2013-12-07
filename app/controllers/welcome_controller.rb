@@ -25,7 +25,7 @@ class WelcomeController < ApplicationController
   			@@result=request.location
   			@cat=[]
   			Event.all.each_with_index do |e,i|
-  				@cat<<e.price if !(@cat.include?(e.price))
+  				@cat<<e.category if !(@cat.include?(e.category))
   				
   			end
   			format.html{ @data=Event.all }

@@ -14,5 +14,10 @@
 
 -delayjob/chron job
 -bank of categories and feelings. six randomly chosen to be displayed
+	*Feelings: Happy, sad, lonely, excited, bored, lazy, celebratory, Romantic, Isolated, Merry, Restless
+	*Activity: Get cultured (art, gallery, museum, cinema, theatre), Learn (talk, Reading, mueusm, art), Geek out(need category for tech!!!!), Trying new things (Misc), Be Merry(Seasonal), Hangout with Strangers(hang out), Laugh (comedy, Performing arts), Be a tourist (Attraction, Featured Park, Garden / Conservatory), Jam out (Music), Be a good person(charity), Party Hardy (Party), Spend Spend Spend (Shopping), Family Channel (Family), Sporting Around (Sport)
+	*
 -machine learning on feeling. regex matching first based on description
 -results page has my rank, then can click to get price (least expensive=free, most=highest). then click to get distance (closest, farthest)
+
+Art", "Family", "Seasonal/Family", "Seasonal", "Art/Family", "Sport", "Misc.", "Theatre/Seasonal/Family", "Music", "Theatre/Art", "Music/Sport/Family", "Theatre/Seasonal", "Music/Theatre/Art", "Sport/Family", "Theatre", "Music/Seasonal/Comedy", "Music/Theatre/Charity", "Seasonal/Party", "Party/Charity", "Reading/Seasonal", "Music/Theatre/Seasonal/Family", "Talk/Music/Theatre", "Hang Out", "Comedy/Charity", "Party", "Party/Sport", "Comedy/Hang Out", "Music/Party", "Charity", "Attraction", "Cinema", "Featured Park", "Gallery", "Garden / Conservatory", "Museum", "Comedy", "Shopping"]

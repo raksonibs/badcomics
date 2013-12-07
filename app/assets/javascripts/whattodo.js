@@ -1,6 +1,6 @@
 
-$(document).ready(function() {
-
+$(window).load(function() {
+  
 	// Top nav slide down on load.
 	$(".topnav").animate({ opacity: 0 }, 0);
 	$(".topnav").delay(200).animate({top:"+=45", opacity: 1},1500);
@@ -11,6 +11,8 @@ $(document).ready(function() {
 	// Category boxes animate from left to right on load.
 	$(".categories").animate({ opacity: 0 }, 0);
 	$(".categories").animate({left:"+=20", opacity: 1},800);
+  
+
 
 	// This is where 6 new boxes need to be brought in.
 	// Need to stop massive delay!! Maybe roll back to old version?
