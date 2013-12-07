@@ -22,6 +22,7 @@ require 'nokogiri'
 class WelcomeController < ApplicationController
 	@@called={Date.today.strftime("%B %01d, %Y")=>false}
 	#doesn't work when close browser. need to do the script thing
+	@@result=nil
 
 	def index
   	#makeevents unless @@called[Date.today.strftime("%B %01d, %Y")]
@@ -34,6 +35,7 @@ class WelcomeController < ApplicationController
 
   			format.js{}
   		else
+  			@@result=request.location
   			@cat=[]
   			Event.all.each_with_index do |e,i|
   				@cat<<e.price if !(@cat.include?(e.price))
@@ -59,6 +61,7 @@ class WelcomeController < ApplicationController
   
   def algorthim
   	#/result/happy/art/20
+  	udist=@@result
   	feeling,activity,money=params[:feeling], params[:activity], params[:money].to_i #also params[geolocation]
   	timenow=Time.now
   	if money=="Free"
@@ -208,7 +211,7 @@ class WelcomeController < ApplicationController
   	#need their ip
   	#from params location, get distance from then use val.distance_from(ip address location) and find smallest distance
   	if val.longitude!=nil
-  		distance=val.distance_to(udist, :units=> :km)
+  		distance=val.distance_to(udist.coordinates, :units=> :km)
   		mult=0
 	  	if distance<=1
 	  		mult=1
