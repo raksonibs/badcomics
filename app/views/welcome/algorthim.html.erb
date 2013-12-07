@@ -3,8 +3,9 @@
 <br>
 
 <div id="res">
-	<%= @result %>
+	<%= render "dist" %>
 </div>
+
 <br><br>
 <button id="dist">dist</button>
 <button id="rank">rank</button>
@@ -20,6 +21,10 @@ $("#dist").on("click",function(){
 		dataType: "script",
 		data: {
 			button: $(thiss).text(),
+		},
+		success: function(response) {
+			$("#test").html(response)
+
 		}
 	})
 })
@@ -44,6 +49,11 @@ $("#rank").on("click",function(){
 		dataType: "script",
 		data: {
 			button: $(thiss).text(),
+		},
+		success: function(response) {
+			alert(response)
+			$("#test").text(response)
+
 		}
 	})
 })

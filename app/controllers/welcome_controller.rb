@@ -85,7 +85,7 @@ class WelcomeController < ApplicationController
 		  	end
 
 		  	format.html{@result=@result}
-		  	
+
 		  	format.js{}
 
 		elsif params[:button]=="price"
@@ -106,10 +106,12 @@ class WelcomeController < ApplicationController
 		  			@keys<< val.keys
 		  		end
 		  	end
-		  	format.html{@result=@result}
+
+		  	format.js{render :action=> "dist.js.erb"}
 		end
 	
 	end
+	@result
   end
 
 	def resultdis(data, udist,acitivty)
