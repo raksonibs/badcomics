@@ -98,7 +98,7 @@ class WelcomeController < ApplicationController
   	@data.each_with_index do |val,i|
   		#no distance yet in alg
 
-  		score=score(calculateprice(val), 25, calculatepurity(val), calculatetime(val))
+  		score=score(calculateprice(val), calculatedistance(val,udist), calculatepurity(val), calculatetime(val))
   		@scores << {score=>val.name}
   		if i==0
   			firstn=val.name
@@ -156,6 +156,7 @@ class WelcomeController < ApplicationController
   	mult=0
   	time=val.time
 
+
   	if time=="Time not listed"
   		mult=rand()
   	else
@@ -203,27 +204,31 @@ class WelcomeController < ApplicationController
 
   end
 
-  def calculatedistance(val)
+  def calculatedistance(val,udist)
   	#need their ip
   	#from params location, get distance from then use val.distance_from(ip address location) and find smallest distance
-  	distance=val.distance
-  	mult=0
-  	if distance<=1
-  		mult=1
-  	elsif distance>1 && distance<=3
-  		mult=0.85
-  	elsif distance>3 && distance<=6
-  		mult=0.70
-  	elsif distance>6 && distance<=10
-  		mult=0.55
-  	elsif distance>10 && distance<=15
-  		mult=0.35
-  	elsif distance>15 && distance<=25
-  		mult=0.1
-  	else
+  	if val.longitude!=nil
+  		distance=val.distance_to(udist, :units=> :km)
   		mult=0
-  	end
-  	score=mult*33.3333
+	  	if distance<=1
+	  		mult=1
+	  	elsif distance>1 && distance<=3
+	  		mult=0.85
+	  	elsif distance>3 && distance<=6
+	  		mult=0.70
+	  	elsif distance>6 && distance<=10
+	  		mult=0.55
+	  	elsif distance>10 && distance<=15
+	  		mult=0.35
+	  	elsif distance>15 && distance<=25
+	  		mult=0.1
+	  	else
+	  		mult=0
+	  	end
+	 else
+	 	mult=rand()
+	 end
+  	score=mult*25
   end
 
   def calculatepurity(val)
@@ -257,6 +262,7 @@ class WelcomeController < ApplicationController
   	#need to standardize each one so don't have to conditional. make
   	#each data name=>[time, price, location, category]
   	#feeling will always be none
+  	#geocoding overusing api, that is why inconsisitent geocoding.
   	Event.all.delete_all
   	@data=getdata
   	  	@data.each do |source|
@@ -264,7 +270,9 @@ class WelcomeController < ApplicationController
 
 
   	  				e=Event.new(name:k, time:source[k][0], price:source[k][1], location:source[k][2], category:source[k][3], feeling: "None")
+  	  				e.geocode
   	  				e.save
+  	  				#sleep(1)
 
   	  		end
   	  	end
