@@ -1,18 +1,5 @@
 require 'open-uri'
 require 'nokogiri'
-#www.toronto.come seems to get data from cityhall
-#need to convert attractions list to data
-#problem with direct html scrapping is if they change their website. will have to deal with
-#errors if they come and say that if doesnt load probaly, doesnt submit to user (pick somethin
-	#else. then we get notifcation of errors)
-#might be better to only get the certain data once they pick their moods and money?
-
-#want to make smart databased on location, price, event, category wiht multiple tags-need name price, location, categories
-#tags based on 12 options right now. Will have to match based on description or title
-#need to remove location
-#need to worry aout if events have sold tickets
-#need to normalize for each
-#need basic general categories, also find keywords for them?
 #attractions for touristy
 #also want like facebook friend parties
 #also funny things like sleep? maybe shouldnt tell them what to do lol
@@ -62,60 +49,86 @@ class WelcomeController < ApplicationController
   
   def algorthim
   	#/result/happy/art/20
-  	udist=["43.6426, 79.3871"]
+  	udist=["43.6426, 79.3871"] #cannot hardcode location and time
   	feeling,activity,money=params[:feeling], params[:activity], params[:money].to_i #also params[geolocation]
   	timenow=Time.parse("Fri December 6 2013 10:00 AM")
-  	
-  	if
-  		
-  		#price not listed not accounted for
-  		#have to format time ugh
-  		#want to make better loop
-  		@data=[]
+	#want to make better loop
+	@data=[]
+	Event.all.each do |e|
+		if e.time=="Time not listed" || Time.parse(e.time) > timenow 
+			if e.price =="Free" || e.price=="Price not listed" || e.price <= params[:money]
+				if e.category=="Performing Arts"
+					e.category="Comedy"
+					e.save
+				end
+				if e.category[/#{activity.capitalize}/]
+					@data << e
+				end
+			end
+		end
+	end
+  	respond_to do |format|
+  		if params[:button]=="rank" || params[:button]!="price"  &&params[:button]!="dist"
 
-  		Event.all.each do |e|
-  			if e.time=="Time not listed" || Time.parse(e.time) > timenow 
+		  	@result, @scores=result(@data,udist, activity)
+		  	@keys=[]
+	  		@result.each do |val|
+	  			@keys<< val.keys
+	  		end
+		  	while @keys.flatten.uniq.size!=3
+		  		#catches repititons
+		  		@result, @scores=result(@data, udist, activity)
+		  		@keys=[]
+		  		@result.each do |val|
+		  			@keys<< val.keys
+		  		end
+		  	end
 
-  				if e.price =="Free" || e.price=="Price not listed" || e.price <= params[:money]
-  					if e.category=="Performing Arts"
-  						e.category="Comedy"
-  						e.save
-  					end
-  					
-  					if e.category[/#{activity.capitalize}/]
-  						
-  						
+		  	format.html{@result=@result}
+		  	
+		  	format.js{}
 
-  						@data << e
-  					end
-  				end
-  			end
+		elsif params[:button]=="price"
+			#only prices under their choice
+			
+		
+		elsif params[:button]=="dist"
+			@result, @scores =resultdis(@data,udist,activity)
+			@keys=[]
+	  		@result.each do |val|
+	  			@keys<< val.keys
+	  		end
+		  	while @keys.flatten.uniq.size!=3
+		  		#catches repititons
+		  		@result, @scores=resultdis(@data, udist, activity)
+		  		@keys=[]
+		  		@result.each do |val|
+		  			@keys<< val.keys
+		  		end
+		  	end
+		  	format.html{@result=@result}
+		end
+	
+	end
+  end
 
-  		end
-  		#@data=Event.where("price<=#{params[:money]} AND time>#{timenow}") + Event.where("price=='Free' AND time>#{timenow}")
-  	end
-  	#greater for time means in the future?
-  	
-  	
-  	def result(data, udist,activity)
-  		first={}
-  	firstn=""
-  	second={}
-  	secondn=""
-  	third={}
-  	thirdn=""
-  	@scores=[]
+	def resultdis(data, udist,acitivty)
+	#right now doing closest
+		first={}
+	  	firstn=""
+	  	second={}
+	  	secondn=""
+	  	third={}
+	  	thirdn=""
+	  	@scores=[]
 	  	data.each_with_index do |val,i|
-	  		#no distance yet in alg
-
-	  		score=score(calculateprice(val), calculatedistance(val,udist), calculatepurity(val, activity), calculatetime(val))
+	  		score=score(0, calculatedistance(val,udist, true), 0, 0)
 	  		@scores << {score=>val.name}
 	  		if i==0
 	  			firstn=val.name
 	  			first[val.name]=score
 	  		else
 	  			#should do recursive
-	  			
 	  			if score> first[firstn]
 	  				if secondn==""
 	  					secondn=firstn
@@ -124,7 +137,6 @@ class WelcomeController < ApplicationController
 	  					firstn=val.name
 	  					first[firstn]=score
 	  				else
-
 	  					third.delete(thirdn) if thirdn!="" #if second exists, delete third
 	  					thirdn=secondn
 	  					third[thirdn]=second[secondn]
@@ -140,14 +152,12 @@ class WelcomeController < ApplicationController
 	  					secondn=val.name
 	  					second[secondn]=score
 	  				else
-
 	  					third.delete(thirdn) if thirdn!="" #if second exists, delete third
 	  					thirdn=secondn
 	  					third[thirdn]=second[secondn]
 	  					second.delete(secondn)
 	  					secondn=val.name
-	  					second[secondn]=score
-	  					
+	  					second[secondn]=score	
 	  				end
 	  			elsif thirdn=="" || score>third[thirdn]
 	  				third.delete(thirdn) if thirdn!="" #if second exists, delete third
@@ -155,36 +165,70 @@ class WelcomeController < ApplicationController
 	  				third[thirdn]=score
 	  			end
 	  		end
+		end
+		@result=[first,second,third]
+		return @result, @scores	
 
 
+	end
+
+def result(data, udist,activity)
+	first={}
+  	firstn=""
+  	second={}
+  	secondn=""
+  	third={}
+  	thirdn=""
+  	@scores=[]
+  	data.each_with_index do |val,i|
+  		score=score(calculateprice(val), calculatedistance(val,udist), calculatepurity(val, activity), calculatetime(val))
+  		@scores << {score=>val.name}
+  		if i==0
+  			firstn=val.name
+  			first[val.name]=score
+  		else
+  			#should do recursive
+  			if score> first[firstn]
+  				if secondn==""
+  					secondn=firstn
+  					second[secondn]=first[firstn]
+  					first.delete(firstn)
+  					firstn=val.name
+  					first[firstn]=score
+  				else
+  					third.delete(thirdn) if thirdn!="" #if second exists, delete third
+  					thirdn=secondn
+  					third[thirdn]=second[secondn]
+  					second.delete(secondn)
+  					secondn=firstn
+  					second[secondn]=first[firstn]
+  					first.delete(firstn)
+  					firstn=val.name
+  					first[firstn]=score
+  				end
+  			elsif secondn=="" || score>second[secondn] 
+  				if secondn==""
+  					secondn=val.name
+  					second[secondn]=score
+  				else
+  					third.delete(thirdn) if thirdn!="" #if second exists, delete third
+  					thirdn=secondn
+  					third[thirdn]=second[secondn]
+  					second.delete(secondn)
+  					secondn=val.name
+  					second[secondn]=score	
+  				end
+  			elsif thirdn=="" || score>third[thirdn]
+  				third.delete(thirdn) if thirdn!="" #if second exists, delete third
+  				thirdn=secondn
+  				third[thirdn]=score
+  			end
   		end
-  		
+		end
+	@result=[first,second,third]
+	return @result, @scores	
+end
 
-  		@result=[first,second,third]
-  		return @result, @scores		
-
-  	end
-  	@result, @scores=result(@data,udist, activity)
-  	@keys=[]
-  		@result.each do |val|
-  		
-  		@keys<< val.keys
-  	end
-
-  	while @keys.flatten.uniq.size!=3
-  		#catches repititons
-  		@result, @scores=result(@data, udist, activity)
-  		@keys=[]
-  		@result.each do |val|
-  			@keys<< val.keys
-  		end
-  	end
-  	@result
-  	@scores
-
-
-
-  end
 
   def calculatetime(val)
   	mult=0
@@ -238,34 +282,38 @@ class WelcomeController < ApplicationController
 
   end
 
-  def calculatedistance(val,udist)
+  def calculatedistance(val,udist, full=nil)
   	#need their ip and udist.coordinates
   	#from params location, get distance from then use val.distance_from(ip address location) and find smallest distance
   	if val.longitude!=nil
   		
-  		distance=val.distance_to([43.6426, -79.3871])
+  		distance=val.distance_to([43.6426, -79.3871]) #hardcoded
 
   		mult=0
 	  	if distance<=1
-	  		mult=1
+	  		mult=1-rand()
 	  	elsif distance>1 && distance<=3
-	  		mult=0.80
+	  		mult=0.80-rand()
 	  	elsif distance>3 && distance<=6
-	  		mult=0.6
+	  		mult=0.6-rand()
 	  	elsif distance>6 && distance<=10
-	  		mult=0.4
+	  		mult=0.4-rand()
 	  	elsif distance>10 && distance<=15
-	  		mult=0.2
+	  		mult=0.2-rand()
 	  	elsif distance>15 && distance<=25
-	  		mult=0.1
+	  		mult=0.1-rand()
 	  	else
 	  		mult=0
 	  	end
 	 else
 	 	mult=rand()
+	 	mult=mult<=0.23 ? mult : mult-0.22
 	 end
-
-  	score=mult*25
+	 if full
+	 	score=mult*100
+	 else
+  		score=mult*25
+  	end
   end
 
   def calculatepurity(val, activity)
@@ -317,13 +365,6 @@ class WelcomeController < ApplicationController
   end
 
   def home
-    # if params[:button]
-    #   @feeling = Event.find(params[:button]
-    #   elsif params[:button1]
-    #   @category = Event.find(params[:button1])
-    #   elsif params[:button1]
-    #   @price = Event.find(params[:button2])
-    # end
   end
 
 
@@ -338,15 +379,12 @@ class WelcomeController < ApplicationController
   	roo
   	]
   	
-  	#everything needs cateogry
-  	#nomagazine problem with preregister location
-  	#justshows isnt appearing?
-  	#problem with price for jsutshows
+  	
   	#parks,
   	#eventful,
   	#xlsattraction,
   	#facebook
-  	#meetup
+  	
   end
 
   def cityhall
@@ -355,14 +393,6 @@ class WelcomeController < ApplicationController
   	data=Nokogiri::HTML(open("http://wx.toronto.ca/festevents.nsf/tpaview?readviewentries")).xpath("//viewentry")
   	countend=data.size
   	count=0
-  	#might not need time end? maybe will have to
-  	#info[name]=date start, time start, date end, time end, price, address, category
-  	#should only get events with current date, not all dates
-  	#.text method on xpath?
-  	
-  	
-  	#taking only high price
-
   	data.each do |val|
   		range = Date.parse(val.xpath("//entrydata[@name='DateBeginShow']")[count].text) .. Date.parse(val.xpath("//entrydata[@name='DateEndShow']")[count].text)
   		if range.include?(date)
@@ -424,20 +454,10 @@ class WelcomeController < ApplicationController
   		end
   		count+=1
   	end
-
-  		#count+=1
-  	#end
-  	#date===range
   	info
-  	#December 4, 2013
   end
-#toronto christmas market time
-#
+
   def nowmagazine
-  	#trouble with getting the descs out to get the date
-  	#trouble if in description says:  Nov 28 to Dec 8 weekdays and Sat 10 am-9 pm, Thu 10 am-11 pm, Sun 10 am-6 pm
-  	#time, price, address
-  	#NEEDS CATEGORY
   	#categoirs seem talk(talk, symposium, screening, lecture, speak, discuss), music(music) theatre(performances), reading(reading, novel), comedy, seasonal(festiv,holiday, carol, christmas), party(party), charity(fundrais, auction), miscelianous (everything else) 
   	info={}
   	date=DateTime.now
@@ -520,15 +540,13 @@ class WelcomeController < ApplicationController
 	  		info[val.css("span.List-Name").text]=[time,price[/\$/]!=nil ? price[/\w+/] : price ,address[1..address.size]+", Toronto, ON, Canada",category]
 	  		
 	  	end
-  	#string4[/[0-9]+\s[A-Z][a-z]+(\b[A-Z][a-z]+)*?/]
-  	#i know that second last thing is always location so can split on that?! not always
   	info
 
   end
 
   def eventbrite
   	info={}
-  	#name=time (need to extract time), tickets[price], address NEED CATEGORY TO ATTRBIUTE
+  	
   	data=JSON.parse((open("http://www.eventbrite.com/json/event_search?app_key=GUBRP2USZMDRRVPPSF&city=Toronto&date=today&max=100")).read)
   	data=data["events"]
   	data[1..100].each do |event|

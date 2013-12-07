@@ -11,3 +11,8 @@
 	-need to format time to be same everythwere
 	-need to have when time not listed to be "time not availble" same with price not available
 -need to do strong params/hide keys, facebook authenticate, lightbox, make algorthim work
+
+-delayjob/chron job
+-bank of categories and feelings. six randomly chosen to be displayed
+-machine learning on feeling. regex matching first based on description
+-results page has my rank, then can click to get price (least expensive=free, most=highest). then click to get distance (closest, farthest)

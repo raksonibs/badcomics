@@ -2,8 +2,49 @@
 <br>
 <br>
 
-<%= @result%>
-<br>
-<br>
-<br>
-<%= @scores %>
+<div id="res">
+	<%= @result %>
+</div>
+<br><br>
+<button id="dist">dist</button>
+<button id="rank">rank</button>
+<button id="price">price</button>
+<script type='text/javascript' src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+<script type='text/javascript'>
+$("#dist").on("click",function(){
+	var thiss= this;
+	var button;
+	$.ajax({
+		url: "/result/happy/art/20", //would change based on current url
+		type: "GET",
+		dataType: "script",
+		data: {
+			button: $(thiss).text(),
+		}
+	})
+})
+$("#price").on("click",function(){
+	var thiss= this;
+	var button;
+	$.ajax({
+		url: "/result/happy/art/20", //would change based on current url
+		type: "GET",
+		dataType: "script",
+		data: {
+			button: $(thiss).text(),	
+		}	
+	})
+})
+$("#rank").on("click",function(){
+	var thiss= this;
+	var button;
+	$.ajax({
+		url: "/result/happy/art/20", //would change based on current url
+		type: "GET",
+		dataType: "script",
+		data: {
+			button: $(thiss).text(),
+		}
+	})
+})
+</script>
