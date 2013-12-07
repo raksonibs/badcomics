@@ -44,6 +44,7 @@ class WelcomeController < ApplicationController
   			format.html{ @data=Event.all }
   		end
   	end
+  	@result=[43.6426, 79.3871]
   	@called=@@called
   end
 
@@ -61,24 +62,28 @@ class WelcomeController < ApplicationController
   
   def algorthim
   	#/result/happy/art/20
-  	udist=@@result
+  	udist=["43.6426, 79.3871"]
   	feeling,activity,money=params[:feeling], params[:activity], params[:money].to_i #also params[geolocation]
-  	timenow=Time.now
-  	if money=="Free"
-  		@data=Event.all
-  	else
+  	timenow=Time.parse("Fri December 6 2013 10:00 AM")
+  	
+  	if
   		
   		#price not listed not accounted for
   		#have to format time ugh
   		#want to make better loop
   		@data=[]
 
-  		Event.all[0..40].each do |e|
+  		Event.all.each do |e|
   			if e.time=="Time not listed" || Time.parse(e.time) > timenow 
 
   				if e.price =="Free" || e.price=="Price not listed" || e.price <= params[:money]
+  					if e.category=="Performing Arts"
+  						e.category="Comedy"
+  						e.save
+  					end
   					
-  					if e.category.match(/#{activity}/i)
+  					if e.category[/#{activity.capitalize}/]
+  						
   						
 
   						@data << e
@@ -90,67 +95,93 @@ class WelcomeController < ApplicationController
   		#@data=Event.where("price<=#{params[:money]} AND time>#{timenow}") + Event.where("price=='Free' AND time>#{timenow}")
   	end
   	#greater for time means in the future?
-
-  	first={}
+  	
+  	
+  	def result(data, udist,activity)
+  		first={}
   	firstn=""
   	second={}
   	secondn=""
   	third={}
   	thirdn=""
   	@scores=[]
-  	@data.each_with_index do |val,i|
-  		#no distance yet in alg
+	  	data.each_with_index do |val,i|
+	  		#no distance yet in alg
 
-  		score=score(calculateprice(val), calculatedistance(val,udist), calculatepurity(val), calculatetime(val))
-  		@scores << {score=>val.name}
-  		if i==0
-  			firstn=val.name
-  			first[val.name]=score
-  		else
-  			#should do recursive
-  			if score> first[firstn]
-  				if secondn==""
-  					secondn=firstn
-  					second[secondn]=first[firstn]
-  					first.delete(firstn)
-  					firstn=val.name
-  					first[firstn]=score
-  				else
+	  		score=score(calculateprice(val), calculatedistance(val,udist), calculatepurity(val, activity), calculatetime(val))
+	  		@scores << {score=>val.name}
+	  		if i==0
+	  			firstn=val.name
+	  			first[val.name]=score
+	  		else
+	  			#should do recursive
+	  			
+	  			if score> first[firstn]
+	  				if secondn==""
+	  					secondn=firstn
+	  					second[secondn]=first[firstn]
+	  					first.delete(firstn)
+	  					firstn=val.name
+	  					first[firstn]=score
+	  				else
 
-  					third.delete(thirdn) if thirdn!="" #if second exists, delete third
-  					thirdn=secondn
-  					third[thirdn]=second[secondn]
-  					second.delete(secondn)
-  					secondn=firstn
-  					second[secondn]=first[firstn]
-  					first.delete(firstn)
-  					firstn=val.name
-  					first[firstn]=score
-  				end
-  			elsif secondn=="" || score>second[secondn] 
-  				if secondn==""
-  					secondn=val.name
-  					second[secondn]=score
-  				else
+	  					third.delete(thirdn) if thirdn!="" #if second exists, delete third
+	  					thirdn=secondn
+	  					third[thirdn]=second[secondn]
+	  					second.delete(secondn)
+	  					secondn=firstn
+	  					second[secondn]=first[firstn]
+	  					first.delete(firstn)
+	  					firstn=val.name
+	  					first[firstn]=score
+	  				end
+	  			elsif secondn=="" || score>second[secondn] 
+	  				if secondn==""
+	  					secondn=val.name
+	  					second[secondn]=score
+	  				else
 
-  					third.delete(thirdn) if thirdn!="" #if second exists, delete third
-  					thirdn=secondn
-  					third[thirdn]=second[secondn]
-  					second.delete(secondn)
-  					secondn=val.name
-  					second[secondn]=score
-  					
-  				end
-  			elsif thirdn=="" || score>third[thirdn]
-  				third.delete(thirdn) if thirdn!="" #if second exists, delete third
-  				thirdn=secondn
-  				third[thirdn]=score
-  			end
+	  					third.delete(thirdn) if thirdn!="" #if second exists, delete third
+	  					thirdn=secondn
+	  					third[thirdn]=second[secondn]
+	  					second.delete(secondn)
+	  					secondn=val.name
+	  					second[secondn]=score
+	  					
+	  				end
+	  			elsif thirdn=="" || score>third[thirdn]
+	  				third.delete(thirdn) if thirdn!="" #if second exists, delete third
+	  				thirdn=secondn
+	  				third[thirdn]=score
+	  			end
+	  		end
+
+
   		end
+  		
 
+  		@result=[first,second,third]
+  		return @result, @scores		
 
   	end
-  		@result=[first,second,third]		
+  	@result, @scores=result(@data,udist, activity)
+  	@keys=[]
+  		@result.each do |val|
+  		
+  		@keys<< val.keys
+  	end
+
+  	while @keys.flatten.uniq.size!=3
+  		#catches repititons
+  		@result, @scores=result(@data, udist, activity)
+  		@keys=[]
+  		@result.each do |val|
+  			@keys<< val.keys
+  		end
+  	end
+  	@result
+  	@scores
+
 
 
   end
@@ -208,21 +239,23 @@ class WelcomeController < ApplicationController
   end
 
   def calculatedistance(val,udist)
-  	#need their ip
+  	#need their ip and udist.coordinates
   	#from params location, get distance from then use val.distance_from(ip address location) and find smallest distance
   	if val.longitude!=nil
-  		distance=val.distance_to(udist.coordinates, :units=> :km)
+  		
+  		distance=val.distance_to([43.6426, -79.3871])
+
   		mult=0
 	  	if distance<=1
 	  		mult=1
 	  	elsif distance>1 && distance<=3
-	  		mult=0.85
+	  		mult=0.80
 	  	elsif distance>3 && distance<=6
-	  		mult=0.70
+	  		mult=0.6
 	  	elsif distance>6 && distance<=10
-	  		mult=0.55
+	  		mult=0.4
 	  	elsif distance>10 && distance<=15
-	  		mult=0.35
+	  		mult=0.2
 	  	elsif distance>15 && distance<=25
 	  		mult=0.1
 	  	else
@@ -231,24 +264,25 @@ class WelcomeController < ApplicationController
 	 else
 	 	mult=rand()
 	 end
+
   	score=mult*25
   end
 
-  def calculatepurity(val)
+  def calculatepurity(val, activity)
   	category=val.category.count("/")
   	mult=0
   	if category==0
-  		mult=1
+  		mult= (/#{activity.capitalize}/).match(val.category) ? 1 : 0.5
   	elsif category==1
-  		mult=0.8
+  		mult= (/#{activity.capitalize}/).match(val.category) ? 0.8 : 0.4
   	elsif category==2
-  		mult=0.6
+  		mult= (/#{activity.capitalize}/).match(val.category) ? 0.6 : 0.3
   	elsif category==3
-  		mult=0.4
+  		mult= (/#{activity.capitalize}/).match(val.category) ? 0.4 : 0.2
   	elsif category==4
-  		mult=0.2
+  		mult= (/#{activity.capitalize}/).match(val.category) ? 0.2 : 0.1
   	elsif category>=5
-  		mult=0.1
+  		mult= (/#{activity.capitalize}/).match(val.category) ? 0.1 : 0.05
   	else
   		mult=0
   	end
