@@ -40,6 +40,8 @@ group :doc do
 end
 
 gem "geocoder"
+
+gem 'whenever', :require => false
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 
