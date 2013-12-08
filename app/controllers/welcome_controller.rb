@@ -123,14 +123,14 @@ class WelcomeController < ApplicationController
 	end
 
   	respond_to do |format|
-
-	  	@result, @scores=result(@data,udist, activity)
-	  	@keys=[]
-  		@result.each do |val|
-  			@keys<< val.keys
-  		end
-  		
-  		if @keys.flatten==3
+	  	if params[:button]=="price" || params[:button]!="distance" && params[:button]!="price"
+		  	@result, @scores=result(@data,udist, activity)
+		  	@keys=[]
+	  		@result.each do |val|
+	  			@keys<< val.keys
+	  		end
+	  		
+	  		
 		  	while @keys.flatten.uniq.size!=3
 		  		#catches repititons
 		  		@result, @scores=result(@data, udist, activity)
@@ -139,39 +139,39 @@ class WelcomeController < ApplicationController
 		  			@keys<< val.keys
 		  		end
 		  	end
-		else 
-			@result=@result
-		end
+			
 
 
-	  	format.js{ render partial: "ranks", :locals=> { result: @result } }
-	 end
+		  	format.js{ render :action => "/algorthim.js.erb" }
+		
+	
 
 	# 	elsif params[:button]=="price"
 	# 		#only prices under their choice
 			
 		
-	# 	elsif params[:button]=="dist"
-	# 		@result, @scores =resultdis(@data,udist,activity)
-	# 		@keys=[]
-	#   		@result.each do |val|
-	#   			@keys<< val.keys
-	#   		end
-	# 	  	while @keys.flatten.uniq.size!=3
-	# 	  		#catches repititons
-	# 	  		@result, @scores=resultdis(@data, udist, activity)
-	# 	  		@keys=[]
-	# 	  		@result.each do |val|
-	# 	  			@keys<< val.keys
-	# 	  		end
-	# 	  	end
+		elsif params[:button]=="dist"
+	 		@result, @scores =resultdis(@data,udist,activity)
+	 		@keys=[]
+	   		@result.each do |val|
+	   			@keys<< val.keys
+	   		end
+	 	  	while @keys.flatten.uniq.size!=3
+	 	  		#catches repititons
+	 	  		@result, @scores=resultdis(@data, udist, activity)
+	 	  		@keys=[]
+		  		@result.each do |val|
+		  			@keys<< val.keys
+		  		end
+		  	end
 
-	# 	  	format.js{render :action=> "dist.js.erb"}
-	# 	end
+	 	  	format.js{ render :action => "/algorthim.js.erb" }
+	 	end
 	
-	# end
+	 end
 	# @result
   end
+
 
 	def resultdis(data, udist,acitivty)
 	#right now doing closest
