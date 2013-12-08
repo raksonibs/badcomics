@@ -66,6 +66,18 @@ $(window).load(function() {
                   choice3: choice3 }
           
         })
+    $("#dist").on("click", function() {
+      $.ajax({
+          url: "/result/"+choice1+"/"+choice2+"/"+choice3,
+          type: "GET",
+          dataType: "script",
+          data: { choice1: choice1,
+                  choice2: choice2,
+                  choice3: choice3,
+                  button: "dist" }
+          
+        })
+    })
   });
 
 });

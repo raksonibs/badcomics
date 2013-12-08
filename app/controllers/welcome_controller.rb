@@ -123,14 +123,14 @@ class WelcomeController < ApplicationController
 	end
 
   	respond_to do |format|
-	  	if params[:button]=="price" || params[:button]!="distance" && params[:button]!="price"
+	  	if params[:button]=="rank" || params[:button]!="distance" && params[:button]!="price"
 		  	@result, @scores=result(@data,udist, activity)
 		  	@keys=[]
 	  		@result.each do |val|
 	  			@keys<< val.keys
 	  		end
-	  		
-	  		
+	  	debugger
+	  	if (@keys.size>=3)
 		  	while @keys.flatten.uniq.size!=3
 		  		#catches repititons
 		  		@result, @scores=result(@data, udist, activity)
@@ -139,6 +139,9 @@ class WelcomeController < ApplicationController
 		  			@keys<< val.keys
 		  		end
 		  	end
+		 else
+		 	@result=@result
+		 end
 			
 
 
