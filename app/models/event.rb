@@ -89,6 +89,9 @@ class Event < ActiveRecord::Base
 	  		if value[/fundrais.*/i] || value[/auction/i]
 	  			category = category==nil ? "Charity" : category+"/Charity"
 	  		end
+	  		if value[/tech.*/i]
+	  			category = category==nil ? "Tech" : category+"/Tech"
+	  		end
 	  		if value[/comed.*/i] || value[/laugh/i]
 	  			category = category==nil ? "Comedy" : category+"/Comedy"
 	  		end
@@ -102,7 +105,12 @@ class Event < ActiveRecord::Base
 	  			category = category==nil ? "Family" : category+"/Family"
 	  		end
 	  		if category==nil
-	  			category="Misc."
+	  			value=val.xpath("//entrydata[@name='Performance']")[count].text
+	  			if value[/perform.*/i]
+	  				category = category==nil ? "Theatre" : category+"/Theatre"
+	  			else
+	  				category="Misc."
+	  			end
 	  		end
 	  		info[val.xpath("//entrydata[@name='EventName']")[count].text] << category
   		end
@@ -167,6 +175,9 @@ class Event < ActiveRecord::Base
 	  		if value[/party/i] || value[/bash/i]
 	  			category = category==nil ? "Party" : category+"/Party"
 	  		end
+	  		if value[/tech.*/i]
+	  			category = category==nil ? "Tech" : category+"/Tech"
+	  		end
 	  		if value[/fundrais.*/i] || value[/auction/i]
 	  			category = category==nil ? "Charity" : category+"/Charity"
 	  		end
@@ -207,6 +218,9 @@ class Event < ActiveRecord::Base
 	  	end
 	  	if desc[/comedy/i]
 	  		category = category==nil ? "Comedy" : category+"/Comedy"
+	  	end
+	  	if desc[/tech.*/i]
+	  			category = category==nil ? "Tech" : category+"/Tech"
 	  	end
 	  	if desc[/entertainment/i]
 	  		category = category==nil ? "Party" : category+"/Party"
@@ -305,6 +319,12 @@ class Event < ActiveRecord::Base
   	#need ip to get distances for everyone. lazy, travel
   end
 
+  def techvibes
+  	#wish had times
+  	data=Nokogiri::HTML(open("http://www.techvibes.com/event/toronto")).css("article.event")
+
+  end
+
   def meetup
   	info={}
 	data=JSON.parse(open("https://api.meetup.com/2/open_events?&sign=true&city=Toronto&country=ca&time=0d,1d&status=upcoming&key=7b794c3657477db4e107a7e366f7b5f").read)['results']
@@ -336,6 +356,9 @@ class Event < ActiveRecord::Base
 	  		end
 	  		if desc[/music/i]
 	  			category = category==nil ? "Music" : category+"/Music"
+	  		end
+	  		if desc[/tech.*/i]
+	  			category = category==nil ? "Tech" : category+"/Tech"
 	  		end
 	  		if desc[/perform.*/i]
 	  			category = category==nil ? "Theatre" : category+"/Theatre"

@@ -10,7 +10,7 @@ class WelcomeController < ApplicationController
 	@@called={Date.today.strftime("%B %01d, %Y")=>false}
 	#doesn't work when close browser. need to do the script thing
 	@@result=nil
-
+=begin
 	def index
   	#makeevents unless @@called[Date.today.strftime("%B %01d, %Y")]
   	respond_to do |format|
@@ -32,18 +32,19 @@ class WelcomeController < ApplicationController
   		end
   	end
   end
-
-=begin
+=end
   def index
   	#need to formalize times and prices
-  	@cat=[]
-  			Event.all.each_with_index do |e,i|
-  				@cat<<e.price if !(@cat.include?(e.price))
-  				
-  			end
-  			@data=nowmagazine
+  	
+  	@data=techvibes
   end
-=end
+
+  def techvibes
+  	#wish had times
+  	data=Nokogiri::HTML(open("http://www.techvibes.com/event/toronto")).css("article.event")
+
+  end
+
   def activitymap(activity)
   	#might want to map all of the events for the category? not just art or cinema. but all of them,
   	#and feeling allows better choice. Probably
@@ -390,6 +391,13 @@ def result(data, udist,activity)
   				third[thirdn]=score
   			end
   		end
+		end
+
+		if thirdn==""
+			third["No 3rd place"]=0
+		end
+		if secondn==""
+			second["No 2nd place"]=0
 		end
 	@result=[first,second,third]
 	return @result, @scores	

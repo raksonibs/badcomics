@@ -13,6 +13,8 @@
 	-need to have when time not listed to be "time not availble" same with price not available
 -need to do strong params/hide keys, facebook authenticate, lightbox, make algorthim work
 
+-getting tech geek events
+
 -delayjob/chron job
 -bank of categories and feelings. six randomly chosen to be displayed
 	*Feelings: Happy, sad, lonely, excited, bored, lazy, celebratory, Romantic, Isolated, Merry, Restless
