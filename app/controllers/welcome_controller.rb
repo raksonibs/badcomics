@@ -46,72 +46,120 @@ class WelcomeController < ApplicationController
   			@data=nowmagazine
   end
 =end
-  
+  def activitymap(activity)
+  	if activity=="Learn"
+  		activity=["Talk", "Reading", "Museum", "Art"][((rand()*4)-1).ceil]
+  	elsif activity=="Trying New Things"
+  		activity="Misc."
+  	elsif activity=="Be Merry"
+  		activity="Seasonal"
+  	elsif activity=="Hangout with Strangers"
+  		activity=["Hang Out", "Misc."][((rand()*2)-1).ceil]
+  	elsif activity=="Laugh"
+  		activity="Comedy"
+  	elsif activity=="Be a Tourist"
+  		activity=["Gallery", "Cinema", "Theatre", "Museum", "Art", "Attraction", "Featured Park", "Garden / Conservatory"][((rand()*8)-1).ceil]
+  	elsif activity=="Outdoor Fun"
+  		activity=["Featured Park", "Garden / Conservatory"][((rand()*2)-1).ceil]
+  	elsif activity=="Jam Out"
+  		activity="Music"
+  	elsif activity=="Be a Good Person"
+  		activity="Charity"
+  	elsif activity=="Party Hardy"
+  		activity="Party"
+  	elsif activity=="Spend Spend Spend"
+  		activity="Shopping"
+  	elsif activity=="Family Channel"
+  		activity="Family"
+  	elsif activity=="Sporting Around"
+  		activity="Sport"
+  	elsif activity=="Watch a Show"
+  		activity=["Comedy", "Theatre"][((rand()*2)-1).ceil]
+  	end
+
+
+  end
   def algorthim
   	#/result/happy/art/20
   	udist=["43.6426, 79.3871"] #cannot hardcode location and time
-  	feeling,activity,money=params[:feeling], params[:activity], params[:money].to_i #also params[geolocation]
+  	feeling,activity,money=params[:choice1], params[:choice2], params[:choice3] #also params[geolocation]
   	timenow=Time.parse("Fri December 6 2013 10:00 AM")
 	#want to make better loop
 	@data=[]
+	if money[/-/]
+		money=money[/-\$\d+/][2..money.length]
+	else
+		money=money[/\$\d+/][1..money.length]
+	end
+	activity=activitymap(activity)
+	
 	Event.all.each do |e|
 		if e.time=="Time not listed" || Time.parse(e.time) > timenow 
-			if e.price =="Free" || e.price=="Price not listed" || e.price <= params[:money]
+			if e.price =="Free" || e.price=="Price not listed" || e.price.to_i <= money.to_i
+
 				if e.category=="Performing Arts"
 					e.category="Comedy"
 					e.save
 				end
+
+				if e.category==nil
+					debugger
+					e.category="Misc."
+					e.save
+				end
+
 				if e.category[/#{activity.capitalize}/]
+					
 					@data << e
 				end
 			end
 		end
 	end
-  	respond_to do |format|
-  		if params[:button]=="rank" || params[:button]!="price"  &&params[:button]!="dist"
 
-		  	@result, @scores=result(@data,udist, activity)
-		  	@keys=[]
+  	respond_to do |format|
+
+	  	@result, @scores=result(@data,udist, activity)
+	  	@keys=[]
+  		@result.each do |val|
+  			@keys<< val.keys
+  		end
+	  	while @keys.flatten.uniq.size!=3
+	  		#catches repititons
+	  		@result, @scores=result(@data, udist, activity)
+	  		@keys=[]
 	  		@result.each do |val|
 	  			@keys<< val.keys
 	  		end
-		  	while @keys.flatten.uniq.size!=3
-		  		#catches repititons
-		  		@result, @scores=result(@data, udist, activity)
-		  		@keys=[]
-		  		@result.each do |val|
-		  			@keys<< val.keys
-		  		end
-		  	end
+	  	end
 
-		  	format.html{@result=@result}
 
-		  	format.js{}
+	  	format.js{}
+	 end
 
-		elsif params[:button]=="price"
-			#only prices under their choice
+	# 	elsif params[:button]=="price"
+	# 		#only prices under their choice
 			
 		
-		elsif params[:button]=="dist"
-			@result, @scores =resultdis(@data,udist,activity)
-			@keys=[]
-	  		@result.each do |val|
-	  			@keys<< val.keys
-	  		end
-		  	while @keys.flatten.uniq.size!=3
-		  		#catches repititons
-		  		@result, @scores=resultdis(@data, udist, activity)
-		  		@keys=[]
-		  		@result.each do |val|
-		  			@keys<< val.keys
-		  		end
-		  	end
+	# 	elsif params[:button]=="dist"
+	# 		@result, @scores =resultdis(@data,udist,activity)
+	# 		@keys=[]
+	#   		@result.each do |val|
+	#   			@keys<< val.keys
+	#   		end
+	# 	  	while @keys.flatten.uniq.size!=3
+	# 	  		#catches repititons
+	# 	  		@result, @scores=resultdis(@data, udist, activity)
+	# 	  		@keys=[]
+	# 	  		@result.each do |val|
+	# 	  			@keys<< val.keys
+	# 	  		end
+	# 	  	end
 
-		  	format.js{render :action=> "dist.js.erb"}
-		end
+	# 	  	format.js{render :action=> "dist.js.erb"}
+	# 	end
 	
-	end
-	@result
+	# end
+	# @result
   end
 
 	def resultdis(data, udist,acitivty)
@@ -263,7 +311,7 @@ end
   		mult=0.8
   	elsif price.to_i <= 30
   		mult=0.7
-  	elsif price <= 40
+  	elsif price.to_i <= 40
   		mult=0.6
   	elsif price.to_i <= 50
   		mult=0.5

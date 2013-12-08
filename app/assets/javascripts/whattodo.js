@@ -23,28 +23,28 @@ $(window).load(function() {
    		$(".categories, .question").fadeOut( function() {
            	$(".categories1, .question2").show().animate({left:"+15", opacity: 1},800);
        	});
-       	e.stopPropogation();
+       	//e.stopPropogation();
    	});
 
 	$(".categories1").on('click', function(e) {
   		$(".categories1, .question2").fadeOut( function() {
   			$(".price, .question3").show().animate({left:"+15", opacity: 1}, 800);
   		});
-  		e.stopPropogation();
+  		//e.stopPropogation();
 	});
 
 	$(".categories1").on("click", function(e) {
   		$(".categories1, .question2").fadeOut( function() {
   			$(".price, .question3").show().animate({left:"+15", opacity: 1},800);
   		});
-  		e.stopPropogation();
+  		//e.stopPropogation();
 	});
 
 	$(".price").on('click', function(e) {
   		$(".price, .question3").fadeOut( function() {
   			$(".output, .question4").show().animate({left:"+15", opacity: 1}, 800);
   		});
-  		e.stopPropogation();
+  		//e.stopPropogation();
 	});
 
 	$(".categorybox").on('click', function() {
@@ -54,16 +54,17 @@ $(window).load(function() {
   $(".categorybox1").on('click', function() {
     choice2=$(this).text()
   });
-
+//result/happy/art/20
   $(".categorybox2").on('click', function() {
     choice3=$(this).text()
     $.ajax({
-          url: "/whattodo",
+          url: "/result/"+choice1+"/"+choice2+"/"+choice3,
           type: "GET",
           dataType: "script",
           data: { choice1: choice1,
                   choice2: choice2,
                   choice3: choice3 }
+          
         })
   });
 
