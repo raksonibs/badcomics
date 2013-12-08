@@ -47,8 +47,10 @@ class WelcomeController < ApplicationController
   end
 =end
   def activitymap(activity)
+  	#might want to map all of the events for the category? not just art or cinema. but all of them,
+  	#and feeling allows better choice. Probably
   	if activity=="Learn"
-  		activity=["Talk", "Reading", "Museum", "Art"][((rand()*4)-1).ceil]
+  		activity=["Reading", "Museum", "Art"][((rand()*4)-1).ceil]
   	elsif activity=="Trying New Things"
   		activity="Misc."
   	elsif activity=="Be Merry"
@@ -75,6 +77,8 @@ class WelcomeController < ApplicationController
   		activity="Sport"
   	elsif activity=="Watch a Show"
   		activity=["Comedy", "Theatre"][((rand()*2)-1).ceil]
+  	elsif activity=="Get Cultured"
+  		activity=["Art", "Gallery", "Museum", "Cinema", "Theatre"][((rand()*5)-1).ceil]
   	end
 
 
@@ -88,8 +92,10 @@ class WelcomeController < ApplicationController
 	@data=[]
 	if money[/-/]
 		money=money[/-\$\d+/][2..money.length]
-	else
+	elsif money[/\d+/]
 		money=money[/\$\d+/][1..money.length]
+	else
+		money=0
 	end
 	activity=activitymap(activity)
 	
@@ -103,12 +109,12 @@ class WelcomeController < ApplicationController
 				end
 
 				if e.category==nil
-					debugger
+					
 					e.category="Misc."
 					e.save
 				end
 
-				if e.category[/#{activity.capitalize}/]
+				if (activity=="Garden / Conservatory" && e.category[/#{activity}/] ) || (activity=="Hang Out" && e.category[/#{activity}/] ) || (activity=="Featured Park" && e.category[/#{activity}/] )|| e.category[/#{activity.capitalize}/]
 					
 					@data << e
 				end
@@ -123,17 +129,22 @@ class WelcomeController < ApplicationController
   		@result.each do |val|
   			@keys<< val.keys
   		end
-	  	while @keys.flatten.uniq.size!=3
-	  		#catches repititons
-	  		@result, @scores=result(@data, udist, activity)
-	  		@keys=[]
-	  		@result.each do |val|
-	  			@keys<< val.keys
-	  		end
-	  	end
+  		
+  		if @keys.flatten==3
+		  	while @keys.flatten.uniq.size!=3
+		  		#catches repititons
+		  		@result, @scores=result(@data, udist, activity)
+		  		@keys=[]
+		  		@result.each do |val|
+		  			@keys<< val.keys
+		  		end
+		  	end
+		else 
+			@result=@result
+		end
 
 
-	  	format.js{}
+	  	format.js{ render partial: "ranks", :locals=> { result: @result } }
 	 end
 
 	# 	elsif params[:button]=="price"
@@ -216,7 +227,14 @@ class WelcomeController < ApplicationController
 	  			end
 	  		end
 		end
+		if thirdn==""
+			third["No 3rd place"]=0
+		end
+		if secondn==""
+			second["No 2nd place"]=0
+		end
 		@result=[first,second,third]
+
 		return @result, @scores	
 
 
@@ -465,7 +483,7 @@ end
   			info[val.xpath("//entrydata[@name='EventName']")[count].text]<< val.xpath("//entrydata[@name='Location']")[count].text
   			value=val.xpath("//entrydata[@name='CategoryList']")[count].text
   			if value[/talk/i] || value[/symposium/i] || value[/screening/i] || value[/lecture/i] || value[/speak/i] || value[/dicuss/i]
-	  			category="Talk"
+	  			category="Reading"
 	  		end
 	  		if value[/music/i]
 	  			category = category==nil ? "Music" : category+"/Music"
