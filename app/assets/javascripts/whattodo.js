@@ -68,8 +68,8 @@ $(window).load(function() {
                   choice2: choice2,
                   choice3: choice3 },
           complete: function(result){
-            rank=result.responseText
-            console.log(result).responseText
+            rank=result.responseText.substr(20,(result.responseText.length)-3)
+            
           }
           
         })
@@ -85,7 +85,7 @@ $(window).load(function() {
                   choice3: choice3,
                   button: "dist" },
           complete: function(result){
-            dist=result.responseText
+            dist=result.responseText.substr(20,(result.responseText.length)-15)
 
           
         }
@@ -110,7 +110,7 @@ $(window).load(function() {
                   choice3: choice3,
                   button: "price" },
            complete: function(result){
-            price=result.responseText
+            price=result.responseText.substr(20,(result.responseText.length)-10)
           }
         })
     }else {
