@@ -50,19 +50,19 @@ class WelcomeController < ApplicationController
   	#might want to map all of the events for the category? not just art or cinema. but all of them,
   	#and feeling allows better choice. Probably
   	if activity=="Learn"
-  		activity=["Reading", "Museum", "Art"][((rand()*4)-1).ceil]
+  		activity=["Reading", "Museum", "Art"]#[((rand()*4)-1).ceil]
   	elsif activity=="Trying New Things"
   		activity="Misc."
   	elsif activity=="Be Merry"
   		activity="Seasonal"
   	elsif activity=="Hangout with Strangers"
-  		activity=["Hang Out", "Misc."][((rand()*2)-1).ceil]
+  		activity=["Hang Out", "Misc."]#[((rand()*2)-1).ceil]
   	elsif activity=="Laugh"
   		activity="Comedy"
   	elsif activity=="Be a Tourist"
-  		activity=["Gallery", "Cinema", "Theatre", "Museum", "Art", "Attraction", "Featured Park", "Garden / Conservatory"][((rand()*8)-1).ceil]
+  		activity=["Gallery", "Cinema", "Theatre", "Museum", "Art", "Attraction", "Featured Park", "Garden / Conservatory"]#[((rand()*8)-1).ceil]
   	elsif activity=="Outdoor Fun"
-  		activity=["Featured Park", "Garden / Conservatory"][((rand()*2)-1).ceil]
+  		activity=["Featured Park", "Garden / Conservatory"]#[((rand()*2)-1).ceil]
   	elsif activity=="Jam Out"
   		activity="Music"
   	elsif activity=="Be a Good Person"
@@ -76,9 +76,9 @@ class WelcomeController < ApplicationController
   	elsif activity=="Sporting Around"
   		activity="Sport"
   	elsif activity=="Watch a Show"
-  		activity=["Comedy", "Theatre"][((rand()*2)-1).ceil]
+  		activity=["Comedy", "Theatre", "Cinema", "Music"]#[((rand()*2)-1).ceil]
   	elsif activity=="Get Cultured"
-  		activity=["Art", "Gallery", "Museum", "Cinema", "Theatre"][((rand()*5)-1).ceil]
+  		activity=["Art", "Gallery", "Museum", "Cinema", "Theatre"]#[((rand()*5)-1).ceil]
   	end
 
 
@@ -113,23 +113,33 @@ class WelcomeController < ApplicationController
 					e.category="Misc."
 					e.save
 				end
-
-				if (activity=="Garden / Conservatory" && e.category[/#{activity}/] ) || (activity=="Hang Out" && e.category[/#{activity}/] ) || (activity=="Featured Park" && e.category[/#{activity}/] )|| e.category[/#{activity.capitalize}/]
+				if e.category.count("/")==0
+					if activity.include?(e.category)
+				#if (activity=="Garden / Conservatory" && e.category[/#{activity}/] ) || (activity=="Hang Out" && e.category[/#{activity}/] ) || (activity=="Featured Park" && e.category[/#{activity}/] )|| e.category[/#{activity.capitalize}/]
 					
-					@data << e
+						@data << e
+					end
+				else
+					e.category.split("/").each do |cat|
+						if activity.include?(cat)
+							@data<<e unless @data.include?(e)
+						end
+					end
 				end
+				
 			end
 		end
 	end
-
+	
   	respond_to do |format|
-	  	if params[:button]=="rank" || params[:button]!="distance" && params[:button]!="price"
+  		
+	  	if params[:button]=="rank" || (params[:button]!="dist" && params[:button]!="price")
 		  	@result, @scores=result(@data,udist, activity)
 		  	@keys=[]
 	  		@result.each do |val|
 	  			@keys<< val.keys
 	  		end
-	  	debugger
+
 	  	if (@keys.size>=3)
 		  	while @keys.flatten.uniq.size!=3
 		  		#catches repititons
@@ -142,7 +152,7 @@ class WelcomeController < ApplicationController
 		 else
 		 	@result=@result
 		 end
-			
+		
 
 
 		  	format.js{ render :action => "/algorthim.js.erb" }
@@ -154,6 +164,8 @@ class WelcomeController < ApplicationController
 			
 		
 		elsif params[:button]=="dist"
+			
+
 	 		@result, @scores =resultdis(@data,udist,activity)
 	 		@keys=[]
 	   		@result.each do |val|
@@ -236,8 +248,9 @@ class WelcomeController < ApplicationController
 		if secondn==""
 			second["No 2nd place"]=0
 		end
-		@result=[first,second,third]
 
+		@result=[first,second,third]
+		
 		return @result, @scores	
 
 
@@ -308,6 +321,7 @@ end
 
   	if time=="Time not listed"
   		mult=rand()
+  		mult=mult<=0.23 ? mult : mult-0.22
   	else
   		mult=1
   	end
@@ -325,6 +339,7 @@ end
   	elsif price=="Price not listed"
 
   		mult=rand()
+  		mult=mult<=0.23 ? mult : mult-0.22
   		
   	elsif price.to_i <= 10
   		mult=0.9
@@ -391,19 +406,19 @@ end
   	category=val.category.count("/")
   	mult=0
   	if category==0
-  		mult= (/#{activity.capitalize}/).match(val.category) ? 1 : 0.5
+  		mult= 1
   	elsif category==1
-  		mult= (/#{activity.capitalize}/).match(val.category) ? 0.8 : 0.4
+  		mult= 0.9
   	elsif category==2
-  		mult= (/#{activity.capitalize}/).match(val.category) ? 0.6 : 0.3
+  		mult= 0.8
   	elsif category==3
-  		mult= (/#{activity.capitalize}/).match(val.category) ? 0.4 : 0.2
+  		mult= 0.7
   	elsif category==4
-  		mult= (/#{activity.capitalize}/).match(val.category) ? 0.2 : 0.1
+  		mult= 0.6
   	elsif category>=5
-  		mult= (/#{activity.capitalize}/).match(val.category) ? 0.1 : 0.05
+  		mult= 0.5
   	else
-  		mult=0
+  		mult=0.4
   	end
   	score=mult*33.3333
 
