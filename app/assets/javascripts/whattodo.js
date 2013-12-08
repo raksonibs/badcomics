@@ -57,16 +57,25 @@ $(window).load(function() {
 //result/happy/art/20
   $(".categorybox2").one('click', function() {
     choice3=$(this).text()
+    var rank;
+    var dist=null;
+    var price=null;
     $.ajax({
           url: "/result/"+choice1+"/"+choice2+"/"+choice3,
           type: "GET",
           dataType: "script",
           data: { choice1: choice1,
                   choice2: choice2,
-                  choice3: choice3 }
+                  choice3: choice3 },
+          complete: function(result){
+            rank=result.responseText
+            console.log(result).responseText
+          }
           
         })
+    
     $("#dist").on("click", function() {
+      if (dist===null) {
       $.ajax({
           url: "/result/"+choice1+"/"+choice2+"/"+choice3,
           type: "GET",
@@ -74,35 +83,24 @@ $(window).load(function() {
           data: { choice1: choice1,
                   choice2: choice2,
                   choice3: choice3,
-                  button: "dist" }
+                  button: "dist" },
+          complete: function(result){
+            dist=result.responseText
+
           
-        })
-    })
-    $("#dist").on("click", function() {
-      $.ajax({
-          url: "/result/"+choice1+"/"+choice2+"/"+choice3,
-          type: "GET",
-          dataType: "script",
-          data: { choice1: choice1,
-                  choice2: choice2,
-                  choice3: choice3,
-                  button: "dist" }
-          
-        })
+        }
+      })
+    } else {
+      $(".output").html(dist)
+    }
+    
     })
     $("#rank").on("click", function() {
-      $.ajax({
-          url: "/result/"+choice1+"/"+choice2+"/"+choice3,
-          type: "GET",
-          dataType: "script",
-          data: { choice1: choice1,
-                  choice2: choice2,
-                  choice3: choice3,
-                  button: "dist" }
-          
-        })
+      $(".output").html(rank)
     })
+    
     $("#price").on("click", function() {
+      if (price===null) {
       $.ajax({
           url: "/result/"+choice1+"/"+choice2+"/"+choice3,
           type: "GET",
@@ -110,10 +108,16 @@ $(window).load(function() {
           data: { choice1: choice1,
                   choice2: choice2,
                   choice3: choice3,
-                  button: "dist" }
-          
+                  button: "price" },
+           complete: function(result){
+            price=result.responseText
+          }
         })
+    }else {
+      $(".output").html(price)
+    }
     })
   });
 
 });
+

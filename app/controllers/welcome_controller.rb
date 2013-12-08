@@ -159,8 +159,24 @@ class WelcomeController < ApplicationController
 		
 	
 
-	# 	elsif params[:button]=="price"
-	# 		#only prices under their choice
+		elsif params[:button]=="price"
+	 		#only prices under their choice
+	 		@result, @scores =resultprice(@data,udist,activity)
+	 		@keys=[]
+	   		@result.each do |val|
+	   			@keys<< val.keys
+	   		end
+	 	  	while @keys.flatten.uniq.size!=3
+	 	  		#catches repititons
+	 	  		@result, @scores=resultdis(@data, udist, activity)
+	 	  		@keys=[]
+		  		@result.each do |val|
+		  			@keys<< val.keys
+		  		end
+		  	end
+
+	 	  	format.js{ render :action => "/algorthim.js.erb" }
+	 	
 			
 		
 		elsif params[:button]=="dist"
@@ -199,6 +215,74 @@ class WelcomeController < ApplicationController
 	  	@scores=[]
 	  	data.each_with_index do |val,i|
 	  		score=score(0, calculatedistance(val,udist, true), 0, 0)
+	  		@scores << {score=>val.name}
+	  		if i==0
+	  			firstn=val.name
+	  			first[val.name]=score
+	  		else
+	  			#should do recursive
+	  			if score> first[firstn]
+	  				if secondn==""
+	  					secondn=firstn
+	  					second[secondn]=first[firstn]
+	  					first.delete(firstn)
+	  					firstn=val.name
+	  					first[firstn]=score
+	  				else
+	  					third.delete(thirdn) if thirdn!="" #if second exists, delete third
+	  					thirdn=secondn
+	  					third[thirdn]=second[secondn]
+	  					second.delete(secondn)
+	  					secondn=firstn
+	  					second[secondn]=first[firstn]
+	  					first.delete(firstn)
+	  					firstn=val.name
+	  					first[firstn]=score
+	  				end
+	  			elsif secondn=="" || score>second[secondn] 
+	  				if secondn==""
+	  					secondn=val.name
+	  					second[secondn]=score
+	  				else
+	  					third.delete(thirdn) if thirdn!="" #if second exists, delete third
+	  					thirdn=secondn
+	  					third[thirdn]=second[secondn]
+	  					second.delete(secondn)
+	  					secondn=val.name
+	  					second[secondn]=score	
+	  				end
+	  			elsif thirdn=="" || score>third[thirdn]
+	  				third.delete(thirdn) if thirdn!="" #if second exists, delete third
+	  				thirdn=secondn
+	  				third[thirdn]=score
+	  			end
+	  		end
+		end
+		if thirdn==""
+			third["No 3rd place"]=0
+		end
+		if secondn==""
+			second["No 2nd place"]=0
+		end
+
+		@result=[first,second,third]
+		
+		return @result, @scores	
+
+
+	end
+
+	def resultprice(data, udist,acitivty)
+	#right now doing closest
+		first={}
+	  	firstn=""
+	  	second={}
+	  	secondn=""
+	  	third={}
+	  	thirdn=""
+	  	@scores=[]
+	  	data.each_with_index do |val,i|
+	  		score=score(calculateprice(val,true), 0, 0, 0)
 	  		@scores << {score=>val.name}
 	  		if i==0
 	  			firstn=val.name
@@ -330,7 +414,7 @@ end
 
   end
 
-  def calculateprice(val)
+  def calculateprice(val, full=false)
   	price=val.price
   	mult=0
   	
@@ -363,7 +447,11 @@ end
 
   		mult=rand()
   	end
-  	score=mult*25
+  	if full
+  		score=mult*100
+  	else
+  		score=mult*25
+  	end
 
 
   end
