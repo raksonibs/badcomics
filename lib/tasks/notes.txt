@@ -16,6 +16,7 @@
 ------
 -getting tech geek events
 -dist geocoded incorrectly. need to add toronto ON to each address. but events already made so have to do later
+-more events, cronjob, responsive design, make mobile app. get links for each place, price ascnding, descedning, distance ascending, descending, ranks first three last three, then show our results (all of them), machine learning with feeling.
 ------
 
 -delayjob/chron job
