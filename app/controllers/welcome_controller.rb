@@ -36,7 +36,7 @@ class WelcomeController < ApplicationController
   def index
   	#need to formalize times and prices
   	
-  	#@data=makeevents
+  	@data=cityhall
   end
 
   def activitymap(activity)

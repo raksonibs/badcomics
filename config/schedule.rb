@@ -19,6 +19,4 @@
 
 # Learn more: http://github.com/javan/whenever
 
-every :day, :at=> "3:00pm" do
-	runner "Event.makeevents"
-end
+
