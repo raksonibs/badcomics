@@ -1,1 +1,15 @@
-<%= @result%>
+
+<% unless @result==nil %>
+	<div class="result">
+		<% @result.map do |name| %>
+			<%= name.map do |eventname, score| %>
+				<div class="name">
+					<%="Go to #{eventname} @ #{Event.find_by_name(eventname).location}" %>
+				<div>
+			<% end %>
+		<% end %>
+	</div>
+		
+<% end %>
+
+

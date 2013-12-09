@@ -150,8 +150,7 @@ class WelcomeController < ApplicationController
 		 	@result=@result
 		 end
 		
-		 
-
+			
 		  	format.js{ render :action => "/algorthim.js.erb" }
 		
 	
