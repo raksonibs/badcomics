@@ -134,7 +134,8 @@ class WelcomeController < ApplicationController
 	  		@result.each do |val|
 	  			@keys<< val.keys
 	  		end
-
+	  		
+	  		
 	  	if (@keys.flatten.size>=3)
 		  	while @keys.flatten.uniq.size!=3
 		  		#catches repititons
@@ -259,6 +260,8 @@ class WelcomeController < ApplicationController
 		if secondn==""
 			second["No 2nd place"]=0
 		end
+		
+		
 
 		@result=[first,second,third]
 		
@@ -428,23 +431,23 @@ end
   		mult=mult<=0.23 ? mult : mult-0.22
   		
   	elsif price.to_i <= 10
-  		mult=0.9
+  		mult=0.9-(rand()/4.0)
   	elsif price.to_i <=20
-  		mult=0.8
+  		mult=0.8-(rand()/4.0)
   	elsif price.to_i <= 30
-  		mult=0.7
+  		mult=0.7-(rand()/4.0)
   	elsif price.to_i <= 40
-  		mult=0.6
+  		mult=0.6-(rand()/4.0)
   	elsif price.to_i <= 50
-  		mult=0.5
+  		mult=0.5-(rand()/4.0)
   	elsif price.to_i <= 75
-  		mult=0.4
+  		mult=0.4-(rand()/4.0)
   	elsif price.to_i <= 100
-  		mult=0.3
+  		mult=0.3-(rand()/4.0)
   	elsif price.to_i <= 150
-  		mult=0.2
+  		mult=0.2-(rand()/4.0)
   	elsif price.to_i <= 200
-  		mult=0.1
+  		mult=0.1-(rand()/4.0)
   	else
 
   		mult=rand()
@@ -467,17 +470,17 @@ end
 
   		mult=0
 	  	if distance<=1
-	  		mult=1-rand()
+	  		mult=1-(rand()/4.0)
 	  	elsif distance>1 && distance<=3
-	  		mult=0.80-rand()
+	  		mult=0.80-(rand()/4.0)
 	  	elsif distance>3 && distance<=6
-	  		mult=0.6-rand()
+	  		mult=0.6-(rand()/4.0)
 	  	elsif distance>6 && distance<=10
-	  		mult=0.4-rand()
+	  		mult=0.4-(rand()/4.0)
 	  	elsif distance>10 && distance<=15
-	  		mult=0.2-rand()
+	  		mult=0.2-(rand()/4.0)
 	  	elsif distance>15 && distance<=25
-	  		mult=0.1-rand()
+	  		mult=0.1-(rand()/4.0)
 	  	else
 	  		mult=0
 	  	end
@@ -486,8 +489,10 @@ end
 	 	mult=mult<=0.23 ? mult : mult-0.22
 	 end
 	 if full
-	 	debugger
+	 	
+
 	 	score=mult*100
+
 	 else
   		score=mult*25
   	end
