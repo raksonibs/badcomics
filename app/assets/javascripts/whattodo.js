@@ -1,4 +1,3 @@
-
 $(window).load(function() {
   
 	// Top nav slide down on load.
@@ -17,7 +16,7 @@ $(window).load(function() {
 	// This is where 6 new boxes need to be brought in.
 	// Need to stop massive delay!! Maybe roll back to old version?
 
-	$(".categories1, .price, .output, .question2, .question3, .question4").hide().animate({ opacity: 0 });
+	$(".categories1, .price, .output, .question2, .question3, .question4, .output1").hide().animate({ opacity: 0 });
 	
 	$(".categories").one('click', function(e) {
    		$(".categories, .question").fadeOut( function() {
@@ -42,7 +41,7 @@ $(window).load(function() {
 
 	$(".price").one('click', function(e) {
   		$(".price, .question3").fadeOut( function() {
-  			$(".output, .question4").show().animate({left:"+15", opacity: 1}, 800);
+  			$(".output, .question4, .output1").show().animate({left:"+15", opacity: 1}, 800);
   		});
   		//e.stopPropogation();
 	});
@@ -60,6 +59,9 @@ $(window).load(function() {
     var rank;
     var dist=null;
     var price=null;
+    var rankbot=null;
+    var distbot=null;
+    var pricebot=null;
     $.ajax({
           url: "/result/"+choice1+"/"+choice2+"/"+choice3,
           type: "GET",
@@ -74,7 +76,7 @@ $(window).load(function() {
           
         })
     
-    $("#dist").on("click", function() {
+    $("#disttop").on("click", function() {
       if (dist===null) {
       $.ajax({
           url: "/result/"+choice1+"/"+choice2+"/"+choice3,
@@ -93,13 +95,54 @@ $(window).load(function() {
     } else {
       $(".output").html(dist)
     }
+  })
+    $("#distbot").on("click", function() {
+      if (distbot===null) {
+      $.ajax({
+          url: "/result/"+choice1+"/"+choice2+"/"+choice3,
+          type: "GET",
+          dataType: "script",
+          data: { choice1: choice1,
+                  choice2: choice2,
+                  choice3: choice3,
+                  button: "distbot" },
+          complete: function(result){
+            distbot=result.responseText.substr(20,(result.responseText.length)-15)
+
+          
+        }
+      })
+    } else {
+      $(".output").html(distbot)
+    }
     
     })
-    $("#rank").on("click", function() {
+    $("#rankbot").on("click", function() {
+      if (rank===null) {
+      $.ajax({
+          url: "/result/"+choice1+"/"+choice2+"/"+choice3,
+          type: "GET",
+          dataType: "script",
+          data: { choice1: choice1,
+                  choice2: choice2,
+                  choice3: choice3,
+                  button: "rankbot" },
+          complete: function(result){
+            rankbot=result.responseText.substr(20,(result.responseText.length)-15)
+
+          
+        }
+      })
+    } else {
+      $(".output").html(rankbot)
+    }
+    
+    })
+    $("#ranktop").on("click", function() {
       $(".output").html(rank)
     })
     
-    $("#price").on("click", function() {
+    $("#price1top").on("click", function() {
       if (price===null) {
       $.ajax({
           url: "/result/"+choice1+"/"+choice2+"/"+choice3,
@@ -115,6 +158,26 @@ $(window).load(function() {
         })
     }else {
       $(".output").html(price)
+    }
+    })
+
+     $("#price1bot").on("click", function() {
+      if (pricebot===null) {
+      
+      $.ajax({
+          url: "/result/"+choice1+"/"+choice2+"/"+choice3,
+          type: "GET",
+          dataType: "script",
+          data: { choice1: choice1,
+                  choice2: choice2,
+                  choice3: choice3,
+                  button: "pricebot" },
+           complete: function(result){
+            pricebot=result.responseText.substr(20,(result.responseText.length)-10)
+          }
+        })
+    }else {
+      $(".output").html(pricebot)
     }
     })
   });

@@ -68,7 +68,7 @@ class WelcomeController < ApplicationController
   		activity="Family"
   	elsif activity=="Sporting Around"
   		activity="Sport"
-  	elsif activity=="Geek Out"
+  	elsif activity=="Geeking Out"
   		activity=["Tech", "Reading"]
   	elsif activity=="Watch a Show"
   		activity=["Comedy", "Theatre", "Cinema", "Music"]#[((rand()*2)-1).ceil]
@@ -109,6 +109,7 @@ class WelcomeController < ApplicationController
 					e.save
 				end
 				if e.category.count("/")==0
+					
 					if activity.include?(e.category)
 				#if (activity=="Garden / Conservatory" && e.category[/#{activity}/] ) || (activity=="Hang Out" && e.category[/#{activity}/] ) || (activity=="Featured Park" && e.category[/#{activity}/] )|| e.category[/#{activity.capitalize}/]
 					
@@ -135,7 +136,7 @@ class WelcomeController < ApplicationController
 	  			@keys<< val.keys
 	  		end
 	  		
-	  		
+
 	  	if (@keys.flatten.size>=3)
 		  	while @keys.flatten.uniq.size!=3
 		  		#catches repititons
@@ -260,6 +261,9 @@ class WelcomeController < ApplicationController
 		if secondn==""
 			second["No 2nd place"]=0
 		end
+		if firstn==""
+			first["No 1st place"]=0
+		end
 		
 		
 
@@ -330,6 +334,9 @@ class WelcomeController < ApplicationController
 		if secondn==""
 			second["No 2nd place"]=0
 		end
+		if firstn==""
+			first["No 1st place"]=0
+		end
 
 		@result=[first,second,third]
 		
@@ -397,6 +404,9 @@ def result(data, udist,activity)
 		end
 		if secondn==""
 			second["No 2nd place"]=0
+		end
+		if firstn==""
+			first["No 1st place"]=0
 		end
 	@result=[first,second,third]
 	return @result, @scores	
@@ -469,20 +479,22 @@ end
   		distance=val.distance_to([43.6426, -79.3871]) #hardcoded
 
   		mult=0
-	  	if distance<=1
+	  	if distance<=0.5
 	  		mult=1
-	  	elsif distance>1 && distance<=3
-	  		mult=0.80
-	  	elsif distance>3 && distance<=6
+	  	elsif distance>0.5 && distance<=1.5
+	  		mult=0.9
+	  	elsif distance>1.5 && distance<=3
+	  		mult=0.8
+	  	elsif distance>3 && distance<=4.5
+	  		mult=0.7
+	  	elsif distance>4.5 && distance<=6
 	  		mult=0.6
-	  	elsif distance>6 && distance<=10
+	  	elsif distance>6 && distance<=7.5
+	  		mult=0.5
+	  	elsif distance>7.5 && distance<=15
 	  		mult=0.4
-	  	elsif distance>10 && distance<=15
-	  		mult=0.2
-	  	elsif distance>15 && distance<=25
-	  		mult=0.1
 	  	else
-	  		mult=0
+	  		mult=0.3
 	  	end
 	 else
 	 	mult=rand()
