@@ -33,11 +33,12 @@ class Event < ActiveRecord::Base
   	justshows,
   	clubcrawlers,
   	meetup,
-  	roo
+  	roo,
+  	startupdigest
   	]
   	#parks,
   	#eventful,
-  	#xlsattraction,
+  	#unqiuefinds
   	#facebook
   end
 
@@ -117,6 +118,39 @@ class Event < ActiveRecord::Base
   		count+=1
   	end
   	info
+  end
+
+  def startupdigest
+  	#wish had times
+  	#Tue Dec 17, 2013 6:30pm to Tue Dec 17, 2013 8:30pm 
+  	#each data name=>[time, price, location, category]
+  	@data=Nokogiri::XML(open("https://www.google.com/calendar/feeds/startupdigest.com_ladfoeq440djsjmb5ila0nphss%40group.calendar.google.com/public/basic")).css("title[@type='html']").zip(Nokogiri::XML(open("https://www.google.com/calendar/feeds/startupdigest.com_ladfoeq440djsjmb5ila0nphss%40group.calendar.google.com/public/basic")).css("summary[@type='html']").zip(Nokogiri::XML(open("https://www.google.com/calendar/feeds/startupdigest.com_ladfoeq440djsjmb5ila0nphss%40group.calendar.google.com/public/basic")).css("content[@type='html']")))
+  	info={}
+  	@data.each do |val|
+  		date=Date.today.strftime("%B %01d, %Y")
+  		date=Date.today.strftime("%a %b %01d, %Y")
+  		date=Time.parse("Mon Dec 9 2013 6:30pm").strftime("%a %01d %b %Y")
+  		
+  		#val[1][0].text[/([A-Z][a-z]+\s\d+\s[A-Z][a-z]+\s\d+)+/]
+  		if val[1][0].text[/#{date}/]
+  			
+  			info[val[0].text]=[Time.parse(val[1][0].text[/\d+:\d+/]).strftime("%I:%M %p")]
+  			
+  			if val[1][1].text[/Price/]
+  				info[val[0].text]<<val[1][1].text[/Free/] if val[1][1].text[/Free/]
+  				info[val[0].text]<<val[1][1].text[/Price:?\$?\s?\$?\d+/][/\d+/] if val[1][1].text[/Price:?\$?\s?\$?\d+/]
+  				
+
+  			else
+  				info[val[0].text]<<"Price not listed"
+  			end
+
+  			 info[val[0].text]<<val[1][0].text[/Where.*to/] 
+  			 info[val[0].text]<<"Tech"
+  		end
+  	end
+  	@data=info
+
   end
 
   def nowmagazine

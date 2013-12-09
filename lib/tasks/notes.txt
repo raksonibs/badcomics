@@ -13,7 +13,10 @@
 	-need to have when time not listed to be "time not availble" same with price not available
 -need to do strong params/hide keys, facebook authenticate, lightbox, make algorthim work
 
+------
 -getting tech geek events
+-dist geocoded incorrectly. need to add toronto ON to each address. but events already made so have to do later
+------
 
 -delayjob/chron job
 -bank of categories and feelings. six randomly chosen to be displayed

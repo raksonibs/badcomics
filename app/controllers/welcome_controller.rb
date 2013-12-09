@@ -36,13 +36,7 @@ class WelcomeController < ApplicationController
   def index
   	#need to formalize times and prices
   	
-  	@data=techvibes
-  end
-
-  def techvibes
-  	#wish had times
-  	data=Nokogiri::HTML(open("http://www.techvibes.com/event/toronto")).css("article.event")
-
+  	@data=startupdigest
   end
 
   def activitymap(activity)
@@ -74,6 +68,8 @@ class WelcomeController < ApplicationController
   		activity="Family"
   	elsif activity=="Sporting Around"
   		activity="Sport"
+  	elsif activity=="Geek Out"
+  		activity=["Tech", "Reading"]
   	elsif activity=="Watch a Show"
   		activity=["Comedy", "Theatre", "Cinema", "Music"]#[((rand()*2)-1).ceil]
   	elsif activity=="Get Cultured"
@@ -490,6 +486,7 @@ end
 	 	mult=mult<=0.23 ? mult : mult-0.22
 	 end
 	 if full
+	 	debugger
 	 	score=mult*100
 	 else
   		score=mult*25
