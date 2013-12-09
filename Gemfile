@@ -56,4 +56,6 @@ gem 'debugger', group: [:development, :test]
 
 gem "nokogiri"
 
+gem 'sidekiq'
+
 

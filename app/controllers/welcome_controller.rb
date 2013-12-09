@@ -7,36 +7,11 @@ require 'nokogiri'
 #mirvish toronto
 #foursquare
 class WelcomeController < ApplicationController
-	@@called={Date.today.strftime("%B %01d, %Y")=>false}
-	#doesn't work when close browser. need to do the script thing
-	@@result=nil
-=begin
-	def index
-  	#makeevents unless @@called[Date.today.strftime("%B %01d, %Y")]
-  	respond_to do |format|
-  		
-  		if params[:button]=="Lazy"
-  			
-  			
-  			@data=Event.near([params[:latitude],params[:longitude]],1, :units => :km)
-
-  			format.js{}
-  		else
-  			@@result=request.location
-  			@cat=[]
-  			Event.all.each_with_index do |e,i|
-  				@cat<<e.category if !(@cat.include?(e.category))
-  				
-  			end
-  			format.html{ @data=Event.all }
-  		end
-  	end
-  end
-=end
+	
   def index
   	#need to formalize times and prices
   	
-  	@data=cityhall
+  	#@data=cityhall
   end
 
   def activitymap(activity)
@@ -127,6 +102,7 @@ class WelcomeController < ApplicationController
 		end
 	end
 	
+	
   	respond_to do |format|
   		
 	  	if params[:button]=="rank" || (params[:button]!="dist" && params[:button]!="price" && params[:button]!="pricebot" && params[:button]!="rankbot" && params[:button]!="distbot")
@@ -151,7 +127,7 @@ class WelcomeController < ApplicationController
 		 end
 		
 		 
-
+		 	debugger
 		  	format.js{ render :action => "/algorthim.js.erb" }
 		
 	
@@ -497,9 +473,9 @@ end
   		mult=rand()
   	end
   	if full
-  		score=(mult*100)-rand()
+  		score=(mult*100)-(rand()*5)
   	else
-  		score=(mult*25)-rand()
+  		score=(mult*25)-(rand()*5)
   	end
 
 
