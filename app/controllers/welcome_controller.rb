@@ -129,7 +129,7 @@ class WelcomeController < ApplicationController
 	
   	respond_to do |format|
   		
-	  	if params[:button]=="rank" || (params[:button]!="dist" && params[:button]!="price")
+	  	if params[:button]=="rank" || (params[:button]!="dist" && params[:button]!="price" && params[:button]!="pricebot" && params[:button]!="rankbot" && params[:button]!="distbot")
 		  	@result, @scores=result(@data,udist, activity)
 		  	@keys=[]
 	  		@result.each do |val|
@@ -150,11 +150,46 @@ class WelcomeController < ApplicationController
 		 	@result=@result
 		 end
 		
-
+		 
 
 		  	format.js{ render :action => "/algorthim.js.erb" }
 		
 	
+		elsif params[:button]=="rankbot"
+			
+
+			@result, @scores=result(@data,udist, activity)
+			
+			@result={}
+			reversed=@scores.sort[0..2]
+			(reversed.size).times do |count|
+				
+				@result[reversed[count][1]]=reversed[count][0]
+			end
+			@result
+			format.js{ render :action => "/algorthim.js.erb" }
+		elsif params[:button]=="pricebot"
+			@result, @scores=resultdis(@data,udist,activity)
+			
+			@result={}
+			reversed=@scores.sort[0..2]
+			(reversed.size).times do |count|
+				
+				@result[reversed[count][1]]=reversed[count][0]
+			end
+			@result
+			format.js{ render :action => "/algorthim.js.erb" }
+		elsif params[:button]=="distbot"
+			@result, @scores=resultprice(@data,udist, activity)
+			
+			@result={}
+			reversed=@scores.sort[0..2]
+			(reversed.size).times do |count|
+				
+				@result[reversed[count][1]]=reversed[count][0]
+			end
+			@result
+			format.js{ render :action => "/algorthim.js.erb" }
 
 		elsif params[:button]=="price"
 	 		#only prices under their choice
@@ -209,10 +244,10 @@ class WelcomeController < ApplicationController
 	  	secondn=""
 	  	third={}
 	  	thirdn=""
-	  	@scores=[]
+	  	@scores={}
 	  	data.each_with_index do |val,i|
 	  		score=score(0, calculatedistance(val,udist, true), 0, 0)
-	  		@scores << {score=>val.name}
+	  		@scores[score]=val.name
 	  		if i==0
 	  			firstn=val.name
 	  			first[val.name]=score
@@ -282,10 +317,10 @@ class WelcomeController < ApplicationController
 	  	secondn=""
 	  	third={}
 	  	thirdn=""
-	  	@scores=[]
+	  	@scores={}
 	  	data.each_with_index do |val,i|
 	  		score=score(calculateprice(val,true), 0, 0, 0)
-	  		@scores << {score=>val.name}
+	  		@scores[score]=val.name
 	  		if i==0
 	  			firstn=val.name
 	  			first[val.name]=score
@@ -352,10 +387,10 @@ def result(data, udist,activity)
   	secondn=""
   	third={}
   	thirdn=""
-  	@scores=[]
+  	@scores={}
   	data.each_with_index do |val,i|
   		score=score(calculateprice(val), calculatedistance(val,udist), calculatepurity(val, activity), calculatetime(val))
-  		@scores << {score=>val.name}
+  		@scores[score]=val.name
   		if i==0
   			firstn=val.name
   			first[val.name]=score
@@ -419,8 +454,7 @@ end
 
 
   	if time=="Time not listed"
-  		mult=rand()
-  		mult=mult<=0.23 ? mult : mult-0.22
+  		mult=0.01
   	else
   		mult=1
   	end

@@ -118,7 +118,7 @@ $(window).load(function() {
     
     })
     $("#rankbot").on("click", function() {
-      if (rank===null) {
+      if (rankbot===null) {
       $.ajax({
           url: "/result/"+choice1+"/"+choice2+"/"+choice3,
           type: "GET",
@@ -163,7 +163,7 @@ $(window).load(function() {
 
      $("#price1bot").on("click", function() {
       if (pricebot===null) {
-      
+
       $.ajax({
           url: "/result/"+choice1+"/"+choice2+"/"+choice3,
           type: "GET",
