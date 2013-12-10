@@ -92,8 +92,13 @@ class WelcomeController < ApplicationController
 	end
 	
   	respond_to do |format|
+
+  		if params[:button]=="try"
+  			
+
+  			format.html { redirect_to "/whattodo"}
   		
-	  	if params[:button]=="rank" || (params[:button]!="dist" && params[:button]!="price" && params[:button]!="pricebot" && params[:button]!="rankbot" && params[:button]!="distbot" && params[:button]!="all")
+	  	elsif params[:button]=="rank" || (params[:button]!="dist" && params[:button]!="price" && params[:button]!="pricebot" && params[:button]!="rankbot" && params[:button]!="distbot" && params[:button]!="all" && params[:button]!="try")
 		  	@result, @scores=result(@data,udist, activity)
 		  	keys=makekeys(@result)
 	 		@result= keys.flatten.uniq.size!=3 ? uniquekeys(@result,"rank", @data, udist, activity) : @result
@@ -130,6 +135,7 @@ class WelcomeController < ApplicationController
 
 	 		format.js{ render :action => "/algorthim.js.erb" }
 	 	elsif params[:button]=="all"
+
 	 		@result, @scores=result(@data,udist, activity)
 	 		@result=@scores.sort
 	 		format.js{ render :action => "/all.js.erb" }
