@@ -18,41 +18,50 @@ $(window).load(function() {
       $(".question, .bottom").hide().delay(100).fadeIn(800);
       $(".question, .bottom").hide().delay(100).fadeIn(800);
     // Category boxes animate from left to right on load.
-    $(".categories").animate({ opacity: 0 }, 0);
-    $(".categories").animate({left:"+=20", opacity: 1},800);
-     $(".categories").show();
+      $(".categories").animate({ opacity: 0 }, 0);
+      $(".categories").animate({left:"+=20", opacity: 1},800);
+      $(".categories").show();
 
   	// This is where 6 new boxes need to be brought in.
   	// Need to stop massive delay!! Maybe roll back to old version?
 
   	
   	
-  	$(".categories").one('click', function(e) {
+  	$(".categories").on('click', function(e) {
      		$(".categories, .question").fadeOut( function() {
              	$(".categories1, .question2").show().animate({left:"+15", opacity: 1},800);
          	});
          	//e.stopPropogation();
      	});
   
-  	$(".categories1").one('click', function(e) {
+    $(".back1").on('click', function(event){
+      $(".categories1, .question2").fadeOut( function() {
+              $(".categories, .question").show().animate({left:"+15", opacity: 1},800);
+          });
+    })
+  	$(".categories1").on('click', function(e) {
     		$(".categories1, .question2").fadeOut( function() {
     			$(".price, .question3").show().animate({left:"+15", opacity: 1}, 800);
     		});
     		//e.stopPropogation();
   	});
-  
-  	$(".categories1").one("click", function(e) {
+    $(".back2").on('click', function(event){
+      $(".price, .question3").fadeOut( function() {
+              $(".categories1, .question2").show().animate({left:"+15", opacity: 1},800);
+          });
+    })
+  	$(".categories1").on("click", function(e) {
     		$(".categories1, .question2").fadeOut( function() {
     			$(".price, .question3").show().animate({left:"+15", opacity: 1},500);
     		});
     		//e.stopPropogation();
   	});
 
-  	$(".price").one('click', function(e) {
+  	$(".price").on('click', function(e) {
     		$(".price, .question3").fadeOut( function() {
-          $("#blackness").show().animate({left:"+15", opacity: 1}, 1000).delay(1000)
+          $("#blackness").show().animate({left:"+15", opacity: 1}, 1000).delay(500)
           var black=setTimeout(function() {
-            $(".output, .question4, .output1").delay(1000).show().animate({left:"+15", opacity: 1}, 1000);
+            $(".output, .question4, .output1").delay(500).show().animate({left:"+15", opacity: 1}, 1000);
           }, 1000)
           $("#blackness").fadeOut();
 
@@ -62,15 +71,15 @@ $(window).load(function() {
     		//e.stopPropogation();
   	});
   
-  	$(".categorybox").one('click', function() {
+  	$(".categorybox").on('click', function() {
       choice1=$(this).text()
     });
 
-    $(".categorybox1").one('click', function() {
+    $(".categorybox1").on('click', function() {
       choice2=$(this).text()
     });
   //result/happy/art/20
-    $(".categorybox2").one('click', function() {
+    $(".categorybox2").on('click', function() {
       choice3=$(this).text()
       var rank;
       var dist=null;
@@ -92,6 +101,7 @@ $(window).load(function() {
             }
             
           })
+      //toggle all results
       $("#all").on("click", function() {
         if (all===null) {
         $.ajax({
@@ -109,7 +119,7 @@ $(window).load(function() {
           }
         })
       } else {
-        $(".output").html(all)
+        $(".alloutput").toggle()
       }
     })
       $("#disttop").on("click", function() {
@@ -129,6 +139,7 @@ $(window).load(function() {
           }
         })
       } else {
+
         $(".output").html(dist)
       }
     })
