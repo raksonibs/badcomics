@@ -41,6 +41,16 @@ body {
 	font-family: Robotothin;
 }
 
+#blackness {
+	background-color: rgba(255,255,255,0.5);
+	width: 110%;
+	height: 110%;
+	top: 100px;
+	left: 30px;
+	position: absolute;
+	z-index: 100;
+}
+
 .wrapper {
 	margin: 0;
 	padding: 0;

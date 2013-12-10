@@ -1,5 +1,5 @@
 $(window).load(function() {
-  
+  $(".categories1, .price, .output, .question2, .question3, .question4, .output1, #blackness").hide().animate({ opacity: 0 });
 	// Top nav slide down on load.
 	$(".topnav").animate({ opacity: 0 }, 0);
 	$(".topnav").delay(200).animate({top:"+=45", opacity: 1},1500);
@@ -16,7 +16,7 @@ $(window).load(function() {
 	// This is where 6 new boxes need to be brought in.
 	// Need to stop massive delay!! Maybe roll back to old version?
 
-	$(".categories1, .price, .output, .question2, .question3, .question4, .output1").hide().animate({ opacity: 0 });
+	
 	
 	$(".categories").one('click', function(e) {
    		$(".categories, .question").fadeOut( function() {
@@ -34,14 +34,21 @@ $(window).load(function() {
 
 	$(".categories1").one("click", function(e) {
   		$(".categories1, .question2").fadeOut( function() {
-  			$(".price, .question3").show().animate({left:"+15", opacity: 1},800);
+  			$(".price, .question3").show().animate({left:"+15", opacity: 1},500);
   		});
   		//e.stopPropogation();
 	});
 
 	$(".price").one('click', function(e) {
   		$(".price, .question3").fadeOut( function() {
-  			$(".output, .question4, .output1").show().animate({left:"+15", opacity: 1}, 800);
+        $("#blackness").show().animate({left:"+15", opacity: 1}, 1000).delay(1000)
+        var black=setTimeout(function() {
+          $(".output, .question4, .output1").delay(1000).show().animate({left:"+15", opacity: 1}, 1000);
+        }, 1000)
+        $("#blackness").fadeOut();
+
+        
+  			
   		});
   		//e.stopPropogation();
 	});

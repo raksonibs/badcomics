@@ -14,10 +14,11 @@
 -need to do strong params/hide keys, facebook authenticate, lightbox, make algorthim work
 
 ------
--more events, cronjob/sidekick, responsive design, make mobile app. then show our results (all of them), machine learning with feeling.
+-more events, cronjob/sidekick, responsive design, make mobile app., machine learning with feeling.
 -hide apikeys
 -deep links
 -refactor
+-loading screen after price
 
 ===
 [{"Allan Gardens Conservatory Christmas Flower Show"=>98.08367262074478}, {"Allan Gardens Christmas Flower Show"=>97.14589654520506}, {"The Artisans' Gift Fair 2013"=>96.94416150187836}]--> double up
