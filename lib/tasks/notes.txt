@@ -18,7 +18,7 @@
 -hide apikeys
 -deep links
 -refactor
--loading screen after price
+-facebook integration, feelings, better algorithm as a result, deploy
 
 ===
 [{"Allan Gardens Conservatory Christmas Flower Show"=>98.08367262074478}, {"Allan Gardens Christmas Flower Show"=>97.14589654520506}, {"The Artisans' Gift Fair 2013"=>96.94416150187836}]--> double up
