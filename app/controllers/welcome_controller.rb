@@ -11,7 +11,7 @@ class WelcomeController < ApplicationController
   def index
   	#need to formalize times and prices
   	
-  	#@data=cityhall
+  	@data=Event.eventbrite
   end
 
   def activitymap(activity)

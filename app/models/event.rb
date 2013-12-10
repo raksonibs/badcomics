@@ -3,13 +3,13 @@ require 'nokogiri'
 class Event < ActiveRecord::Base
 	geocoded_by :location
 	after_validation :geocode if :location_changed?
-	
-	def attracts
+
+	def self.attracts
 		info={}
 		#price(nonexistant), category, address
 		oo=Roo::Excel.new("places_of_attraction.xls")
 		(oo.last_row-1).times do |i|
-			info[oo.cell(i+2,"F")]=["Time not listed", "Price not listed", oo.cell(i+2,"C") +", Toronto, ON, Canada", oo.cell(i+2, "J")]
+			info[oo.cell(i+2,"F")]=["Time not listed", "Price not listed", oo.cell(i+2,"C") +", Toronto, ON, Canada", oo.cell(i+2, "J"), oo.cell(i+2, "N")]
 		end
 		info
 	end
@@ -21,12 +21,12 @@ class Event < ActiveRecord::Base
   	#geocoding overusing api, that is why inconsisitent geocoding.
   		
 	  	Event.all.delete_all
-	  	@data=getdata
+	  	@data=Event.getdata
 	  	  	@data.each do |source|
 	  	  		source.keys.each do |k|
 
 
-	  	  				e=Event.new(name:k, time:source[k][0], price:source[k][1], location:source[k][2], category:source[k][3], feeling: "None")
+	  	  				e=Event.new(name:k, time:source[k][0], price:source[k][1], location:source[k][2], category:source[k][3], url:source[k][4], feeling: "None")
 	  	  				e.geocode
 	  	  				e.save
 	  	  				sleep(1)
@@ -38,15 +38,15 @@ class Event < ActiveRecord::Base
   def home
   end
 
-  def getdata
-  	[cityhall,
-  	nowmagazine,
-  	eventbrite,
-  	justshows,
-  	clubcrawlers,
-  	meetup,
-  	roo,
-  	startupdigest
+  def self.getdata
+  	[self.cityhall,
+  	self.nowmagazine,
+  	self.eventbrite,
+  	self.justshows,
+  	self.clubcrawlers,
+  	self.meetup,
+  	self.roo,
+  	self.startupdigest
   	]
   	#parks,
   	#eventful,
@@ -54,7 +54,7 @@ class Event < ActiveRecord::Base
   	#facebook
   end
 
-  def cityhall
+  def self.cityhall
   	info={}
   	date=Date.today#.strftime("%B %01d, %Y")
   	data=Nokogiri::HTML(open("http://wx.toronto.ca/festevents.nsf/tpaview?readviewentries")).xpath("//viewentry")
@@ -127,6 +127,8 @@ class Event < ActiveRecord::Base
 			  			end
 			  		end
 			  		info[val.xpath("//entrydata[@name='EventName']")[count].text] << category
+			  		url= val.xpath("//entrydata[@name='EventURL']")[count].text=="" || val.xpath("//entrydata[@name='EventURl']")[count]==nil ? "No url listed" : val.xpath("//entrydata[@name='EventURl']")[count].text
+			  		info[val.xpath("//entrydata[@name='EventName']")[count].text] << url
 	  			end
 		  	else
 	  			info[val.xpath("//entrydata[@name='EventName']")[count].text]=[
@@ -190,6 +192,8 @@ class Event < ActiveRecord::Base
 			  			end
 			  		end
 			  		info[val.xpath("//entrydata[@name='EventName']")[count].text] << category
+			  		url= val.xpath("//entrydata[@name='EventURL']")[count].text=="" || val.xpath("//entrydata[@name='EventURL']")[count].text==nil ? "No url listed" : val.xpath("//entrydata[@name='EventURL']")[count].text
+			  		info[val.xpath("//entrydata[@name='EventName']")[count].text] << url
 	  		end
 
   		end
@@ -199,18 +203,20 @@ class Event < ActiveRecord::Base
   	info
   end
 
-  def startupdigest
+  def self.startupdigest
   	#wish had times
   	#Tue Dec 17, 2013 6:30pm to Tue Dec 17, 2013 8:30pm 
   	#each data name=>[time, price, location, category]
   	@data=Nokogiri::XML(open("https://www.google.com/calendar/feeds/startupdigest.com_ladfoeq440djsjmb5ila0nphss%40group.calendar.google.com/public/basic")).css("title[@type='html']").zip(Nokogiri::XML(open("https://www.google.com/calendar/feeds/startupdigest.com_ladfoeq440djsjmb5ila0nphss%40group.calendar.google.com/public/basic")).css("summary[@type='html']").zip(Nokogiri::XML(open("https://www.google.com/calendar/feeds/startupdigest.com_ladfoeq440djsjmb5ila0nphss%40group.calendar.google.com/public/basic")).css("content[@type='html']")))
   	info={}
   	@data.each do |val|
+
   		#date=Date.today.strftime("%B %01d, %Y")
-  		date=Date.today.strftime("%a %b %01d %Y")
+  		date=Time.parse("Wednesday December 18 2013").strftime("%a %01d %b %Y")#Date.today.strftime("%a %b %01d %Y")
   		#date=Time.parse("Mon Dec 9 2013 6:30pm").strftime("%a %01d %b %Y")
   		
   		#val[1][0].text[/([A-Z][a-z]+\s\d+\s[A-Z][a-z]+\s\d+)+/]
+  		
   		if val[1][0].text[/#{date}/]
   			
   			info[val[0].text]=[Time.parse(val[1][0].text[/\d+:\d+/]).strftime("%I:%M %p")]
@@ -226,13 +232,20 @@ class Event < ActiveRecord::Base
 
   			 info[val[0].text]<<val[1][0].text[/Where.*nto/][/\d+\s[A-Z][a-z]+(\s[A-Z][a-z]+)+?/]+", Toronto, ON, Canada" 
   			 info[val[0].text]<<"Tech"
+
+  			 
+  			 if val[1][1].text[/Link:/]
+  			 	url=val[1][1].text[/Link:.*\/+/]
+  			 	info[val[0].text]<< url[6..url.length]
+
+  			 end
   		end
   	end
-  	@data=info
+  	info
 
   end
 
-  def nowmagazine
+  def self.nowmagazine
   	#categoirs seem talk(talk, symposium, screening, lecture, speak, discuss), music(music) theatre(performances), reading(reading, novel), comedy, seasonal(festiv,holiday, carol, christmas), party(party), charity(fundrais, auction), miscelianous (everything else) 
   	info={}
   	date=DateTime.now
@@ -309,12 +322,13 @@ class Event < ActiveRecord::Base
 	  		if category==nil
 	  			category="Misc."
 	  		end
-	  		info[val.css("span.List-Name").text]=[time,price[/\$/]!=nil ? price[/\w+/] : price ,address[1..address.size]+", Toronto, ON, Canada",category]	
+	  		info[val.css("span.List-Name").text]=[time,price[/\$/]!=nil ? price[/\w+/] : price ,address[1..address.size]+", Toronto, ON, Canada",category, "No url listed"]	
+
 	  	end
   	info
   end
 
-  def eventbrite
+  def self.eventbrite
   	info={}
   	
   	data=JSON.parse((open("http://www.eventbrite.com/json/event_search?app_key=GUBRP2USZMDRRVPPSF&city=Toronto&date=today&max=100")).read)
@@ -354,6 +368,7 @@ class Event < ActiveRecord::Base
 	  		category="Misc."
 	  	end
 	  	info[event["event"]["title"]] << category
+	  	info[event["event"]["title"]] << event["event"]["url"]
 	  end
 	end
 	info
@@ -368,26 +383,29 @@ class Event < ActiveRecord::Base
   	#same technique in eventbrite
   end
 
-  def clubcrawlers
+  def self.clubcrawlers
   	#only if like five pm time or later
   	info={}
   	even=Nokogiri::HTML(open("http://www.clubcrawlers.com/toronto/nightclubs/allvenues?crowd=&sort=p#listings")).css(".club-block")
   	odd=Nokogiri::HTML(open("http://www.clubcrawlers.com/toronto/nightclubs/allvenues?crowd=&sort=p#listings")).css(".club-block.odd")
   	clubs=even+odd
+  	count=0
   	clubs.each do |val|
-  		info[val.css("div.event-info h2 a").text]=["Time not listed", "Price not listed", val.css("div.event-info p.club-listing-address").text+", Toronto, ON, Canada","Party"]
+
+  		info[val.css("div.event-info h2 a").text]=["Time not listed", "Price not listed", val.css("div.event-info p.club-listing-address").text+", Toronto, ON, Canada","Party", "http://www.clubcrawlers.com/"+val.css("a")[0]["href"]]
+  		count+=1
   	end
   	info
 
   end
 
-  def justshows
+  def self.justshows
   	#all events=even=Nokogiri::HTML(open("http://justshows.com/toronto/")).css("ul.shows li")
   	#time, price, location, #NEED CATEGORY - ALL WIL BE MUSIC HERE?
   	#might be problem if performers are playing twice on different days
   	info1={}
   	date=Date.today.strftime("%a")+" "+ Date.today.strftime("%B")[0..2]+" " + Date.today.strftime("%01d")
-
+  	count=0
   	data=Nokogiri::HTML(open("http://justshows.com/toronto/")).css("ul.shows li")
   	data.each do |val| 
   		
@@ -421,6 +439,9 @@ class Event < ActiveRecord::Base
   			info1[val.css("strong.summary").text]<< price
   			info1[val.css("strong.summary").text] << (val.css("strong.location").text)
   			info1[val.css("strong.summary").text] << "Music"
+
+  			info1[val.css("strong.summary").text] << "www.justshows.com"+val.xpath('//a[@class="url"]/@href')[count].value
+  			count+=1
   		end
   	end
   	info1
@@ -447,7 +468,7 @@ class Event < ActiveRecord::Base
 
   end
 
-  def meetup
+  def self.meetup
   	info={}
 	data=JSON.parse(open("https://api.meetup.com/2/open_events?&sign=true&city=Toronto&country=ca&time=0d,1d&status=upcoming&key=7b794c3657477db4e107a7e366f7b5f").read)['results']
 	data.each do |val|
@@ -514,12 +535,13 @@ class Event < ActiveRecord::Base
 	  		end
 
 			info[val["name"]] << category
+			info[val["name"]] << val["event_url"]
 		end
 	end
 	info	
   end
 
-  def roo
+  def self.roo
   	attracts
   	
   end
