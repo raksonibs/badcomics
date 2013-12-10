@@ -150,7 +150,7 @@ class WelcomeController < ApplicationController
 		 	@result=@result
 		 end
 		
-			
+
 		  	format.js{ render :action => "/algorthim.js.erb" }
 		
 	
@@ -496,9 +496,9 @@ end
   		mult=rand()
   	end
   	if full
-  		score=(mult*100)-rand()
+  		score=(mult*100)-(rand()*5)
   	else
-  		score=(mult*25)-rand()
+  		score=(mult*25)-(rand()*5)
   	end
 
 
