@@ -100,10 +100,34 @@ class WelcomeController < ApplicationController
   		
 	  	elsif params[:button]=="rank" || (params[:button]!="dist" && params[:button]!="price" && params[:button]!="pricebot" && params[:button]!="rankbot" && params[:button]!="distbot" && params[:button]!="all" && params[:button]!="try")
 		  	@result, @scores=result(@data,udist, activity)
+<<<<<<< HEAD
+		  	@keys=[]
+	  		@result.each do |val|
+	  			@keys<< val.keys
+	  		end
+	  		
+
+	  	if (@keys.flatten.size>=3)
+		  	while @keys.flatten.uniq.size!=3
+		  		#catches repititons
+		  		@result, @scores=result(@data, udist, activity)
+		  		@keys=[]
+		  		@result.each do |val|
+		  			@keys<< val.keys
+		  		end
+		  	end
+		 else
+		 	@result=@result
+		 end
+		
+
+		  	format.js{ render :action => "/algorthim.js.erb" }
+=======
 		  	keys=makekeys(@result)
 	 		@result= keys.flatten.uniq.size!=3 ? uniquekeys(@result,"rank", @data, udist, activity) : @result
 	 		
 	 		format.js{ render :action => "/algorthim.js.erb" }
+>>>>>>> 9e733a29565b6a8425d5e42c49b7452d889019c9
 		
 		elsif params[:button]=="rankbot"
 			@result, @scores=result(@data,udist, activity)
