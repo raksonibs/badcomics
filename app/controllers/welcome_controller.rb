@@ -93,10 +93,10 @@ class WelcomeController < ApplicationController
 	
   	respond_to do |format|
   		
-	  	if params[:button]=="rank" || (params[:button]!="dist" && params[:button]!="price" && params[:button]!="pricebot" && params[:button]!="rankbot" && params[:button]!="distbot")
+	  	if params[:button]=="rank" || (params[:button]!="dist" && params[:button]!="price" && params[:button]!="pricebot" && params[:button]!="rankbot" && params[:button]!="distbot" && params[:button]!="all")
 		  	@result, @scores=result(@data,udist, activity)
 		  	keys=makekeys(@result)
-	 		@result= keys.flatten.uniq.size!=3 ? uniquekeys(@result,params[:button], @data) : @result
+	 		@result= keys.flatten.uniq.size!=3 ? uniquekeys(@result,"rank", @data, udist, activity) : @result
 	 		
 	 		format.js{ render :action => "/algorthim.js.erb" }
 		
@@ -119,17 +119,20 @@ class WelcomeController < ApplicationController
 	 		#only prices under their choice
 	 		@result, @scores =result(@data,udist,activity, "price")
 	 		keys=makekeys(@result)
-	 		@result= keys.flatten.uniq.size!=3 ? uniquekeys(@result,params[:button], @data) : @result
+	 		@result= keys.flatten.uniq.size!=3 ? uniquekeys(@result,params[:button], @data, udist, activity) : @result
 	 		format.js{ render :action => "/algorthim.js.erb" }
 
 
 		elsif params[:button]=="dist"
 	 		@result, @scores =result(@data,udist,activity, "dist")
 	 		keys=makekeys(@result)
-	 		@result= keys.flatten.uniq.size!=3 ? uniquekeys(@result,params[:button], @data) : @result
+	 		@result= keys.flatten.uniq.size!=3 ? uniquekeys(@result,params[:button], @data, udist, activity) : @result
 
 	 		format.js{ render :action => "/algorthim.js.erb" }
-
+	 	elsif params[:button]=="all"
+	 		@result, @scores=result(@data,udist, activity)
+	 		@result=@scores.sort
+	 		format.js{ render :action => "/all.js.erb" }
 
 	 	end
 	 	
@@ -153,7 +156,8 @@ def makekeys(result)
 	keys
 end
 
-def uniquekeys(result,button, data)
+def uniquekeys(result,button, data,udist, activity)
+
 	choice="price" if button[/price/]
 	choice="rank" if button[/rank/]
 	choice="dist" if button[/dist/]
@@ -256,7 +260,7 @@ end
   		mult=1
   	elsif price=="Price not listed"
   		mult=rand()
-  		mult=mult<=0.23 ? mult : mult-0.22	
+  		mult=mult>=0.30 ? mult-0.22 : mult	
   	elsif price.to_i <= 10
   		mult=0.9
   	elsif price.to_i <=20
@@ -310,7 +314,7 @@ end
 	  	end
 	 else
 	 	mult=rand()
-	 	mult=mult>=0.23 ? mult : mult-0.22
+	 	mult=mult>=0.30 ? mult-0.22 : mult
 	 end
 	 if full
 	 	score=(mult*100)-rand()

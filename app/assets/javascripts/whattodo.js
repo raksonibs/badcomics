@@ -62,6 +62,7 @@ $(window).load(function() {
     var rankbot=null;
     var distbot=null;
     var pricebot=null;
+    var all=null;
     $.ajax({
           url: "/result/"+choice1+"/"+choice2+"/"+choice3,
           type: "GET",
@@ -75,7 +76,26 @@ $(window).load(function() {
           }
           
         })
-    
+    $("#all").on("click", function() {
+      if (all===null) {
+      $.ajax({
+          url: "/result/"+choice1+"/"+choice2+"/"+choice3,
+          type: "GET",
+          dataType: "script",
+          data: { choice1: choice1,
+                  choice2: choice2,
+                  choice3: choice3,
+                  button: "all" },
+          complete: function(result){
+            all=result.responseText.substr(20,(result.responseText.length)-15)
+
+          
+        }
+      })
+    } else {
+      $(".output").html(all)
+    }
+  })
     $("#disttop").on("click", function() {
       if (dist===null) {
       $.ajax({
