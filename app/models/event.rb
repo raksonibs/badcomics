@@ -26,7 +26,7 @@ class Event < ActiveRecord::Base
 	  	  		source.keys.each do |k|
 
 
-	  	  				e=Event.new(name:k, time:source[k][0], price:source[k][1], location:source[k][2], category:source[k][3], url:source[k][4], feeling: "None")
+	  	  				e=Event.new(name:k, time:source[k][0], price:source[k][1], location:source[k][2], category:source[k][3], link:source[k][4], feeling: "None")
 	  	  				e.geocode
 	  	  				e.save
 	  	  				sleep(1)

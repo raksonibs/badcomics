@@ -9,7 +9,7 @@ require 'nokogiri'
 class WelcomeController < ApplicationController
 	
   def index
-  	@data=Event.eventbrite
+  	#@data=Event.makeevents
   end
 
   def activitymap(activity)
@@ -96,34 +96,43 @@ class WelcomeController < ApplicationController
 	  	if params[:button]=="rank" || (params[:button]!="dist" && params[:button]!="price" && params[:button]!="pricebot" && params[:button]!="rankbot" && params[:button]!="distbot")
 		  	@result, @scores=result(@data,udist, activity)
 		  	keys=makekeys(@result)
-	 		@result= uniquekeys(@result,params[:button], @data) if keys.flatten.uniq.size!=3
+	 		@result= keys.flatten.uniq.size!=3 ? uniquekeys(@result,params[:button], @data) : @result
+	 		
+	 		format.js{ render :action => "/algorthim.js.erb" }
 		
 		elsif params[:button]=="rankbot"
 			@result, @scores=result(@data,udist, activity)
 			@result=reversebot(@scores)
+			format.js{ render :action => "/algorthim.js.erb" }
 
 		elsif params[:button]=="pricebot"
 			@result, @scores=result(@data,udist,activity, "price")
 			@result=reversebot(@scores)
+			format.js{ render :action => "/algorthim.js.erb" }
 			
 		elsif params[:button]=="distbot"
 			@result, @scores=result(@data,udist, activity, "dist")
 			@result=reversebot(@scores)
+			format.js{ render :action => "/algorthim.js.erb" }
 
 		elsif params[:button]=="price"
 	 		#only prices under their choice
 	 		@result, @scores =result(@data,udist,activity, "price")
 	 		keys=makekeys(@result)
-	 		@result= uniquekeys(@result,params[:button], @data) if keys.flatten.uniq.size!=3
+	 		@result= keys.flatten.uniq.size!=3 ? uniquekeys(@result,params[:button], @data) : @result
+	 		format.js{ render :action => "/algorthim.js.erb" }
+
 
 		elsif params[:button]=="dist"
 	 		@result, @scores =result(@data,udist,activity, "dist")
 	 		keys=makekeys(@result)
-	 		@result= uniquekeys(@result,params[:button], @data) if keys.flatten.uniq.size!=3
+	 		@result= keys.flatten.uniq.size!=3 ? uniquekeys(@result,params[:button], @data) : @result
+
+	 		format.js{ render :action => "/algorthim.js.erb" }
+
 
 	 	end
-	 	@result
-	 	format.js{ render :action => "/algorthim.js.erb" }
+	 	
 	 end
   end
 
@@ -158,6 +167,7 @@ def uniquekeys(result,button, data)
 end
 
 def result(data, udist,activity, choice='rank')
+
 	first={}
   	firstn=""
   	second={}
@@ -165,11 +175,13 @@ def result(data, udist,activity, choice='rank')
   	third={}
   	thirdn=""
   	@scores={}
+
   	data.each_with_index do |val,i|
-  		score=score(calculateprice(val), calculatedistance(val,udist), calculatepurity(val, activity), calculatetime(val)) if choice==rank
+  		score=score(calculateprice(val), calculatedistance(val,udist), calculatepurity(val, activity), calculatetime(val)) if choice=="rank"
   		score=score(calculateprice(val,true), 0, 0, 0) if choice=="price"
   		score=score(0, calculatedistance(val,udist, true), 0, 0) if choice=="dist"
   		@scores[score]=val.name
+
   		if i==0
   			firstn=val.name
   			first[val.name]=score
@@ -212,6 +224,7 @@ def result(data, udist,activity, choice='rank')
   			end
   		end
 		end
+		
 		if thirdn==""
 			third["No 3rd place"]=0
 		end
@@ -297,7 +310,7 @@ end
 	  	end
 	 else
 	 	mult=rand()
-	 	mult=mult<=0.23 ? mult : mult-0.22
+	 	mult=mult>=0.23 ? mult : mult-0.22
 	 end
 	 if full
 	 	score=(mult*100)-rand()
