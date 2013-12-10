@@ -1,6 +1,6 @@
 require 'open-uri'
 require 'nokogiri'
-#attractions for touristy
+#attractions for touristy like snakes and latteees. unique finds section?
 #also want like facebook friend parties
 #also funny things like sleep? maybe shouldnt tell them what to do lol
 #tag based on season
@@ -9,8 +9,6 @@ require 'nokogiri'
 class WelcomeController < ApplicationController
 	
   def index
-  	#need to formalize times and prices
-  	
   	@data=Event.eventbrite
   end
 
@@ -50,15 +48,13 @@ class WelcomeController < ApplicationController
   	elsif activity=="Get Cultured"
   		activity=["Art", "Gallery", "Museum", "Cinema", "Theatre"]#[((rand()*5)-1).ceil]
   	end
-
-
   end
+
   def algorthim
   	#/result/happy/art/20
   	udist=["43.6426, 79.3871"] #cannot hardcode location and time
   	feeling,activity,money=params[:choice1], params[:choice2], params[:choice3] #also params[geolocation]
   	timenow=Time.parse("Fri December 6 2013 10:00 AM")
-	#want to make better loop
 	@data=[]
 	if money[/-/]
 		money=money[/-\$\d+/][2..money.length]
@@ -72,22 +68,16 @@ class WelcomeController < ApplicationController
 	Event.all.each do |e|
 		if e.time=="Time not listed" || Time.parse(e.time) > timenow 
 			if e.price =="Free" || e.price=="Price not listed" || e.price.to_i <= money.to_i
-
 				if e.category=="Performing Arts"
 					e.category="Comedy"
 					e.save
 				end
-
 				if e.category==nil
-					
 					e.category="Misc."
 					e.save
 				end
 				if e.category.count("/")==0
-					
 					if activity.include?(e.category)
-				#if (activity=="Garden / Conservatory" && e.category[/#{activity}/] ) || (activity=="Hang Out" && e.category[/#{activity}/] ) || (activity=="Featured Park" && e.category[/#{activity}/] )|| e.category[/#{activity.capitalize}/]
-					
 						@data << e
 					end
 				else
@@ -97,266 +87,77 @@ class WelcomeController < ApplicationController
 						end
 					end
 				end
-				
 			end
 		end
 	end
-	
 	
   	respond_to do |format|
   		
 	  	if params[:button]=="rank" || (params[:button]!="dist" && params[:button]!="price" && params[:button]!="pricebot" && params[:button]!="rankbot" && params[:button]!="distbot")
 		  	@result, @scores=result(@data,udist, activity)
-		  	@keys=[]
-	  		@result.each do |val|
-	  			@keys<< val.keys
-	  		end
-	  		
-
-	  	if (@keys.flatten.size>=3)
-		  	while @keys.flatten.uniq.size!=3
-		  		#catches repititons
-		  		@result, @scores=result(@data, udist, activity)
-		  		@keys=[]
-		  		@result.each do |val|
-		  			@keys<< val.keys
-		  		end
-		  	end
-		 else
-		 	@result=@result
-		 end
+		  	keys=makekeys(@result)
+	 		@result= uniquekeys(@result,params[:button], @data) if keys.flatten.uniq.size!=3
 		
-		 
-		 	debugger
-		  	format.js{ render :action => "/algorthim.js.erb" }
-		
-	
 		elsif params[:button]=="rankbot"
-			
-
 			@result, @scores=result(@data,udist, activity)
-			
-			@result={}
-			reversed=@scores.sort[0..2]
-			(reversed.size).times do |count|
-				
-				@result[reversed[count][1]]=reversed[count][0]
-			end
-			@result
-			format.js{ render :action => "/algorthim.js.erb" }
+			@result=reversebot(@scores)
+
 		elsif params[:button]=="pricebot"
-			@result, @scores=resultdis(@data,udist,activity)
+			@result, @scores=result(@data,udist,activity, "price")
+			@result=reversebot(@scores)
 			
-			@result={}
-			reversed=@scores.sort[0..2]
-			(reversed.size).times do |count|
-				
-				@result[reversed[count][1]]=reversed[count][0]
-			end
-			@result
-			format.js{ render :action => "/algorthim.js.erb" }
 		elsif params[:button]=="distbot"
-			@result, @scores=resultprice(@data,udist, activity)
-			
-			@result={}
-			reversed=@scores.sort[0..2]
-			(reversed.size).times do |count|
-				
-				@result[reversed[count][1]]=reversed[count][0]
-			end
-			@result
-			format.js{ render :action => "/algorthim.js.erb" }
+			@result, @scores=result(@data,udist, activity, "dist")
+			@result=reversebot(@scores)
 
 		elsif params[:button]=="price"
 	 		#only prices under their choice
-	 		@result, @scores =resultprice(@data,udist,activity)
-	 		@keys=[]
-	   		@result.each do |val|
-	   			@keys<< val.keys
-	   		end
-	 	  	while @keys.flatten.uniq.size!=3
-	 	  		#catches repititons
-	 	  		@result, @scores=resultdis(@data, udist, activity)
-	 	  		@keys=[]
-		  		@result.each do |val|
-		  			@keys<< val.keys
-		  		end
-		  	end
+	 		@result, @scores =result(@data,udist,activity, "price")
+	 		keys=makekeys(@result)
+	 		@result= uniquekeys(@result,params[:button], @data) if keys.flatten.uniq.size!=3
 
-	 	  	format.js{ render :action => "/algorthim.js.erb" }
-	 	
-			
-		
 		elsif params[:button]=="dist"
-			
+	 		@result, @scores =result(@data,udist,activity, "dist")
+	 		keys=makekeys(@result)
+	 		@result= uniquekeys(@result,params[:button], @data) if keys.flatten.uniq.size!=3
 
-	 		@result, @scores =resultdis(@data,udist,activity)
-	 		@keys=[]
-	   		@result.each do |val|
-	   			@keys<< val.keys
-	   		end
-	 	  	while @keys.flatten.uniq.size!=3
-	 	  		#catches repititons
-	 	  		@result, @scores=resultdis(@data, udist, activity)
-	 	  		@keys=[]
-		  		@result.each do |val|
-		  			@keys<< val.keys
-		  		end
-		  	end
-
-	 	  	format.js{ render :action => "/algorthim.js.erb" }
 	 	end
-	
+	 	@result
+	 	format.js{ render :action => "/algorthim.js.erb" }
 	 end
-	# @result
   end
 
-
-	def resultdis(data, udist,acitivty)
-	#right now doing closest
-		first={}
-	  	firstn=""
-	  	second={}
-	  	secondn=""
-	  	third={}
-	  	thirdn=""
-	  	@scores={}
-	  	data.each_with_index do |val,i|
-	  		score=score(0, calculatedistance(val,udist, true), 0, 0)
-	  		@scores[score]=val.name
-	  		if i==0
-	  			firstn=val.name
-	  			first[val.name]=score
-	  		else
-	  			#should do recursive
-	  			if score> first[firstn]
-	  				if secondn==""
-	  					secondn=firstn
-	  					second[secondn]=first[firstn]
-	  					first.delete(firstn)
-	  					firstn=val.name
-	  					first[firstn]=score
-	  				else
-	  					third.delete(thirdn) if thirdn!="" #if second exists, delete third
-	  					thirdn=secondn
-	  					third[thirdn]=second[secondn]
-	  					second.delete(secondn)
-	  					secondn=firstn
-	  					second[secondn]=first[firstn]
-	  					first.delete(firstn)
-	  					firstn=val.name
-	  					first[firstn]=score
-	  				end
-	  			elsif secondn=="" || score>second[secondn] 
-	  				if secondn==""
-	  					secondn=val.name
-	  					second[secondn]=score
-	  				else
-	  					third.delete(thirdn) if thirdn!="" #if second exists, delete third
-	  					thirdn=secondn
-	  					third[thirdn]=second[secondn]
-	  					second.delete(secondn)
-	  					secondn=val.name
-	  					second[secondn]=score	
-	  				end
-	  			elsif thirdn=="" || score>third[thirdn]
-	  				third.delete(thirdn) if thirdn!="" #if second exists, delete third
-	  				thirdn=secondn
-	  				third[thirdn]=score
-	  			end
-	  		end
-		end
-		if thirdn==""
-			third["No 3rd place"]=0
-		end
-		if secondn==""
-			second["No 2nd place"]=0
-		end
-		if firstn==""
-			first["No 1st place"]=0
-		end
-		
-		
-
-		@result=[first,second,third]
-		
-		return @result, @scores	
-
-
+def reversebot(scores)
+	result={}
+	reversed=scores.sort[0..2]
+	(reversed.size).times do |count|	
+		result[reversed[count][1]]=reversed[count][0]
 	end
+	result
+end
 
-	def resultprice(data, udist,acitivty)
-	#right now doing closest
-		first={}
-	  	firstn=""
-	  	second={}
-	  	secondn=""
-	  	third={}
-	  	thirdn=""
-	  	@scores={}
-	  	data.each_with_index do |val,i|
-	  		score=score(calculateprice(val,true), 0, 0, 0)
-	  		@scores[score]=val.name
-	  		if i==0
-	  			firstn=val.name
-	  			first[val.name]=score
-	  		else
-	  			#should do recursive
-	  			if score> first[firstn]
-	  				if secondn==""
-	  					secondn=firstn
-	  					second[secondn]=first[firstn]
-	  					first.delete(firstn)
-	  					firstn=val.name
-	  					first[firstn]=score
-	  				else
-	  					third.delete(thirdn) if thirdn!="" #if second exists, delete third
-	  					thirdn=secondn
-	  					third[thirdn]=second[secondn]
-	  					second.delete(secondn)
-	  					secondn=firstn
-	  					second[secondn]=first[firstn]
-	  					first.delete(firstn)
-	  					firstn=val.name
-	  					first[firstn]=score
-	  				end
-	  			elsif secondn=="" || score>second[secondn] 
-	  				if secondn==""
-	  					secondn=val.name
-	  					second[secondn]=score
-	  				else
-	  					third.delete(thirdn) if thirdn!="" #if second exists, delete third
-	  					thirdn=secondn
-	  					third[thirdn]=second[secondn]
-	  					second.delete(secondn)
-	  					secondn=val.name
-	  					second[secondn]=score	
-	  				end
-	  			elsif thirdn=="" || score>third[thirdn]
-	  				third.delete(thirdn) if thirdn!="" #if second exists, delete third
-	  				thirdn=secondn
-	  				third[thirdn]=score
-	  			end
-	  		end
-		end
-		if thirdn==""
-			third["No 3rd place"]=0
-		end
-		if secondn==""
-			second["No 2nd place"]=0
-		end
-		if firstn==""
-			first["No 1st place"]=0
-		end
-
-		@result=[first,second,third]
-		
-		return @result, @scores	
-
-
+def makekeys(result)
+	keys=[]
+	result.each do |val|
+		keys << val.keys
 	end
+	keys
+end
 
-def result(data, udist,activity)
+def uniquekeys(result,button, data)
+	choice="price" if button[/price/]
+	choice="rank" if button[/rank/]
+	choice="dist" if button[/dist/]
+	keys=makekeys(result)
+  	while keys.flatten.uniq.size!=3
+  		#catches repititons
+  		result, scores=result(data, udist, activity, choice)
+		keys=makekeys(result)
+	end
+	result
+end
+
+def result(data, udist,activity, choice='rank')
 	first={}
   	firstn=""
   	second={}
@@ -365,7 +166,9 @@ def result(data, udist,activity)
   	thirdn=""
   	@scores={}
   	data.each_with_index do |val,i|
-  		score=score(calculateprice(val), calculatedistance(val,udist), calculatepurity(val, activity), calculatetime(val))
+  		score=score(calculateprice(val), calculatedistance(val,udist), calculatepurity(val, activity), calculatetime(val)) if choice==rank
+  		score=score(calculateprice(val,true), 0, 0, 0) if choice=="price"
+  		score=score(0, calculatedistance(val,udist, true), 0, 0) if choice=="dist"
   		@scores[score]=val.name
   		if i==0
   			firstn=val.name
@@ -409,7 +212,6 @@ def result(data, udist,activity)
   			end
   		end
 		end
-
 		if thirdn==""
 			third["No 3rd place"]=0
 		end
@@ -423,33 +225,25 @@ def result(data, udist,activity)
 	return @result, @scores	
 end
 
-
   def calculatetime(val)
   	mult=0
   	time=val.time
-
-
   	if time=="Time not listed"
   		mult=0.01
   	else
   		mult=1
   	end
-  	
   	score =mult*((33.33-25)*2)
-
   end
 
   def calculateprice(val, full=false)
   	price=val.price
   	mult=0
-  	
   	if price== "Free"
   		mult=1
   	elsif price=="Price not listed"
-
   		mult=rand()
-  		mult=mult<=0.23 ? mult : mult-0.22
-  		
+  		mult=mult<=0.23 ? mult : mult-0.22	
   	elsif price.to_i <= 10
   		mult=0.9
   	elsif price.to_i <=20
@@ -469,7 +263,6 @@ end
   	elsif price.to_i <= 200
   		mult=0.1
   	else
-
   		mult=rand()
   	end
   	if full
@@ -477,17 +270,13 @@ end
   	else
   		score=(mult*25)-(rand()*5)
   	end
-
-
   end
 
   def calculatedistance(val,udist, full=nil)
   	#need their ip and udist.coordinates
   	#from params location, get distance from then use val.distance_from(ip address location) and find smallest distance
   	if val.longitude!=nil
-  		
   		distance=val.distance_to([43.6426, -79.3871]) #hardcoded
-
   		mult=0
 	  	if distance<=0.5
 	  		mult=1
@@ -511,10 +300,7 @@ end
 	 	mult=mult<=0.23 ? mult : mult-0.22
 	 end
 	 if full
-	 	
-
 	 	score=(mult*100)-rand()
-
 	 else
   		score=(mult*25)-rand()
   	end

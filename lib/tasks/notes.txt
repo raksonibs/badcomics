@@ -14,11 +14,10 @@
 -need to do strong params/hide keys, facebook authenticate, lightbox, make algorthim work
 
 ------
--getting tech geek events
--dist geocoded incorrectly. need to add toronto ON to each address. but events already made so have to do later
--more events, cronjob/sidekick, responsive design, make mobile app. get links for each place, price ascnding, descedning, distance ascending, descending, ranks first three last three, then show our results (all of them), machine learning with feeling.
+-more events, cronjob/sidekick, responsive design, make mobile app. then show our results (all of them), machine learning with feeling.
 -hide apikeys
 -deep links
+-refactor
 
 ===
 [{"Allan Gardens Conservatory Christmas Flower Show"=>98.08367262074478}, {"Allan Gardens Christmas Flower Show"=>97.14589654520506}, {"The Artisans' Gift Fair 2013"=>96.94416150187836}]--> double up
