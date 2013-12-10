@@ -24,6 +24,13 @@
   font-style: normal;
 }
 
+#all {
+	width: 50px;
+	height: 50px;
+	border-radius: 25%;
+	background-color: rgba(255,255,255,0.5);
+}
+
 body {
 	margin:0;
 	margin-top: -16px;
@@ -33,6 +40,16 @@ body {
 	background-height: 100%;
 	color: white;
 	font-family: Robotothin;
+}
+
+#blackness {
+	background-color: rgba(255,255,255,0.5);
+	width: 110%;
+	height: 110%;
+	top: 100px;
+	left: 30px;
+	position: absolute;
+	z-index: 100;
 }
 
 .wrapper {

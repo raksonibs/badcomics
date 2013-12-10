@@ -109,6 +109,19 @@
 				<%= render 'ranks'%>
 
 			</div>
+
+			
+			<div id="blackness">
+
+			</div>
+			<script type="text/javascript">
+
+			  var bank2=["Lining Up Meter Sticks", "Asking Robots Politely", "Using Cheat Codes"];
+			  $("#blackness").text(bank2[Math.ceil(Math.random()*2)])
+			    
+
+			</script>
+
 			<div class='output1'>
 				<div class="rank">
 					Rank
@@ -125,6 +138,12 @@
 					<button id="disttop">Top 3</button>
 					<button id="distbot">Last 3</button>
 				</div>
+				
+					<button id="all">All Results</button>
+				
+			</div>
+			<div class="alloutput">
+				<%= render "all" %>
 			</div>
 
 			
