@@ -158,9 +158,11 @@ class WelcomeController < ApplicationController
 	 		format.js{ render :action => "/algorthim.js.erb" }
 	 	elsif params[:button]=="all"
 
-	 		
-	 		@result=@@all.sort.reverse
-	 		format.js{ render :action => "/all.js.erb" }
+	 		if params[:button2]!="dist" && params[:button2]!="price" && params[:button2]!="time"
+	 			@result=@@all.sort.reverse
+	 			format.js{ render :action => "/all.js.erb" }
+	 		end
+
 
 	 	end
 	 	
