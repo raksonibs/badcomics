@@ -24,9 +24,13 @@
 }
 
 .wrapper .output .result .eachresult .location,
-.wrapper .output .result .eachresult .time {
+.wrapper .output .result .eachresult .time,
+.wrapper .output .result .eachresult .matchscore {
 	margin-left: 1.1em;
 	font-size: .7em;
 }
 
-
+.wrapper .output .result .eachresult .matchscore .score {
+	color: green;
+	font-style: bold;
+}

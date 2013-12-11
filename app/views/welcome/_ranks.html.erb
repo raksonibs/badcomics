@@ -2,7 +2,7 @@
 
 <div class="result">
 	<% @result.each do |event| %>
-      	<% event.each do |name, glocation| %>
+      	<% event.each do |name, score| %>
 			<div class="eachresult">
           		<div class="name">
           		<%="Go to: #{name}" %>
@@ -13,9 +13,10 @@
            		<div class="time">
            		<%= "@ #{Event.find_by_name(name).time}" %>
            		</div>
-           		<div>
-                <%= glocation %>
-              </div>
+           		<div class="matchscore">
+                Relevance score: 
+                <a class="score"><%= score %></a>
+              	</div>
          	</div>
 		<% end %>
     <% end %>
