@@ -139,7 +139,7 @@ class WelcomeController < ApplicationController
 			@@all=@scores
 		  	keys=makekeys(@result)
 	 		@result= keys.flatten.uniq.size!=3 ? uniquekeys(@result,"rank", @data, udist, activity, feeling, feelingmap) : @result
-	 		
+
 	 		format.js{ render :action => "/algorthim.js.erb" }
 
 		elsif params[:button]=="price"
@@ -335,7 +335,8 @@ def calculatefeeling(val, feeling, activity, udist, feelingmap)
 
 
 	elsif feeling=="Lazy"
-		if val.location!="Location not listed"
+		if val.location!="Location not listed" && val.latitude!=nil
+
 			if val.distance_to([43.6426, -79.3871]) < 0.5
 				mult=1
 			end

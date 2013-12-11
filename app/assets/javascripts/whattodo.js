@@ -5,7 +5,7 @@ $(window).load(function() {
 
   	$(".topnav").animate({ opacity: 0 }, 0);
   	$(".topnav").delay(200).animate({top:"+=45", opacity: 1},1500);
-  
+    
   	// top question and bottom statement fade-in on load.
   	
 
@@ -14,6 +14,7 @@ $(window).load(function() {
   	// $(".categories").animate({left:"+=20", opacity: 1},800);
       
     function start() {
+      $(".buttons").hide()
       $(".categories1, .price, .output, .question2, .question3, .question4, .output1, #blackness").hide().animate({ opacity: 0 });
       $(".question, .bottom").hide().delay(100).fadeIn(800);
       $(".question, .bottom").hide().delay(100).fadeIn(800);
@@ -103,6 +104,8 @@ $(window).load(function() {
           })
       //toggle all results
       $("#all").on("click", function() {
+        $(".buttons").toggle()
+        
         if (all===null) {
         $.ajax({
             url: "/result/"+choice1+"/"+choice2+"/"+choice3,
@@ -119,6 +122,7 @@ $(window).load(function() {
           }
         })
       } else {
+        
         $(".alloutput").toggle()
       }
     })
