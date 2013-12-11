@@ -4,7 +4,7 @@
 	<% @result.each do |event| %>
 
      <% if event[1]!="No 1st place" && event[1]!="No 2nd place" && event[1]!="No 3rd place" %>
-     	<div class="eachresult1">
+     	<div class="eachresult">
           		<div class="name">
           		<%="Go to: #{event[1]}" %>
            		</div>
@@ -16,7 +16,7 @@
            		</div>
               <div class="matchscore">
                 		Relevance score: 
-                		<a class="score"><%= event[0] %></a>
+                		<a class="score"><%= event[0].round(1) %>%</a>
               		</div>
        	</div>
         <% else %>
