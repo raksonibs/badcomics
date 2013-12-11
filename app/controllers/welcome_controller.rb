@@ -8,7 +8,7 @@ require 'active_support/core_ext/numeric/time'
 #mirvish toronto
 #foursquare
 class WelcomeController < ApplicationController
-	
+	@@all=nil
   def index
   	@data=Event.all
   end
@@ -27,7 +27,7 @@ class WelcomeController < ApplicationController
   	elsif activity=="Laugh"
   		activity="Comedy"
   	elsif activity=="Be a Tourist"
-  		activity=["Gallery", "Cinema", "Theatre", "Museum", "Art", "Attraction", "Featured Park", "Garden / Conservatory"]#[((rand()*8)-1).ceil]
+  		activity=["Gallery", "Cinema", "Theatre", "Museum", "Attraction", "Featured Park", "Garden / Conservatory"]#[((rand()*8)-1).ceil]
   	elsif activity=="Outdoor Fun"
   		activity=["Featured Park", "Garden / Conservatory"]#[((rand()*2)-1).ceil]
   	elsif activity=="Jam Out"
@@ -90,7 +90,7 @@ class WelcomeController < ApplicationController
   	
   	feelingmap=feelmap(feeling)
 
-  	timenow=Time.parse("Fri December 6 2013 10:00 AM")
+  	timenow=Time.parse("Sun December 8 2013 10:00 AM")
 	@data=[]
 	if money[/-/]
 		money=money[/-\$\d+/][2..money.length]
@@ -136,26 +136,11 @@ class WelcomeController < ApplicationController
   		
 	  	elsif params[:button]=="rank" || (params[:button]!="dist" && params[:button]!="price" && params[:button]!="pricebot" && params[:button]!="rankbot" && params[:button]!="distbot" && params[:button]!="all" && params[:button]!="try")
 		  	@result, @scores=result(@data,udist, activity, "rank", feeling, feelingmap)
-	
+			@@all=@scores
 		  	keys=makekeys(@result)
 	 		@result= keys.flatten.uniq.size!=3 ? uniquekeys(@result,"rank", @data, udist, activity, feeling, feelingmap) : @result
 	 		
 	 		format.js{ render :action => "/algorthim.js.erb" }
-		
-		elsif params[:button]=="rankbot"
-			@result, @scores=result(@data,udist, activity, "rank", feeling, feelingmap)
-			@result=reversebot(@scores)
-			format.js{ render :action => "/algorthim.js.erb" }
-
-		elsif params[:button]=="pricebot"
-			@result, @scores=result(@data,udist,activity, "price", feeling, feelingmap)
-			@result=reversebot(@scores)
-			format.js{ render :action => "/algorthim.js.erb" }
-			
-		elsif params[:button]=="distbot"
-			@result, @scores=result(@data,udist, activity, "dist", feeling, feelingmap)
-			@result=reversebot(@scores)
-			format.js{ render :action => "/algorthim.js.erb" }
 
 		elsif params[:button]=="price"
 	 		#only prices under their choice
@@ -173,23 +158,14 @@ class WelcomeController < ApplicationController
 	 		format.js{ render :action => "/algorthim.js.erb" }
 	 	elsif params[:button]=="all"
 
-	 		@result, @scores=result(@data,udist, activity, "rank", feeling, feelingmap)
-	 		@result=@scores.sort
+	 		
+	 		@result=@@all.sort.reverse
 	 		format.js{ render :action => "/all.js.erb" }
 
 	 	end
 	 	
 	 end
   end
-
-def reversebot(scores)
-	result={}
-	reversed=scores.sort[0..2]
-	(reversed.size).times do |count|	
-		result[reversed[count][1]]=reversed[count][0]
-	end
-	result
-end
 
 def makekeys(result)
 	keys=[]
@@ -224,8 +200,8 @@ def result(data, udist,activity, choice='rank', feeling, feelingmap)
   	@scores={}
 
   	data.each_with_index do |val,i|
-  		score=score(calculateprice(val), calculatedistance(val,udist), calculatepurity(val, activity), calculatetime(val), calculatefeeling(val,feeling, activity, udist, feelingmap)) if choice=="rank"
-  		score=score(calculateprice(val,true), 0, 0, 0,0) if choice=="price"
+  		score=score(calculateprice(val, feeling), calculatedistance(val,udist), calculatepurity(val, activity), calculatetime(val), calculatefeeling(val,feeling, activity, udist, feelingmap)) if choice=="rank"
+  		score=score(calculateprice(val,true, feeling), 0, 0, 0,0) if choice=="price"
   		score=score(0, calculatedistance(val,udist, true), 0, 0,0) if choice=="dist"
   		@scores[score]=val.name
 
@@ -325,10 +301,12 @@ def calculatefeeling(val, feeling, activity, udist, feelingmap)
 		end
 	elsif feeling=="Fancy"
 		mult=1 - (0.05*rand())
-		if val.price.to_i>=50
-			mult=1
-		elsif (activity.include?("Museum") || activity.include?("Gallery") || activity.include?("Theatre") || activity.include?("Reading") || activity.include?("Art"))
-			mult=1-(0.15*rand())
+		if val.price!="Price not listed" || val.price!="Free"
+			if val.price.to_i>=10
+				mult=1
+			end
+		else (activity.include?("Museum") || activity.include?("Gallery") || activity.include?("Theatre") || activity.include?("Reading") || activity.include?("Art"))
+			mult=1-(0.25*rand())
 		end
 	elsif feeling=="Celebrating" && 
 		#need facebook api
@@ -346,16 +324,21 @@ def calculatefeeling(val, feeling, activity, udist, feelingmap)
 		end
 	elsif feeling=="Restless"
 		tnow=Time.now
-		if Time.parse(Date.today + val.time) < 2.hours.from_now
-			mult=1
+		if val.time!="Time not listed"
+
+			if Time.parse(val.time) < 2.hours.from_now - 5.hours
+				mult=1
+			end
 		elsif activity.include?("Music") || activity.include?("Music")
 			mult=1-(0.25*rand())
 		end
-		
+
 
 	elsif feeling=="Lazy"
-		if val.distance_to([43.6426, -79.3871]) < 0.5
-			mult=1
+		if val.location!="Location not listed"
+			if val.distance_to([43.6426, -79.3871]) < 0.5
+				mult=1
+			end
 		elsif activity.include?("Hang Out") || activity.include?("Hang Out")
 			mult=1-(0.25*rand())
 		end
@@ -372,7 +355,12 @@ def calculatefeeling(val, feeling, activity, udist, feelingmap)
 	else
 		mult= 0.5
 	end
+
+
+	mult||=0.5
+
 	score=mult*20
+
 end
 
   def calculatetime(val)
@@ -386,7 +374,7 @@ end
   	score =mult*((33.33-29)*2)
   end
 
-  def calculateprice(val, full=false)
+  def calculateprice(val, full=false, feeling)
   	price=val.price
   	mult=0
   	if price== "Free"
@@ -394,6 +382,8 @@ end
   	elsif price=="Price not listed"
   		mult=rand()
   		mult=mult>=0.30 ? mult-0.22 : mult	
+  	elsif feeling=="Fancy" && price.to_i>=10
+  		mult=0.9
   	elsif price.to_i <= 10
   		mult=0.9
   	elsif price.to_i <=20
@@ -415,11 +405,13 @@ end
   	else
   		mult=rand()
   	end
+
   	if full
   		score=(mult*100)-(rand()*5)
   	else
   		score=(mult*20)-(rand()*5)
   	end
+
   end
 
   def calculatedistance(val,udist, full=nil)

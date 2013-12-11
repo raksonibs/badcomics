@@ -26,6 +26,11 @@
 -need to do by price, by distance, by time, all events categorized and top three stay at top
 -facebook integration for users with action mailer
 -add better categorization of events based on more words, tech, celebration, etc
+-background image full screen
+-want horizontal display with hover over becomes apparent [][][]
+														  all res
+-if choice jus sort by price, every event gets happy feeling
+-difference in all and ranks. need to only to all and get top three?, or just not include the first three in all score?
 ===
 [{"Allan Gardens Conservatory Christmas Flower Show"=>98.08367262074478}, {"Allan Gardens Christmas Flower Show"=>97.14589654520506}, {"The Artisans' Gift Fair 2013"=>96.94416150187836}]--> double up
 #<Event id: 3415, name: "Toronto Chapter PKD Support Group Meeting", price: "Free", location: "Masaryk-Cowan Community Recreational Centre, Toront...", category: "Misc.", feeling: "None", time: "02:00 PM", created_at: "2013-12-09 01:40:29", updated_at: "2013-12-09 01:40:29", latitude: 43.653226, longitude: -79.3831843> --> number one match for trying new things and it is free before the time. that is why feeling is so important. support group would have a supportie/sad feeling.
