@@ -13,7 +13,7 @@ class WelcomeController < ApplicationController
 	@@alltime=nil
 	@@alldist=nil
   def index
-  	@data=Event.all
+  	#@data=Event.makeevents
   end
 
   def activitymap(activity)

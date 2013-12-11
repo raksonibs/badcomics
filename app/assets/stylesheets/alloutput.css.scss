@@ -26,7 +26,13 @@
 }
 
 .wrapper .alloutput .allresults .eachresult1 .location1,
-.wrapper .alloutput .allresults .eachresult1 .time1 {
+.wrapper .alloutput .allresults .eachresult1 .time1,
+.wrapper .alloutput .allresults .eachresult1 .matchscore1 {
 	margin-left: 1.1em;
 	font-size: 0.5em;
+}
+
+.wrapper .output .result .eachresult .matchscore .score1 {
+	color: green;
+	font-style: bold;
 }
