@@ -134,9 +134,9 @@ class WelcomeController < ApplicationController
 
   		if params[:button]=="try"
   			@@all=nil
-		@@allprice=nil
-		@@alltime=nil
-		@@alldist=nil
+			@@allprice=nil
+			@@alltime=nil
+			@@alldist=nil
 
   			format.html { redirect_to "/whattodo"}
   		
@@ -158,7 +158,7 @@ class WelcomeController < ApplicationController
 	 				@result, @scores=result(@data,udist,activity, "price", feeling, feelingmap)
 	 				@@allprice=@scores
 	 			end
-	 			@result=@allprice.sort.reverse
+	 			@result=@@allprice.sort.reverse
 	 			format.js{ render :action => "/all.js.erb" }
 	 		elsif params[:button2]=="dist"
 	 			if @@alldist==nil
@@ -171,7 +171,7 @@ class WelcomeController < ApplicationController
 	 		elsif params[:button2]=="time"
 	 			if @@alltime==nil
 	 				@result, @scores =result(@data,udist,activity, "time", feeling, feelingmap)
-	 				@alltime=@scores
+	 				@@alltime=@scores
 	 			end
 	 			@result=@@alltime.sort.reverse
 	 			format.js{ render :action => "/all.js.erb" } 			
@@ -366,7 +366,7 @@ end
   		mult=1
   	end
   	if full
-  		score=mult*100
+  		score=mult*100-rand()
   	else
   		score = mult*((33.33-29)*2)
   	end
