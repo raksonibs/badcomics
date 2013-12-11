@@ -15,7 +15,10 @@ You're bored. But how are you feeling:
   
   <br>
 
-	<%= @data %>
+	<% @data.each do |d| %>
+  <br>
+    <%= d.name %>
+  <% end %>
    
     <br>
     <br>
