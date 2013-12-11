@@ -105,7 +105,7 @@
 				<button id='18' class='categorybox2'>I don't care!</button>
 			</div>
 
-			<!-- Will likely need to render results from a partial which displays the results from the output of the app. -->
+			<!-- Output styling in result.css.scss -->
 
 			<div class='output'>
 				<p>Results:</p>
@@ -125,8 +125,13 @@
 
 			</script>
 
+			<!-- Look in alloutput.css.scss file for styling -->
+			<div class="alloutput">
+				<%= render "all" %>
+			</div>
+
 			<div class='output1'>
-				<div class="rank">
+		<!-- 		<div class="rank">
 					Rank
 					<button id="ranktop">Top 3</button>
 					<button id="rankbot">Last 3</button>
@@ -140,17 +145,12 @@
 					Distance
 					<button id="disttop">Top 3</button>
 					<button id="distbot">Last 3</button>
-				</div>
+				</div> -->
 				
 					<button id="all">All Results</button>
 					<button id="try">Try Again!</button>
 				
 			</div>
-			<div class="alloutput">
-				<%= render "all" %>
-			</div>
-
-			
 
 			<div class='bottom'>
 				<p></p>

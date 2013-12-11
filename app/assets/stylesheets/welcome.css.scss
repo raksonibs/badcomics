@@ -24,6 +24,7 @@
   font-style: normal;
 }
 
+/* This section can be removed eventually. */
 #all,
 #try {
 	width: 50px;
@@ -39,19 +40,20 @@ p.back2 {
 	width: 200px;
 	height: 200 px;
 }
+/* This section can be removed eventually. */
 
 body {
 	margin:0;
 	margin-top: -16px;
 	padding:0;
-	background: image-url("toronto_skyline.jpg") no-repeat;
+	background: image-url("toronto_skyline.jpg");
 	opacity: 0.8;
-	background-height: 100%;
+	/*background-height: 100%;*/
 	color: white;
 	font-family: Robotothin;
 }
 
-#blackness {
+.wrapper #blackness {
 	background-color: rgba(255,255,255,0.5);
 	width: 110%;
 	height: 110%;
@@ -108,7 +110,7 @@ body {
 }
 
 .wrapper .topspace {
-	height: 120px;
+	height: 90px;
 	width: 100%;
 }
 
@@ -116,7 +118,7 @@ body {
 .wrapper .question2,
 .wrapper .question3,
 .wrapper .question4 {
-	height: 70px;
+	height: 60px;
 	width: 100%;
 	margin-bottom: 40px;
 	font-family: Roboto;
@@ -191,15 +193,6 @@ body {
 /*.wrapper .categories .categorybox p {
 	display: inline-block;
 }*/
-
-.wrapper .output {
-	height: 320px;
-	width: 780px;
-	font-size: 2em;
-	position: relative;
-	margin: auto;
-	display: block;
-}
 
 .wrapper .bottom {
 	text-align: center;

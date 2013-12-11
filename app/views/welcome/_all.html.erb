@@ -1,1 +1,15 @@
-<%= @result %>
+<% if @result %>
+
+  <div class="allresults">
+      <% @result.each do |glocation, name| %>
+          <table class="resulttable">
+              <tr>
+                <td><%="#{name}"%></td>
+                <td><%="#{Event.find_by_name(name).location}"%></td>
+                <td><%="#{Event.find_by_name(name).time}"%></td>
+              </tr>
+          </table>
+      <% end %>
+  </div><br>
+   
+<% end %>
