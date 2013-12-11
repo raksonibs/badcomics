@@ -105,28 +105,15 @@
 				<button id='18' class='categorybox2'>I don't care!</button>
 			</div>
 
-			<!-- Will likely need to render results from a partial which displays the results from the output of the app. -->
+			<!-- Output styling in result.css.scss -->
 
 			<div class='output'>
 				<p>Results:</p>
 				<%= render 'ranks'%>
-
 			</div>
-
-			
-			<div id="blackness">
-
-			</div>
-			<script type="text/javascript">
-
-			  var bank2=["Lining Up Meter Sticks", "Asking Robots Politely", "Using Cheat Codes"];
-			  $("#blackness").text(bank2[Math.ceil(Math.random()*2)])
-			    
-
-			</script>
 
 			<div class='output1'>
-				<div class="rank">
+		<!-- 		<div class="rank">
 					Rank
 					<button id="ranktop">Top 3</button>
 					<button id="rankbot">Last 3</button>
@@ -140,17 +127,29 @@
 					Distance
 					<button id="disttop">Top 3</button>
 					<button id="distbot">Last 3</button>
-				</div>
+				</div> -->
 				
 					<button id="all">All Results</button>
 					<button id="try">Try Again!</button>
 				
 			</div>
+			
+			<div id="blackness">
+
+			</div>
+			
+			<script type="text/javascript">
+
+			  var bank2=["Lining Up Meter Sticks", "Asking Robots Politely", "Using Cheat Codes"];
+			  $("#blackness").text(bank2[Math.ceil(Math.random()*2)])
+			    
+
+			</script>
+
+			<!-- Look in alloutput.css.scss file for styling -->
 			<div class="alloutput">
 				<%= render "all" %>
 			</div>
-
-			
 
 			<div class='bottom'>
 				<p></p>

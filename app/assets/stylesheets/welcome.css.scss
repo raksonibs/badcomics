@@ -24,41 +24,30 @@
   font-style: normal;
 }
 
-#all,
-#try {
-	width: 50px;
-	height: 50px;
-	border-radius: 25%;
-	background-color: rgba(255,255,255,0.5);
-}
-
-p.back1,
-p.back2 {
-	right:-100px;
-	border: 1px solid black;
+.wrapper .question2 .back1,
+.wrapper .question3 .back2 {
+	right: -100px;
+	border: 2px solid white;
+	background-color: rgba(255,255,255,0.45);
+	border-radius: 6px;
 	width: 200px;
-	height: 200 px;
+	height: 50px;
+	float: left;
+	margin-left: 20px;
+	margin-top: 6px;
+	font-family: Robotothin, Helvetica;
+	font-size: 2em;
 }
 
 body {
 	margin:0;
 	margin-top: -16px;
 	padding:0;
-	background: image-url("toronto_skyline.jpg") no-repeat;
+	background: image-url("toronto_skyline.jpg");
 	opacity: 0.8;
-	background-height: 100%;
+	/*background-height: 100%;*/
 	color: white;
 	font-family: Robotothin;
-}
-
-#blackness {
-	background-color: rgba(255,255,255,0.5);
-	width: 110%;
-	height: 110%;
-	top: 100px;
-	left: 30px;
-	position: absolute;
-	z-index: 100;
 }
 
 .wrapper {
@@ -108,7 +97,7 @@ body {
 }
 
 .wrapper .topspace {
-	height: 120px;
+	height: 90px;
 	width: 100%;
 }
 
@@ -116,7 +105,7 @@ body {
 .wrapper .question2,
 .wrapper .question3,
 .wrapper .question4 {
-	height: 70px;
+	height: 60px;
 	width: 100%;
 	margin-bottom: 40px;
 	font-family: Roboto;
@@ -174,7 +163,6 @@ body {
   	-moz-transition: .8s;
   	-webkit-transition: .8s;
   	transition: .8s;
-
 }
 
 .wrapper .categories button:hover,
@@ -188,17 +176,39 @@ body {
   	transition: .8s;
 }
 
-/*.wrapper .categories .categorybox p {
-	display: inline-block;
-}*/
-
-.wrapper .output {
-	height: 320px;
-	width: 780px;
-	font-size: 2em;
-	position: relative;
+.wrapper .output1 {
+	width: 400px;
+	height: 75px;
 	margin: auto;
-	display: block;
+	margin-top: 1em;
+}
+
+.wrapper .output1 #all,
+.wrapper .output1 #try {
+	width: 150px;
+	height: 50px;
+	border-radius: 6px;
+	background-color: rgba(255,255,255,0.5);
+	text-align: center;
+	outline: 0;
+	color: white;
+	font-family: Robotothin, Helvetica;
+	font-size: 1.2em;
+}
+
+.wrapper .output1 #all button,
+.wrapper .output1 #try button {
+	margin: auto;
+}
+
+.wrapper #blackness {
+	background-color: rgba(255,255,255,0.5);
+	width: 110%;
+	height: 110%;
+	top: 100px;
+	left: 30px;
+	position: absolute;
+	z-index: 100;
 }
 
 .wrapper .bottom {
