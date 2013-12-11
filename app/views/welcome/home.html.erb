@@ -110,24 +110,6 @@
 			<div class='output'>
 				<p>Results:</p>
 				<%= render 'ranks'%>
-
-			</div>
-
-			
-			<div id="blackness">
-
-			</div>
-			<script type="text/javascript">
-
-			  var bank2=["Lining Up Meter Sticks", "Asking Robots Politely", "Using Cheat Codes"];
-			  $("#blackness").text(bank2[Math.ceil(Math.random()*2)])
-			    
-
-			</script>
-
-			<!-- Look in alloutput.css.scss file for styling -->
-			<div class="alloutput">
-				<%= render "all" %>
 			</div>
 
 			<div class='output1'>
@@ -150,6 +132,23 @@
 					<button id="all">All Results</button>
 					<button id="try">Try Again!</button>
 				
+			</div>
+			
+			<div id="blackness">
+
+			</div>
+			
+			<script type="text/javascript">
+
+			  var bank2=["Lining Up Meter Sticks", "Asking Robots Politely", "Using Cheat Codes"];
+			  $("#blackness").text(bank2[Math.ceil(Math.random()*2)])
+			    
+
+			</script>
+
+			<!-- Look in alloutput.css.scss file for styling -->
+			<div class="alloutput">
+				<%= render "all" %>
 			</div>
 
 			<div class='bottom'>

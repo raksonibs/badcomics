@@ -2,13 +2,17 @@
 
   <div class="allresults">
       <% @result.each do |glocation, name| %>
-          <table class="resulttable">
-              <tr>
-                <td><%="#{name}"%></td>
-                <td><%="#{Event.find_by_name(name).location}"%></td>
-                <td><%="#{Event.find_by_name(name).time}"%></td>
-              </tr>
-          </table>
+          <div class="eachresult1">
+          		<div class="name1">
+          		<%="Go to: #{name}" %>
+           		</div>
+           		<div class="location1">
+           		<%= "@ #{Event.find_by_name(name).location}" %>
+           		</div>
+           		<div class="time1">
+           		<%= "@ #{Event.find_by_name(name).time}" %>
+           		</div>
+         	</div>
       <% end %>
   </div><br>
    

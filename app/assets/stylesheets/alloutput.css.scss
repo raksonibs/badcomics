@@ -1,18 +1,32 @@
 .wrapper .alloutput {
+	height: 100%;
 	width: 780px;
+	font-size: 2em;
 	margin: auto;
 }
 
 .wrapper .alloutput .allresults {
-	width: 100%;
+	height: 100%;
 }
 
-.wrapper .alloutput .resulttable {
-	width: 100%;
-
+.wrapper .alloutput .allresults .eachresult1 {
+	display: block;
+	border: 2px solid white;
+	border-radius: 6px;
+	padding-left: 1em;
+	padding-top: .5em;
+	padding-bottom: .5em;
+	margin-bottom: 5px;
+	background-color: rgba(255,255,255,0.31);
 }
 
-.wrapper .alloutput .resulttable td th {
-	padding-bottom: 5px;
-	padding-top: 5px;
+.wrapper .alloutput .allresults .eachresult1 .name1 {
+	font-size: .7em;
+	font-family: Roboto, Robotothin, Helvetica;
+}
+
+.wrapper .alloutput .allresults .eachresult1 .location1,
+.wrapper .alloutput .allresults .eachresult1 .time1 {
+	margin-left: 1.1em;
+	font-size: 0.5em;
 }

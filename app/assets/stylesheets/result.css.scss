@@ -2,33 +2,29 @@
 	height: 100%;
 	width: 780px;
 	font-size: 2em;
-	position: relative;
 	margin: auto;
-	display: block;
 }
 
-.result {
+.wrapper .output .result {
 	height: 100%;
-	display: block;
 }
 
-.eachresult {
+.wrapper .output .result .eachresult {
 	display: block;
 	border: 2px solid white;
 	border-radius: 6px;
 	padding: 1em;
 	margin-bottom: 5px;
 	background-color: rgba(255,255,255,0.31);
-
 }
 
-.eachresult .name {
+.wrapper .output .result .eachresult .name {
 	font-size: .9em;
 	font-family: Roboto, Robotothin, Helvetica;
 }
 
-.eachresult .location,
-.eachresult .time {
+.wrapper .output .result .eachresult .location,
+.wrapper .output .result .eachresult .time {
 	margin-left: 1.1em;
 	font-size: .7em;
 }
