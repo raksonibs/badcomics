@@ -6,17 +6,18 @@
 	      	<% if name!="No 1st place" && name!="No 2nd place" && name!="No 3rd place" %>
 				<div class="eachresult">
 	          		<div class="name">
-	          		<%="Go to: #{name}" %>
+	          			<%="Go to: #{name}" %>
 	           		</div>
 	           		<div class="location">
-	           		<%= "@ #{Event.find_by_name(name).location}" %>
+	           			<%= "@ #{Event.find_by_name(name).location}" %>
 	           		</div>
 	           		<div class="time">
-	           		<%= "@ #{Event.find_by_name(name).time}" %>
+	           			<%= "@ #{Event.find_by_name(name).time}" %>
 	           		</div>
-	         		<div>
-	         			<%= glocation %>
-	         		</div>
+	         		<div class="matchscore">
+                		Relevance score: 
+                		<a class="score"><%= score.to_i"%" %></a>
+              		</div>
 	         	</div>
 	        <% else %>
 	         	<div class="eachresult">
