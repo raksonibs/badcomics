@@ -2,7 +2,7 @@
 
   <div class="allresults">
       <% @result.each do |score, name| %>
-      	<% if name!="No 1st place" && name!="No 2nd place" && name1!="No 3rd place" %>
+      	<% if name!="No 1st place" && name!="No 2nd place" && name!="No 3rd place" %>
       		<div class="eachresult1">
       			<div class="name1">
       				<%="Go to: #{name}" %>
@@ -15,7 +15,7 @@
        			</div>
           		<div class="matchscore1">
                 	Relevance score: 
-                	<a class="score1"><%= score.to_i"%" %></a>
+                	<a class="score1"><%= score %></a>
               	</div>
      		</div>
       	<% else %>
