@@ -351,6 +351,7 @@ def calculatefeeling(val, feeling, activity, udist, feelingmap)
 		elsif activity.include?("Music") || activity.include?("Music")
 			mult=1-(0.25*rand())
 		end
+		
 
 	elsif feeling=="Lazy"
 		if val.distance_to([43.6426, -79.3871]) < 0.5
