@@ -113,6 +113,42 @@ $(window).load(function() {
                     button2: "price" }
       })
     })
+    $("#dist").on("click", function(){
+        $.ajax({
+            url: "/result/"+choice1+"/"+choice2+"/"+choice3,
+            type: "GET",
+            dataType: "script",
+            data: { choice1: choice1,
+                    choice2: choice2,
+                    choice3: choice3,
+                    button: "all",
+                    button2: "dist" }
+      })
+    })
+    $("#ourrank").on("click", function(){
+        $.ajax({
+            url: "/result/"+choice1+"/"+choice2+"/"+choice3,
+            type: "GET",
+            dataType: "script",
+            data: { choice1: choice1,
+                    choice2: choice2,
+                    choice3: choice3,
+                    button: "all",
+                    button2: "ourrank" }
+      })
+    })
+    $("#time").on("click", function(){
+        $.ajax({
+            url: "/result/"+choice1+"/"+choice2+"/"+choice3,
+            type: "GET",
+            dataType: "script",
+            data: { choice1: choice1,
+                    choice2: choice2,
+                    choice3: choice3,
+                    button: "all",
+                    button2: "time" }
+      })
+    })
   })
   })
 }

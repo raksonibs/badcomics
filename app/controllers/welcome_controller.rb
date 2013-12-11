@@ -9,6 +9,9 @@ require 'active_support/core_ext/numeric/time'
 #foursquare
 class WelcomeController < ApplicationController
 	@@all=nil
+	@@allprice=nil
+	@@alltime=nil
+	@@alldist=nil
   def index
   	@data=Event.all
   end
@@ -130,66 +133,53 @@ class WelcomeController < ApplicationController
   	respond_to do |format|
 
   		if params[:button]=="try"
-  			
+  			@@all=nil
+		@@allprice=nil
+		@@alltime=nil
+		@@alldist=nil
 
   			format.html { redirect_to "/whattodo"}
   		
 	  	elsif params[:button]=="rank" || (params[:button]!="dist" && params[:button]!="price" && params[:button]!="pricebot" && params[:button]!="rankbot" && params[:button]!="distbot" && params[:button]!="all" && params[:button]!="try")
+		  	#dont need my push method to get top three
 		  	@result, @scores=result(@data,udist, activity, "rank", feeling, feelingmap)
+		  	@result=@scores.sort.reverse[0..2]
 			@@all=@scores
-		  	keys=makekeys(@result)
-	 		@result= keys.flatten.uniq.size!=3 ? uniquekeys(@result,"rank", @data, udist, activity, feeling, feelingmap) : @result
 
 	 		format.js{ render :action => "/algorthim.js.erb" }
 
-		elsif params[:button]=="price"
-	 		#only prices under their choice
-	 		@result, @scores =result(@data,udist,activity, "price", feeling, feelingmap)
-	 		keys=makekeys(@result)
-	 		@result= keys.flatten.uniq.size!=3 ? uniquekeys(@result,params[:button], @data, udist, activity, feeling, feelingmap) : @result
-	 		format.js{ render :action => "/algorthim.js.erb" }
-
-
-		elsif params[:button]=="dist"
-	 		@result, @scores =result(@data,udist,activity, "dist", feeling, feelingmap)
-	 		keys=makekeys(@result)
-	 		@result= keys.flatten.uniq.size!=3 ? uniquekeys(@result,params[:button], @data, udist, activity, feeling, feelingmap) : @result
-
-	 		format.js{ render :action => "/algorthim.js.erb" }
 	 	elsif params[:button]=="all"
-
+	 		#this approach doesnt work if they do try again
 	 		if params[:button2]!="dist" && params[:button2]!="price" && params[:button2]!="time"
 	 			@result=@@all.sort.reverse
 	 			format.js{ render :action => "/all.js.erb" }
+	 		elsif params[:button2]=="price"
+	 			if @@allprice==nil
+	 				@result, @scores=result(@data,udist,activity, "price", feeling, feelingmap)
+	 				@@allprice=@scores
+	 			end
+	 			@result=@allprice.sort.reverse
+	 			format.js{ render :action => "/all.js.erb" }
+	 		elsif params[:button2]=="dist"
+	 			if @@alldist==nil
+	 				@result, @scores =result(@data,udist,activity, "dist", feeling, feelingmap)
+	 				@@alldist=@scores
+	 			end
+	 			@result=@@alldist.sort.reverse
+	 			format.js{ render :action => "/all.js.erb" } 			
+	 		
+	 		elsif params[:button2]=="time"
+	 			if @@alltime==nil
+	 				@result, @scores =result(@data,udist,activity, "time", feeling, feelingmap)
+	 				@alltime=@scores
+	 			end
+	 			@result=@@alltime.sort.reverse
+	 			format.js{ render :action => "/all.js.erb" } 			
 	 		end
-
-
-	 	end
-	 	
+	 	end 	
 	 end
   end
 
-def makekeys(result)
-	keys=[]
-	result.each do |val|
-		keys << val.keys
-	end
-	keys
-end
-
-def uniquekeys(result,button, data,udist, activity, feeling, feelingmap)
-
-	choice="price" if button[/price/]
-	choice="rank" if button[/rank/]
-	choice="dist" if button[/dist/]
-	keys=makekeys(result)
-  	while keys.flatten.uniq.size!=3
-  		#catches repititons
-  		result, scores=result(data, udist, activity, choice, feeling, feelingmap)
-		keys=makekeys(result)
-	end
-	result
-end
 
 def result(data, udist,activity, choice='rank', feeling, feelingmap)
 
@@ -205,6 +195,7 @@ def result(data, udist,activity, choice='rank', feeling, feelingmap)
   		score=score(calculateprice(val, feeling), calculatedistance(val,udist), calculatepurity(val, activity), calculatetime(val), calculatefeeling(val,feeling, activity, udist, feelingmap)) if choice=="rank"
   		score=score(calculateprice(val,true, feeling), 0, 0, 0,0) if choice=="price"
   		score=score(0, calculatedistance(val,udist, true), 0, 0,0) if choice=="dist"
+  		score= score(0, 0, 0, calculatetime(val, true), 0) if choice=="time"
   		@scores[score]=val.name
 
   		if i==0
@@ -366,7 +357,7 @@ def calculatefeeling(val, feeling, activity, udist, feelingmap)
 
 end
 
-  def calculatetime(val)
+  def calculatetime(val, full=false)
   	mult=0
   	time=val.time
   	if time=="Time not listed"
@@ -374,7 +365,11 @@ end
   	else
   		mult=1
   	end
-  	score =mult*((33.33-29)*2)
+  	if full
+  		score=mult*100
+  	else
+  		score = mult*((33.33-29)*2)
+  	end
   end
 
   def calculateprice(val, full=false, feeling)
