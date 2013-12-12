@@ -15,10 +15,12 @@ class WelcomeController < ApplicationController
   def index
   	if current_user
   		@result=current_user.choices
-  		#catchoice=categorycount(@result)
-  		#pricechoice=pricecount(@result)
-  		#feelingchoice=feelingscount(@result)[1]
-  		#algorthim(feelingchoice, catchoice,pricechoice,true)
+  		catchoice=categorycount(@result)
+  		pricechoice=pricecount(@result)
+  		feelingchoice=feelingscount(@result)[1]
+  		@result=algorthim(feelingchoice, catchoice,pricechoice,true)
+  		
+  		
   		
 
   		#need to deal with the part of where user.choices is empty and jsut recommend randonly
@@ -32,6 +34,78 @@ class WelcomeController < ApplicationController
   	#@result=Fql.execute("SELECT name, attending_count, start_time, eid, location FROM event WHERE eid IN (SELECT eid FROM event_member WHERE uid = #{current_user.uid})")
   end
 
+def categorycount(result)
+  	res=[]
+  	categories=["Get Cultured", "Learn", "Trying New Things", "Be Merry", "Hangout with Strangers", "Laugh", "Be a Tourist", "Jam Out", "Be a Good Person", "Party Hardy", "Spend Spend Spend", "Family Channel", "Sporting Around", "Watch a Show", "Outdoor Fun", "Geeking Out"]
+  	categories.each do |i|
+  		res << [result.where(category: i).size, i]
+  	end
+  	max=0
+  	#need to include multiple categories, not just one if draw. fix later
+  	cattt=""
+  	res.each do |i|
+
+  		if i[0]>=max 
+  			cattt,max=i[1],i[0]
+  		end
+  	end
+  	cattt
+  end
+
+  def pricecount(result)
+  	#average price
+  	def changeval(i)
+  		if i=="Free!"
+  			value=0
+  		elsif i=="<$20"
+  			value= 20
+  		elsif i=="$20-$50"
+  			value=50
+  		elsif i=="$50-$100"
+  			value=100
+  		elsif i=="$100-$300"
+  			value=300
+  		elsif i=="I don't care!"
+  			value=300
+  		end
+
+  		value
+  	end
+  	avg=0
+  	result.each do |item|
+  		avg+=changeval(item.price)
+  	end
+
+  	avg=avg*1.0/result.size
+  	
+  end
+
+  def feelingscount(result)
+  	#refactor becasue asme as category right now
+  	#doesnt seem to catch them being the same
+  	res=[]
+  	feelings=["Happy", "Sad", "Celebratory", "Lonely", "Restless", "Lazy", "Excited", "Blah", "Festive", "Weird", "Nerdy", "Normal", "Fancy"]
+  	feelings.each do |i|
+  		res << [result.where(feeling: i).size, i]
+  	end
+  	max=0
+  	#need to include draw between categories.
+  	feel=""
+  	res.each do |i|
+
+  		if i[0]>max || max==0
+  			feel,max=i,i[0]
+  		elsif i[0]==max
+  	
+  			if result.where(category: i[1]).order(:created_at).first > result.where(category: i[1]).order(:created_at).first
+  				feel,max=i[1],i[0]
+  			end
+
+  		end
+  	end
+  	feel
+  	end
+  
 
   
 
@@ -121,14 +195,18 @@ class WelcomeController < ApplicationController
 
   	timenow=Time.parse("Sun December 8 2013 10:00 AM")
 	@data=[]
-	if money[/-/]
-		money=money[/-\$\d+/][2..money.length]
-	elsif money[/\d+/]
-		money=money[/\$\d+/][1..money.length]
-	else
-		money=0
+	unless recommend
+		if money[/-/]
+			money=money[/-\$\d+/][2..money.length]
+		elsif money[/\d+/]
+			money=money[/\$\d+/][1..money.length]
+		else
+			money=0
+		end
 	end
 	activity=activitymap(activity)
+	
+
 	
 	Event.all.each do |e|
 		if e.time=="Time not listed" || Time.parse(e.time) > timenow 
@@ -156,12 +234,14 @@ class WelcomeController < ApplicationController
 		end
 	end
 	
+
   	respond_to do |format|
 
   		if recommend 
+
   			@result, @scores=result(@data,udist, activity, "rank", feeling, feelingmap)
 		  	@result=@scores.sort.reverse[0..2]
-		  	format.js{ render :action => "/algorthim.js.erb" }
+		  	return @result
 
   		elsif params[:button]=="try"
   			@@all=nil
@@ -177,7 +257,7 @@ class WelcomeController < ApplicationController
 		  	@result=@scores.sort.reverse[0..2]
 			@@all=@scores
 
-	 		format.js{ render :action => "/algorthimrec.js.erb" }
+	 		format.js{ render :action => "/algorthim.js.erb" }
 
 	 	elsif params[:button]=="all"
 	 		#this approach doesnt work if they do try again
