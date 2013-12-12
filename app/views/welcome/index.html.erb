@@ -15,10 +15,7 @@ You're bored. But how are you feeling:
   
   <br>
 
-	<% @data.each do |d| %>
-  <br>
-    <%= d.name %>
-  <% end %>
+	
    
     <br>
     <br>
@@ -26,9 +23,12 @@ You're bored. But how are you feeling:
   <br>
 
 </div>
-
+Recommendations:
 <br>
-<%= @result %>
+<div id"rec">
+<%= render 'rec' %>
+</div>
+
 <div id="eventbrite">
 <%= @cat.inspect %>
 </div>

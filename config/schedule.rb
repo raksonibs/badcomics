@@ -19,6 +19,6 @@
 
 # Learn more: http://github.com/javan/whenever
 
-every :day, :at=> "6:15pm" do
+every :day, :at=> "07:00am" do
 	rake "getdata:task"
 end

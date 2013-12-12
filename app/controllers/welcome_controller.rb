@@ -13,8 +13,92 @@ class WelcomeController < ApplicationController
 	@@alltime=nil
 	@@alldist=nil
   def index
-  	#@data=Event.makeevents
+  	if current_user
+  		@result=current_user.choices
+  		catchoice=categorycount(@result)
+  		pricechoice=pricecount(@result)
+  		feelingchoice=feelingscount(@result)[1]
+  		@result=algorthim(feelingchoice, catchoice,pricechoice,true)
+  	end
+  	#@result=Fql.execute("SELECT first_name, last_name FROM user WHERE uid = #{current_user.uid}")
+  	#@result=Fql.execute("SELECT uid,eid,rsvp_status FROM event_member WHERE uid = #{current_user.uid}")
+  	#@result=Fql.execute("SELECT name, attending_count, start_time, eid, location FROM event WHERE eid IN (SELECT eid FROM event_member WHERE uid = #{current_user.uid})")
   end
+
+def categorycount(result)
+  	res=[]
+  	categories=["Get Cultured", "Learn", "Trying New Things", "Be Merry", "Hangout with Strangers", "Laugh", "Be a Tourist", "Jam Out", "Be a Good Person", "Party Hardy", "Spend Spend Spend", "Family Channel", "Sporting Around", "Watch a Show", "Outdoor Fun", "Geeking Out"]
+  	categories.each do |i|
+  		res << [result.where(category: i).size, i]
+  	end
+  	max=0
+  	#need to include multiple categories, not just one if draw. fix later
+  	cattt=""
+  	res.each do |i|
+
+  		if i[0]>=max 
+  			cattt,max=i[1],i[0]
+  		end
+  	end
+  	cattt
+  end
+
+  def pricecount(result)
+  	#average price
+  	def changeval(i)
+  		if i=="Free!"
+  			value=0
+  		elsif i=="<$20"
+  			value= 20
+  		elsif i=="$20-$50"
+  			value=50
+  		elsif i=="$50-$100"
+  			value=100
+  		elsif i=="$100-$300"
+  			value=300
+  		elsif i=="I don't care!"
+  			value=300
+  		end
+
+  		value
+  	end
+  	avg=0
+  	result.each do |item|
+  		avg+=changeval(item.price)
+  	end
+
+  	avg=avg*1.0/result.size
+  	
+  end
+
+  def feelingscount(result)
+  	#refactor becasue asme as category right now
+  	#doesnt seem to catch them being the same
+  	res=[]
+  	feelings=["Happy", "Sad", "Celebratory", "Lonely", "Restless", "Lazy", "Excited", "Blah", "Festive", "Weird", "Nerdy", "Normal", "Fancy"]
+  	feelings.each do |i|
+  		res << [result.where(feeling: i).size, i]
+  	end
+  	max=0
+  	#need to include draw between categories.
+  	feel=""
+  	res.each do |i|
+
+  		if i[0]>max || max==0
+  			feel,max=i,i[0]
+  		elsif i[0]==max
+  	
+  			if result.where(category: i[1]).order(:created_at).first > result.where(category: i[1]).order(:created_at).first
+  				feel,max=i[1],i[0]
+  			end
+
+  		end
+  	end
+  	feel
+  	end
+  
+
+  
 
   def activitymap(activity)
   	#might want to map all of the events for the category? not just art or cinema. but all of them,
@@ -86,21 +170,28 @@ class WelcomeController < ApplicationController
   	end
   end
 
-  def algorthim
-  	#/result/happy/art/20
+  def algorthim(feeling=nil,activity=nil, money=nil,recommend=false)
+  	#recommend will need to pass its own feeling activity, price
   	udist=["43.6426, 79.3871"] #cannot hardcode location and time
-  	feeling,activity,money=params[:choice1], params[:choice2], params[:choice3] #also params[geolocation]
-  	
+  	if feeling==nil
+  		feeling,activity,money=params[:choice1], params[:choice2], params[:choice3]
+  	end #also params[geolocation]
+  	if current_user && !recommend
+  		current_user.choices << Choice.new({price: money,
+  										category: activity,
+  										feeling: feeling})
+  	end
   	feelingmap=feelmap(feeling)
-
   	timenow=Time.parse("Sun December 8 2013 10:00 AM")
 	@data=[]
-	if money[/-/]
-		money=money[/-\$\d+/][2..money.length]
-	elsif money[/\d+/]
-		money=money[/\$\d+/][1..money.length]
-	else
-		money=0
+	unless recommend
+		if money[/-/]
+			money=money[/-\$\d+/][2..money.length]
+		elsif money[/\d+/]
+			money=money[/\$\d+/][1..money.length]
+		else
+			money=0
+		end
 	end
 	activity=activitymap(activity)
 	
@@ -129,10 +220,15 @@ class WelcomeController < ApplicationController
 			end
 		end
 	end
-	
-  	respond_to do |format|
 
-  		if params[:button]=="try"
+  	respond_to do |format|
+  		if recommend 
+
+  			@result, @scores=result(@data,udist, activity, "rank", feeling, feelingmap)
+		  	@result=@scores.sort.reverse[0..2]
+		  	return @result
+
+  		elsif params[:button]=="try"
   			@@all=nil
 			@@allprice=nil
 			@@alltime=nil
@@ -182,13 +278,6 @@ class WelcomeController < ApplicationController
 
 
 def result(data, udist,activity, choice='rank', feeling, feelingmap)
-
-	first={}
-  	firstn=""
-  	second={}
-  	secondn=""
-  	third={}
-  	thirdn=""
   	@scores={}
 
   	data.each_with_index do |val,i|
@@ -197,60 +286,8 @@ def result(data, udist,activity, choice='rank', feeling, feelingmap)
   		score=score(0, calculatedistance(val,udist, true), 0, 0,0) if choice=="dist"
   		score= score(0, 0, 0, calculatetime(val, true), 0) if choice=="time"
   		@scores[score]=val.name
-
-  		if i==0
-  			firstn=val.name
-  			first[val.name]=score
-  		else
-  			#should do recursive
-  			if score> first[firstn]
-  				if secondn==""
-  					secondn=firstn
-  					second[secondn]=first[firstn]
-  					first.delete(firstn)
-  					firstn=val.name
-  					first[firstn]=score
-  				else
-  					third.delete(thirdn) if thirdn!="" #if second exists, delete third
-  					thirdn=secondn
-  					third[thirdn]=second[secondn]
-  					second.delete(secondn)
-  					secondn=firstn
-  					second[secondn]=first[firstn]
-  					first.delete(firstn)
-  					firstn=val.name
-  					first[firstn]=score
-  				end
-  			elsif secondn=="" || score>second[secondn] 
-  				if secondn==""
-  					secondn=val.name
-  					second[secondn]=score
-  				else
-  					third.delete(thirdn) if thirdn!="" #if second exists, delete third
-  					thirdn=secondn
-  					third[thirdn]=second[secondn]
-  					second.delete(secondn)
-  					secondn=val.name
-  					second[secondn]=score	
-  				end
-  			elsif thirdn=="" || score>third[thirdn]
-  				third.delete(thirdn) if thirdn!="" #if second exists, delete third
-  				thirdn=secondn
-  				third[thirdn]=score
-  			end
-  		end
-		end
-		
-		if thirdn==""
-			third["No 3rd place"]=0
-		end
-		if secondn==""
-			second["No 2nd place"]=0
-		end
-		if firstn==""
-			first["No 1st place"]=0
-		end
-	@result=[first,second,third]
+  	end
+	@result=[]
 	return @result, @scores	
 end
 
