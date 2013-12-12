@@ -19,15 +19,6 @@ class WelcomeController < ApplicationController
   		pricechoice=pricecount(@result)
   		feelingchoice=feelingscount(@result)[1]
   		@result=algorthim(feelingchoice, catchoice,pricechoice,true)
-  		
-  		
-  		
-
-  		#need to deal with the part of where user.choices is empty and jsut recommend randonly
-  		#need to count all categories
-  		#need to count all feelings
-  		#need to count all instances of money
-
   	end
   	#@result=Fql.execute("SELECT first_name, last_name FROM user WHERE uid = #{current_user.uid}")
   	#@result=Fql.execute("SELECT uid,eid,rsvp_status FROM event_member WHERE uid = #{current_user.uid}")
@@ -180,7 +171,6 @@ def categorycount(result)
   end
 
   def algorthim(feeling=nil,activity=nil, money=nil,recommend=false)
-  	#/result/happy/art/20
   	#recommend will need to pass its own feeling activity, price
   	udist=["43.6426, 79.3871"] #cannot hardcode location and time
   	if feeling==nil
@@ -192,7 +182,6 @@ def categorycount(result)
   										feeling: feeling})
   	end
   	feelingmap=feelmap(feeling)
-
   	timenow=Time.parse("Sun December 8 2013 10:00 AM")
 	@data=[]
 	unless recommend
@@ -205,8 +194,6 @@ def categorycount(result)
 		end
 	end
 	activity=activitymap(activity)
-	
-
 	
 	Event.all.each do |e|
 		if e.time=="Time not listed" || Time.parse(e.time) > timenow 
@@ -233,10 +220,8 @@ def categorycount(result)
 			end
 		end
 	end
-	
 
   	respond_to do |format|
-
   		if recommend 
 
   			@result, @scores=result(@data,udist, activity, "rank", feeling, feelingmap)
@@ -293,13 +278,6 @@ def categorycount(result)
 
 
 def result(data, udist,activity, choice='rank', feeling, feelingmap)
-
-	first={}
-  	firstn=""
-  	second={}
-  	secondn=""
-  	third={}
-  	thirdn=""
   	@scores={}
 
   	data.each_with_index do |val,i|
@@ -308,60 +286,8 @@ def result(data, udist,activity, choice='rank', feeling, feelingmap)
   		score=score(0, calculatedistance(val,udist, true), 0, 0,0) if choice=="dist"
   		score= score(0, 0, 0, calculatetime(val, true), 0) if choice=="time"
   		@scores[score]=val.name
-
-  		if i==0
-  			firstn=val.name
-  			first[val.name]=score
-  		else
-  			#should do recursive
-  			if score> first[firstn]
-  				if secondn==""
-  					secondn=firstn
-  					second[secondn]=first[firstn]
-  					first.delete(firstn)
-  					firstn=val.name
-  					first[firstn]=score
-  				else
-  					third.delete(thirdn) if thirdn!="" #if second exists, delete third
-  					thirdn=secondn
-  					third[thirdn]=second[secondn]
-  					second.delete(secondn)
-  					secondn=firstn
-  					second[secondn]=first[firstn]
-  					first.delete(firstn)
-  					firstn=val.name
-  					first[firstn]=score
-  				end
-  			elsif secondn=="" || score>second[secondn] 
-  				if secondn==""
-  					secondn=val.name
-  					second[secondn]=score
-  				else
-  					third.delete(thirdn) if thirdn!="" #if second exists, delete third
-  					thirdn=secondn
-  					third[thirdn]=second[secondn]
-  					second.delete(secondn)
-  					secondn=val.name
-  					second[secondn]=score	
-  				end
-  			elsif thirdn=="" || score>third[thirdn]
-  				third.delete(thirdn) if thirdn!="" #if second exists, delete third
-  				thirdn=secondn
-  				third[thirdn]=score
-  			end
-  		end
-		end
-		
-		if thirdn==""
-			third["No 3rd place"]=0
-		end
-		if secondn==""
-			second["No 2nd place"]=0
-		end
-		if firstn==""
-			first["No 1st place"]=0
-		end
-	@result=[first,second,third]
+  	end
+	@result=[]
 	return @result, @scores	
 end
 
