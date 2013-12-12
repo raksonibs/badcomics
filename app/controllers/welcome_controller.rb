@@ -13,11 +13,27 @@ class WelcomeController < ApplicationController
 	@@alltime=nil
 	@@alldist=nil
   def index
-  	
-  	@result=Fql.execute("SELECT first_name, last_name FROM user WHERE uid = #{current_user.uid}")
+  	if current_user
+  		@result=current_user.choices
+  		#catchoice=categorycount(@result)
+  		#pricechoice=pricecount(@result)
+  		#feelingchoice=feelingscount(@result)[1]
+  		#algorthim(feelingchoice, catchoice,pricechoice,true)
+  		
 
-  	@result=Fql.execute("SELECT name, attending_count, start_time, eid, location FROM event WHERE eid IN (SELECT eid FROM event_member WHERE uid = #{current_user.uid})")
+  		#need to deal with the part of where user.choices is empty and jsut recommend randonly
+  		#need to count all categories
+  		#need to count all feelings
+  		#need to count all instances of money
+
+  	end
+  	#@result=Fql.execute("SELECT first_name, last_name FROM user WHERE uid = #{current_user.uid}")
+  	#@result=Fql.execute("SELECT uid,eid,rsvp_status FROM event_member WHERE uid = #{current_user.uid}")
+  	#@result=Fql.execute("SELECT name, attending_count, start_time, eid, location FROM event WHERE eid IN (SELECT eid FROM event_member WHERE uid = #{current_user.uid})")
   end
+
+
+  
 
   def activitymap(activity)
   	#might want to map all of the events for the category? not just art or cinema. but all of them,
@@ -89,11 +105,18 @@ class WelcomeController < ApplicationController
   	end
   end
 
-  def algorthim
+  def algorthim(feeling=nil,activity=nil, money=nil,recommend=false)
   	#/result/happy/art/20
+  	#recommend will need to pass its own feeling activity, price
   	udist=["43.6426, 79.3871"] #cannot hardcode location and time
-  	feeling,activity,money=params[:choice1], params[:choice2], params[:choice3] #also params[geolocation]
-  	
+  	if feeling==nil
+  		feeling,activity,money=params[:choice1], params[:choice2], params[:choice3]
+  	end #also params[geolocation]
+  	if current_user && !recommend
+  		current_user.choices << Choice.new({price: money,
+  										category: activity,
+  										feeling: feeling})
+  	end
   	feelingmap=feelmap(feeling)
 
   	timenow=Time.parse("Sun December 8 2013 10:00 AM")
@@ -135,7 +158,12 @@ class WelcomeController < ApplicationController
 	
   	respond_to do |format|
 
-  		if params[:button]=="try"
+  		if recommend 
+  			@result, @scores=result(@data,udist, activity, "rank", feeling, feelingmap)
+		  	@result=@scores.sort.reverse[0..2]
+		  	format.js{ render :action => "/algorthim.js.erb" }
+
+  		elsif params[:button]=="try"
   			@@all=nil
 			@@allprice=nil
 			@@alltime=nil
@@ -149,7 +177,7 @@ class WelcomeController < ApplicationController
 		  	@result=@scores.sort.reverse[0..2]
 			@@all=@scores
 
-	 		format.js{ render :action => "/algorthim.js.erb" }
+	 		format.js{ render :action => "/algorthimrec.js.erb" }
 
 	 	elsif params[:button]=="all"
 	 		#this approach doesnt work if they do try again

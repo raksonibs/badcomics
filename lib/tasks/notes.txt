@@ -25,6 +25,8 @@
 -want to track users based on facebook and add recommendations to them. recommendation page at first is random events. then eventually can see wat event friends maybe went to on the side or something. recommendation bsed on feelings, categories and money.= feelings: wierd four times, happy once, sad once//categories: twice getting culture, twice meeting strnagers, once jam out, once party hardy//money: twice free twice i don't care twice 50-100
 ===so for recommendation look for wierd events (whichever rules, chose most recent if draw), (when draw with categories do choose two) that are cultured or meeting with strangers and have a price of i dont care (highest price rules even when draw)
 
+-should order by price and time
+
 -delayjob/chron job
 -machine learning on feeling. regex matching first based on description
 
