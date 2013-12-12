@@ -82,18 +82,22 @@ def categorycount(result)
   	max=0
   	#need to include draw between categories.
   	feel=""
-  	res.each do |i|
+  	res.each do |val|
 
-  		if i[0]>max || max==0
-  			feel,max=i,i[0]
-  		elsif i[0]==max
-  	
-  			if result.where(category: i[1]).order(:created_at).first > result.where(category: i[1]).order(:created_at).first
-  				feel,max=i[1],i[0]
+  		if val[0]>max || max==0
+  			feel,max=val,val[0]
+  		elsif val[0]==max
+  			debugger
+  				
+  		
+  			if result.where(feeling: val[1]).order(:created_at).first.created_at > result.where(feeling: feel).order(:created_at).first.created_at
+
+  				feel,max=val[1],val[0]
   			end
 
   		end
   	end
+  	debugger
   	feel
   	end
   
