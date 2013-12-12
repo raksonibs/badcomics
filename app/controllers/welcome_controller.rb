@@ -13,7 +13,10 @@ class WelcomeController < ApplicationController
 	@@alltime=nil
 	@@alldist=nil
   def index
-  	#@data=Event.makeevents
+  	
+  	@result=Fql.execute("SELECT first_name, last_name FROM user WHERE uid = #{current_user.uid}")
+
+  	@result=Fql.execute("SELECT name, attending_count, start_time, eid, location FROM event WHERE eid IN (SELECT eid FROM event_member WHERE uid = #{current_user.uid})")
   end
 
   def activitymap(activity)
