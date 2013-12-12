@@ -110,6 +110,7 @@ body {
 	width: 100%;
 	margin-bottom: 40px;
 	font-family: Roboto;
+	display: none;
 }
 
 .wrapper .question p,
@@ -120,6 +121,19 @@ body {
 	font-size: 3em;
 }
 
+/* hiding before page load so there isn't a white flash */
+
+.wrapper .categories,
+.wrapper .categories1,
+.wrapper .price,
+.wrapper .output,
+.wrapper .output1,
+.wrapper #blackness {
+	display: none;
+}
+
+/* Refer above */
+
 .wrapper .categories,
 .wrapper .categories1,
 .wrapper .price {
@@ -127,7 +141,7 @@ body {
 	width: 780px;
 	position: relative;
 	margin: auto;
-	display: block;
+	/*display: block;*/
 }
 
 .wrapper .categories .categorybox,
@@ -138,7 +152,7 @@ body {
 	vertical-align: top;
 	margin-right: 5px;
 	margin-bottom: 10px;
-	display: inline-block;
+	/*display: inline-block;*/
 	border: white solid 2px;
 	background-color: rgba(255,255,255,0.31);
 	border-radius: 6px;
@@ -200,6 +214,10 @@ body {
 .wrapper .output1 #all button,
 .wrapper .output1 #try button {
 	margin: auto;
+}
+
+.wrapper .buttons {
+	display: none;
 }
 
 .wrapper #blackness {
