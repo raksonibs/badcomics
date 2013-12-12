@@ -4,6 +4,12 @@
 			is if we decide to have user accounts. -->
 			<div class='topnav'>
 				<div id='profilethumb'>
+				<% if current_user %>
+				  Welcome <%= current_user.name %>!
+				  <%= link_to "Sign Out", signout_path %>
+				<% else %>
+				  <%= link_to "Sign in with Facebook", "/auth/facebook" %>
+				<% end %>
 					<a href="#"></a>
 					<a href="#"></a>
 				</div>
@@ -126,7 +132,7 @@
 			<script type="text/javascript">
 
 			  var bank2=["Lining Up Meter Sticks", "Asking Robots Politely", "Using Cheat Codes"];
-			  $("#blackness").text(bank2[Math.ceil(Math.random()*bank2.length()-1)])
+			  $("#blackness").text(bank2[Math.ceil(Math.random()*bank2.length-1)])
 			    
 
 			</script>

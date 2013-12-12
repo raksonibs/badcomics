@@ -4,6 +4,8 @@ Whattodo::Application.routes.draw do
   get "/test"=>"welcome#test"
   get "/events"=> "events#populate"
   get "/result/:feeling/:activity/:money"=>"welcome#algorthim"
+  get "/auth/:provider/callback" => "sessions#create"
+  get "/signout" => "sessions#destroy", :as => :signout
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
