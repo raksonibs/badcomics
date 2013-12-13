@@ -48,6 +48,29 @@
           </div>
       <% end %>
 
+    <% elsif @button == "time" %>
+      <% @result.each do |event| %>
+        <div class="eachresult1">
+            <div class="name1">
+              <%="Go to: #{event.name}" %>
+            </div>
+            <div class="location1">
+              <%= "@ #{event.location}" %>
+            </div>
+            <div class="time1">
+              <%= "@ #{event.time}" %>
+            </div>
+            <div class="matchscore1">
+              At: 
+              <% if event.time.strftime("%I:%M %p") == "11:59 PM" %>
+                <% event.time="Time not listed" %>
+              <% end %>
+
+              <a class="score1"><%= event.time=="Time not listed" ? event.time : event.time.strftime("%I:%M %p") %></a>
+            </div>
+          </div>
+      <% end %>
+
     <% else %>
       <% @result.each do |score, name| %>
       	<% if name!="No 1st place" && name!="No 2nd place" && name!="No 3rd place" %>
