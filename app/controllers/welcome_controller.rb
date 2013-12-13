@@ -87,9 +87,7 @@ def categorycount(result)
   		if val[0]>max || max==0
   			feel,max=val,val[0]
   		elsif val[0]==max
-  			debugger
-  				
-  		
+  			
   			if result.where(feeling: val[1]).order(:created_at).first.created_at > result.where(feeling: feel).order(:created_at).first.created_at
 
   				feel,max=val[1],val[0]
@@ -97,7 +95,7 @@ def categorycount(result)
 
   		end
   	end
-  	debugger
+ 
   	feel
   	end
   
@@ -245,7 +243,11 @@ def categorycount(result)
 		  	@result, @scores=result(@data,udist, activity, "rank", feeling, feelingmap)
 		  	@result=@scores.sort.reverse[0..2]
 			@@all=@scores
-
+			@hash = Gmaps4rails.build_markers(@result) do |res, marker|
+  				marker.lat Event.find_by_name(res).latitude
+  				marker.lng Event.find_by_name(res).longitude
+			end
+			
 	 		format.js{ render :action => "/algorthim.js.erb" }
 
 	 	elsif params[:button]=="all"

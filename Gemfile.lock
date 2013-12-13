@@ -53,6 +53,7 @@ GEM
     fql (0.3.1)
       multi_json
     geocoder (1.1.8)
+    gmaps4rails (2.1.0)
     hashie (2.0.5)
     hike (1.2.3)
     httpauth (0.2.0)
@@ -175,6 +176,7 @@ DEPENDENCIES
   debugger
   fql
   geocoder
+  gmaps4rails
   jbuilder (~> 1.2)
   jquery-rails
   nokogiri
