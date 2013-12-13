@@ -247,3 +247,18 @@ body {
 .wrapper .bottom p {
 	font-size: 1.5em;
 }
+
+#lightbox {
+	margin: auto;
+	background-color: lightgrey;
+	width: 500px;
+	height: 400px;
+	z-index: 99;
+}
+
+#overlay {
+	width: 100%;
+	height: 100%;
+	background-color: blue;
+	z-index: 1000;
+}

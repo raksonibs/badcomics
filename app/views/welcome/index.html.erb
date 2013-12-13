@@ -3,37 +3,40 @@
 will allow multiple selections (up to three).multiple words, different moods so each time seems different.
 click up to n moods, then say how much money you have in your pocket. select range
 then your location based on ip address find your stuff. want to put javascript to make it move to next task which is money. this is all a form mind you.-->
+<br>
+<br>
+<br>
+<br>
+<% if current_user %>
+  <div id="data">
 
-
-You're bored. But how are you feeling:
-<br>
-<br>
-<br>
-<br>
-
-<div id="data">
-  
+  </div>
+  Recommendations:
   <br>
+  <div id"rec">
+  <%= render 'rec' %>
+  </div>
+  <div class="friends">
+    What have your friends been up to?
+    <div>
+  <div class="service">
+    <%= link_to "What to do", "/whattodo" %> <br>
+    <%= link_to "Sign Out", signout_path %>
+  </div>
+<% else %>
+<div id="overlay">
+  </div>
+  <div id="lightbox">
+    <p> Sign in with Fbook </p>
+    <%= link_to "Sign in with Facebook", "/auth/facebook" %>
+    <p> Or just use the service </p>
+    <!-- want it to dissolve and the thing was underneath the whole time, like boxes -->
+    <%= link_to "What to do", "/whattodo" %>
 
-	
-   
-    <br>
-    <br>
-  
-  <br>
+  </div>
+<% end %>
 
-</div>
-Recommendations:
-<br>
-<div id"rec">
-<%= render 'rec' %>
-</div>
-
-<div id="eventbrite">
-<%= @cat.inspect %>
-</div>
 <script type='text/javascript' src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-<script type='text/javascript' src="http://evbdn.eventbrite.com/s3-s3/static/js/platform/Eventbrite.jquery.js"></script>
 <script type='text/javascript'>
 //if they select lazy, this needs to run
 $("#clickable").on("click",function(){
@@ -61,28 +64,19 @@ $("#clickable").on("click",function(){
   		alert("no geolocation")
 	}
 })
-// need to pass this into controller, ajax to set variable? but need route?
-// $(document).ready(function () {
-// 	if ("geolocation" in navigator) {
-// 		var longitude;
-// 		var latitude;
-// 		var button;
-//   		navigator.geolocation.getCurrentPosition(function(position){
-//   			$.ajax({
-//   				url: "/",
-//   				type: "GET",
-//   				dataType: "script",
-//   				data: {
-  					
-//   					longitude: position.coords.longitude,
-//   					latitude: position.coords.latitude,
 
-//   				}
-  				
-//   			})
-//   		})
-// 	} else {
-// 		alert("no geolocation")
-// 	}
-// })
+</script>
+
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-46454307-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
 </script>

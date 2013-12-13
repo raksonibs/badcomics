@@ -82,18 +82,20 @@ def categorycount(result)
   	max=0
   	#need to include draw between categories.
   	feel=""
-  	res.each do |i|
+  	res.each do |val|
 
-  		if i[0]>max || max==0
-  			feel,max=i,i[0]
-  		elsif i[0]==max
-  	
-  			if result.where(category: i[1]).order(:created_at).first > result.where(category: i[1]).order(:created_at).first
-  				feel,max=i[1],i[0]
+  		if val[0]>max || max==0
+  			feel,max=val,val[0]
+  		elsif val[0]==max
+  			
+  			if result.where(feeling: val[1]).order(:created_at).first.created_at > result.where(feeling: feel).order(:created_at).first.created_at
+
+  				feel,max=val[1],val[0]
   			end
 
   		end
   	end
+ 
   	feel
   	end
   
@@ -241,6 +243,10 @@ def categorycount(result)
 		  	@result, @scores=result(@data,udist, activity, "rank", feeling, feelingmap)
 		  	@result=@scores.sort.reverse[0..2]
 			@@all=@scores
+			@hash = Gmaps4rails.build_markers(@result) do |res, marker|
+  				marker.lat Event.find_by_name(res).latitude
+  				marker.lng Event.find_by_name(res).longitude
+			end
 
 	 		format.js{ render :action => "/algorthim.js.erb" }
 
@@ -248,19 +254,25 @@ def categorycount(result)
 	 		#this approach doesnt work if they do try again
 	 		if params[:button2]!="dist" && params[:button2]!="price" && params[:button2]!="time"
 	 			@result=@@all.sort.reverse
+	 			@button="rank"
+
 	 			format.js{ render :action => "/all.js.erb" }
 	 		elsif params[:button2]=="price"
 	 			if @@allprice==nil
+	 				
 	 				@result, @scores=result(@data,udist,activity, "price", feeling, feelingmap)
 	 				@@allprice=@scores
 	 			end
+	 			@button=params[:button2]
 	 			@result=@@allprice.sort.reverse
 	 			format.js{ render :action => "/all.js.erb" }
 	 		elsif params[:button2]=="dist"
 	 			if @@alldist==nil
+
 	 				@result, @scores =result(@data,udist,activity, "dist", feeling, feelingmap)
 	 				@@alldist=@scores
 	 			end
+	 			@button=params[:button2]
 	 			@result=@@alldist.sort.reverse
 	 			format.js{ render :action => "/all.js.erb" } 			
 	 		
@@ -270,13 +282,30 @@ def categorycount(result)
 	 				@@alltime=@scores
 	 			end
 	 			@result=@@alltime.sort.reverse
+	 			@button=params[:button2]
 	 			format.js{ render :action => "/all.js.erb" } 			
 	 		end
 	 	end 	
 	 end
   end
 
-
+def sorter(data, val)
+	res=[]
+	if val=="price"
+		debugger
+		data=data.each{|i| i.price=1000 if i.price=="Price not listed"}
+		data=data.each{|i| i.price=0 if i.price=="Free"}
+		data=data.map{|i| i.to_i}
+		sorted=data.sort{|a,b| b.price<=>a.price}.reverse
+		
+	elsif val=="time"
+		#need to make into times for comparison
+		data=data.each{|i| i.time="11:59 pm" if i.price=="Time not listed"}
+		data=data.map{|i| Time.parse(i)}
+		sorted=data.sort{|a,b| b.time<=>a.time}.reverse
+	elsif val=="dist"
+	end
+end
 def result(data, udist,activity, choice='rank', feeling, feelingmap)
   	@scores={}
 

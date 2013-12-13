@@ -73,8 +73,50 @@ $(function() {
         dataType: "script",
         data: { choice1: choice1,
                 choice2: choice2,
-                choice3: choice3 }
-    });
+                choice3: choice3 },
+        complete: function(data) {
+
+            function initialize()
+            {
+                var arrcount=0
+                var arr=$(".hidden").text().split(",")
+                for (var i=0; i<=2; i++) {
+                
+    
+                  if (i === 0) {
+                    arrcount=0
+                  } else if (i === 1) {
+                    arrcount = 2
+                  } else if (i === 2) {
+                    arrcount = 4
+                  }
+                  var mapProp = {
+                  center:new google.maps.LatLng(parseFloat(arr[arrcount]),parseFloat(arr[arrcount+1])),
+                  zoom:15,
+                  mapTypeId:google.maps.MapTypeId.ROADMAP
+                  };
+                  
+                  
+                  var myLatlng= (parseFloat(arr[arrcount]),parseFloat(arr[arrcount+1]))
+                  var map=new google.maps.Map($(".map")[i]
+                    ,mapProp);
+                  google.maps.event.addListenerOnce(map, 'idle', function() {
+                     var center = map.getCenter();
+                     google.maps.event.trigger(map, "resize");
+                     map.setCenter(center); 
+                  });
+                  var marker = new google.maps.Marker({
+                    position: mapProp.center,
+                    map: map,
+                  })
+
+            }
+          }
+
+            initialize()
+            
+        }
+    })
   });
 
   $("#all").on("click", function() {
@@ -90,7 +132,7 @@ $(function() {
                   choice3: choice3,
                   button: "all" },
           complete: function(data) {
-            all=data.responseText
+            all=data.responseText;
           }
       });
     } else {
