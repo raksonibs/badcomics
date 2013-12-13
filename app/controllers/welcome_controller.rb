@@ -19,6 +19,7 @@ class WelcomeController < ApplicationController
   		pricechoice=pricecount(@result)
   		feelingchoice=feelingscount(@result)[1]
   		@result=algorthim(feelingchoice, catchoice,pricechoice,true)
+  		@result=Event.startupdigest
   	end
   	#@result=Fql.execute("SELECT first_name, last_name FROM user WHERE uid = #{current_user.uid}")
   	#@result=Fql.execute("SELECT uid,eid,rsvp_status FROM event_member WHERE uid = #{current_user.uid}")
@@ -184,7 +185,7 @@ def categorycount(result)
   										feeling: feeling})
   	end
   	feelingmap=feelmap(feeling)
-  	timenow=Time.parse("Sun December 8 2013 10:00 AM")
+  	timenow=Time.now
 	@data=[]
 	unless recommend
 		if money[/-/]
@@ -198,6 +199,11 @@ def categorycount(result)
 	activity=activitymap(activity)
 	
 	Event.all.each do |e|
+		if e.name == "Meteor Devshop + Presentations"
+			debugger
+			debugger
+			debugger
+		end
 		if e.time=="Time not listed" || Time.parse(e.time) > timenow 
 			if e.price =="Free" || e.price=="Price not listed" || e.price.to_i <= money.to_i
 				if e.category=="Performing Arts"
@@ -208,6 +214,7 @@ def categorycount(result)
 					e.category="Misc."
 					e.save
 				end
+				
 				if e.category.count("/")==0
 					if activity.include?(e.category) || feelingmap.include?(e.category) #need to penalize if come from feeling rather than category choice (doing right now by worht less)
 						@data << e
