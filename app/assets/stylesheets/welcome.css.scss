@@ -26,17 +26,27 @@
 
 .wrapper .question2 .back1,
 .wrapper .question3 .back2 {
+	cursor: default;
 	right: -100px;
-	border: 2px solid white;
-	background-color: rgba(255,255,255,0.45);
+	/*border: 2px solid white;*/
+	/*background-color: rgba(255,255,255,0.45);*/
+	background: transparent;
 	border-radius: 6px;
 	width: 200px;
 	height: 50px;
 	float: left;
 	margin-left: 20px;
 	margin-top: 6px;
-	font-family: Robotothin, Helvetica;
+	font-family: Roboto, Helvetica;
 	font-size: 2em;
+}
+
+.wrapper .question2 .back1:hover,
+.wrapper .question3 .back2:hover {
+
+	text-shadow: 3px 3px 4px 1px rgba(0, 0, 0, 0.43);
+	-moz-text-shadow: 3px 3px 4px 1px rgba(0, 0, 0, 0.43);
+	-webkit-text-shadow: 3px 3px 4px 1px rgba(0, 0, 0, 0.43);
 }
 
 body {
@@ -45,7 +55,6 @@ body {
 	padding:0;
 	background: image-url("toronto_skyline.jpg");
 	background-attachment: fixed;
-	opacity: 0.8;
 	/*background-height: 100%;*/
 	color: white;
 	font-family: Robotothin;
@@ -156,10 +165,10 @@ body {
 	border: white solid 2px;
 	background-color: rgba(255,255,255,0.31);
 	border-radius: 6px;
-	font-family: Robotothin; 
+	font-family: Robotothin;
 	font-size: 1.7em;
 	color: white;
-	
+
 	box-shadow: 3px 3px 4px 1px rgba(0, 0, 0, 0.43);
 	-moz-box-shadow: 3px 3px 4px 1px rgba(0, 0, 0, 0.43);
 	-webkit-box-shadow: 3px 3px 4px 1px rgba(0, 0, 0, 0.43);
@@ -170,7 +179,7 @@ body {
 .wrapper .price button {
 	background-color: rgba(255,255,255,0.45);
 	outline: 0;
-	font-family: Robotothin; 
+	font-family: Robotothin;
 	font-size: 1.7em;
 	color: white;
 	-o-transition: .8s;

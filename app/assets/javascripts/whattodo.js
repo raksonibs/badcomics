@@ -81,7 +81,6 @@ $(function() {
     $(".buttons").toggle();
 
     if (all === undefined) {
-      console.log("hello")
       $.ajax({
           url: "/result/" + choice1 + "/" + choice2 + "/" + choice3,
           type: "GET",
@@ -96,6 +95,7 @@ $(function() {
       });
     } else {
       $(".alloutput").toggle();
+      $(".buttons").toggle();
     }
   });
 
@@ -115,7 +115,7 @@ $(function() {
   });
 
   $("#try").on("click", function() {
-      $(".question4, .alloutput, .output, .buttons").hide();
+      $(".question4, .alloutput, .buttons, .output").hide();
       $('html, body').animate({scrollTop: '0px'}, 900);
       all=undefined
       start();

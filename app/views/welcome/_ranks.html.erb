@@ -6,7 +6,8 @@
      <% if event[1]!="No 1st place" && event[1]!="No 2nd place" && event[1]!="No 3rd place" %>
      	<div class="eachresult">
           		<div class="name">
-          		<%="Go to: #{event[1]}" %>
+              <%="Go to: #{event[1]}" %>
+              <%="#{event[1]}" %>
            		</div>
            		<div class="location">
            		<%= "@ #{Event.find_by_name(event[1]).location}" %>
@@ -15,7 +16,7 @@
            		<%= "@ #{Event.find_by_name(event[1]).time}" %>
            		</div>
               <div class="matchscore">
-                		Relevance score: 
+                		Relevance score:
                 		<a class="score"><%= event[0].round(1) %>%</a>
               		</div>
        	</div>
