@@ -11,7 +11,8 @@
 -need to do strong params/hide keys, facebook authenticate, lightbox, make algorthim work
 
 ------
--more events, cronjob/sidekick, responsive design, make mobile app., machine learning with feeling.
+#wscending descending times and prices
+-more events, responsive design, make mobile app., machine learning with feeling.
 -hide apikeys
 -deep links
 -refactor
