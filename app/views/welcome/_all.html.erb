@@ -1,6 +1,54 @@
 <% if @result %>
 
   <div class="allresults">
+    <% if @button=="price" %>
+      <% @result.each do |event| %>
+        <div class="eachresult1">
+            <div class="name1">
+              <%="Go to: #{event.name}" %>
+            </div>
+            <div class="location1">
+              <%= "@ #{event.location}" %>
+            </div>
+            <div class="time1">
+              <%= "@ #{event.time}" %>
+            </div>
+            <div class="matchscore1">
+              Price: 
+              <% if event.price==0 %>
+                <% score="Free"%>
+              <% elsif event.price==1000 %>
+                <% score="Price not listed"%>
+              <% else %>
+                <% score=event.price %>
+              <% end %>
+              <a class="score1">$<%= score %></a>
+            </div>
+          </div>
+      <% end %>
+    <% elsif @button == "dist" %>
+      <% @result.each do |event, score| %>
+        <div class="eachresult1">
+            <div class="name1">
+              <%="Go to: #{event.name}" %>
+            </div>
+            <div class="location1">
+              <%= "@ #{event.location}" %>
+            </div>
+            <div class="time1">
+              <%= "@ #{event.time}" %>
+            </div>
+            <div class="matchscore1">
+              Distance Away: 
+              <% if score>50 %>
+                <% score="Location not listed" %>
+              <% end %>
+              <a class="score1"><%= score %>km</a>
+            </div>
+          </div>
+      <% end %>
+
+    <% else %>
       <% @result.each do |score, name| %>
       	<% if name!="No 1st place" && name!="No 2nd place" && name!="No 3rd place" %>
       		<div class="eachresult1">
@@ -13,34 +61,11 @@
        			<div class="time1">
        				<%= "@ #{Event.find_by_name(name).time}" %>
        			</div>
-            <% if @button=="rank" %>
-          		<div class="matchscore1">
-                	Relevance score: 
-                	<a class="score1"><%= score.round(1) %>%</a>
-              	</div>
-              <% elsif @button=="time" %>
-                <div class="matchscore1">
-                  Time: 
-                  <a class="score1"><%= score.round(1) %>%</a>
-                </div>
-              <% elsif @button=="distance" %>
-                <div class="matchscore1">
-                  Distance to you: 
-                  <a class="score1"><%= score.round(1) %>%</a>
-                </div>
-              <% elsif @button=="price" %>
-                <div class="matchscore1">
-                  Price: 
-                  <% if score==0 %>
-                    <% score="Free"%>
-                  <% elsif score==1000 %>
-                    <% score="Price not listed"%>
-                  <% else %>
-                    <% score=score%>
-                  <% end %>
-                  <a class="score1"><%= score.round(1) %>%</a>
-                </div>
-            <% end %>
+        		<div class="matchscore1">
+              Relevance score: 
+            	<a class="score1"><%= score.round(1) %>%</a>
+          	</div>
+            
      		</div>
       	<% else %>
       		<div class="eachresult1">
@@ -50,5 +75,5 @@
         <% end %>
       <% end %>
   </div><br>
-   
+   <% end %>
 <% end %>
