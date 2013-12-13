@@ -33,7 +33,7 @@ class Event < ActiveRecord::Base
 
 	  	  		end
 	  	  	end
-    end
+    	end
 
   def home
   end
@@ -212,7 +212,7 @@ class Event < ActiveRecord::Base
   	@data.each do |val|
 
   		#date=Date.today.strftime("%B %01d, %Y")
-  		date=Time.parse("Wednesday December 18 2013").strftime("%a %01d %b %Y")#Date.today.strftime("%a %b %01d %Y")
+  		date=DateTime.now.strftime("%a %01d %b %Y")#Date.today.strftime("%a %b %01d %Y")
   		#date=Time.parse("Mon Dec 9 2013 6:30pm").strftime("%a %01d %b %Y")
   		
   		#val[1][0].text[/([A-Z][a-z]+\s\d+\s[A-Z][a-z]+\s\d+)+/]
@@ -230,19 +230,18 @@ class Event < ActiveRecord::Base
   				info[val[0].text]<<"Price not listed"
   			end
 
-  			 info[val[0].text]<<val[1][0].text[/Where.*nto/][/\d+\s[A-Z][a-z]+(\s[A-Z][a-z]+)+?/]+", Toronto, ON, Canada" 
-  			 info[val[0].text]<<"Tech"
+  			info[val[0].text]<<val[1][0].text[/Where.*nto/][/\d+\s[A-Z][a-z]+(\s[A-Z][a-z]+)+?/]+", Toronto, ON, Canada" 
+  			info[val[0].text]<<"Tech"
 
   			 
-  			 if val[1][1].text[/Link:/]
-  			 	url=val[1][1].text[/Link:.*\/+/]
-  			 	info[val[0].text]<< url[6..url.length]
+  			if val[1][1].text[/Link:/]
+  				url=val[1][1].text[/Link:.*\/+/]
+  				info[val[0].text]<< url[6..url.length]
 
-  			 end
+  			end
   		end
   	end
   	info
-
   end
 
   def self.nowmagazine
@@ -254,77 +253,77 @@ class Event < ActiveRecord::Base
   	#data.css("div.day#{date.day}month#{date.month}")
 
 	data.each do |val|
-	  		info[val.css("span.List-Name").text]=[]
-	
-	  		price=val.css("div.List-Body").text[/\$\w+|[fF]ree|Donation/]
-	  		if price==nil
-	  			price="Price not listed"
-	  		end
-	  		address = val.css("div.List-Body").text[/[0-9]+\s[A-Z][a-z]+.+/]
+  		info[val.css("span.List-Name").text]=[]
 
-	  		if address==nil || address.size>20
-	  			address=val.css("div.List-Body").text.split(",")[-2]
-	 
-	  		end
-	  		if address!=nil
-	  			if address.size>20
+  		price=val.css("div.List-Body").text[/\$\w+|[fF]ree|Donation/]
+  		if price==nil
+  			price="Price not listed"
+  		end
+  		address = val.css("div.List-Body").text[/[0-9]+\s[A-Z][a-z]+.+/]
 
-	  			address=val.css("div.List-Body").text[/\d+\s[A-Z][a-z]+/]
-	  			end
-	  		end
-	  		if address==nil
-	  			address="Address not listed"
-	  		end
+  		if address==nil || address.size>20
+  			address=val.css("div.List-Body").text.split(",")[-2]
+ 
+  		end
+  		if address!=nil
+  			if address.size>20
 
-	  		time=val.css("div.List-Body").text[/([0-9]+:)?[0-9]+\s(a|p)m(-[0-9]+\s(a|p)m)?/]
-	  		if time==nil
-	  			time="Time not listed"
-	  		else
-	  			time=Time.parse(time).strftime("%I:%M %p")
-	  		end
-	  		value=val.css("div.List-Body").text
-	  		if value[/talk/i] || value[/symposium/i] || value[/screening/i] || value[/lecture/i] || value[/speak/i] || value[/dicuss/i]
-	  			category="Talk"
-	  		end
-	  		if value[/music/i]
-	  			category = category==nil ? "Music" : category+"/Music"
-	  		end
-	  		if value[/perform.*/i]
-	  			category = category==nil ? "Theatre" : category+"/Theatre"
-	  		end
-	  		if value[/read.*/i] || value[/novel/i]
-	  			category = category==nil ? "Reading" : category+"/Reading"
-	  		end
-	  		if value[/festiv.*/i] || value[/holiday/i] || value[/christmas/i] || value[/carol/i]
-	  			category = category==nil ? "Seasonal" : category+"/Seasonal"
-	  		end
-	  		if value[/party/i] || value[/bash/i]
-	  			category = category==nil ? "Party" : category+"/Party"
-	  		end
-	  		if value[/tech.*/i]
-	  			category = category==nil ? "Tech" : category+"/Tech"
-	  		end
-	  		if value[/fundrais.*/i] || value[/auction/i]
-	  			category = category==nil ? "Charity" : category+"/Charity"
-	  		end
-	  		if value[/comed.*/i] || value[/laugh/i]
-	  			category = category==nil ? "Comedy" : category+"/Comedy"
-	  		end
-	  		if value[/^art.*/i] || value[/gallery/i]
-	  			category = category==nil ? "Art" : category+"/Art"
-	  		end
-	  		if value[/sport.*/i] || value[/athletic/i] || value[/hockey/i] || value[/basketball/i] || value[/baseball/i] || value[/swimming/i] || value[/football/i] || value[/tennis/i] || value[/golf/i] || value[/soccer/i]
-	  			category = category==nil ? "Sport" : category+"/Sport"
-	  		end
-	  		if value[/family.*/i] || value[/children/i]
-	  			category = category==nil ? "Family" : category+"/Family"
-	  		end
-	  		if category==nil
-	  			category="Misc."
-	  		end
-	  		info[val.css("span.List-Name").text]=[time,price[/\$/]!=nil ? price[/\w+/] : price ,address[1..address.size]+", Toronto, ON, Canada",category, "No url listed"]	
+  			address=val.css("div.List-Body").text[/\d+\s[A-Z][a-z]+/]
+  			end
+  		end
+  		if address==nil
+  			address="Address not listed"
+  		end
 
-	  	end
+  		time=val.css("div.List-Body").text[/([0-9]+:)?[0-9]+\s(a|p)m(-[0-9]+\s(a|p)m)?/]
+  		if time==nil
+  			time="Time not listed"
+  		else
+  			time=Time.parse(time).strftime("%I:%M %p")
+  		end
+  		value=val.css("div.List-Body").text
+  		if value[/talk/i] || value[/symposium/i] || value[/screening/i] || value[/lecture/i] || value[/speak/i] || value[/dicuss/i]
+  			category="Talk"
+  		end
+  		if value[/music/i]
+  			category = category==nil ? "Music" : category+"/Music"
+  		end
+  		if value[/perform.*/i]
+  			category = category==nil ? "Theatre" : category+"/Theatre"
+  		end
+  		if value[/read.*/i] || value[/novel/i]
+  			category = category==nil ? "Reading" : category+"/Reading"
+  		end
+  		if value[/festiv.*/i] || value[/holiday/i] || value[/christmas/i] || value[/carol/i]
+  			category = category==nil ? "Seasonal" : category+"/Seasonal"
+  		end
+  		if value[/party/i] || value[/bash/i]
+  			category = category==nil ? "Party" : category+"/Party"
+  		end
+  		if value[/tech.*/i]
+  			category = category==nil ? "Tech" : category+"/Tech"
+  		end
+  		if value[/fundrais.*/i] || value[/auction/i]
+  			category = category==nil ? "Charity" : category+"/Charity"
+  		end
+  		if value[/comed.*/i] || value[/laugh/i]
+  			category = category==nil ? "Comedy" : category+"/Comedy"
+  		end
+  		if value[/^art.*/i] || value[/gallery/i]
+  			category = category==nil ? "Art" : category+"/Art"
+  		end
+  		if value[/sport.*/i] || value[/athletic/i] || value[/hockey/i] || value[/basketball/i] || value[/baseball/i] || value[/swimming/i] || value[/football/i] || value[/tennis/i] || value[/golf/i] || value[/soccer/i]
+  			category = category==nil ? "Sport" : category+"/Sport"
+  		end
+  		if value[/family.*/i] || value[/children/i]
+  			category = category==nil ? "Family" : category+"/Family"
+  		end
+  		if category==nil
+  			category="Misc."
+  		end
+  		info[val.css("span.List-Name").text]=[time,price[/\$/]!=nil ? price[/\w+/] : price ,address[1..address.size]+", Toronto, ON, Canada",category, "No url listed"]	
+
+  	end
   	info
   end
 
@@ -335,41 +334,41 @@ class Event < ActiveRecord::Base
   	data=data["events"]
   	data[1..100].each do |event|
   		unless event["event"]["category"][/seminar/] || event["event"]["category"][/sales/]
-		info[event["event"]["title"]]=[Time.parse(event["event"]["start_date"][/\d+:\d+:\d+/]).strftime("%I:%M %p"),event["event"]["tickets"][0]["ticket"]["price"]=="0.00" || event["event"]["tickets"][0]["ticket"]["price"]==nil ? "Free" : event["event"]["tickets"][0]["ticket"]["price"] ,event["event"]["venue"]["address"]+", Toronto, ON, Canada"]
-		desc= event["event"]["category"]==""|| event["event"]["category"]==nil ? "Misc." : event["event"]["category"]
-		if desc[/seminar/] || desc[/conference/] 
-	  		category="Talk"
-	  	end
-	  	if desc[/music/i] || desc[/performan/i]
-	  		category = category==nil ? "Music" : category+"/Music"
-	  	end
-	  	if desc[/comedy/i]
-	  		category = category==nil ? "Comedy" : category+"/Comedy"
-	  	end
-	  	if desc[/tech.*/i]
-	  			category = category==nil ? "Tech" : category+"/Tech"
-	  	end
-	  	if desc[/entertainment/i]
-	  		category = category==nil ? "Party" : category+"/Party"
-	  	end
-	  	if desc[/party/i]
-	  		category = category==nil ? "Party" : category+"/Party"
-	  	end
-	  	if desc[/Sport/i]
-	  		category = category==nil ? "Sport" : category+"/Sport"
-	  	end
-	  	if desc[/Social/i]
-	  		category = category==nil ? "Hang Out" : category+"/Hang Out"
-	  	end
-	  	if desc[/fundrais/i]
-	  		category = category==nil ? "Charity" : category+"/Charity"
-	  	end
-	  	if category==nil
-	  		category="Misc."
-	  	end
-	  	info[event["event"]["title"]] << category
-	  	info[event["event"]["title"]] << event["event"]["url"]
-	  end
+			info[event["event"]["title"]]=[Time.parse(event["event"]["start_date"][/\d+:\d+:\d+/]).strftime("%I:%M %p"),event["event"]["tickets"][0]["ticket"]["price"]=="0.00" || event["event"]["tickets"][0]["ticket"]["price"]==nil ? "Free" : event["event"]["tickets"][0]["ticket"]["price"] ,event["event"]["venue"]["address"]+", Toronto, ON, Canada"]
+			desc= event["event"]["category"]==""|| event["event"]["category"]==nil ? "Misc." : event["event"]["category"]
+			if desc[/seminar/] || desc[/conference/] 
+		  		category="Talk"
+		  	end
+		  	if desc[/music/i] || desc[/performan/i]
+		  		category = category==nil ? "Music" : category+"/Music"
+		  	end
+		  	if desc[/comedy/i]
+		  		category = category==nil ? "Comedy" : category+"/Comedy"
+		  	end
+		  	if desc[/tech.*/i]
+		  			category = category==nil ? "Tech" : category+"/Tech"
+		  	end
+		  	if desc[/entertainment/i]
+		  		category = category==nil ? "Party" : category+"/Party"
+		  	end
+		  	if desc[/party/i]
+		  		category = category==nil ? "Party" : category+"/Party"
+		  	end
+		  	if desc[/Sport/i]
+		  		category = category==nil ? "Sport" : category+"/Sport"
+		  	end
+		  	if desc[/Social/i]
+		  		category = category==nil ? "Hang Out" : category+"/Hang Out"
+		  	end
+		  	if desc[/fundrais/i]
+		  		category = category==nil ? "Charity" : category+"/Charity"
+		  	end
+		  	if category==nil
+		  		category="Misc."
+		  	end
+		  	info[event["event"]["title"]] << category
+		  	info[event["event"]["title"]] << event["event"]["url"]
+	    end
 	end
 	info
   end
@@ -396,7 +395,6 @@ class Event < ActiveRecord::Base
   		count+=1
   	end
   	info
-
   end
 
   def self.justshows
@@ -547,15 +545,3 @@ class Event < ActiveRecord::Base
   end
 
 end
-=begin
-#creat task folwer with restuarnt.#!/usr/bin/env ruby -wKUnamespace :restaurants do 
-											desc "set longitude long for address"
-											task :update_coordiantes=> :environment do
-												restaurants = Restuarant.where(longitude: nil, laittude: nil)
-												restuanrs.each do |r|
-													r.geocode
-													r.save
-
-	@restuarant.nearbys
-=end
-
