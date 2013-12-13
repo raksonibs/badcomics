@@ -1,36 +1,28 @@
-	<body>
-		<div class='wrapper' style="margin:0px auto; width:70%">
-			<!-- top nav bar similar to 5by. The profile thumb
-			is if we decide to have user accounts. -->
-			<div class='topnav'>
-				<div id='profilethumb'>
-				<% if current_user %>
-				  Welcome <%= current_user.name %>!
-				  <%= link_to "Sign Out", signout_path %>
-				<% else %>
-				  <%= link_to "Sign in with Facebook", "/auth/facebook" %>
-				<% end %>
-					<a href="#"></a>
-					<a href="#"></a>
-				</div>
-				<div id='logo'>
-					<p></p>
-				</div>
-			</div>
+<body>
 
- <!-- columns divs, float left, no margin so there is no space between column, width=1/3 -->
-    		<div id="column1">
-    		</div>
+<div class="container">
 
-    		<div id="column2">
-   			 </div>
-
-    		<div id="column3">
-    		</div>
-
-    		<div id="column4">
-    		</div>
+	<div class="container1">
+		<h1 class="welcome">
+		<% if current_user %>
+		Hey <%= current_user.name %>, welcome back!
+		</h1>
+		<div class="profilepic">
+			<%= @user.image %>
 
 		</div>
+		<button class="appbutton">To the app!
+		</button>
+	</div>
 
-	</body>
+	<div class="recommend">
+		<h2 class="recommendmsg">
+			We've found some events that just might suit your pallet.
+		</h2>
+		<div class="recommendations">
+		</div>
+	</div>
+
+</div>
+
+</body>
