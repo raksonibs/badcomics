@@ -289,8 +289,10 @@ def categorycount(result)
 	 				#@result, @scores =result(@data,udist,activity, "time", feeling, feelingmap)
 	 				@@alltime=sorter(@data,"time")
 	 			end
-	 			@result=@@alldist
+	 			@result=@@alltime
 	 			@button=params[:button2]
+
+
 	 			format.js{ render :action => "/all.js.erb" } 			
 	 		end
 	 	end 	
@@ -310,10 +312,10 @@ def sorter(data, val)
 	elsif val=="time"
 		#need to make into times for comparison
 		data=data.each{|i| i.time="11:59 pm" if i.time=="Time not listed"}
-		debugger
-		data=data.each{|i| i.time=Time.parse(i)}
-		debugger
+		data=data.each{|i| i.time=Time.parse(i.time)}
+
 		sorted=data.sort{|a,b| b.time<=>a.time}.reverse
+
 	elsif val=="dist"
 		result={}
 		data.each do |item|
