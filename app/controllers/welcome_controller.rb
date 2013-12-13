@@ -8,10 +8,10 @@ require 'active_support/core_ext/numeric/time'
 #mirvish toronto
 #foursquare
 class WelcomeController < ApplicationController
-	@@all=nil
-	@@allprice=nil
-	@@alltime=nil
-	@@alldist=nil
+	@@all||=nil
+	@@allprice||=nil
+	@@alltime||=nil
+	@@alldist||=nil
   def index
   	if current_user
   		@result=current_user.choices
@@ -243,6 +243,7 @@ def categorycount(result)
 		  	@result, @scores=result(@data,udist, activity, "rank", feeling, feelingmap)
 		  	@result=@scores.sort.reverse[0..2]
 			@@all=@scores
+			
 			@hash = Gmaps4rails.build_markers(@result) do |res, marker|
   				marker.lat Event.find_by_name(res).latitude
   				marker.lng Event.find_by_name(res).longitude
@@ -253,35 +254,42 @@ def categorycount(result)
 	 	elsif params[:button]=="all"
 	 		#this approach doesnt work if they do try again
 	 		if params[:button2]!="dist" && params[:button2]!="price" && params[:button2]!="time"
+	 			#sometimes says nil. need to fix
 	 			@result=@@all.sort.reverse
 	 			@button="rank"
+	 			#returns [[score,event1],...]
 
 	 			format.js{ render :action => "/all.js.erb" }
 	 		elsif params[:button2]=="price"
 	 			if @@allprice==nil
 	 				
-	 				@result, @scores=result(@data,udist,activity, "price", feeling, feelingmap)
-	 				@@allprice=@scores
+	 				#@result, @scores=result(@data,udist,activity, "price", feeling, feelingmap)
+	 				
+	 				@@allprice=sorter(@data,"price")
 	 			end
 	 			@button=params[:button2]
-	 			@result=@@allprice.sort.reverse
+	 			@result=@@allprice
+	 			#returns event ordered by price and no scores.
+	 			#[event1,event2]
+	 			
 	 			format.js{ render :action => "/all.js.erb" }
 	 		elsif params[:button2]=="dist"
 	 			if @@alldist==nil
 
-	 				@result, @scores =result(@data,udist,activity, "dist", feeling, feelingmap)
-	 				@@alldist=@scores
+	 				#@result, @scores =result(@data,udist,activity, "dist", feeling, feelingmap)
+	 				@@alldist=sorter(@data, "dist")
 	 			end
 	 			@button=params[:button2]
-	 			@result=@@alldist.sort.reverse
+	 			@result=@@alldist
+	 			
 	 			format.js{ render :action => "/all.js.erb" } 			
 	 		
 	 		elsif params[:button2]=="time"
 	 			if @@alltime==nil
-	 				@result, @scores =result(@data,udist,activity, "time", feeling, feelingmap)
-	 				@@alltime=@scores
+	 				#@result, @scores =result(@data,udist,activity, "time", feeling, feelingmap)
+	 				@@alltime=sorter(@data,"time")
 	 			end
-	 			@result=@@alltime.sort.reverse
+	 			@result=@@alldist
 	 			@button=params[:button2]
 	 			format.js{ render :action => "/all.js.erb" } 			
 	 		end
@@ -292,18 +300,35 @@ def categorycount(result)
 def sorter(data, val)
 	res=[]
 	if val=="price"
-		debugger
+
 		data=data.each{|i| i.price=1000 if i.price=="Price not listed"}
 		data=data.each{|i| i.price=0 if i.price=="Free"}
-		data=data.map{|i| i.to_i}
+		
+		data=data.each{|i| i.price=i.price.to_i}
 		sorted=data.sort{|a,b| b.price<=>a.price}.reverse
 		
 	elsif val=="time"
 		#need to make into times for comparison
-		data=data.each{|i| i.time="11:59 pm" if i.price=="Time not listed"}
-		data=data.map{|i| Time.parse(i)}
+		data=data.each{|i| i.time="11:59 pm" if i.time=="Time not listed"}
+		debugger
+		data=data.each{|i| i.time=Time.parse(i)}
+		debugger
 		sorted=data.sort{|a,b| b.time<=>a.time}.reverse
 	elsif val=="dist"
+		result={}
+		data.each do |item|
+
+			if item.longitude!=nil
+  				distance=item.distance_to([43.6426, -79.3871])
+  				result[item]=distance
+  			else
+  				result[item]=1000-rand()
+  			end
+  		end
+  
+  		sorted=result.sort_by{|k,v| v}
+
+
 	end
 end
 def result(data, udist,activity, choice='rank', feeling, feelingmap)
