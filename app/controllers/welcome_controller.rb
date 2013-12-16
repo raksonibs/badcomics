@@ -37,7 +37,24 @@ class WelcomeController < ApplicationController
   	#@result=Fql.execute("SELECT uid,eid,rsvp_status FROM event_member WHERE uid = #{current_user.uid}")
   	#@result=Fql.execute("SELECT name, attending_count, start_time, eid, location FROM event WHERE eid IN (SELECT eid FROM event_member WHERE uid = #{current_user.uid})")
   end
-
+def test
+	user = FbGraph::User.fetch("oskarniburski", :access_token => current_user.oauth_token)
+  @installed={}
+  friends= user.friends
+  # friends.each do |friend|
+    
+  @installed=JSON.parse(open("https://graph.facebook.com/#{current_user.uid}/friends?access_token=CAAG90loE5l8BAGYHDhEUWri968ZAkwZBX5JN2SQOrK1dKPbZBWdjQ1DVIdojXBNQQ6CHNAnJ0l5sJANfERGxmZAWAfudZAEPWvjji1mL3nEyZABzvTfMW3eBgWEQHmYvOK9DbgpbzVmmMWJ8R6uehjs7ZCSRfyJKK9PPxhLCDwMR0Pq2tUFa0sgHNWz4heTkRAZD&fields=installed").read)['data']
+  # 	if val["installed"]
+  # 	  @installed[friend.id]=true
+  # 	  debugger
+  # 	end
+  # end
+  
+  	# /me/friends?fields=installed
+  	#@installed=JSON.parse(open("https://graph.facebook.com/513002328?access_token=CAAG90loE5l8BAGYHDhEUWri968ZAkwZBX5JN2SQOrK1dKPbZBWdjQ1DVIdojXBNQQ6CHNAnJ0l5sJANfERGxmZAWAfudZAEPWvjji1mL3nEyZABzvTfMW3eBgWEQHmYvOK9DbgpbzVmmMWJ8R6uehjs7ZCSRfyJKK9PPxhLCDwMR0Pq2tUFa0sgHNWz4heTkRAZD&fields=installed").read)
+  	#@installed=JSON.parse(open("https://graph.facebook.com/#{current_user.uid}/friends?fields=installed").read)
+  	#@installed=FbGraph::Query.new("SELECT uid FROM user WHERE uid IN (SELECT uid2 FROM friend WHERE uid1 = me()) AND is_app_user = 1").fetch(:access_token => current_user.oauth_token)
+end
 def categorycount(result)
   	res=[]
   	categories=["Get Cultured", "Learn", "Trying New Things", "Be Merry", "Hangout with Strangers", "Laugh", "Be a Tourist", "Jam Out", "Be a Good Person", "Party Hardy", "Spend Spend Spend", "Family Channel", "Sporting Around", "Watch a Show", "Outdoor Fun", "Geeking Out"]
