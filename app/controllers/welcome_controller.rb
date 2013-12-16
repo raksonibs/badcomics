@@ -50,16 +50,14 @@ def test
       @true[FbGraph::User.fetch(friend["id"])]=friend["id"]
     end
   end
-  @true# 	if val["installed"]
-  # 	  @installed[friend.id]=true
-  # 	  debugger
-  # 	end
-  # end
+  @recommendations={}
+  @true.each do |k,v|
 
-  	# /me/friends?fields=installed
-  	#@installed=JSON.parse(open("https://graph.facebook.com/513002328?access_token=CAAG90loE5l8BAGYHDhEUWri968ZAkwZBX5JN2SQOrK1dKPbZBWdjQ1DVIdojXBNQQ6CHNAnJ0l5sJANfERGxmZAWAfudZAEPWvjji1mL3nEyZABzvTfMW3eBgWEQHmYvOK9DbgpbzVmmMWJ8R6uehjs7ZCSRfyJKK9PPxhLCDwMR0Pq2tUFa0sgHNWz4heTkRAZD&fields=installed").read)
-  	#@installed=JSON.parse(open("https://graph.facebook.com/#{current_user.uid}/friends?fields=installed").read)
-  	#@installed=FbGraph::Query.new("SELECT uid FROM user WHERE uid IN (SELECT uid2 FROM friend WHERE uid1 = me()) AND is_app_user = 1").fetch(:access_token => current_user.oauth_token)
+    @recommendations[User.find_by_name(k.name)]=User.find_by_name(k.name).choices.last unless User.find_by_name(k.name)==nil
+  end
+  @recommendations
+
+  
 end
 def categorycount(result)
         res=[]
@@ -263,6 +261,7 @@ def categorycount(result)
 		end
 	end
 
+
   	respond_to do |format|
   		if recommend
 
@@ -291,7 +290,7 @@ def categorycount(result)
   				marker.lat Event.find_by_name(res).latitude
   				marker.lng Event.find_by_name(res).longitude
 			end
-
+      
 	 		format.js{ render :action => "/algorthim.js.erb" }
 
 	 	elsif params[:button]=="all"
@@ -357,7 +356,7 @@ def categorycount(result)
 	 			@button=params[:button2]
 	 			if params[:button3]
 	 				@button2="down"
->>>>>>> 9c10d8428defc66dde8aa1fdf559acb6d8dd68e0
+
 
 
                                 format.js{ render :action => "/all.js.erb" }
@@ -365,6 +364,7 @@ def categorycount(result)
                 end
          end
   end
+end
 
 def sorter(data, val)
         res=[]

@@ -39,3 +39,6 @@
 -facebook friends. comedy shows. mirvish. 
 
 -see facebook friends that use it. like the event they went to, advertise on their facebook page. see what friends liked.
+
+need to generate migration of most recent value for recommendation, then show in network
+-dnymically do the buttons to generate again

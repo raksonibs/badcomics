@@ -54,24 +54,6 @@
 				<button id='5' class='categorybox'></button>
 				<button id='6' class='categorybox'></button>
 			</div>
-			<script type="text/javascript">
-			isInArray=function(value, array) {
-  				return array.indexOf(value) > -1 ? true : false;
-			}
-			  var bank=["Happy", "Sad", "Celebratory", "Lonely", "Restless", "Lazy", "Excited", "Blah", "Festive", "Weird", "Nerdy", "Normal", "Fancy"];
-			  var indexes=[]
-			  for (var i=6; i>=0; i--) {
-			  	var num=Math.ceil(Math.random()*(bank.length)-1)
-			  	while (isInArray(num,indexes)) {
-			    	num=Math.ceil(Math.random()*(bank.length)-1)
-			     }
-			     indexes.push(num)
-			    $("#"+i).text(bank[num])
-
-			  }
-
-			</script>
-
 			<div class='categories1'>
 				<button id="7" class='categorybox1'></button>
 				<button id='8' class='categorybox1'></button>
@@ -80,25 +62,6 @@
 				<button id='11' class='categorybox1'></button>
 				<button id='12' class='categorybox1'></button>
 			</div>
-
-			<script type="text/javascript">
-
-			  var bank1=["Get Cultured", "Learn", "Trying New Things", "Be Merry", "Hangout with Strangers", "Laugh", "Be a Tourist", "Jam Out", "Be a Good Person", "Party Hardy", "Spend Spend Spend", "Family Channel", "Sporting Around", "Watch a Show", "Outdoor Fun", "Geeking Out"];
-			  var indexes1=[]
-			  isInArray= function(value, array) {
-  				return array.indexOf(value) > -1 ? true : false;
-				}
-			  for (var i=12; i>=7; i--) {
-			  	var num1=Math.ceil(Math.random()*(bank1.length)-1)
-			  	while (isInArray(num1,indexes1)) {
-			    	num1=Math.ceil(Math.random()*(bank1.length)-1)
-			     }
-			     indexes1.push(num1)
-			    $("#"+i).text(bank1[num1])
-
-			  }
-
-			</script>
 
 			<div class='price'>
 				<button id='13' class='categorybox2'>Free!</button>
@@ -126,14 +89,6 @@
 			<div id="blackness">
 
 			</div>
-
-			<script type="text/javascript">
-
-			  var bank2=["Lining Up Meter Sticks", "Asking Robots Politely", "Using Cheat Codes", "Consulting Less Than Magic 8-Ball", "Stacking Monkeys", "Loading Events Into Catapult", "Thinking Harder Than Ever", "Asking Oracle of Delphi in Bits", "Cue Rocky Montage Song"];
-			  $("#blackness").text(bank2[Math.ceil(Math.random()*bank2.length-1)])
-
-
-			</script>
 
 			<!-- Look in alloutput.css.scss file for styling -->
 			<div class="buttons">
@@ -166,5 +121,46 @@
 
 		</div>
 	</body>
+
+<script type="text/javascript">
+start1()
+function start1() {
+	var bank1=["Get Cultured", "Learn", "Trying New Things", "Be Merry", "Hangout with Strangers", "Laugh", "Be a Tourist", "Jam Out", "Be a Good Person", "Party Hardy", "Spend Spend Spend", "Family Channel", "Sporting Around", "Watch a Show", "Outdoor Fun", "Geeking Out"];
+	var indexes1=[]
+	isInArray= function(value, array) {
+		return array.indexOf(value) > -1 ? true : false;
+	}
+	for (var i=12; i>=7; i--) {
+		var num1=Math.ceil(Math.random()*(bank1.length)-1)
+		while (isInArray(num1,indexes1)) {
+		num1=Math.ceil(Math.random()*(bank1.length)-1)
+	 }
+	 indexes1.push(num1)
+	$("#"+i).text(bank1[num1])
+
+	}
+
+	var bank=["Happy", "Sad", "Celebratory", "Lonely", "Restless", "Lazy", "Excited", "Blah", "Festive", "Weird", "Nerdy", "Normal", "Fancy"];
+	var indexes=[]
+	for (var i=6; i>=0; i--) {
+		var num=Math.ceil(Math.random()*(bank.length)-1)
+		while (isInArray(num,indexes)) {
+		num=Math.ceil(Math.random()*(bank.length)-1)
+	 }
+	 indexes.push(num)
+	$("#"+i).text(bank[num])
+
+	}
+
+
+	var bank2=["Lining Up Meter Sticks", "Asking Robots Politely", "Using Cheat Codes", "Consulting Less Than Magic 8-Ball", "Stacking Monkeys", "Loading Events Into Catapult", "Thinking Harder Than Ever", "Asking Oracle of Delphi in Bits", "Cue Rocky Montage Song"];
+	$("#blackness").text(bank2[Math.ceil(Math.random()*bank2.length-1)])
+}
+
+$("#try").on("click", function(){
+
+	start1()
+})
+</script>
 
 
