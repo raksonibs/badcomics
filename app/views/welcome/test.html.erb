@@ -1,3 +1,11 @@
 <% @friends %>
 <br>
-<%= @installed.inspect %>
+<div class="facebookfriends">
+<% @true.each do |key, value| %>
+	<%=key.picture%> <%=key.name%> was recommend
+	<br>
+<% end %>
+</div>
+<br>
+
+500345741

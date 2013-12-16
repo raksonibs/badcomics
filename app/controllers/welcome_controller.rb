@@ -29,8 +29,12 @@ class WelcomeController < ApplicationController
                 user = FbGraph::User.fetch("oskarniburski", :access_token => current_user.oauth_token)
                 @friends= user.friends
 
+  		#Fql.execute("SELECT uid FROM use WHERE is_app_use=true AND uid IN (SELECT uid2 FROM friend WHERE uid1 = current_user.uid)")
 
-                #Fql.execute("SELECT uid FROM use WHERE is_app_use=true AND uid IN (SELECT uid2 FROM friend WHERE uid1 = current_user.uid)")
+
+  	#@result=Fql.execute("SELECT first_name, last_name FROM user WHERE uid = #{current_user.uid}")
+  	#@result=Fql.execute("SELECT uid,eid,rsvp_status FROM event_member WHERE uid = #{current_user.uid}")
+
 
         end
         #@result=Fql.execute("SELECT first_name, last_name FROM user WHERE uid = #{current_user.uid}")
@@ -38,16 +42,24 @@ class WelcomeController < ApplicationController
         #@result=Fql.execute("SELECT name, attending_count, start_time, eid, location FROM event WHERE eid IN (SELECT eid FROM event_member WHERE uid = #{current_user.uid})")
   end
 def test
+
         user = FbGraph::User.fetch("oskarniburski", :access_token => current_user.oauth_token)
   @installed={}
   friends= user.friends
   # friends.each do |friend|
-
   @installed=JSON.parse(open("https://graph.facebook.com/#{current_user.uid}/friends?access_token=CAAG90loE5l8BAGYHDhEUWri968ZAkwZBX5JN2SQOrK1dKPbZBWdjQ1DVIdojXBNQQ6CHNAnJ0l5sJANfERGxmZAWAfudZAEPWvjji1mL3nEyZABzvTfMW3eBgWEQHmYvOK9DbgpbzVmmMWJ8R6uehjs7ZCSRfyJKK9PPxhLCDwMR0Pq2tUFa0sgHNWz4heTkRAZD&fields=installed").read)['data']
-  #     if val["installed"]
-  #       @installed[friend.id]=true
-  #       debugger
-  #     end
+
+  @true={}
+  @installed.each do |friend|
+    if friend["installed"]
+      @true[FbGraph::User.fetch(friend["id"])]=friend["id"]
+    end
+  end
+  @true# 	if val["installed"]
+  # 	  @installed[friend.id]=true
+  # 	  debugger
+  # 	end
+
   # end
 
         # /me/friends?fields=installed
