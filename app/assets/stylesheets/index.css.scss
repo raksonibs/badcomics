@@ -25,6 +25,12 @@
 	background-attachment: fixed;
 }
 
+.container .permahover {
+	background: url("coast.jpg") no-repeat;
+		transition: 10s ease-in-out;
+	background-attachment: fixed;
+}
+
 .container .topnav {
 	position: fixed;
 	left: 0;
@@ -93,6 +99,7 @@
 	opacity: 0.8;
 	width: 17%;
 	height: 100%;
+	margin-top: -2%;
 	background: transparent;
 	display: inline-block;
 	-webkit-box-shadow: -2px 0px 4px rgba(0, 0, 0, 0.45);
@@ -115,10 +122,10 @@
 
 .container .recommend .recommendmsg {
 	font-family: 'Roboto';
-	font-weight: 300;
+	font-weight: 100;
 	margin-left: 30px;
 	margin-right: 30px;
-	margin-top: 60px;
+	margin-top: 30%;
 	font-size: 1em;
 	text-align: center;
 	line-height: 25px;

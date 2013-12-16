@@ -1,9 +1,15 @@
 $(window).load(function() {
 
-	$('body')
-		.delay(500)
-		.animate({ opacity: 0.75 }, 7000)
-		.animate({ opacity: 1 }, 7000);
+	// $('body')
+	// 	.delay(1000)
+	// 	.animate({ opacity: 0.8 }, 7000)
+	// 	.animate({ opacity: 1 }, 7000);
+
+	// $(".container").one("mouseover", function() {
+	// 	$(".container")
+	// 		.delay(3000)
+	// 		.addClass('permahover');
+	// });
 
 	$('.recommend')
 		.animate({ opacity: 0 }, 0)
