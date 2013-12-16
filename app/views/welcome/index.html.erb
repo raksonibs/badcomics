@@ -20,16 +20,13 @@ this is all a form mind you.-->
     <div id="data">
     </div>
 
-    <div class='topnav'>
-      <div id='profilethumb'>
-      <% if current_user %>
-        <%= link_to "Sign Out", signout_path %>
-      <% end %>
-    <!--     <a href="#"></a>
-        <a href="#"></a> -->
+    <div class='topnav1'>
+      <div class='profilethumb1'>
+        <% if current_user %>
+          <%= link_to "Sign Out", signout_path %>
+        <% end %>
       </div>
-      <div id='logo'>
-        <p></p>
+      <div class='logo1'>
       </div>
     </div>
 
@@ -39,7 +36,7 @@ this is all a form mind you.-->
       </h1>
       <h1 class="welcome">
         Welcome back, <%= current_user.name.split(' ').first %>.
-        
+
       </h1>
         <div class="profilepic">
           user image

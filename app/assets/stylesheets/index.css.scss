@@ -6,6 +6,7 @@
 	width: 500px;
 	height: 400px;
 	z-index: 99;
+	text-align: center;
 }
 
 #overlay {
@@ -25,28 +26,48 @@
 	background-attachment: fixed;
 }
 
-.container .permahover {
+/*.container .permahover {
 	background: url("coast.jpg") no-repeat;
 		transition: 10s ease-in-out;
 	background-attachment: fixed;
-}
+}*/
 
-.container .topnav {
+.container .topnav1 {
 	position: fixed;
 	left: 0;
 	top: -45px;
 	height: 75px;
 	width: 75%;
-	background-color: rgba(255,255,255,0.21);
+	background-color: rgba(255,255,255,0.1);
 	display: block;
-	box-shadow: 3px 3px 4px 1px rgba(0, 0, 0, 0.43);
-	-moz-box-shadow: 3px 3px 4px 1px rgba(0, 0, 0, 0.43);
-	-webkit-box-shadow: 3px 3px 4px 1px rgba(0, 0, 0, 0.43);
+	-webkit-box-shadow: 0px 3px 5px rgba(50, 50, 50, 0.75);
+	-moz-box-shadow:    0px 3px 5px rgba(50, 50, 50, 0.75);
+	box-shadow:         0px 3px 5px rgba(50, 50, 50, 0.75);
+}
+
+.container .topnav1 .profilethumb1 {
+	margin-top: 2%;
+	margin-left: 2%;
+}
+
+.container .topnav1 .profilethumb1 a {
+	width: auto;
+	color: white;
+	font-family: 'Roboto';
+	font-weight: 300;
+	text-decoration: none;
+	opacity: 0.8;
+}
+
+.container .topnav1 .profilethumb1 a:hover {
+	opacity: 1;
+		transition: 0.5s;
 }
 
 .container .container1 {
 	width: 75%;
 	height: 100%;
+	margin-top: 5%;
 	float: left;
 	display: inline-block;
 	opacity: 0.8;
@@ -100,11 +121,11 @@
 	width: 17%;
 	height: 100%;
 	margin-top: -2%;
-	background: transparent;
+	background-color: rgba(255,255,255,0.1);
 	display: inline-block;
-	-webkit-box-shadow: -2px 0px 4px rgba(0, 0, 0, 0.45);
-	-moz-box-shadow:    -2px 0px 4px rgba(0, 0, 0, 0.45);
-	box-shadow:         -2px 0px 4px rgba(0, 0, 0, 0.45);
+	-webkit-box-shadow: -2px 0px 5px rgba(50, 50, 50, 0.75);
+	-moz-box-shadow:    -2px 0px 5px rgba(50, 50, 50, 0.75);
+	box-shadow:         -2px 0px 5px rgba(50, 50, 50, 0.75);
 }
 
 .container .recommend .rightfade {
@@ -114,10 +135,6 @@
 	height: 100%;
 	background: transparent;
 	display: none;
-	/*display: inline-block;
-	-webkit-box-shadow: -4px 0px 4px rgba(0, 0, 0, 0.55);
-	-moz-box-shadow:    -4px 0px 4px rgba(0, 0, 0, 0.55);
-	box-shadow:         -4px 0px 4px rgba(0, 0, 0, 0.55);*/
 }
 
 .container .recommend .recommendmsg {

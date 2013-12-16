@@ -11,6 +11,14 @@ $(window).load(function() {
 	// 		.addClass('permahover');
 	// });
 
+	$(".topnav1")
+	    .animate({
+	      opacity: 0 }, 0)
+	    .delay(200)
+	    .animate({
+	      top:"+=45",
+	      opacity: 1},1500);
+
 	$('.recommend')
 		.animate({ opacity: 0 }, 0)
 		.delay(200)
