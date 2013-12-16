@@ -13,6 +13,7 @@
 -HARD CORDED ALOT
 -ALEX STILL WATERS FOR SOME REASON GRABS AS A LINK THE BEER PROV PLACE AND ITS LOCATION? RATHER THAN SPAINA. ADDRESSES MESSED UP Go to: Tarragon Theatre presents Season 2013-14
 @ Ladies Learning Code Workshop Space, Toronto, ON, Canada
+-categories dont change each time on try again. need to rerun script
 
 ------
 #wscending descending times and prices

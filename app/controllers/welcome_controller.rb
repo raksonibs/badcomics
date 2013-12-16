@@ -270,6 +270,7 @@ def categorycount(result)
 	 			@button="rank"
 	 			#returns [[score,event1],...]
 	 			if params[:button3]
+
 	 				@button2="down"
 	 				@result=@result.reverse
 
