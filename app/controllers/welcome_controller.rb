@@ -49,7 +49,7 @@ def categorycount(result)
   	cattt=""
   	res.each do |i|
 
-  		if i[0]>=max 
+  		if i[0]>=max
   			cattt,max=i[1],i[0]
   		end
   	end
@@ -81,7 +81,7 @@ def categorycount(result)
   	end
 
   	avg=avg*1.0/result.size
-  	
+
   end
 
   def feelingscount(result)
@@ -100,7 +100,7 @@ def categorycount(result)
   		if val[0]>max || max==0
   			feel,max=val,val[0]
   		elsif val[0]==max
-  			
+
   			if result.where(feeling: val[1]).order(:created_at).first.created_at > result.where(feeling: feel).order(:created_at).first.created_at
 
   				feel,max=val[1],val[0]
@@ -108,12 +108,12 @@ def categorycount(result)
 
   		end
   	end
- 
+
   	feel
   	end
-  
 
-  
+
+
 
   def activitymap(activity)
   	#might want to map all of the events for the category? not just art or cinema. but all of them,
@@ -209,11 +209,13 @@ def categorycount(result)
 		end
 	end
 	activity=activitymap(activity)
-	
+
 	Event.all.each do |e|
+
 		
 		if e.time=="Time not listed" || Time.parse(e.time) > timenow 
 			if e.price =="Free" || e.price=="Price not listed" || e.price.to_f <= money.to_f
+
 				if e.category=="Performing Arts"
 					e.category="Comedy"
 					e.save
@@ -222,7 +224,7 @@ def categorycount(result)
 					e.category="Misc."
 					e.save
 				end
-				
+
 				if e.category.count("/")==0
 					if activity.include?(e.category) || feelingmap.include?(e.category) #need to penalize if come from feeling rather than category choice (doing right now by worht less)
 						@data << e
@@ -239,7 +241,7 @@ def categorycount(result)
 	end
 
   	respond_to do |format|
-  		if recommend 
+  		if recommend
 
   			@result, @scores=result(@data,udist, activity, "rank", feeling, feelingmap)
 		  	@result=@scores.sort.reverse[0..2]
@@ -252,16 +254,16 @@ def categorycount(result)
 			@@alldist=nil
 
   			format.html { redirect_to "/whattodo"}
-  		
+
 	  	elsif params[:button]=="rank" || (params[:button]!="dist" && params[:button]!="price" && params[:button]!="pricebot" && params[:button]!="rankbot" && params[:button]!="distbot" && params[:button]!="all" && params[:button]!="try")
 		  	#dont need my push method to get top three
 		  	@result, @scores=result(@data,udist, activity, "rank", feeling, feelingmap)
 		  	@result=@scores.sort.reverse[0..2]
 			@@all=@scores
+
 			@@all=@scores
 			@@all=@scores
 
-			
 			@hash = Gmaps4rails.build_markers(@result) do |res, marker|
   				marker.lat Event.find_by_name(res).latitude
   				marker.lng Event.find_by_name(res).longitude
@@ -273,7 +275,7 @@ def categorycount(result)
 	 		#this approach doesnt work if they do try again
 	 		if params[:button2]!="dist" && params[:button2]!="price" && params[:button2]!="time"
 	 			#sometimes says nil. need to fix
-	 			
+
 	 			@result=@@all.sort.reverse
 	 			@button="rank"
 	 			#returns [[score,event1],...]
@@ -281,28 +283,28 @@ def categorycount(result)
 
 	 				@button2="down"
 	 				@result=@result.reverse
-	 				
+
 	 			end
 
 	 			format.js{ render :action => "/all.js.erb" }
 	 		elsif params[:button2]=="price"
 	 			if @@allprice==nil
-	 				
+
 	 				#@result, @scores=result(@data,udist,activity, "price", feeling, feelingmap)
-	 				
+
 	 				@@allprice=sorter(@data,"price")
 	 			end
 	 			@button=params[:button2]
 	 			@result=@@allprice
 	 			if params[:button3]
 	 				@button2="down"
-	 				
+
 	 				@result=@result.reverse
-	 				
+
 	 			end
 	 			#returns event ordered by price and no scores.
 	 			#[event1,event2]
-	 			
+
 	 			format.js{ render :action => "/all.js.erb" }
 	 		elsif params[:button2]=="dist"
 	 			if @@alldist==nil
@@ -312,14 +314,17 @@ def categorycount(result)
 	 			end
 	 			@button=params[:button2]
 	 			@result=@@alldist
+
+	 			format.js{ render :action => "/all.js.erb" }
+
 	 			if params[:button3]
 	 				@button2="down"
 	 				@result=@result.reverse
-	 				
+
 	 			end
-	 			
-	 			format.js{ render :action => "/all.js.erb" } 			
-	 		
+
+	 			format.js{ render :action => "/all.js.erb" }
+
 	 		elsif params[:button2]=="time"
 	 			if @@alltime==nil
 	 				#@result, @scores =result(@data,udist,activity, "time", feeling, feelingmap)
@@ -329,15 +334,15 @@ def categorycount(result)
 	 			@button=params[:button2]
 	 			if params[:button3]
 	 				@button2="down"
-	 				
+
 	 				@result=@result.reverse
-	 				
+
 	 			end
 
 
-	 			format.js{ render :action => "/all.js.erb" } 			
+	 			format.js{ render :action => "/all.js.erb" }
 	 		end
-	 	end 	
+	 	end
 	 end
   end
 
@@ -347,10 +352,10 @@ def sorter(data, val)
 
 		data=data.each{|i| i.price=1000 if i.price=="Price not listed"}
 		data=data.each{|i| i.price=0 if i.price=="Free"}
-		
+
 		data=data.each{|i| i.price=i.price.to_i}
 		sorted=data.sort{|a,b| b.price<=>a.price}.reverse
-		
+
 	elsif val=="time"
 		#need to make into times for comparison
 		data=data.each{|i| i.time="11:59 pm" if i.time=="Time not listed"}
@@ -369,7 +374,7 @@ def sorter(data, val)
   				result[item]=1000-rand()
   			end
   		end
-  
+
   		sorted=result.sort_by{|k,v| v}
 
 
@@ -386,7 +391,7 @@ def result(data, udist,activity, choice='rank', feeling, feelingmap)
   		@scores[score]=val.name
   	end
 	@result=[]
-	return @result, @scores	
+	return @result, @scores
 end
 
 
@@ -417,11 +422,11 @@ def calculatefeeling(val, feeling, activity, udist, feelingmap)
 		elsif activity.include?("Comedy")
 			mult=1-(0.25*rand())
 		end
-	elsif feeling=="Normal" 
+	elsif feeling=="Normal"
 		if !(activity.include?("Misc.") || activity.include?("Charity"))
 			mult=1 - (0.05*rand())
 		end
-	elsif feeling=="Nerdy" 
+	elsif feeling=="Nerdy"
 		if activity.include?("Tech")
 			mult=1 - (0.05*rand())
 		elsif activity.include?("Reading") || activity.include?("Museum")
@@ -436,14 +441,14 @@ def calculatefeeling(val, feeling, activity, udist, feelingmap)
 		else (activity.include?("Museum") || activity.include?("Gallery") || activity.include?("Theatre") || activity.include?("Reading") || activity.include?("Art"))
 			mult=1-(0.25*rand())
 		end
-	elsif feeling=="Celebrating" && 
+	elsif feeling=="Celebrating" &&
 		#need facebook api
 		if activity.include?("Party")
 			mult=1 - (0.05*rand())
 		elsif (activity.include?("Seasonal") || activity.include?("Music"))
 			mult=mult=1-(0.25*rand())
 		end
-	elsif feeling=="Lonely" 
+	elsif feeling=="Lonely"
 		if (activity.include?("Hangout"))
 		#need facebook api
 			mult=1 - (0.05*rand())
@@ -471,13 +476,13 @@ def calculatefeeling(val, feeling, activity, udist, feelingmap)
 		elsif activity.include?("Hang Out") || activity.include?("Hang Out")
 			mult=1-(0.25*rand())
 		end
-	elsif feeling=="Festive" 
+	elsif feeling=="Festive"
 		if (activity.include?("Seasonal"))
 			mult=1 - (0.05*rand())
 		elsif activity.include?("Seasonal")
 			mult=1-(0.25*rand())
 		end
-	elsif feeling=="Wierd" 
+	elsif feeling=="Wierd"
 		if (activity.include?("Misc.") || activity.include?("Misc."))
 			mult=1 - (0.05*rand())
 		end
@@ -514,7 +519,7 @@ end
   		mult=1
   	elsif price=="Price not listed"
   		mult=rand()
-  		mult=mult>=0.30 ? mult-0.22 : mult	
+  		mult=mult>=0.30 ? mult-0.22 : mult
   	elsif feeling=="Fancy" && price.to_i>=10
   		mult=0.9
   	elsif price.to_i <= 10

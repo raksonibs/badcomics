@@ -1,0 +1,129 @@
+
+#lightbox {
+	margin: auto;
+	background-color: lightgrey;
+	border-radius: 6px;
+	width: 500px;
+	height: 400px;
+	z-index: 99;
+}
+
+#overlay {
+	width: 100%;
+	height: 100%;
+	background-color: blue;
+	z-index: 1000;
+}
+
+.container {
+	position: fixed;
+	margin: 0;
+	padding: 0;
+	height: 105%;
+	width: 100%;
+	background: url("coast.jpg") no-repeat;
+	background-attachment: fixed;
+}
+
+.container .topnav {
+	position: fixed;
+	left: 0;
+	top: -45px;
+	height: 75px;
+	width: 75%;
+	background-color: rgba(255,255,255,0.21);
+	display: block;
+	box-shadow: 3px 3px 4px 1px rgba(0, 0, 0, 0.43);
+	-moz-box-shadow: 3px 3px 4px 1px rgba(0, 0, 0, 0.43);
+	-webkit-box-shadow: 3px 3px 4px 1px rgba(0, 0, 0, 0.43);
+}
+
+.container .container1 {
+	width: 75%;
+	height: 100%;
+	float: left;
+	display: inline-block;
+	opacity: 0.8;
+}
+
+.container .container1 .welcome {
+	text-align: center;
+	margin-top: -12%;
+	font-family: 'Roboto', sans-serif;
+	font-weight: 100;
+	font-size: 2em;
+}
+
+.container .container1 .time {
+	text-align: center;
+	margin-top: 15%;
+	font-family: 'Noto Sans', sans-serif;
+	font-size: 12em;
+}
+
+.container .container1 .profilepic {
+	height: auto;
+	width: auto;
+	margin-top: 10px;
+	text-align: center;
+}
+
+.container .container1 .appbutton {
+	width: 150px;
+	height: 50px;
+	position: relative;
+	margin-top: 90px;
+	left: 43%;
+	border-radius: 6px;
+	background-color: rgba(255,255,255,0.5);
+	outline: 0;
+	font-family: Roboto, Helvetica;
+	font-size: 1.2em;
+	font-weight: 300;
+}
+
+.container .container1 .appbutton a {
+	text-decoration: none;
+	color: white;
+}
+
+.container .recommend {
+	float: right;
+	top: 0;
+	opacity: 0.8;
+	width: 17%;
+	height: 100%;
+	background: transparent;
+	display: inline-block;
+	-webkit-box-shadow: -2px 0px 4px rgba(0, 0, 0, 0.45);
+	-moz-box-shadow:    -2px 0px 4px rgba(0, 0, 0, 0.45);
+	box-shadow:         -2px 0px 4px rgba(0, 0, 0, 0.45);
+}
+
+.container .recommend .rightfade {
+	float: right;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	background: transparent;
+	display: none;
+	/*display: inline-block;
+	-webkit-box-shadow: -4px 0px 4px rgba(0, 0, 0, 0.55);
+	-moz-box-shadow:    -4px 0px 4px rgba(0, 0, 0, 0.55);
+	box-shadow:         -4px 0px 4px rgba(0, 0, 0, 0.55);*/
+}
+
+.container .recommend .recommendmsg {
+	font-family: 'Roboto';
+	font-weight: 300;
+	margin-left: 30px;
+	margin-right: 30px;
+	margin-top: 60px;
+	font-size: 1em;
+	text-align: center;
+	line-height: 25px;
+}
+
+.container .recommend .recommendations {
+	height: 400px;
+}
