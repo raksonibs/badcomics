@@ -5,40 +5,56 @@ var choice1,
 
 $(function() {
 
-	$(".topnav").animate({ opacity: 0 }, 0).delay(200).animate({top:"+=45", opacity: 1},1500);
+	$(".topnav")
+    .animate({
+      opacity: 0 }, 0)
+    .delay(200)
+    .animate({
+      top:"+=45",
+      opacity: 1},1500);
 
   $(".categories").on('click', function(e) {
     $(".categories, .question").fadeOut( function() {
-        $(".categories1, .question2").show().animate({left:"+15", opacity: 1},800);
+        $(".categories1, .question2, .back1")
+          .show()
+          .animate({
+            left:"+15",
+            opacity: 1},800);
     });
-    //e.stopPropogation();
   });
 
   $(".back1").on('click', function(event){
-    $(".categories1, .question2").fadeOut( function() {
-      $(".categories, .question").show().animate({left:"+15", opacity: 1},800);
+    $(".categories1, .question2, .back1").fadeOut( function() {
+      $(".categories, .question")
+        .show()
+        .animate({
+          left:"+15",
+          opacity: 1},800);
     });
   });
 
   $(".categories1").on('click', function(e) {
-    $(".categories1, .question2").fadeOut( function() {
-      $(".price, .question3")
+    $(".categories1, .question2, .back1").fadeOut( function() {
+      $(".price, .question3, .back2")
         .show()
         .animate({
           left: "+15",
           opacity: 1}, 800);
     });
-    //e.stopPropogation();
   });
 
   $(".back2").on('click', function(event){
-    $(".price, .question3").fadeOut( function() {
-      $(".categories1, .question2").show().animate({left:"+15", opacity: 1},800);
+    $(".price, .question3, .back2").fadeOut( function() {
+      $(".categories1, .question2, .back1")
+        .show()
+        .animate({
+          left:"+15",
+          opacity: 1},800);
     });
   });
 
   $(".price").on('click', function(e) {
-    $(".price, .question3").fadeOut( function() {
+    $(".price, .question3, .back2, .bottom").fadeOut( function() {
       $("#blackness")
         .show()
         .animate({left:"+15", opacity: 1}, 800)
@@ -81,8 +97,8 @@ $(function() {
                 var arrcount=0
                 var arr=$(".hidden").text().split(",")
                 for (var i=0; i<=2; i++) {
-                
-    
+
+
                   if (i === 0) {
                     arrcount=0
                   } else if (i === 1) {
@@ -95,15 +111,15 @@ $(function() {
                   zoom:15,
                   mapTypeId:google.maps.MapTypeId.ROADMAP
                   };
-                  
-                  
+
+
                   var myLatlng= (parseFloat(arr[arrcount]),parseFloat(arr[arrcount+1]))
                   var map=new google.maps.Map($(".map")[i]
                     ,mapProp);
                   google.maps.event.addListenerOnce(map, 'idle', function() {
                      var center = map.getCenter();
                      google.maps.event.trigger(map, "resize");
-                     map.setCenter(center); 
+                     map.setCenter(center);
                   });
                   var marker = new google.maps.Marker({
                     position: mapProp.center,
@@ -114,7 +130,7 @@ $(function() {
           }
 
             initialize()
-            
+
         }
     })
   });

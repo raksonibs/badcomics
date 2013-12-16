@@ -3,12 +3,12 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 
-/*@font-face {
+@font-face {
   font-family: 'Comfortaa';
   src: font-url('Comfortaa.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
-}*/
+}
 
 @font-face {
   font-family: 'Roboto';
@@ -24,36 +24,11 @@
   font-style: normal;
 }
 
-.wrapper .question2 .back1,
-.wrapper .question3 .back2 {
-	cursor: default;
-	right: -100px;
-	/*border: 2px solid white;*/
-	/*background-color: rgba(255,255,255,0.5);*/
-	background: transparent;
-	border-radius: 6px;
-	width: 200px;
-	height: 50px;
-	float: left;
-	margin-left: 20px;
-	margin-top: 6px;
-	font-family: Roboto, Helvetica;
-	font-size: 2em;
-}
-
-.wrapper .question2 .back1:hover,
-.wrapper .question3 .back2:hover {
-
-	text-shadow: 3px 3px 4px 1px rgba(0, 0, 0, 0.43);
-	-moz-text-shadow: 3px 3px 4px 1px rgba(0, 0, 0, 0.43);
-	-webkit-text-shadow: 3px 3px 4px 1px rgba(0, 0, 0, 0.43);
-}
-
 body {
-	margin:0;
+	margin: 0;
 	margin-top: -16px;
 	padding:0;
-	background: image-url("toronto_skyline.jpg");
+	background: url("toronto_skyline.jpg");
 	background-attachment: fixed;
 	/*background-height: 100%;*/
 	color: white;
@@ -115,9 +90,10 @@ body {
 .wrapper .question2,
 .wrapper .question3,
 .wrapper .question4 {
-	height: 60px;
+	height: auto;
+	padding: 0;
 	width: 100%;
-	margin-bottom: 40px;
+	margin-bottom: 30px;
 	font-family: Roboto;
 	display: none;
 }
@@ -128,6 +104,7 @@ body {
 .wrapper .question4 p  {
 	text-align: center;
 	font-size: 3em;
+	line-height: 1em;
 }
 
 /* hiding before page load so there isn't a white flash */
@@ -245,23 +222,28 @@ body {
 	margin-top: 40px;
 	left: -8px;
 }
-.wrapper .bottom p {
-	font-size: 1.5em;
+
+.wrapper .back1,
+.wrapper .back2 {
+	/*right: -100px;*/
+	border: 2px solid white;
+	/*background-color: rgba(255,255,255,0.5);*/
+	background: transparent;
+	border-radius: 6px;
+	width: 200px;
+	height: 50px;
+	text-align: center;
+	font-family: Roboto, Helvetica;
+	color: white;
+	font-size: 2em;
 }
 
-#lightbox {
-	margin: auto;
-	background-color: lightgrey;
-	width: 500px;
-	height: 400px;
-	z-index: 99;
+.wrapper .back1:hover,
+.wrapper .back2:hover {
+	text-shadow: 3px 3px 4px 1px rgba(0, 0, 0, 0.43);
+	-moz-text-shadow: 3px 3px 4px 1px rgba(0, 0, 0, 0.43);
+	-webkit-text-shadow: 3px 3px 4px 1px rgba(0, 0, 0, 0.43);
 }
 
-#overlay {
-	width: 100%;
-	height: 100%;
-	background-color: blue;
-	z-index: 1000;
-}
 
 
