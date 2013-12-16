@@ -249,6 +249,7 @@ def categorycount(result)
 			@@all=@scores
 			@@all=@scores
 			
+			
 			@hash = Gmaps4rails.build_markers(@result) do |res, marker|
   				marker.lat Event.find_by_name(res).latitude
   				marker.lng Event.find_by_name(res).longitude
@@ -265,6 +266,7 @@ def categorycount(result)
 	 			@button="rank"
 	 			#returns [[score,event1],...]
 	 			if params[:button3]
+
 	 				@button2="down"
 	 				@result=@result.reverse
 	 				
