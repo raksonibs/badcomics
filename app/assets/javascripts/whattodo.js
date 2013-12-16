@@ -1,7 +1,8 @@
 var choice1,
     choice2,
     choice3,
-    all;
+    all,
+    selection;
 
 $(function() {
 
@@ -81,7 +82,7 @@ $(function() {
                 var arrcount=0
                 var arr=$(".hidden").text().split(",")
                 for (var i=0; i<=2; i++) {
-                
+                  console.log(arr[arrcount])
     
                   if (i === 0) {
                     arrcount=0
@@ -139,11 +140,40 @@ $(function() {
       $(".alloutput").toggle();
       $(".buttons").toggle();
     }
+
+    // $("#down").on("click", function(){
+    //   $.ajax({
+    //     url: "/result/" + choice1 + "/" + choice2 + "/" + choice3,
+    //     type: "GET",
+    //     dataType: "script",
+    //     data: { choice1: choice1,
+    //             choice2: choice2,
+    //             choice3: choice3,
+    //             button: "all",
+    //             button2: "rank",
+    //             button3: "down" }
+    //   })
+    // })
+
+    $("#up").on("click", function(){
+      $.ajax({
+        url: "/result/" + choice1 + "/" + choice2 + "/" + choice3,
+        type: "GET",
+        dataType: "script",
+        data: { choice1: choice1,
+                choice2: choice2,
+                choice3: choice3,
+                button: "all",
+                button2: "rank" }
+      })
+    })
+    
+
   });
 
   $('.sort-order').on('click', function() {
     var self = $(this);
-
+    console.log(self.data('sort-order'))
     $.ajax({
         url: "/result/" + choice1 + "/" + choice2 + "/" + choice3,
         type: "GET",
@@ -153,8 +183,38 @@ $(function() {
                 choice3: choice3,
                 button: "all",
                 button2: self.data('sort-order') }
+      });
     });
-  });
+
+
+    $("#down").on("click", function(){
+      $.ajax({
+        url: "/result/" + choice1 + "/" + choice2 + "/" + choice3,
+        type: "GET",
+        dataType: "script",
+        data: { choice1: choice1,
+                choice2: choice2,
+                choice3: choice3,
+                button: "all",
+                button2: self.data('sort-order'),
+                button3: "down" }
+      })
+    })
+
+    // $("#up").on("click", function(){
+    //   $.ajax({
+    //     url: "/result/" + choice1 + "/" + choice2 + "/" + choice3,
+    //     type: "GET",
+    //     dataType: "script",
+    //     data: { choice1: choice1,
+    //             choice2: choice2,
+    //             choice3: choice3,
+    //             button: "all",
+    //             button2: self.data('sort-order') }
+    //   })
+    // })
+
+  
 
   $("#try").on("click", function() {
       $(".question4, .alloutput, .buttons, .output").hide();
