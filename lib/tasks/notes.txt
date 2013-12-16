@@ -37,3 +37,5 @@
 -machine learning on feeling. regex matching first based on description
 
 -facebook friends. comedy shows. mirvish. 
+
+-see facebook friends that use it. like the event they went to, advertise on their facebook page. see what friends liked.

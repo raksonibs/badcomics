@@ -22,6 +22,9 @@ then your location based on ip address find your stuff. want to put javascript t
   <div class="service">
     <%= link_to "What to do", "/whattodo" %> <br>
     <%= link_to "Sign Out", signout_path %>
+    <div class="friends">
+    <%= @friends %>
+  </div>
   </div>
 <% else %>
 <div id="overlay">
@@ -34,6 +37,7 @@ then your location based on ip address find your stuff. want to put javascript t
     <%= link_to "What to do", "/whattodo" %>
 
   </div>
+
 <% end %>
 
 <script type='text/javascript' src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>

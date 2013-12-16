@@ -19,6 +19,18 @@ class WelcomeController < ApplicationController
   		pricechoice=pricecount(@result)
   		feelingchoice=feelingscount(@result)[1]
   		@result=algorthim(feelingchoice, catchoice,pricechoice,true)
+  		#@friends = JSON.parse(open("https://graph.facebook.com/513002328/friends?access_token=485668664879205").read)
+  		#user = FbGraph::User.me(token.strip)
+  		#@graph = Koala::Facebook::API.new(oauth_access_token)
+
+		#profile = @graph.get_object("me")
+		#friends = @graph.get_connections("me", "friends")
+  		
+  		user = FbGraph::User.fetch("oskarniburski", :access_token => current_user.oauth_token)
+  		@friends= user.friends
+  		
+
+  		#Fql.execute("SELECT uid FROM use WHERE is_app_use=true AND uid IN (SELECT uid2 FROM friend WHERE uid1 = current_user.uid)")
 
   	end
   	#@result=Fql.execute("SELECT first_name, last_name FROM user WHERE uid = #{current_user.uid}")
@@ -201,7 +213,7 @@ def categorycount(result)
 	Event.all.each do |e|
 		
 		if e.time=="Time not listed" || Time.parse(e.time) > timenow 
-			if e.price =="Free" || e.price=="Price not listed" || e.price.to_i <= money.to_i
+			if e.price =="Free" || e.price=="Price not listed" || e.price.to_f <= money.to_f
 				if e.category=="Performing Arts"
 					e.category="Comedy"
 					e.save
@@ -248,7 +260,7 @@ def categorycount(result)
 			@@all=@scores
 			@@all=@scores
 			@@all=@scores
-			
+
 			
 			@hash = Gmaps4rails.build_markers(@result) do |res, marker|
   				marker.lat Event.find_by_name(res).latitude

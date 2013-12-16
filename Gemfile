@@ -13,6 +13,8 @@ group :production do
 	gem 'pg'
 end
 
+gem "fb_graph"
+gem "koala", "~> 1.8.0rc1"
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.0'
 
