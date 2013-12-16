@@ -19,7 +19,7 @@ class WelcomeController < ApplicationController
   		pricechoice=pricecount(@result)
   		feelingchoice=feelingscount(@result)[1]
   		@result=algorthim(feelingchoice, catchoice,pricechoice,true)
-  		@result=Event.startupdigest
+
   	end
   	#@result=Fql.execute("SELECT first_name, last_name FROM user WHERE uid = #{current_user.uid}")
   	#@result=Fql.execute("SELECT uid,eid,rsvp_status FROM event_member WHERE uid = #{current_user.uid}")
@@ -202,6 +202,9 @@ def categorycount(result)
 		if e.name == "Meteor Devshop + Presentations"
 		end
 		if e.time=="Time not listed" || Time.parse(e.time) > timenow
+
+		if e.time=="Time not listed" || Time.parse(e.time) > timenow
+
 			if e.price =="Free" || e.price=="Price not listed" || e.price.to_i <= money.to_i
 				if e.category=="Performing Arts"
 					e.category="Comedy"
@@ -248,6 +251,9 @@ def categorycount(result)
 		  	@result=@scores.sort.reverse[0..2]
 			@@all=@scores
 
+			@@all=@scores
+			@@all=@scores
+
 			@hash = Gmaps4rails.build_markers(@result) do |res, marker|
   				marker.lat Event.find_by_name(res).latitude
   				marker.lng Event.find_by_name(res).longitude
@@ -259,9 +265,15 @@ def categorycount(result)
 	 		#this approach doesnt work if they do try again
 	 		if params[:button2]!="dist" && params[:button2]!="price" && params[:button2]!="time"
 	 			#sometimes says nil. need to fix
+
 	 			@result=@@all.sort.reverse
 	 			@button="rank"
 	 			#returns [[score,event1],...]
+	 			if params[:button3]
+	 				@button2="down"
+	 				@result=@result.reverse
+
+	 			end
 
 	 			format.js{ render :action => "/all.js.erb" }
 	 		elsif params[:button2]=="price"
@@ -273,6 +285,12 @@ def categorycount(result)
 	 			end
 	 			@button=params[:button2]
 	 			@result=@@allprice
+	 			if params[:button3]
+	 				@button2="down"
+
+	 				@result=@result.reverse
+
+	 			end
 	 			#returns event ordered by price and no scores.
 	 			#[event1,event2]
 
@@ -288,6 +306,14 @@ def categorycount(result)
 
 	 			format.js{ render :action => "/all.js.erb" }
 
+	 			if params[:button3]
+	 				@button2="down"
+	 				@result=@result.reverse
+
+	 			end
+
+	 			format.js{ render :action => "/all.js.erb" }
+
 	 		elsif params[:button2]=="time"
 	 			if @@alltime==nil
 	 				#@result, @scores =result(@data,udist,activity, "time", feeling, feelingmap)
@@ -295,6 +321,12 @@ def categorycount(result)
 	 			end
 	 			@result=@@alltime
 	 			@button=params[:button2]
+	 			if params[:button3]
+	 				@button2="down"
+
+	 				@result=@result.reverse
+
+	 			end
 
 
 	 			format.js{ render :action => "/all.js.erb" }

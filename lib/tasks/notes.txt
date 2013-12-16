@@ -10,6 +10,10 @@
 	-need to get each distance from ip
 -need to do strong params/hide keys, facebook authenticate, lightbox, make algorthim work
 
+-HARD CORDED ALOT
+-ALEX STILL WATERS FOR SOME REASON GRABS AS A LINK THE BEER PROV PLACE AND ITS LOCATION? RATHER THAN SPAINA. ADDRESSES MESSED UP Go to: Tarragon Theatre presents Season 2013-14
+@ Ladies Learning Code Workshop Space, Toronto, ON, Canada
+
 ------
 #wscending descending times and prices
 -more events, responsive design, make mobile app., machine learning with feeling.

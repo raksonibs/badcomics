@@ -62,14 +62,23 @@
             </div>
             <div class="matchscore1">
               At: 
-              <% if event.time.strftime("%I:%M %p") == "11:59 PM" %>
-                <% event.time="Time not listed" %>
-              <% end %>
+              <% if event.time!="Time not listed" %>
+                <% if event.time.strftime("%I:%M %p") == "11:59 PM" %>
+                  <% event.time="Time not listed" %>
+                <% end %>
 
-              <a class="score1"><%= event.time=="Time not listed" ? event.time : event.time.strftime("%I:%M %p") %></a>
+                <div class="score1"><%= event.time=="Time not listed" ? event.time : event.time.strftime("%I:%M %p") %></div>
+              <% else %>
+                  <div class="score1"><%= event.time %></div>
+
+              <% end %>
             </div>
-          </div>
-      <% end %>
+             </div>
+        <% end %>
+
+            
+         
+     
 
     <% else %>
       <% @result.each do |score, name| %>
