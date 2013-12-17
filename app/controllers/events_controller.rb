@@ -1,7 +1,8 @@
 class EventsController < ApplicationController
-	def populate
-		#needs to get all data [[justshows],[cityhall],[nowmag]]
-		#need to once have all data, iterate through each and make new event
-		#then display all events
+	def show
+		@event=Event.find_by_id(params[:event_id])
+		respond_to do |format|
+			format.js{ render :action => "event.js.erb" }
+		end
 	end
 end
