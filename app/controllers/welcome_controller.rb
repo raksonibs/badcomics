@@ -13,6 +13,25 @@ class WelcomeController < ApplicationController
         @@alltime||=nil
         @@alldist||=nil
   def index
+<<<<<<< HEAD
+        if current_user
+                @result=current_user.choices
+                catchoice=categorycount(@result)
+                pricechoice=pricecount(@result)
+                feelingchoice=feelingscount(@result)[1]
+                @result=algorthim(feelingchoice, catchoice,pricechoice,true)
+                user=FbGraph::User.fetch("#{current_user.uid}", :access_token => current_user.oauth_token)
+                @picture=user.picture
+                #@friends = JSON.parse(open("https://graph.facebook.com/513002328/friends?access_token=485668664879205").read)
+                #user = FbGraph::User.me(token.strip)
+                #@graph = Koala::Facebook::API.new(oauth_access_token)
+
+                #profile = @graph.get_object("me")
+                #friends = @graph.get_connections("me", "friends")
+
+                # user = FbGraph::User.fetch("oskarniburski", :access_token => current_user.oauth_token)
+                # @friends= user.friends
+=======
 
   	if current_user
   		@result=current_user.choices
@@ -30,6 +49,7 @@ class WelcomeController < ApplicationController
 
   		user = FbGraph::User.fetch("oskarniburski", :access_token => current_user.oauth_token)
   		@friends= user.friends
+>>>>>>> 52e5e8de99817783e2f3f3db3c68045926d5c90f
 
   		#Fql.execute("SELECT uid FROM use WHERE is_app_use=true AND uid IN (SELECT uid2 FROM friend WHERE uid1 = current_user.uid)")
 

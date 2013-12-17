@@ -1,7 +1,5 @@
 	<body>
 		<div class='wrapper'>
-			<!-- top nav bar similar to 5by. The profile thumb
-			is if we decide to have user accounts. -->
 			<div class='topnav'>
 				<div id='profilethumb'>
 				<% if current_user %>
@@ -10,8 +8,7 @@
 				<% else %>
 				  <%= link_to "Sign in with Facebook", "/auth/facebook" %>
 				<% end %>
-<!-- 					<a href="#"></a>
-					<a href="#"></a> -->
+
 				</div>
 				<div id='logo'>
 					<p></p>
@@ -19,7 +16,7 @@
 			</div>
 
 			<!-- This div just takes up space at the top of page
-			for formatting reasons. -->
+			for formatting. -->
 			<div class="topspace">
 			</div>
 
@@ -105,7 +102,7 @@
 					<button class="ourrankdir up" style="visibility:hidden">Up</button>
 					<button class="ourrankdir down" style="visibility:hidden">Down</button>
 				</div>
-				<div class="buttonsdir"> 
+				<div class="buttonsdir">
 					<button class="dir">Up</button>
 					<button class="dir">Down</button>
 				</div>

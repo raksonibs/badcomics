@@ -1,3 +1,5 @@
+
+
 $(window).load(function() {
 
 	// $('body')
@@ -17,7 +19,11 @@ $(window).load(function() {
 	    .delay(200)
 	    .animate({
 	      top:"+=45",
-	      opacity: 1},1500);
+	      opacity: 1},1500, function () {
+	      	$(".profilethumb1").fadeIn(400)
+	      });
+
+	$(".time, .profilepic, .welcome, .fbimg, .appbutton").delay(500).fadeIn(800);
 
 	$('.recommend')
 		.animate({ opacity: 0 }, 0)
