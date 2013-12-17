@@ -15,7 +15,6 @@ this is all a form mind you.-->
 <% if current_user %>
 
 <div class="container">
-<img class"altbg" src="toronto_skyline.jpg"/>
 
     <div id="data">
     </div>
@@ -26,8 +25,8 @@ this is all a form mind you.-->
           <%= link_to "Sign Out", signout_path %>
         <% end %>
       </div>
-      <div class='logo1'>
-      </div>
+      <!-- <div class='logo1'>
+      </div> -->
     </div>
 
     <div class="container1">
@@ -36,33 +35,33 @@ this is all a form mind you.-->
       </h1>
       <h1 class="welcome">
         Welcome back, <%= current_user.name.split(' ').first %>.
-
       </h1>
         <div class="profilepic">
-          user image
+          <img class="fbimg" src="<%= @picture %>"/>
         </div>
         <button class="appbutton">
-          <%= link_to "To the App!", "/whattodo" %>
+          <%= link_to "To the App", "/whattodo" %>
         </button>
     </div>
 
     <div class="recommend">
       <div class="rightfade">
+
         <h2 class="recommendmsg">
-          We've found some events that just might suit your pallet.
+          Recommendations
         </h2>
+
         <div class="recommendations">
           <%= render 'rec' %>
-
         </div>
+
         <div class="friends">
-          What have your friends been up to?
+          Your friends recommendations
+        </div>
 
-
-
-        <div>
       </div>
     </div>
+
 </div>
 
 

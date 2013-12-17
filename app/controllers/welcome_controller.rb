@@ -19,6 +19,8 @@ class WelcomeController < ApplicationController
                 pricechoice=pricecount(@result)
                 feelingchoice=feelingscount(@result)[1]
                 @result=algorthim(feelingchoice, catchoice,pricechoice,true)
+                user=FbGraph::User.fetch("#{current_user.uid}", :access_token => current_user.oauth_token)
+                @picture=user.picture
                 #@friends = JSON.parse(open("https://graph.facebook.com/513002328/friends?access_token=485668664879205").read)
                 #user = FbGraph::User.me(token.strip)
                 #@graph = Koala::Facebook::API.new(oauth_access_token)
@@ -26,8 +28,8 @@ class WelcomeController < ApplicationController
                 #profile = @graph.get_object("me")
                 #friends = @graph.get_connections("me", "friends")
 
-                user = FbGraph::User.fetch("oskarniburski", :access_token => current_user.oauth_token)
-                @friends= user.friends
+                # user = FbGraph::User.fetch("oskarniburski", :access_token => current_user.oauth_token)
+                # @friends= user.friends
 
   		#Fql.execute("SELECT uid FROM use WHERE is_app_use=true AND uid IN (SELECT uid2 FROM friend WHERE uid1 = current_user.uid)")
 
