@@ -4,9 +4,7 @@
 			<tr>
 				</td>
 					<% if event[1].length > 15 %>
-						<% short_string_ideal_length = 15 %>
-						<% snip_idx = event[1].index(/\s/, short_string_ideal_length) %>
-						<% short_str = event[1][0, snip_idx] + "..." %>
+						#<% short_str = event[1][0, 15] + "..." %>
 						<%= short_str %>
 					<% else %>
 						<%= event[1] %>

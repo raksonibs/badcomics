@@ -54,8 +54,7 @@ this is all a form mind you.-->
         <div class="recommendations">
           <%= render 'rec' %>
         </div>
-<<<<<<< HEAD
-=======
+
         <div class="friends" style="display:inline">
           What have your friends been up to:<br>
           <% @installedfriends.each do |key, value| %>
@@ -68,7 +67,6 @@ this is all a form mind you.-->
           </a><br>
           <% end %>
 
->>>>>>> 52e5e8de99817783e2f3f3db3c68045926d5c90f
 
         <div class="friends">
           Your friends recommendations
@@ -130,11 +128,12 @@ $("#clickable").on("click",function(){
 
 $(".rover").hover(function(){
   //ajax request to get info
+  var self= $(this)
   var value= $(this).attr("class").split(/\s/)
   if ( value[1] !== "") {
   //if ($(this).attr("class").split(/\s/).size>=2){
-    console.log(value)
-    console.log($('#'+value));
+    console.log($(self).children("Night").attr("id"))
+    
   }
   // $.ajax({
   //         url: "/",
