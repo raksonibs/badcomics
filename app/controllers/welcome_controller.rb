@@ -13,6 +13,7 @@ class WelcomeController < ApplicationController
         @@alltime||=nil
         @@alldist||=nil
   def index
+
   	if current_user
   		@result=current_user.choices
   		catchoice=categorycount(@result)
@@ -32,12 +33,17 @@ class WelcomeController < ApplicationController
 
   		#Fql.execute("SELECT uid FROM use WHERE is_app_use=true AND uid IN (SELECT uid2 FROM friend WHERE uid1 = current_user.uid)")
 
-  	end
+
   	#@result=Fql.execute("SELECT first_name, last_name FROM user WHERE uid = #{current_user.uid}")
   	#@result=Fql.execute("SELECT uid,eid,rsvp_status FROM event_member WHERE uid = #{current_user.uid}")
-  	#@result=Fql.execute("SELECT name, attending_count, start_time, eid, location FROM event WHERE eid IN (SELECT eid FROM event_member WHERE uid = #{current_user.uid})")
 
+
+        end
+        #@result=Fql.execute("SELECT first_name, last_name FROM user WHERE uid = #{current_user.uid}")
+        #@result=Fql.execute("SELECT uid,eid,rsvp_status FROM event_member WHERE uid = #{current_user.uid}")
+        #@result=Fql.execute("SELECT name, attending_count, start_time, eid, location FROM event WHERE eid IN (SELECT eid FROM event_member WHERE uid = #{current_user.uid})")
   end
+
 def getrecent
 	#user = FbGraph::User.fetch("oskarniburski", :access_token => current_user.oauth_token)
   #john=FbGraph::User.fetch("johnny.paterson.7", :access_token => current_user.oauth_token)
@@ -45,21 +51,22 @@ def getrecent
   # friends= user.friends
   # friends.each do |friend|
   @installed=JSON.parse(open("https://graph.facebook.com/#{current_user.uid}/friends?access_token=CAAG90loE5l8BAGYHDhEUWri968ZAkwZBX5JN2SQOrK1dKPbZBWdjQ1DVIdojXBNQQ6CHNAnJ0l5sJANfERGxmZAWAfudZAEPWvjji1mL3nEyZABzvTfMW3eBgWEQHmYvOK9DbgpbzVmmMWJ8R6uehjs7ZCSRfyJKK9PPxhLCDwMR0Pq2tUFa0sgHNWz4heTkRAZD&fields=installed").read)['data']
+
   @true={}
   @installed.each do |friend|
     if friend["installed"]
       @true[FbGraph::User.fetch(friend["id"])]=friend["id"]
     end
   end
+
   @recommendations={}
   @true.each do |k,v|
 
     @recommendations[User.find_by_name(k.name)]=User.find_by_name(k.name).choices.last unless User.find_by_name(k.name)==nil
   end
   return @recommendations, @true
+end 
 
-  
-end
 def categorycount(result)
         res=[]
         categories=["Get Cultured", "Learn", "Trying New Things", "Be Merry", "Hangout with Strangers", "Laugh", "Be a Tourist", "Jam Out", "Be a Good Person", "Party Hardy", "Spend Spend Spend", "Family Channel", "Sporting Around", "Watch a Show", "Outdoor Fun", "Geeking Out"]
@@ -208,6 +215,7 @@ def categorycount(result)
   end
 
   def algorthim(feeling=nil,activity=nil, money=nil,recommend=false)
+
   	#recommend will need to pass its own feeling activity, price
   	udist=["43.6426, 79.3871"] #cannot hardcode location and time
   	if feeling==nil
@@ -363,11 +371,16 @@ def categorycount(result)
 	 			@button=params[:button2]
 	 			if params[:button3]
 	 				@button2="down"
+  
+
+          @result=@result.reverse
+
+    end
 
 
 
-                                format.js{ render :action => "/all.js.erb" }
-                        end
+        format.js{ render :action => "/all.js.erb" }
+                        
                 end
          end
   end
@@ -407,6 +420,7 @@ def sorter(data, val)
 
         end
 end
+
 def result(data, udist,activity, choice='rank', feeling, feelingmap)
         @scores={}
 
