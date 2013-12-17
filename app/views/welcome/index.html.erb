@@ -61,8 +61,8 @@ this is all a form mind you.-->
           
             
             <img src=<%=key.picture%>/> <%=key.name%>
-          <div class="rover #{<%=Event.find_by_name(@recent[User.find_by_name(key.name)].first_event) unless @recent[User.find_by_name(key.name)]==nil %>}">
-            <div class="eventid" style="display:none">hello</div>
+          <div class="rover <%=(@recent[User.find_by_name(key.name)].first_event) unless @recent[User.find_by_name(key.name)]==nil %>">
+            <div id="<%= @recent[User.find_by_name(key.name)]!=nil ? (@recent[User.find_by_name(key.name)].first_event) : "-Nothing yet" %>" style="display:none">hello</div>
             <%= @recent[User.find_by_name(key.name)]!=nil ? "-"+@recent[User.find_by_name(key.name)].first_event : "-Nothing yet" %> </div>
           </a><br>
           <% end %>
@@ -125,7 +125,12 @@ $("#clickable").on("click",function(){
 
 $(".rover").hover(function(){
   //ajax request to get info
-  console.log($(this))
+  var value= $(this).attr("class").split(/\s/)
+  if ( value[1] !== "") {
+  //if ($(this).attr("class").split(/\s/).size>=2){
+    console.log(value)
+    console.log($('#'+value));
+  }
   // $.ajax({
   //         url: "/",
   //         type: "GET",
