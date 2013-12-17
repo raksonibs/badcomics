@@ -19,6 +19,7 @@ class WelcomeController < ApplicationController
   		pricechoice=pricecount(@result)
   		feelingchoice=feelingscount(@result)[1]
   		@result=algorthim(feelingchoice, catchoice,pricechoice,true)
+      @recent, @installedfriends=getrecent()
   		#@friends = JSON.parse(open("https://graph.facebook.com/513002328/friends?access_token=485668664879205").read)
   		#user = FbGraph::User.me(token.strip)
   		#@graph = Koala::Facebook::API.new(oauth_access_token)
@@ -37,7 +38,7 @@ class WelcomeController < ApplicationController
   	#@result=Fql.execute("SELECT name, attending_count, start_time, eid, location FROM event WHERE eid IN (SELECT eid FROM event_member WHERE uid = #{current_user.uid})")
 
   end
-def test
+def getrecent
 	#user = FbGraph::User.fetch("oskarniburski", :access_token => current_user.oauth_token)
   #john=FbGraph::User.fetch("johnny.paterson.7", :access_token => current_user.oauth_token)
   # @installed={}
@@ -55,7 +56,7 @@ def test
 
     @recommendations[User.find_by_name(k.name)]=User.find_by_name(k.name).choices.last unless User.find_by_name(k.name)==nil
   end
-  @recommendations
+  return @recommendations, @true
 
   
 end
@@ -212,7 +213,7 @@ def categorycount(result)
   	if feeling==nil
   		feeling,activity,money=params[:choice1], params[:choice2], params[:choice3]
   	end #also params[geolocation]
-  	if current_user && !recommend
+  	if current_user && !recommend && params[:button]==nil 
   		current_user.choices << Choice.new({price: money,
   										category: activity,
   										feeling: feeling})
@@ -285,7 +286,13 @@ def categorycount(result)
 
 			@@all=@scores
 			@@all=@scores
-
+      #adding choice lfirst recommended event, need to make sure not problem when recommended
+      #or when ascending by rank, only want to fire once, not multiple times
+      if current_user && !recommend
+        @choice=current_user.choices.last
+        @choice.first_event=@result[0][1]
+        @choice.save
+      end
 			@hash = Gmaps4rails.build_markers(@result) do |res, marker|
   				marker.lat Event.find_by_name(res).latitude
   				marker.lng Event.find_by_name(res).longitude

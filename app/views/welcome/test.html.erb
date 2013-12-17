@@ -4,7 +4,7 @@
 	<%= @true %>
 	<br>
 <% @true.each do |key, value| %>
-	<%=key.picture%> <%=key.name%> was recommend <%= @recommendations[User.find_by_name(key.name)]!=nil ? @recommendations : "nothing" %>
+	<%=key.picture%> <%=key.name%> was recommend <%= @recommendations[User.find_by_name(key.name)]!=nil ? @recommendations[User.find_by_name(key.name)].first_event : " Nothing yet" %>
 	<br>
 	<br>
 <% end %>

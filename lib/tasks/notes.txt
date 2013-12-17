@@ -40,5 +40,17 @@
 
 -see facebook friends that use it. like the event they went to, advertise on their facebook page. see what friends liked.
 
-need to generate migration of most recent value for recommendation, then show in network
--dnymically do the buttons to generate again
+CHECK-need to generate migration of most recent value for recommendation, then show in network
+-have to double click the all results after try again to make it work
+-make sure cannot click a bunch
+-fix the all results/try again fiasco
+-refactor code
+-get facebook events
+-deal with errors on googlemaps to not generate map when cannot set null, instead a picture of whattodo
+-fix google maps
+-need to fix links and possibly addresses
+-cannto hardcode everything, should deploy by wednesday and get location and everything
+-hide params, private repo probavly
+-make facebook sign in nice
+-create facebook events on their index page for that day. only once, make sure not run twice and the event (unlike the other people), are only applicable for that user. will have to make that event for them when they log in, and delete that event when sign out.
+WORKING ON NOW-might want a basic show page for each event. for example, if there is no url and you see your friend was recommended something, you have no info about it. probably good idea. like highlight on the event with your mouse and some info comes up on it
