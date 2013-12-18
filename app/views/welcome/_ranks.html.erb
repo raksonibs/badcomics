@@ -12,8 +12,9 @@
         </div>
             
           		<div class="name">
-                
-                  <a href="<%= "#{Event.find_by_name(event[1]).link}"%>"> <%="Go to: #{event[1]}" %></a>
+                <% value = Event.find_by_name(event[1]).link[/www/] ? Event.find_by_name(event[1]).link : "www." + Event.find_by_name(event[1]).link %>
+                <% value = value[/listed/] ? "" : value %>
+                  <a href="<%= value %>"> <%="Go to: #{event[1]}" %></a>
             
                  
               
