@@ -13,6 +13,7 @@ class WelcomeController < ApplicationController
   		catchoice=categorycount(@result)
   		pricechoice=pricecount(@result)
   		feelingchoice=feelingscount(@result)[1]
+
   		@result=algorthim(feelingchoice, catchoice,pricechoice,true)
       @recent, @installedfriends=getrecent()
     end

@@ -126,6 +126,7 @@ $(function() {
                     position: mapProp.center,
                     map: map,
                   })
+                  google.maps.event.trigger(map, 'resize');
 
             }
           }
