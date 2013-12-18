@@ -31,7 +31,7 @@ class WelcomeController < ApplicationController
       @recommendations[User.find_by_name(k.name)]=User.find_by_name(k.name).choices.last unless User.find_by_name(k.name)==nil
     end
     return @recommendations, @true
-  end 
+  end
 
   def categorycount(result)
     res=[]
@@ -166,7 +166,7 @@ class WelcomeController < ApplicationController
   	if feeling==nil
   		feeling,activity,money=params[:choice1], params[:choice2], params[:choice3]
   	end #also params[geolocation]
-  	if current_user && !recommend && params[:button]==nil 
+  	if current_user && !recommend && params[:button]==nil
   		current_user.choices << Choice.new({price: money,
                       										category: activity,
                       										feeling: feeling})
@@ -254,7 +254,7 @@ class WelcomeController < ApplicationController
       @result=@result.reverse
     elsif params[:button3]=="up"
       @button2="up"
-      
+
       @result=@result.sort.reverse if params[:button2]=="ourrank"
     else
       @button2=false
@@ -534,3 +534,4 @@ class WelcomeController < ApplicationController
     val+val2+val3+val4+val5
   end
 end
+

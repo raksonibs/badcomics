@@ -8,7 +8,7 @@ var upsanddowns=[".ourrankdir", ".pricedir", ".distdir", ".timedir"]
 
 $(function() {
 
-	$(".topnav")
+  $(".topnav")
     .animate({
       opacity: 0 }, 0)
     .delay(200)
@@ -16,9 +16,9 @@ $(function() {
       top:"+=45",
       opacity: 1},1500);
 
-  $(".categories").on('click', function(e) {
-    $(".categories, .question").fadeOut( function() {
-        $(".categories1, .question2, .back1")
+  $(".categories").on('click', function() {
+    $(".categories, .question, .bhome").fadeOut( function() {
+        $(".categories1, .question2, .b2feeling")
           .show()
           .animate({
             left:"+15",
@@ -26,9 +26,9 @@ $(function() {
     });
   });
 
-  $(".back1").on('click', function(event){
-    $(".categories1, .question2, .back1").fadeOut( function() {
-      $(".categories, .question")
+  $(".b2feeling").on('click', function(event){
+    $(".categories1, .question2, .b2feeling").fadeOut( function() {
+      $(".categories, .question, .bhome")
         .show()
         .animate({
           left:"+15",
@@ -37,8 +37,8 @@ $(function() {
   });
 
   $(".categories1").on('click', function(e) {
-    $(".categories1, .question2, .back1").fadeOut( function() {
-      $(".price, .question3, .back2")
+    $(".categories1, .question2, .b2feeling").fadeOut( function() {
+      $(".price, .question3, .bk2category")
         .show()
         .animate({
           left: "+15",
@@ -46,9 +46,9 @@ $(function() {
     });
   });
 
-  $(".back2").on('click', function(event){
-    $(".price, .question3, .back2").fadeOut( function() {
-      $(".categories1, .question2, .back1")
+  $(".bk2category").on('click', function(event){
+    $(".price, .question3, .bk2category").fadeOut( function() {
+      $(".categories1, .question2, .b2feeling")
         .show()
         .animate({
           left:"+15",
@@ -56,9 +56,9 @@ $(function() {
     });
   });
 
-  $(".price").on('click', function(e) {
-    $(".price, .question3, .back2, .bottom").fadeOut( function() {
-      $("#blackness")
+  $(".price").on('click', function() {
+    $(".price, .question3, .bk2category").fadeOut( function() {
+      $(".blackness")
         .show()
         .animate({left:"+15", opacity: 1}, 800)
         .delay(400);
@@ -70,9 +70,8 @@ $(function() {
           .animate({left:"+15", opacity: 1}, 1000);
       }, 1000);
 
-      $("#blackness").fadeOut();
+      $(".blackness").fadeOut();
     });
-    //e.stopPropogation();
   });
 
   $(".categorybox").on('click', function() {
@@ -223,7 +222,7 @@ $(function() {
     })
 
   $("#try").on("click", function() {
-      $(".question4, .alloutput, .buttons, .output").hide();
+      $(".question4, .alloutput, .buttons, .output, .b2feeling, .bk2category").hide();
       $('html, body').animate({scrollTop: '0px'}, 900);
       all=undefined
       start();
@@ -233,7 +232,11 @@ $(function() {
 });
 
 function start() {
-  $(".categories, .categories1, .price, .output, .question2, .question3, .question4, .output1, #blackness").animate({ opacity: 0 }, 0);
-  $(".question, .bottom").fadeIn(500);
-  $(".categories").fadeIn().animate({left:"+20", opacity: 1}, 800);
-}
+  $(".categories, .categories1, .price, .output, .question2, .question3, .question4, .output1, .bhome, .blackness")
+    .animate({ opacity: 0}, 0);
+
+  $(".question").delay().fadeIn(500);
+
+  $(".categories, .bhome").delay().fadeIn().animate({left:"+20", opacity: 1}, 800);
+
+};

@@ -23,23 +23,31 @@
 
 			<!-- Question to ask user. We may want to also put
 			the date in this question. -->
-			<div class='question'>
-				<p>Hi, how are you feeling right now?</p>
-			</div>
+				<div class="back">
+					<%= button_to "", root_url, :class => "bhome", :method => :get %>
+					<input class="b2feeling" type="button"/>
+					<input class="bk2category" type="button"/>
+				</div>
 
-			<div class='question2'>
-				<p>What do you feel like doing?</p>
-				<!-- <p class="subtext">We are almost there</p> -->
-			</div>
+				<div class='question'>
+					<p>How are you feeling?</p>
+				</div>
 
-			<div class='question3'>
-				<p>How much are you willing to spend?</p>
-			</div>
+				<div class='question2'>
+					<p>What do you feel like?</p>
+					<!-- <p class="subtext">We are almost there</p> -->
+				</div>
 
-			<div class='question4'>
-				<p>Here are our suggestions: </p>
+				<div class='question3'>
+					<p>How much to spend?</p>
+				</div>
 
-			</div>
+				<div class='question4'>
+					<p>Here are our suggestions: </p>
+				</div>
+
+				<div class="clear">
+				</div>
 
 			<!-- This div is where all the categories will be
 			held (including an ad box for advertisers). -->
@@ -77,43 +85,37 @@
 			</div>
 
 			<div class='output1'>
-
-					<button id="all">All Results</button>
-					<button id="try">Try Again!</button>
-
+				<button id="all">All Results</button>
+				<button id="try">Try Again!</button>
 			</div>
 
-			<div id="blackness">
+			<div class="blackness">
 
 			</div>
 
 			<!-- Look in alloutput.css.scss file for styling -->
 			<div class="buttons">
-					<button id="price" class="sort-order" style="display:inline" data-sort-order="price">Price</button>
-					<button class="pricedir up" style="visibility:hidden">Up</button>
-					<button class="pricedir down" style="visibility:hidden">Down</button>
-					<button id="time" class="sort-order" style="display:inline" data-sort-order="time">Time</button>
-					<button class="timedir up" style="visibility:hidden">Up</button>
-					<button class="timedir down" style="visibility:hidden">Down</button>
-					<button id="dist" class="sort-order" style="display:inline" data-sort-order="dist">Distance</button>
-					<button class="distdir up" style="visibility:hidden">Up</button>
-					<button class="distdir down" style="visibility:hidden">Down</button>
-					<button id="ourrank" class="sort-order" style="display:inline"data-sort-order="ourrank">Rank</button>
-					<button class="ourrankdir up" style="visibility:hidden">Up</button>
-					<button class="ourrankdir down" style="visibility:hidden">Down</button>
-				</div>
-				<div class="buttonsdir">
-					<button class="dir">Up</button>
-					<button class="dir">Down</button>
-				</div>
-			<div class="alloutput">
-
-				<%= render "all" %>
+				<button id="price" class="sort-order" style="display:inline" data-sort-order="price">Price</button>
+				<button class="pricedir up" style="visibility:hidden">Up</button>
+				<button class="pricedir down" style="visibility:hidden">Down</button>
+				<button id="time" class="sort-order" style="display:inline" data-sort-order="time">Time</button>
+				<button class="timedir up" style="visibility:hidden">Up</button>
+				<button class="timedir down" style="visibility:hidden">Down</button>
+				<button id="dist" class="sort-order" style="display:inline" data-sort-order="dist">Distance</button>
+				<button class="distdir up" style="visibility:hidden">Up</button>
+				<button class="distdir down" style="visibility:hidden">Down</button>
+				<button id="ourrank" class="sort-order" style="display:inline"data-sort-order="ourrank">Rank</button>
+				<button class="ourrankdir up" style="visibility:hidden">Up</button>
+				<button class="ourrankdir down" style="visibility:hidden">Down</button>
 			</div>
 
-			<div class='bottom'>
-				<button class="back1"> Go Back </button>
-				<button class="back2"> Go Back </button>
+			<div class="buttonsdir">
+				<button class="dir">Up</button>
+				<button class="dir">Down</button>
+			</div>
+
+			<div class="alloutput">
+				<%= render "all" %>
 			</div>
 
 		</div>
@@ -150,8 +152,8 @@ function start1() {
 	}
 
 
-	var bank2=["Lining Up Meter Sticks", "Asking Robots Politely", "Using Cheat Codes", "Consulting Less Than Magic 8-Ball", "Stacking Monkeys", "Loading Events Into Catapult", "Thinking Harder Than Ever", "Asking Oracle of Delphi in Bits", "Cue Rocky Montage Song"];
-	$("#blackness").text(bank2[Math.ceil(Math.random()*bank2.length-1)])
+	var bank2=["Lining up meter sticks...", "Asking robots politely...", "Using cheat codes...", "Consulting less than magic 8-ball...", "Stacking monkeys...", "Loading events into catapult...", "Thinking harder than ever...", "Asking Oracle of Delphi in bits...", "Cue Rocky montage song..."];
+	$(".blackness").text(bank2[Math.ceil(Math.random()*bank2.length-1)])
 }
 
 $("#try").on("click", function(){

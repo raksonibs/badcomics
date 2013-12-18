@@ -2,14 +2,12 @@
 	<table class="reco">
 		<% @result.each do |event| %>
 			<tr>
-				</td>
+				<td class="eventname">
+					<%= eventname = event[1][0..15] %>
 					<% if event[1].length > 15 %>
-						#<% short_str = event[1][0, 15] + "..." %>
-						<%= short_str %>
-					<% else %>
-						<%= event[1] %>
+						<%= "..." %>
 					<% end %>
-				<td>
+				</td>
 
 				<td class="greenscore">
 					<%= event[0].round(1) %>

@@ -58,8 +58,8 @@ this is all a form mind you.-->
         <div class="friends" style="display:inline">
           Friends:<br>
           <% @installedfriends.each do |key, value| %>
-            
-            
+
+
             <img src=<%=key.picture%>/> <%=key.name%>
           <div class="rover <%= count %>">
             <div id="info" style="display:none;left:300px">
@@ -79,9 +79,8 @@ this is all a form mind you.-->
           <% end %>
 
 
-        
 
-      </div>
+        </div>
     </div>
 
 </div>
@@ -144,10 +143,10 @@ $(".rover").hover(function(){
   var nothing= new RegExp("Nothing")
   if (!nothing.test(value)) {
   // //if ($(this).attr("class").split(/\s/).size>=2){
-    
+
     self.children().toggle()
     //$(this).children[0].attr("display", "block")
-    
+
   }
   // $.ajax({
   //         url: "/",
@@ -168,7 +167,7 @@ $(".rover").hover(function(){
   console.log(value)
   var nothing= new RegExp("Nothing")
   if (!nothing.test(value)) {
-    
+
     self.children().toggle()
   }
 })
