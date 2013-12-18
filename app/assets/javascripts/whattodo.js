@@ -154,6 +154,7 @@ $(function() {
             $(".ourrankdir").css("visibility", "visible")
           }
       });
+      $(".alloutput").css("display","block");
     } else {
       $(".alloutput").toggle();
       $(".buttons").toggle();
@@ -174,7 +175,6 @@ $(function() {
                 button: "all",
                 button2: self.data('sort-order') },
         complete: function() {
-
             var value= "."+self.data('sort-order')+"dir"
             for (var i=0; i<upsanddowns.length; i++) {
               if (value === upsanddowns[i]) {
@@ -183,7 +183,6 @@ $(function() {
                 $(upsanddowns[i]).css("visibility", "hidden")
               }
             }
-
           }
       });
     });

@@ -1,44 +1,17 @@
--want to have machine learning language parsing
-	* giving feeling based on text and match
-	* match based on probablity
--delayjob /chron job
--get ip
-	* around 100 don't have location. What to do then?
+Parameters: {"choice1"=>"Happy", "choice2"=>"Be a Good Person", "choice3"=>"I don't care!", "_"=>"1387396097948", "feeling"=>"Happy", "activity"=>"Be a Good Person", "money"=>"I don't care!"}
+  User Load (0.3ms)  SELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT 1  [["id", 1]]
+   (0.3ms)  begin transaction
+  SQL (1.1ms)  INSERT INTO "choices" ("category", "created_at", "feeling", "price", "updated_at", "user_id") VALUES (?, ?, ?, ?, ?, ?)  [["category", "Be a Good Person"], ["created_at", Wed, 18 Dec 2013 19:48:25 UTC +00:00], ["feeling", "Happy"], ["price", "I don't care!"], ["updated_at", Wed, 18 Dec 2013 19:48:25 UTC +00:00], ["user_id", 1]]
+   (51.6ms)  commit transaction
+  Event Load (3.5ms)  SELECT "events".* FROM "events"
+  Choice Load (0.4ms)  SELECT "choices".* FROM "choices" WHERE "choices"."user_id" = ? ORDER BY "choices"."id" DESC LIMIT 1  [["user_id", 1]]
+Completed 500 Internal Server Error in 213ms
 
-- algorhtim
-*problem with outdoor fun
-	-need to get each distance from ip
--need to do strong params/hide keys, facebook authenticate, lightbox, make algorthim work
+NoMethodError (undefined method `[]' for nil:NilClass):
+  app/controllers/welcome_controller.rb:210:in `block in respondpage'
+  app/controllers/welcome_controller.rb:191:in `respondpage'
+  app/controllers/welcome_controller.rb:187:in `algorthim'
 
--HARD CORDED ALOT
--ALEX STILL WATERS FOR SOME REASON GRABS AS A LINK THE BEER PROV PLACE AND ITS LOCATION? RATHER THAN SPAINA. ADDRESSES MESSED UP Go to: Tarragon Theatre presents Season 2013-14
-@ Ladies Learning Code Workshop Space, Toronto, ON, Canada
--categories dont change each time on try again. need to rerun script
-
-------
-#wscending descending times and prices
--more events, responsive design, make mobile app., machine learning with feeling.
--hide apikeys
--deep links
--refactor
--facebook integration, feelings, better algorithm as a result, deploy
--need to do by price, by distance, by time, all events categorized and top three stay at top
--facebook integration for users with action mailer
--add better categorization of events based on more words, tech, celebration, etc
--background image full screen
--want horizontal display with hover over becomes apparent [][][]
-														  all res
--want to track users based on facebook and add recommendations to them. recommendation page at first is random events. then eventually can see wat event friends maybe went to on the side or something. recommendation bsed on feelings, categories and money.= feelings: wierd four times, happy once, sad once//categories: twice getting culture, twice meeting strnagers, once jam out, once party hardy//money: twice free twice i don't care twice 50-100
-===so for recommendation look for wierd events (whichever rules, chose most recent if draw), (when draw with categories do choose two) that are cultured or meeting with strangers and have a price of i dont care (highest price rules even when draw)
-
--should order by price and time
-
--delayjob/chron job
--machine learning on feeling. regex matching first based on description
-
--facebook friends. comedy shows. mirvish. 
-
--see facebook friends that use it. like the event they went to, advertise on their facebook page. see what friends liked.
 
 CHECK-need to generate migration of most recent value for recommendation, then show in network
 -have to double click the all results after try again to make it work
