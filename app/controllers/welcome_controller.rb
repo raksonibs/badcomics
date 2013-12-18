@@ -82,7 +82,9 @@ class WelcomeController < ApplicationController
     end
     max=0
     feel=""
+    p res
     res.each do |val|
+
       if val[0]>max || max==0
         feel,max=val,val[0]
       elsif val[0]==max
