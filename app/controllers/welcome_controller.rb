@@ -13,6 +13,7 @@ class WelcomeController < ApplicationController
   		catchoice=categorycount(@result)
   		pricechoice=pricecount(@result)
   		feelingchoice=feelingscount(@result)[1]
+
   		@result=algorthim(feelingchoice, catchoice,pricechoice,true)
       @recent, @installedfriends=getrecent()
       @picture=FbGraph::User.fetch(current_user.uid).picture
@@ -83,7 +84,9 @@ class WelcomeController < ApplicationController
     end
     max=0
     feel=""
+    p res
     res.each do |val|
+
       if val[0]>max || max==0
         feel,max=val,val[0]
       elsif val[0]==max

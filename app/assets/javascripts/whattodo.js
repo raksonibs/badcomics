@@ -114,27 +114,37 @@ $(function() {
                   mapTypeId:google.maps.MapTypeId.ROADMAP
                   };
 
-
                   var myLatlng= (parseFloat(arr[arrcount]),parseFloat(arr[arrcount+1]))
                   var map=new google.maps.Map($(".map")[i]
                     ,mapProp);
-                  google.maps.event.addListenerOnce(map, 'idle', function() {
-                     var center = map.getCenter();
-                     google.maps.event.trigger(map, "resize");
-                     map.setCenter(center);
-                  });
+                  
                   var marker = new google.maps.Marker({
                     position: mapProp.center,
                     map: map,
-                  })
+                  });
+
+                  google.maps.event.addListenerOnce(map, 'idle', function() {
+                     //var center = map.getCenter();
+                     
+                     //map.setCenter(center);
+                     google.maps.event.trigger(map, "resize");
+                  });
+                  
+
 
             }
           }
 
             initialize()
+            // for (var i=0; i<=2; i++) {
+            //   $($(".map")[i]).css("width", "700")
+            //   $($(".map")[i]).css("height", "200")
+            // }
+  
 
         }
     })
+
   });
 
   $("#all").on("click", function() {
