@@ -56,23 +56,12 @@ this is all a form mind you.-->
         </div>
 
         <div class="friends" style="display:inline">
-          What have your friends been up to:<br>
-          <% @installedfriends.each do |key, value| %>
-          
-            
-            <img src=<%=key.picture%>/> <%=key.name%>
-          <div class="rover <%=(@recent[User.find_by_name(key.name)].first_event) unless @recent[User.find_by_name(key.name)]==nil %>">
-            <div id="<%= @recent[User.find_by_name(key.name)]!=nil ? (@recent[User.find_by_name(key.name)].first_event) : "-Nothing yet" %>" style="display:none">hello</div>
-            <%= @recent[User.find_by_name(key.name)]!=nil ? "-"+@recent[User.find_by_name(key.name)].first_event : "-Nothing yet" %> </div>
-          </a><br>
-          <% end %>
-
 
         <div class="friends">
           Your friends recommendations
         </div>
 
-      </div>
+        </div>
     </div>
 
 </div>
@@ -133,7 +122,7 @@ $(".rover").hover(function(){
   if ( value[1] !== "") {
   //if ($(this).attr("class").split(/\s/).size>=2){
     console.log($(self).children("Night").attr("id"))
-    
+
   }
   // $.ajax({
   //         url: "/",

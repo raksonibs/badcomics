@@ -13,29 +13,28 @@ class WelcomeController < ApplicationController
         @@alltime||=nil
         @@alldist||=nil
   def index
-  	if current_user
-  		@result=current_user.choices
-  		catchoice=categorycount(@result)
-  		pricechoice=pricecount(@result)
-  		feelingchoice=feelingscount(@result)[1]
-  		@result=algorthim(feelingchoice, catchoice,pricechoice,true)
-      @recent, @installedfriends=getrecent()
-  		#@friends = JSON.parse(open("https://graph.facebook.com/513002328/friends?access_token=485668664879205").read)
-  		#user = FbGraph::User.me(token.strip)
-  		#@graph = Koala::Facebook::API.new(oauth_access_token)
+          if current_user
+                  @result=current_user.choices
+                  catchoice=categorycount(@result)
+                  pricechoice=pricecount(@result)
+                  feelingchoice=feelingscount(@result)[1]
+                  @result=algorthim(feelingchoice, catchoice,pricechoice,true)
+      # @recent, @installedfriends=getrecent()
+                  #@friends = JSON.parse(open("https://graph.facebook.com/513002328/friends?access_token=485668664879205").read)
+                  #user = FbGraph::User.me(token.strip)
+                  #@graph = Koala::Facebook::API.new(oauth_access_token)
 
-		#profile = @graph.get_object("me")
-		#friends = @graph.get_connections("me", "friends")
-
-  		user = FbGraph::User.fetch("oskarniburski", :access_token => current_user.oauth_token)
-  		@friends= user.friends
+                #profile = @graph.get_object("me")
+                #friends = @graph.get_connections("me", "friends")
 
 
-  		#Fql.execute("SELECT uid FROM use WHERE is_app_use=true AND uid IN (SELECT uid2 FROM friend WHERE uid1 = current_user.uid)")
 
 
-  	#@result=Fql.execute("SELECT first_name, last_name FROM user WHERE uid = #{current_user.uid}")
-  	#@result=Fql.execute("SELECT uid,eid,rsvp_status FROM event_member WHERE uid = #{current_user.uid}")
+                  #Fql.execute("SELECT uid FROM use WHERE is_app_use=true AND uid IN (SELECT uid2 FROM friend WHERE uid1 = current_user.uid)")
+
+
+          #@result=Fql.execute("SELECT first_name, last_name FROM user WHERE uid = #{current_user.uid}")
+          #@result=Fql.execute("SELECT uid,eid,rsvp_status FROM event_member WHERE uid = #{current_user.uid}")
 
 
         end
@@ -45,11 +44,12 @@ class WelcomeController < ApplicationController
   end
 
 def getrecent
-	#user = FbGraph::User.fetch("oskarniburski", :access_token => current_user.oauth_token)
+        #user = FbGraph::User.fetch("oskarniburski", :access_token => current_user.oauth_token)
   #john=FbGraph::User.fetch("johnny.paterson.7", :access_token => current_user.oauth_token)
   # @installed={}
   # friends= user.friends
   # friends.each do |friend|
+
   @installed=JSON.parse(open("https://graph.facebook.com/#{current_user.uid}/friends?access_token=CAAG90loE5l8BAGYHDhEUWri968ZAkwZBX5JN2SQOrK1dKPbZBWdjQ1DVIdojXBNQQ6CHNAnJ0l5sJANfERGxmZAWAfudZAEPWvjji1mL3nEyZABzvTfMW3eBgWEQHmYvOK9DbgpbzVmmMWJ8R6uehjs7ZCSRfyJKK9PPxhLCDwMR0Pq2tUFa0sgHNWz4heTkRAZD&fields=installed").read)['data']
 
   @true={}
@@ -65,7 +65,7 @@ def getrecent
     @recommendations[User.find_by_name(k.name)]=User.find_by_name(k.name).choices.last unless User.find_by_name(k.name)==nil
   end
   return @recommendations, @true
-end 
+end
 
 def categorycount(result)
         res=[]
@@ -216,84 +216,84 @@ def categorycount(result)
 
   def algorthim(feeling=nil,activity=nil, money=nil,recommend=false)
 
-  	#recommend will need to pass its own feeling activity, price
-  	udist=["43.6426, 79.3871"] #cannot hardcode location and time
-  	if feeling==nil
-  		feeling,activity,money=params[:choice1], params[:choice2], params[:choice3]
-  	end #also params[geolocation]
-  	if current_user && !recommend && params[:button]==nil 
-  		current_user.choices << Choice.new({price: money,
-  										category: activity,
-  										feeling: feeling})
-  	end
-  	feelingmap=feelmap(feeling)
-  	timenow=Time.now
-	@data=[]
-	unless recommend
-		if money[/-/]
-			money=money[/-\$\d+/][2..money.length]
-		elsif money[/\d+/]
-			money=money[/\$\d+/][1..money.length]
-		else
-			money=0
-		end
-	end
-	activity=activitymap(activity)
+          #recommend will need to pass its own feeling activity, price
+          udist=["43.6426, 79.3871"] #cannot hardcode location and time
+          if feeling==nil
+                  feeling,activity,money=params[:choice1], params[:choice2], params[:choice3]
+          end #also params[geolocation]
+          if current_user && !recommend && params[:button]==nil
+                  current_user.choices << Choice.new({price: money,
+                                                                                  category: activity,
+                                                                                  feeling: feeling})
+          end
+          feelingmap=feelmap(feeling)
+          timenow=Time.now
+        @data=[]
+        unless recommend
+                if money[/-/]
+                        money=money[/-\$\d+/][2..money.length]
+                elsif money[/\d+/]
+                        money=money[/\$\d+/][1..money.length]
+                else
+                        money=0
+                end
+        end
+        activity=activitymap(activity)
 
-	Event.all.each do |e|
-
-
-		if e.time=="Time not listed" || Time.parse(e.time) > timenow
-			if e.price =="Free" || e.price=="Price not listed" || e.price.to_f <= money.to_f
-
-				if e.category=="Performing Arts"
-					e.category="Comedy"
-					e.save
-				end
-				if e.category==nil
-					e.category="Misc."
-					e.save
-				end
-
-				if e.category.count("/")==0
-					if activity.include?(e.category) || feelingmap.include?(e.category) #need to penalize if come from feeling rather than category choice (doing right now by worht less)
-						@data << e
-					end
-				else
-					e.category.split("/").each do |cat|
-						if activity.include?(cat) || feelingmap.include?(cat)
-							@data<<e unless @data.include?(e)
-						end
-					end
-				end
-			end
-		end
-	end
+        Event.all.each do |e|
 
 
-  	respond_to do |format|
-  		if recommend
+                if e.time=="Time not listed" || Time.parse(e.time) > timenow
+                        if e.price =="Free" || e.price=="Price not listed" || e.price.to_f <= money.to_f
 
-  			@result, @scores=result(@data,udist, activity, "rank", feeling, feelingmap)
-		  	@result=@scores.sort.reverse[0..2]
-		  	return @result
+                                if e.category=="Performing Arts"
+                                        e.category="Comedy"
+                                        e.save
+                                end
+                                if e.category==nil
+                                        e.category="Misc."
+                                        e.save
+                                end
 
-  		elsif params[:button]=="try"
-  			@@all=nil
-			@@allprice=nil
-			@@alltime=nil
-			@@alldist=nil
+                                if e.category.count("/")==0
+                                        if activity.include?(e.category) || feelingmap.include?(e.category) #need to penalize if come from feeling rather than category choice (doing right now by worht less)
+                                                @data << e
+                                        end
+                                else
+                                        e.category.split("/").each do |cat|
+                                                if activity.include?(cat) || feelingmap.include?(cat)
+                                                        @data<<e unless @data.include?(e)
+                                                end
+                                        end
+                                end
+                        end
+                end
+        end
 
-  			format.html { redirect_to "/whattodo"}
 
-	  	elsif params[:button]=="rank" || (params[:button]!="dist" && params[:button]!="price" && params[:button]!="pricebot" && params[:button]!="rankbot" && params[:button]!="distbot" && params[:button]!="all" && params[:button]!="try")
-		  	#dont need my push method to get top three
-		  	@result, @scores=result(@data,udist, activity, "rank", feeling, feelingmap)
-		  	@result=@scores.sort.reverse[0..2]
-			@@all=@scores
+          respond_to do |format|
+                  if recommend
 
-			@@all=@scores
-			@@all=@scores
+                          @result, @scores=result(@data,udist, activity, "rank", feeling, feelingmap)
+                          @result=@scores.sort.reverse[0..2]
+                          return @result
+
+                  elsif params[:button]=="try"
+                          @@all=nil
+                        @@allprice=nil
+                        @@alltime=nil
+                        @@alldist=nil
+
+                          format.html { redirect_to "/whattodo"}
+
+                  elsif params[:button]=="rank" || (params[:button]!="dist" && params[:button]!="price" && params[:button]!="pricebot" && params[:button]!="rankbot" && params[:button]!="distbot" && params[:button]!="all" && params[:button]!="try")
+                          #dont need my push method to get top three
+                          @result, @scores=result(@data,udist, activity, "rank", feeling, feelingmap)
+                          @result=@scores.sort.reverse[0..2]
+                        @@all=@scores
+
+                        @@all=@scores
+                        @@all=@scores
       #adding choice lfirst recommended event, need to make sure not problem when recommended
       #or when ascending by rank, only want to fire once, not multiple times
       if current_user && !recommend
@@ -301,77 +301,77 @@ def categorycount(result)
         @choice.first_event=@result[0][1]
         @choice.save
       end
-			@hash = Gmaps4rails.build_markers(@result) do |res, marker|
-  				marker.lat Event.find_by_name(res).latitude
-  				marker.lng Event.find_by_name(res).longitude
-			end
-      
-	 		format.js{ render :action => "/algorthim.js.erb" }
+                        @hash = Gmaps4rails.build_markers(@result) do |res, marker|
+                                  marker.lat Event.find_by_name(res).latitude
+                                  marker.lng Event.find_by_name(res).longitude
+                        end
 
-	 	elsif params[:button]=="all"
-	 		#this approach doesnt work if they do try again
-	 		if params[:button2]!="dist" && params[:button2]!="price" && params[:button2]!="time"
-	 			#sometimes says nil. need to fix
+                         format.js{ render :action => "/algorthim.js.erb" }
 
-	 			@result=@@all.sort.reverse
-	 			@button="rank"
-	 			#returns [[score,event1],...]
-	 			if params[:button3]
+                 elsif params[:button]=="all"
+                         #this approach doesnt work if they do try again
+                         if params[:button2]!="dist" && params[:button2]!="price" && params[:button2]!="time"
+                                 #sometimes says nil. need to fix
 
-	 				@button2="down"
-	 				@result=@result.reverse
+                                 @result=@@all.sort.reverse
+                                 @button="rank"
+                                 #returns [[score,event1],...]
+                                 if params[:button3]
 
-	 			end
+                                         @button2="down"
+                                         @result=@result.reverse
 
-	 			format.js{ render :action => "/all.js.erb" }
-	 		elsif params[:button2]=="price"
-	 			if @@allprice==nil
+                                 end
 
-	 				#@result, @scores=result(@data,udist,activity, "price", feeling, feelingmap)
+                                 format.js{ render :action => "/all.js.erb" }
+                         elsif params[:button2]=="price"
+                                 if @@allprice==nil
 
-	 				@@allprice=sorter(@data,"price")
-	 			end
-	 			@button=params[:button2]
-	 			@result=@@allprice
-	 			if params[:button3]
-	 				@button2="down"
+                                         #@result, @scores=result(@data,udist,activity, "price", feeling, feelingmap)
 
-	 				@result=@result.reverse
+                                         @@allprice=sorter(@data,"price")
+                                 end
+                                 @button=params[:button2]
+                                 @result=@@allprice
+                                 if params[:button3]
+                                         @button2="down"
 
-	 			end
-	 			#returns event ordered by price and no scores.
-	 			#[event1,event2]
+                                         @result=@result.reverse
 
-	 			format.js{ render :action => "/all.js.erb" }
-	 		elsif params[:button2]=="dist"
-	 			if @@alldist==nil
+                                 end
+                                 #returns event ordered by price and no scores.
+                                 #[event1,event2]
 
-	 				#@result, @scores =result(@data,udist,activity, "dist", feeling, feelingmap)
-	 				@@alldist=sorter(@data, "dist")
-	 			end
-	 			@button=params[:button2]
-	 			@result=@@alldist
+                                 format.js{ render :action => "/all.js.erb" }
+                         elsif params[:button2]=="dist"
+                                 if @@alldist==nil
 
-	 			format.js{ render :action => "/all.js.erb" }
+                                         #@result, @scores =result(@data,udist,activity, "dist", feeling, feelingmap)
+                                         @@alldist=sorter(@data, "dist")
+                                 end
+                                 @button=params[:button2]
+                                 @result=@@alldist
 
-	 			if params[:button3]
-	 				@button2="down"
-	 				@result=@result.reverse
+                                 format.js{ render :action => "/all.js.erb" }
 
-	 			end
+                                 if params[:button3]
+                                         @button2="down"
+                                         @result=@result.reverse
 
-	 			format.js{ render :action => "/all.js.erb" }
+                                 end
 
-	 		elsif params[:button2]=="time"
-	 			if @@alltime==nil
-	 				#@result, @scores =result(@data,udist,activity, "time", feeling, feelingmap)
-	 				@@alltime=sorter(@data,"time")
-	 			end
-	 			@result=@@alltime
-	 			@button=params[:button2]
-	 			if params[:button3]
-	 				@button2="down"
-  
+                                 format.js{ render :action => "/all.js.erb" }
+
+                         elsif params[:button2]=="time"
+                                 if @@alltime==nil
+                                         #@result, @scores =result(@data,udist,activity, "time", feeling, feelingmap)
+                                         @@alltime=sorter(@data,"time")
+                                 end
+                                 @result=@@alltime
+                                 @button=params[:button2]
+                                 if params[:button3]
+                                         @button2="down"
+
 
           @result=@result.reverse
 
@@ -380,7 +380,7 @@ def categorycount(result)
 
 
         format.js{ render :action => "/all.js.erb" }
-                        
+
                 end
          end
   end
