@@ -64,7 +64,7 @@ this is all a form mind you.-->
           <div class="rover <%= count %>">
             <div id="info" style="display:none;left:300px">
               <% unless @recent[User.find_by_name(key.name)]==nil %>
-              <%= key.name %> 
+              
               was feeling <%= @recent[User.find_by_name(key.name)].feeling %>, looking for <%= @recent[User.find_by_name(key.name)].category %> and wanted it at <%= @recent[User.find_by_name(key.name)].price %> 
               <hr>
               <%= Event.find_by_name(@recent[User.find_by_name(key.name)].first_event).name %> <br>

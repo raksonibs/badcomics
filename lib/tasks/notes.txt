@@ -14,10 +14,10 @@ NoMethodError (undefined method `[]' for nil:NilClass):
 
 
 CHECK-need to generate migration of most recent value for recommendation, then show in network
--have to double click the all results after try again to make it work
--make sure cannot click a bunch
--fix the all results/try again fiasco
--refactor code
+CHECK-have to double click the all results after try again to make it work
+ajax before filter-make sure cannot click a bunch
+CHECK-fix the all results/try again fiasco
+SOMEWHAT CHECK-refactor code
 -get facebook events
 -deal with errors on googlemaps to not generate map when cannot set null, instead a picture of whattodo
 -fix google maps
