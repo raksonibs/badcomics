@@ -3,10 +3,10 @@ require 'nokogiri'
 require 'active_support/core_ext/numeric/time'
 
 class WelcomeController < ApplicationController
-        @@all=nil
-        @@allprice=nil
-        @@alltime=nil
-        @@alldist=nil
+  @@all=nil
+  @@allprice=nil
+  @@alltime=nil
+  @@alldist=nil
   def index
   	if current_user
   		@result=current_user.choices
@@ -18,22 +18,22 @@ class WelcomeController < ApplicationController
     end
   end
 
-def getrecent
-  @installed=JSON.parse(open("https://graph.facebook.com/#{current_user.uid}/friends?access_token=CAAG90loE5l8BAGYHDhEUWri968ZAkwZBX5JN2SQOrK1dKPbZBWdjQ1DVIdojXBNQQ6CHNAnJ0l5sJANfERGxmZAWAfudZAEPWvjji1mL3nEyZABzvTfMW3eBgWEQHmYvOK9DbgpbzVmmMWJ8R6uehjs7ZCSRfyJKK9PPxhLCDwMR0Pq2tUFa0sgHNWz4heTkRAZD&fields=installed").read)['data']
-  @true={}
-  @installed.each do |friend|
-    if friend["installed"]
-      @true[FbGraph::User.fetch(friend["id"])]=friend["id"]
+  def getrecent
+    @installed=JSON.parse(open("https://graph.facebook.com/#{current_user.uid}/friends?access_token=CAAG90loE5l8BAGYHDhEUWri968ZAkwZBX5JN2SQOrK1dKPbZBWdjQ1DVIdojXBNQQ6CHNAnJ0l5sJANfERGxmZAWAfudZAEPWvjji1mL3nEyZABzvTfMW3eBgWEQHmYvOK9DbgpbzVmmMWJ8R6uehjs7ZCSRfyJKK9PPxhLCDwMR0Pq2tUFa0sgHNWz4heTkRAZD&fields=installed").read)['data']
+    @true={}
+    @installed.each do |friend|
+      if friend["installed"]
+        @true[FbGraph::User.fetch(friend["id"])]=friend["id"]
+      end
     end
-  end
-  @recommendations={}
-  @true.each do |k,v|
-    @recommendations[User.find_by_name(k.name)]=User.find_by_name(k.name).choices.last unless User.find_by_name(k.name)==nil
-  end
-  return @recommendations, @true
-end 
+    @recommendations={}
+    @true.each do |k,v|
+      @recommendations[User.find_by_name(k.name)]=User.find_by_name(k.name).choices.last unless User.find_by_name(k.name)==nil
+    end
+    return @recommendations, @true
+  end 
 
-def categorycount(result)
+  def categorycount(result)
     res=[]
     categories=["Get Cultured", "Learn", "Trying New Things", "Be Merry", "Hangout with Strangers", "Laugh", "Be a Tourist", "Jam Out", "Be a Good Person", "Party Hardy", "Spend Spend Spend", "Family Channel", "Sporting Around", "Watch a Show", "Outdoor Fun", "Geeking Out"]
     categories.each do |i|
@@ -184,8 +184,6 @@ def categorycount(result)
 	  end
 	  activity=activitymap(activity)
     @data=getposs(activity,feelingmap,money, timenow)
-
-   
     respondpage(@data,udist,activity,feeling,feelingmap, params, recommend)
   end
 
