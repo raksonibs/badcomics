@@ -30,7 +30,6 @@ body {
 	padding:0;
 	/*background-height: 100%;*/
 	color: white;
-	font-family: Robotothin;
 	background: url("toronto_skyline.jpg");
 	background-attachment: fixed;
 }
@@ -105,22 +104,26 @@ body {
 }
 
 .wrapper .back {
+	/*display: none;*/
 	margin-top: 1%;
 	width: 25%;
 	float: left;
 	height: 144px;
 }
 
+.wrapper .back .bhome,
 .wrapper .back .b2feeling,
 .wrapper .back .bk2category {
 	display: none;
 	float: right;
 	margin-top: 54px;
 	font-size: 2.5em;
-	background-color: rgba(255,255,255,0.21);
-		transition: .8s;
+	background: url('back.png') center no-repeat;
+	background-color: rgba(255,255,255,0.25);
+  		transition: .5s;
 	border-radius: 6px;
 	line-height: 25px;
+	width: 30px;
 	/*text-align: center;*/
 	border: none;
 	color: white;
@@ -132,9 +135,15 @@ body {
 	-webkit-box-shadow: 3px 3px 4px 1px rgba(0, 0, 0, 0.43);
 }
 
-.wrapper .back button:hover {
+.wrapper .back input[type=button]:hover ,
+.wrapper .back input[type=button]:hover {
 	background-color: rgba(255,255,255,0.45);
-  		transition: .8s;
+  		transition: .5s;
+}
+
+.wrapper .back input[type=submit]:hover {
+	background-color: rgba(255,255,255,0.45);
+  		transition: .5s;
 }
 
 .wrapper .clear {

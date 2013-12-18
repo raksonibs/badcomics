@@ -8,31 +8,31 @@ var upsanddowns=[".ourrankdir", ".pricedir", ".distdir", ".timedir"]
 
 $(function() {
 
-	$(".topnav")
-    .animate({
-      opacity: 0 }, 0)
-    .delay(200)
-    .animate({
-      top:"+=45",
-      opacity: 1},1500);
+  $(".topnav")
+  .animate({
+    opacity: 0 }, 0)
+  .delay(200)
+  .animate({
+    top:"+=45",
+    opacity: 1},1500);
 
   $(".categories").on('click', function() {
-    $(".categories, .question").fadeOut( function() {
-      $(".b2feeling, .categories1, .question2")
+    $(".categories, .question, .bhome").fadeOut( function() {
+      $(".categories1, .question2, .b2feeling")
         .fadeIn()
         .animate( {
           left:"+15",
-          opacity: 1}, 800)
+          opacity: 1}, 800);
     });
   });
 
   $(".b2feeling").on('click', function(event){
     $(".categories1, .question2, .b2feeling").fadeOut( function() {
-      $(".categories, .question")
+      $(".categories, .question, .bhome")
         .fadeIn()
         .animate( {
           left:"+15",
-          opacity: 1}, 800)
+          opacity: 1}, 800);
     });
   });
 
@@ -56,8 +56,8 @@ $(function() {
     });
   });
 
-  $(".price").on('click', function(e) {
-    $(".price, .question3, .b2feeling").fadeOut( function() {
+  $(".price").on('click', function() {
+    $(".price, .question3, .bk2category").fadeOut( function() {
       $(".blackness")
         .show()
         .animate({left:"+15", opacity: 1}, 800)
@@ -72,7 +72,6 @@ $(function() {
 
       $(".blackness").fadeOut();
     });
-    //e.stopPropogation();
   });
 
   $(".categorybox").on('click', function() {
@@ -131,7 +130,7 @@ $(function() {
             }
           }
 
-            initialize()
+            initialize();
 
         }
     })
@@ -184,9 +183,9 @@ $(function() {
               }
             }
 
-          }
-      });
+        }
     });
+  });
 
 
     $(".down").on("click", function(){
@@ -203,8 +202,8 @@ $(function() {
                   button2: selection,
                   button3: "down"}
 
-      })
-    })
+      });
+    });
 
     $(".up").on("click", function(){
       selection= ($(this).attr("class").split(/\s/)[0].replace(/dir/,""))
@@ -219,21 +218,26 @@ $(function() {
                   button2: selection,
                   }
 
-      })
-    })
+      });
+    });
 
   $("#try").on("click", function() {
       $(".question4, .alloutput, .buttons, .output, .b2feeling, .bk2category").hide();
-      $('html, body').animate({scrollTop: '0px'}, 900);
+      // Not working? $('html').animate({scrollTop: '0px'}, 900);
       all=undefined
       start();
   });
 
   start();
+
 });
 
 function start() {
-  $(".categories, .categories1, .price, .output, .question2, .question3, .question4, .output1, .b2feeling, .bk2category .blackness").animate({ opacity: 0 }, 0);
-  $(".question").fadeIn(500);
-  $(".categories").fadeIn().animate({left:"+20", opacity: 1}, 800);
-}
+  $(".categories, .categories1, .price, .output, .question2, .question3, .question4, .output1, .bhome, .blackness")
+    .animate({ opacity: 0}, 0);
+
+  $(".question").delay().fadeIn(600);
+
+  $(".categories, .bhome").delay().fadeIn().animate({left:"+20", opacity: 1}, 800);
+
+};
