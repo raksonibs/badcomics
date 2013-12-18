@@ -6,6 +6,7 @@ var choice1,
 
 var upsanddowns=[".ourrankdir", ".pricedir", ".distdir", ".timedir"]
 
+
 $(function() {
 
   $(".topnav")

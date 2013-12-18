@@ -3,12 +3,16 @@
   margin-top: 10%;
   margin-left: 5%;
   max-width: 90%;
-  height: 10%;
+  /*height: 10%;*/
   text-align: left;
   font-family: 'Roboto';
   font-weight: 300;
   font-size: 1.5em;
   opacity: 0.7;
+}
+
+.recommendations .reco tr {
+  line-height: 200%;
 }
 
 .recommendations .reco .eventname td {
@@ -19,5 +23,6 @@
 .recommendations .reco .greenscore {
   color: lightgreen;
   text-align: right;
+  width: 10%;
 }
 

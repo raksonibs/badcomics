@@ -15,11 +15,13 @@ class WelcomeController < ApplicationController
   		feelingchoice=feelingscount(@result)[1]
   		@result=algorthim(feelingchoice, catchoice,pricechoice,true)
       @recent, @installedfriends=getrecent()
+      @picture=FbGraph::User.fetch(current_user.uid).picture
     end
   end
 
   def getrecent
-    @installed=JSON.parse(open("https://graph.facebook.com/#{current_user.uid}/friends?access_token=CAAG90loE5l8BAGYHDhEUWri968ZAkwZBX5JN2SQOrK1dKPbZBWdjQ1DVIdojXBNQQ6CHNAnJ0l5sJANfERGxmZAWAfudZAEPWvjji1mL3nEyZABzvTfMW3eBgWEQHmYvOK9DbgpbzVmmMWJ8R6uehjs7ZCSRfyJKK9PPxhLCDwMR0Pq2tUFa0sgHNWz4heTkRAZD&fields=installed").read)['data']
+
+    @installed=JSON.parse(open("https://graph.facebook.com/#{current_user.uid}/friends?access_token=#{current_user.oauth_token}&fields=installed").read)['data']
     @true={}
     @installed.each do |friend|
       if friend["installed"]

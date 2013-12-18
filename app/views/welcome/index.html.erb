@@ -1,16 +1,6 @@
 
-<!-- dealing with large data sets, 15640 events in that stream.
-will allow multiple selections (up to three).multiple words,
-different moods so each time seems different.
-click up to n moods, then say how much money you have in your pocket.
-select range then your location based on ip address find your stuff.
-want to put javascript to make it move to next task which is money.
-this is all a form mind you.-->
-
 <!-- If the user is signed in, the below will be the index page,
   otherwise a sign in pop up will appear. Refer to index.css.scss for styling. -->
-
-
 
 <% if current_user %>
 
@@ -55,14 +45,21 @@ this is all a form mind you.-->
           <%= render 'rec' %>
         </div>
         <% count=0 %>
-        <div class="friends" style="display:inline">
-          Friends:<br>
+
+        <div class="friendmsg">
+          Friends using the App
+        </div>
+
+        <div class="friendoutput">
           <% @installedfriends.each do |key, value| %>
 
+          <div class="picandname">
+            <div class="imgfb"><img src=<%=key.picture%>/></div>
+            <div class="namefb"><%=key.name%></div>
+          </div>
 
-            <img src=<%=key.picture%>/> <%=key.name%>
           <div class="rover <%= count %>">
-            <div id="info" style="display:none;left:300px">
+            <div id="info">
               <% unless @recent[User.find_by_name(key.name)]==nil %>
               <%= key.name %>
               was feeling <%= @recent[User.find_by_name(key.name)].feeling %>, looking for <%= @recent[User.find_by_name(key.name)].category %> and wanted it at <%= @recent[User.find_by_name(key.name)].price %>
@@ -73,7 +70,9 @@ this is all a form mind you.-->
               <!-- want distance from you -->
               <% end %>
             </div>
-            <%= @recent[User.find_by_name(key.name)]!=nil ? "-"+@recent[User.find_by_name(key.name)].first_event : "-Nothing yet" %> </div>
+            <%= @recent[User.find_by_name(key.name)]!=nil ? "-"+@recent[User.find_by_name(key.name)].first_event : "Nothing yet" %>
+          </div>
+
           </a><br>
           <% count+=1 %>
           <% end %>

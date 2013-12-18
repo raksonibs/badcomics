@@ -87,7 +87,7 @@
 .container .container1 .time {
 	text-align: center;
 	margin-top: 5%;
-	font-family: 'Noto Sans', sans-serif;
+	font-family: 'NotoSans', sans-serif;
 	font-size: 12em;
 	display: none;
 	opacity: 0.7;
@@ -160,7 +160,7 @@
 	display: none;
 }
 
-.container .recommend .recommendmsg {
+.container .recommend .rightfade .recommendmsg {
 	font-family: 'Roboto';
 	font-weight: 300;
 	margin-top: 30%;
@@ -170,20 +170,64 @@
 	opacity: 0.7;
 }
 
-.container .recommend .recommendations {
+.container .recommend .rightfade .recommendations {
 	height: auto;
 	margin-top: 10%;
 	text-align: center;
 }
 
-.container .recommend .friends {
-	height: auto;
-	margin-top: 40%;
-	margin-left: 10%;
-	margin-right: 10%;
+.container .recommend .rightfade .friendmsg {
+	margin-top: 15%;
 	text-align: center;
+	width: 100%;
+	font-family: 'Roboto';
+	font-weight: 300;
+	font-size: 1.5em;
+	opacity: 0.8;
+}
+
+.container .recommend .rightfade .friendoutput {
+	height: auto;
+	margin-top: 5%;
+	margin-left: 5%;
+	margin-right: 5%;
 	font-family: 'Roboto';
 	font-weight: 300;
 	font-size: 1.2em;
 	opacity: 0.8;
 }
+
+.container .recommend .rightfade .friendoutput .picandname {
+	width: 75%;
+	height: auto;
+}
+
+.container .recommend .rightfade .friendoutput .picandname .imgfb {
+	width: 50%;
+	height: auto;
+	float: left;
+}
+
+.container .recommend .rightfade .friendoutput .picandname .imgfb img {
+	border-radius: 100%;
+	border: 2px solid white;
+	margin-left: 25%;
+}
+
+.container .recommend .rightfade .friendoutput .picandname .namefb {
+	width: 50%;
+	margin-top: 5%;
+	height: auto;
+	float: right;
+}
+
+.container .recommend .rightfade .friendoutput .rover {
+	clear: left;
+	margin-left: 10%;
+}
+
+.container .recommend .rightfade .friendoutput .rover #info {
+	display: none;
+}
+
+
