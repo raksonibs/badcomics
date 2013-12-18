@@ -16,40 +16,40 @@ $(function() {
       top:"+=45",
       opacity: 1},1500);
 
-  $(".categories").on('click', function(e) {
+  $(".categories").on('click', function() {
     $(".categories, .question").fadeOut( function() {
-        $(".categories1, .question2, .back1")
-          .show()
-          .animate({
-            left:"+15",
-            opacity: 1},800);
-    });
-  });
-
-  $(".back1").on('click', function(event){
-    $(".categories1, .question2, .back1").fadeOut( function() {
-      $(".categories, .question")
-        .show()
-        .animate({
+      $(".b2feeling, .categories1, .question2")
+        .fadeIn()
+        .animate( {
           left:"+15",
-          opacity: 1},800);
+          opacity: 1}, 800)
     });
   });
 
-  $(".categories1").on('click', function(e) {
-    $(".categories1, .question2, .back1").fadeOut( function() {
-      $(".price, .question3, .back2")
-        .show()
+  $(".b2feeling").on('click', function(event){
+    $(".categories1, .question2, .b2feeling").fadeOut( function() {
+      $(".categories, .question")
+        .fadeIn()
+        .animate( {
+          left:"+15",
+          opacity: 1}, 800)
+    });
+  });
+
+  $(".categories1").on('click', function() {
+    $(".categories1, .question2, .b2feeling").fadeOut( function() {
+      $(".price, .question3, .bk2category")
+        .fadeIn()
         .animate({
           left: "+15",
           opacity: 1}, 800);
     });
   });
 
-  $(".back2").on('click', function(event){
-    $(".price, .question3, .back2").fadeOut( function() {
-      $(".categories1, .question2, .back1")
-        .show()
+  $(".bk2category").on('click', function(event){
+    $(".price, .question3, .bk2category").fadeOut( function() {
+      $(".categories1, .question2, .b2feeling")
+        .fadeIn()
         .animate({
           left:"+15",
           opacity: 1},800);
@@ -57,8 +57,8 @@ $(function() {
   });
 
   $(".price").on('click', function(e) {
-    $(".price, .question3, .back2, .bottom").fadeOut( function() {
-      $("#blackness")
+    $(".price, .question3, .b2feeling").fadeOut( function() {
+      $(".blackness")
         .show()
         .animate({left:"+15", opacity: 1}, 800)
         .delay(400);
@@ -70,7 +70,7 @@ $(function() {
           .animate({left:"+15", opacity: 1}, 1000);
       }, 1000);
 
-      $("#blackness").fadeOut();
+      $(".blackness").fadeOut();
     });
     //e.stopPropogation();
   });
@@ -223,7 +223,7 @@ $(function() {
     })
 
   $("#try").on("click", function() {
-      $(".question4, .alloutput, .buttons, .output").hide();
+      $(".question4, .alloutput, .buttons, .output, .b2feeling, .bk2category").hide();
       $('html, body').animate({scrollTop: '0px'}, 900);
       all=undefined
       start();
@@ -233,7 +233,7 @@ $(function() {
 });
 
 function start() {
-  $(".categories, .categories1, .price, .output, .question2, .question3, .question4, .output1, #blackness").animate({ opacity: 0 }, 0);
-  $(".question, .bottom").fadeIn(500);
+  $(".categories, .categories1, .price, .output, .question2, .question3, .question4, .output1, .b2feeling, .bk2category .blackness").animate({ opacity: 0 }, 0);
+  $(".question").fadeIn(500);
   $(".categories").fadeIn().animate({left:"+20", opacity: 1}, 800);
 }

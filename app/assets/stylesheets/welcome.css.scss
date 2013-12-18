@@ -48,7 +48,7 @@ body {
 	top: -45px;
 	height: 75px;
 	width: 100%;
-	background-color: rgba(255,255,255,0.21);
+	background-color: rgba(255,255,255,0.1);
 	display: block;
 	box-shadow: 3px 3px 4px 1px rgba(0, 0, 0, 0.43);
 	-moz-box-shadow: 3px 3px 4px 1px rgba(0, 0, 0, 0.43);
@@ -92,19 +92,53 @@ body {
 .wrapper .question4 {
 	height: auto;
 	padding: 0;
-	width: 100%;
-	margin-bottom: 30px;
+	width: 67%;
+	margin-bottom: 1%;
+	margin-top: 1%;
 	font-family: Roboto;
+	float: left;
 	display: none;
-}
 
-.wrapper .question p,
-.wrapper .question2 p,
-.wrapper .question3 p,
-.wrapper .question4 p  {
-	text-align: center;
+	margin-left: 8%;
 	font-size: 3em;
 	line-height: 1em;
+}
+
+.wrapper .back {
+	margin-top: 1%;
+	width: 25%;
+	float: left;
+	height: 144px;
+}
+
+.wrapper .back .b2feeling,
+.wrapper .back .bk2category {
+	display: none;
+	float: right;
+	margin-top: 54px;
+	font-size: 2.5em;
+	background-color: rgba(255,255,255,0.21);
+		transition: .8s;
+	border-radius: 6px;
+	line-height: 25px;
+	/*text-align: center;*/
+	border: none;
+	color: white;
+	font-family: "Roboto";
+	outline: 0;
+
+	box-shadow: 3px 3px 4px 1px rgba(0, 0, 0, 0.43);
+	-moz-box-shadow: 3px 3px 4px 1px rgba(0, 0, 0, 0.43);
+	-webkit-box-shadow: 3px 3px 4px 1px rgba(0, 0, 0, 0.43);
+}
+
+.wrapper .back button:hover {
+	background-color: rgba(255,255,255,0.45);
+  		transition: .8s;
+}
+
+.wrapper .clear {
+	clear: both;
 }
 
 /* hiding before page load so there isn't a white flash */
@@ -139,10 +173,11 @@ body {
 	margin-right: 5px;
 	margin-bottom: 10px;
 	/*display: inline-block;*/
-	border: white solid 2px;
-	background-color: rgba(255,255,255,0.31);
+	border: none;
+	background-color: rgba(255,255,255,0.21);
 	border-radius: 6px;
-	font-family: Robotothin;
+	font-family: "Roboto";
+	font-weight: 300;
 	font-size: 1.7em;
 	color: white;
 
@@ -155,15 +190,16 @@ body {
 .wrapper .categories1 button,
 .wrapper .price button {
 	background-color: rgba(255,255,255,0.45);
-	outline: 0;
-	font-family: Robotothin;
-	font-size: 1.7em;
-	color: white;
 	-o-transition: .8s;
   	-ms-transition: .8s;
   	-moz-transition: .8s;
   	-webkit-transition: .8s;
   	transition: .8s;
+	outline: 0;
+	font-family: Robotothin;
+	font-size: 1.7em;
+	color: white;
+
 }
 
 .wrapper .categories button:hover,
@@ -206,46 +242,20 @@ body {
 	display: none;
 }
 
-.wrapper #blackness {
-	background-color: rgba(255,255,255,0.5);
-	width: 110%;
-	height: 110%;
-	top: 100px;
-	left: 30px;
+.wrapper .blackness {
+	width: 100%;
+	height: 100%;
+	top: 30px;
+	/*left: 30px;*/
 	position: absolute;
 	z-index: 100;
-
+	font-family: "Roboto";
+	font-weight: 300;
+	font-size: 3em;
+	display: none;
 }
 
-.wrapper .bottom {
-	text-align: center;
-	margin-top: 40px;
-	left: -8px;
-}
-
-.wrapper .back1,
-.wrapper .back2 {
-	/*right: -100px;*/
-	border: 2px solid white;
-	/*background-color: rgba(255,255,255,0.5);*/
-	background: transparent;
-	border-radius: 6px;
-	width: 200px;
-	height: 50px;
-	text-align: center;
-	font-family: Roboto, Helvetica;
-	color: white;
-	font-size: 2em;
-}
-
-.wrapper .back1:hover,
-.wrapper .back2:hover {
-	text-shadow: 3px 3px 4px 1px rgba(0, 0, 0, 0.43);
-	-moz-text-shadow: 3px 3px 4px 1px rgba(0, 0, 0, 0.43);
-	-webkit-text-shadow: 3px 3px 4px 1px rgba(0, 0, 0, 0.43);
-}
-
-.buttonsdir {
+.wrapper .buttonsdir {
 	visibility: hidden;
 }
 
