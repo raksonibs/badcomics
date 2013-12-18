@@ -217,6 +217,7 @@ $(function() {
                   choice3: choice3,
                   button: "all",
                   button2: selection,
+                  button3: "up"
                   }
 
       })

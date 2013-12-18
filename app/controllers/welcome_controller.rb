@@ -3,10 +3,10 @@ require 'nokogiri'
 require 'active_support/core_ext/numeric/time'
 
 class WelcomeController < ApplicationController
-        @@all||=nil
-        @@allprice||=nil
-        @@alltime||=nil
-        @@alldist||=nil
+        @@all=nil
+        @@allprice=nil
+        @@alltime=nil
+        @@alldist=nil
   def index
   	if current_user
   		@result=current_user.choices
@@ -173,7 +173,6 @@ def categorycount(result)
   	end
   	feelingmap=feelmap(feeling)
   	timenow=Time.now
-	  
 	  unless recommend
   		if money[/-/]
   			money=money[/-\$\d+/][2..money.length]
@@ -184,10 +183,9 @@ def categorycount(result)
   		end
 	  end
 	  activity=activitymap(activity)
-
-
     @data=getposs(activity,feelingmap,money, timenow)
 
+   
     respondpage(@data,udist,activity,feeling,feelingmap, params, recommend)
   end
 
@@ -207,6 +205,8 @@ def categorycount(result)
         @result, @scores=result(data,udist, activity, "rank", feeling, feelingmap)
         @result=@scores.sort.reverse[0..2]
         @@all=@scores
+        @@all=@scores
+        @@all=@scores
         if current_user && !recommend
           @choice=current_user.choices.last
           @choice.first_event=@result[0][1]
@@ -218,51 +218,50 @@ def categorycount(result)
         end
         format.js{ render :action => "/algorthim.js.erb" }
       elsif params[:button]=="all"
-       if params[:button2]!="dist" && params[:button2]!="price" && params[:button2]!="time"
-          @result=@@all.sort.reverse
-          @button="rank"
-          if params[:button3]
-            @button2="down"
-            @result=@result.reverse
-          end
+        if params[:button2]!="dist" && params[:button2]!="price" && params[:button2]!="time"
+          @result, @button, @button2 = buttons(params, @@all)
           format.js{ render :action => "/all.js.erb" }
         elsif params[:button2]=="price"
-          if @@allprice==nil
-            @@allprice=sorter(data,"price")
-          end
-          @button=params[:button2]
-          @result=@@allprice
-          if params[:button3]
-            @button2="down"
-            @result=@result.reverse
-          end
+          @@allprice=sorter(data,"price") if @@allprice==nil
+          @result, @button, @button2 = buttons(params, @@allprice)
           format.js{ render :action => "/all.js.erb" }
         elsif params[:button2]=="dist"
-          if @@alldist==nil
-            @@alldist=sorter(data, "dist")
-          end
-          @button=params[:button2]
-          @result=@@alldist
-          format.js{ render :action => "/all.js.erb" }
-          if params[:button3]
-            @button2="down"
-            @result=@result.reverse
-          end
+          @@alldist=sorter(data, "dist") if @@alldist==nil
+          @result, @button, @button2 = buttons(params, @@alldist)
           format.js{ render :action => "/all.js.erb" }
         elsif params[:button2]=="time"
-          if @@alltime==nil
-            @@alltime=sorter(data,"time")
-          end
-          @result=@@alltime
-          @button=params[:button2]
-          if params[:button3]
-            @button2="down"
-            @result=@result.reverse
-          end
+          @@alltime=sorter(data,"time") if @@alltime==nil
+          @result, @button, @button2 = buttons(params, @@alltime)
           format.js{ render :action => "/all.js.erb" }
         end
       end
     end
+  end
+
+  def buttons(params, global)
+    if params[:button2]=="ourrank"
+      @result=global.sort.reverse
+    else
+      @result=global.sort_by{|item| item[1]}
+    end
+    @button=params[:button2]
+    if @button==nil
+      @button="ourrank"
+    end
+    if @button=="ourrank"
+      @result=global.sort.reverse
+    end
+    if params[:button3]=="down"
+      @button2="down"
+      @result=@result.reverse
+    elsif params[:button3]=="up"
+      @button2="up"
+      
+      @result=@result.sort.reverse if params[:button2]=="ourrank"
+    else
+      @button2=false
+    end
+    return @result, @button, @button2
   end
 
   def getposs(activity, feelingmap, money, timenow)
@@ -291,9 +290,8 @@ def categorycount(result)
   				end
   			end
 		  end
-	 end
-   @data
-
+	  end
+    @data
   end
 
   def sorter(data, val)
