@@ -54,12 +54,31 @@ this is all a form mind you.-->
         <div class="recommendations">
           <%= render 'rec' %>
         </div>
-
+        <% count=0 %>
         <div class="friends" style="display:inline">
+          Friends:<br>
+          <% @installedfriends.each do |key, value| %>
 
-        <div class="friends">
-          Your friends' recommendations
-        </div>
+
+            <img src=<%=key.picture%>/> <%=key.name%>
+          <div class="rover <%= count %>">
+            <div id="info" style="display:none;left:300px">
+              <% unless @recent[User.find_by_name(key.name)]==nil %>
+              <%= key.name %>
+              was feeling <%= @recent[User.find_by_name(key.name)].feeling %>, looking for <%= @recent[User.find_by_name(key.name)].category %> and wanted it at <%= @recent[User.find_by_name(key.name)].price %>
+              <hr>
+              <%= Event.find_by_name(@recent[User.find_by_name(key.name)].first_event).name %> <br>
+              @<%= Event.find_by_name(@recent[User.find_by_name(key.name)].first_event).location %><br>
+              @<%= Event.find_by_name(@recent[User.find_by_name(key.name)].first_event).time %>
+              <!-- want distance from you -->
+              <% end %>
+            </div>
+            <%= @recent[User.find_by_name(key.name)]!=nil ? "-"+@recent[User.find_by_name(key.name)].first_event : "-Nothing yet" %> </div>
+          </a><br>
+          <% count+=1 %>
+          <% end %>
+
+
 
         </div>
     </div>
@@ -118,10 +137,15 @@ $("#clickable").on("click",function(){
 $(".rover").hover(function(){
   //ajax request to get info
   var self= $(this)
-  var value= $(this).attr("class").split(/\s/)
-  if ( value[1] !== "") {
-  //if ($(this).attr("class").split(/\s/).size>=2){
-    console.log($(self).children("Night").attr("id"))
+  console.log($(this))
+  var value= $(this).text()
+  console.log(value)
+  var nothing= new RegExp("Nothing")
+  if (!nothing.test(value)) {
+  // //if ($(this).attr("class").split(/\s/).size>=2){
+
+    self.children().toggle()
+    //$(this).children[0].attr("display", "block")
 
   }
   // $.ajax({
@@ -137,7 +161,15 @@ $(".rover").hover(function(){
 
   //       })
 }, function(){
-  console.log("hello")
+  var self= $(this)
+  console.log($(this))
+  var value= $(this).text()
+  console.log(value)
+  var nothing= new RegExp("Nothing")
+  if (!nothing.test(value)) {
+
+    self.children().toggle()
+  }
 })
 
 
