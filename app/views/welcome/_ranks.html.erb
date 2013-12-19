@@ -12,11 +12,11 @@
         </div>
             
           		<div class="name">
-                <% value = Event.find_by_name(event[1]).link[/www/] ? Event.find_by_name(event[1]).link : "www." + Event.find_by_name(event[1]).link %>
+                <% value =  Event.find_by_name(event[1]).link[/http/] ? Event.find_by_name(event[1]).link : "http://" + Event.find_by_name(event[1]).link %>
                 <% value = value[/listed/] ? "" : value %>
                   <a href="<%= value %>"> <%="Go to: #{event[1]}" %></a>
             
-                 
+                 <!--<iframe src="<%= value %>" style="border:0px #FFFFFF none;display:none;" name="myiFrame" scrolling="yes" frameborder="1" marginheight="0px" marginwidth="0px" height="200px" width="468px"></iframe>-->
               
               
            		</div>

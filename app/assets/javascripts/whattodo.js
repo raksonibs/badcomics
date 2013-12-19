@@ -59,9 +59,9 @@ $(function() {
 
   $(".price").on('click', function() {
     $(".price, .question3, .bk2category").fadeOut( function() {
-      $(".blackness")
+      $(".blackness, #foo")
         .show()
-        .animate({left:"+15", opacity: 1}, 800)
+        .animate({left:"+45", opacity: 1}, 800)
         .delay(400);
 
       var black = setTimeout(function() {
@@ -72,6 +72,7 @@ $(function() {
       }, 1000);
 
       $(".blackness").fadeOut();
+      $("#foo").fadeOut("slow")
     });
   });
 
@@ -129,19 +130,12 @@ $(function() {
                      //map.setCenter(center);
                      google.maps.event.trigger(map, "resize");
                   });
-                  
-
-
             }
           }
-
+          setTimeout(function() {
             initialize()
-            // for (var i=0; i<=2; i++) {
-            //   $($(".map")[i]).css("width", "700")
-            //   $($(".map")[i]).css("height", "200")
-            // }
-  
-
+          }, 3000)
+          
         }
     })
 
@@ -243,7 +237,7 @@ $(function() {
 });
 
 function start() {
-  $(".categories, .categories1, .price, .output, .question2, .question3, .question4, .output1, .bhome, .blackness")
+  $(".categories, .categories1, .price, .output, .question2, .question3, .question4, .output1, .bhome, .blackness, #foo")
     .animate({ opacity: 0}, 0);
 
   $(".question").delay().fadeIn(500);

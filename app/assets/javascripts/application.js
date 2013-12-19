@@ -15,3 +15,4 @@
 //= require_tree .
 //= require underscore
 //= require gmaps/google
+//= require spin
