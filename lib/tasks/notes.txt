@@ -16,7 +16,7 @@ CHECK-image on index page
 MAYBE?-also when first signup problem i think
 CHECK-link errors
 CHECK-load page
-NEED TO DO-google maps fix
+CHECK-google maps fix
 NEED TO DO-production problems
 NEED TO DO-	i think i don't care sets price to zero. shold be plus 300
 NEED TO DO-buttons for order

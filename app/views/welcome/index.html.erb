@@ -64,10 +64,14 @@
 
               was feeling <%= @recent[User.find_by_name(key.name)].feeling %>, looking for <%= @recent[User.find_by_name(key.name)].category %> and wanted it at <%= @recent[User.find_by_name(key.name)].price %>
               <hr>
-              <%= Event.find_by_name(@recent[User.find_by_name(key.name)].first_event).name %> <br>
-              @<%= Event.find_by_name(@recent[User.find_by_name(key.name)].first_event).location %><br>
-              @<%= Event.find_by_name(@recent[User.find_by_name(key.name)].first_event).time %>
+              <% if Event.find_by_name(@recent[User.find_by_name(key.name)].first_event)==nil %>
+                <%= "Happened yesterday!" %>
+              <% else %>
+                <%= Event.find_by_name(@recent[User.find_by_name(key.name)].first_event).name %> <br>
+                @<%= Event.find_by_name(@recent[User.find_by_name(key.name)].first_event).location %><br>
+                @<%= Event.find_by_name(@recent[User.find_by_name(key.name)].first_event).time %>
               <!-- want distance from you -->
+              <% end %>
               <% end %>
             </div>
             <%= @recent[User.find_by_name(key.name)]!=nil ? "-"+@recent[User.find_by_name(key.name)].first_event : "Nothing yet" %>

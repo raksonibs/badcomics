@@ -485,7 +485,7 @@ class Event < ActiveRecord::Base
 			end
 			if val["venue"]!=nil
 
-				info[val["name"]]<< val["venue"]["address_1"] if val["venue"]["city"]=="Toronto" 
+				info[val["name"]]<< val["venue"]["address_1"] + " " + val["venue"]["city"] if val["venue"]["city"]=="Toronto" 
 		
 				info[val["name"]]<< val["venue"]["address_1"]+ " " + val["venue"]["city"] if val["venue"]["city"]!="Toronto"
 			else

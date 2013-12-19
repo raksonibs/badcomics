@@ -95,6 +95,7 @@
 			<div id="foo"></div>
 
 			<!-- Look in alloutput.css.scss file for styling -->
+			<div id="center">
 			<div class="buttons">
 				<button id="price" class="sort-order" style="display:inline" data-sort-order="price">Price</button>
 				<button class="pricedir up" style="visibility:hidden">Up</button>
@@ -110,10 +111,12 @@
 				<button class="ourrankdir down" style="visibility:hidden">Down</button>
 			</div>
 
+
 			<div class="buttonsdir">
 				<button class="dir">Up</button>
 				<button class="dir">Down</button>
 			</div>
+		</div>
 
 			<div class="alloutput">
 				<%= render "all" %>
@@ -158,6 +161,7 @@ function start1() {
 	 }
 	 indexes1.push(num1)
 	$("#"+i).text(bank1[num1])
+	$("#"+i).prepend('<img id="theImg" src="/assets/back.png" />')
 
 	}
 
@@ -182,6 +186,8 @@ $("#try").on("click", function(){
 
 	start1()
 })
+
+
 </script>
 
 
