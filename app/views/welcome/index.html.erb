@@ -61,8 +61,8 @@
           <div class="rover <%= count %>">
             <div id="info">
               <% unless @recent[User.find_by_name(key.name)]==nil %>
-              
-              was feeling <%= @recent[User.find_by_name(key.name)].feeling %>, looking for <%= @recent[User.find_by_name(key.name)].category %> and wanted it at <%= @recent[User.find_by_name(key.name)].price %> 
+
+              was feeling <%= @recent[User.find_by_name(key.name)].feeling %>, looking for <%= @recent[User.find_by_name(key.name)].category %> and wanted it at <%= @recent[User.find_by_name(key.name)].price %>
               <hr>
               <%= Event.find_by_name(@recent[User.find_by_name(key.name)].first_event).name %> <br>
               @<%= Event.find_by_name(@recent[User.find_by_name(key.name)].first_event).location %><br>
@@ -90,15 +90,27 @@
   promp a sign in or an option to go straight to the app. -->
 <% else %>
 
-  <div id="overlay">
+<div class="overlay">
+  <div class="topright">
   </div>
-  <div id="lightbox">
-    <p> Sign in with Fbook </p>
-    <%= link_to "Sign in with Facebook", "/auth/facebook" %>
-    <p> Or just use the service </p>
-    <!-- want it to dissolve and the thing was underneath the whole time, like boxes -->
-    <%= link_to "What to do", "/whattodo" %>
+
+  <div class="lightbox">
+    <h1 class="hellomsg">What's happening in Toronto?</h1>
+    <h1 class="shortds">We will help you decide what to do,<br>
+      <span class="stext"> in just a few clicks.</span> For free!
+    </h1>
+    <br>
+    <div class="fbbuttonpos">
+      <a class="btn-auth btn-facebook large" href="/auth/facebook">
+      Sign in with <b>Facebook</b>
+      </a>
+    </div>
+    <br>
+    <h2 class="theapp"><%= link_to "Just let me use the app.", "/whattodo" %></h2>
+    <br>
   </div>
+
+</div>
 
 <% end %>
 
