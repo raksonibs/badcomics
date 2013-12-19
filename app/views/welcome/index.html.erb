@@ -21,7 +21,7 @@
 
     <div class="container1">
       <h1 class="time">
-        <%= Time.now.strftime("%I:%M") %>
+        
       </h1>
       <h1 class="welcome">
         Welcome back, <%= current_user.name.split(' ').first %>.
@@ -107,6 +107,27 @@
 <script type='text/javascript' src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
 <script type='text/javascript'>
 //if they select lazy, this needs to run
+  $(".time").text("Hello")
+  var d = new Date();
+  var hr = d.getHours();
+  var min = d.getMinutes();
+  if (min < 10) {
+    min = "0" + min;
+  }
+  var ampm = hr < 12 ? "am" : "pm";
+  $(".time").text(hr+":"+min)
+setInterval(function() {
+  var d = new Date();
+  var hr = d.getHours();
+  var min = d.getMinutes();
+  if (min < 10) {
+    min = "0" + min;
+  }
+var ampm = hr < 12 ? "am" : "pm";
+  $(".time").text(hr+":"+min)
+  
+}, 10000)
+
 $("#clickable").on("click",function(){
 	var thiss= this;
 	if ("geolocation" in navigator) {
@@ -147,18 +168,6 @@ $(".rover").hover(function(){
     //$(this).children[0].attr("display", "block")
 
   }
-  // $.ajax({
-  //         url: "/",
-  //         type: "GET",
-  //         dataType: "script",
-  //         data: {
-  //           button: $(thiss).text(),
-  //           longitude: position.coords.longitude,
-  //           latitude: position.coords.latitude,
-
-  //         }
-
-  //       })
 }, function(){
   var self= $(this)
   console.log($(this))
@@ -171,11 +180,6 @@ $(".rover").hover(function(){
   }
 })
 
-
-</script>
-
-
-<script type="text/javascript">
 
   var _gaq = _gaq || [];
   _gaq.push(['_setAccount', 'UA-46454307-1']);
