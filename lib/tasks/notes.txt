@@ -12,14 +12,14 @@ NoMethodError (undefined method `[]' for nil:NilClass):
   app/controllers/welcome_controller.rb:191:in `respondpage'
   app/controllers/welcome_controller.rb:187:in `algorthim'
 
-johnny-image on index page
--also when first signup problem i think
--link errors
-johnny-load page
--google maps fix
--production problems
--	i think i don't care sets price to zero. shold be plus 300
-johnny-buttons for order
+CHECK-image on index page
+MAYBE?-also when first signup problem i think
+CHECK-link errors
+CHECK-load page
+NEED TO DO-google maps fix
+NEED TO DO-production problems
+NEED TO DO-	i think i don't care sets price to zero. shold be plus 300
+NEED TO DO-buttons for order
 -refactor javascript
 CHECK-need to generate migration of most recent value for recommendation, then show in network
 CHECK-have to double click the all results after try again to make it work

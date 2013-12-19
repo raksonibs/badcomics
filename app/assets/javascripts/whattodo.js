@@ -132,7 +132,10 @@ $(function() {
                   });
             }
           }
-          initialize()
+          setTimeout(function() {
+            initialize()
+          }, 3000)
+          
         }
     })
 

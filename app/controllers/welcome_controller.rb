@@ -184,12 +184,13 @@ class WelcomeController < ApplicationController
   		elsif money[/\d+/]
   			money=money[/\$\d+/][1..money.length]
   		else
+        
   			money=0
   		end
 	  end
 	  activity=activitymap(activity)
     @data=getposs(activity,feelingmap,money, timenow)
-    
+
     respondpage(@data,udist,activity,feeling,feelingmap, params, recommend)
   end
 
