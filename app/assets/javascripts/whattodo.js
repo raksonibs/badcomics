@@ -61,7 +61,7 @@ $(function() {
     $(".price, .question3, .bk2category").fadeOut( function() {
       $(".blackness")
         .show()
-        .animate({left:"+15", opacity: 1}, 800)
+        .animate({left:"+45", opacity: 1}, 800)
         .delay(400);
 
       var black = setTimeout(function() {
@@ -129,19 +129,9 @@ $(function() {
                      //map.setCenter(center);
                      google.maps.event.trigger(map, "resize");
                   });
-                  
-
-
             }
           }
-
-            initialize()
-            // for (var i=0; i<=2; i++) {
-            //   $($(".map")[i]).css("width", "700")
-            //   $($(".map")[i]).css("height", "200")
-            // }
-  
-
+          initialize()
         }
     })
 
