@@ -3,7 +3,6 @@
 			<div class='topnav'>
 				<div id='profilethumb'>
 				<% if current_user %>
-				  Welcome <%= current_user.name %>!
 				  <%= link_to "Sign Out", signout_path %>
 				<% else %>
 				  <%= link_to "Sign in with Facebook", "/auth/facebook" %>
@@ -11,7 +10,7 @@
 
 				</div>
 				<div id='logo'>
-					<p></p>
+					<%= link_to "Back to Dashboard", root_url %>
 				</div>
 			</div>
 
@@ -90,7 +89,7 @@
 			</div>
 
 			<div class="blackness">
-				
+
 			</div>
 
 			<div id="foo"></div>

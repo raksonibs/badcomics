@@ -58,10 +58,26 @@ body {
 	float: right;
 	/*position: inline;*/
 	height: 100%;
-	width: 200px;
+	width: 10%;
 	/*border-left: solid rgba(255,255,255,0.11) 1px;*/
 	display: block;
 	overflow: hidden;
+	text-align: center;
+}
+
+.wrapper .topnav #profilethumb a {
+	width: auto;
+	color: white;
+	font-family: 'Roboto';
+	font-weight: 300;
+	text-decoration: none;
+	line-height: 70px;
+	opacity: 0.6;
+}
+
+.wrapper .topnav #profilethumb a:hover {
+	opacity: 0.8;
+		transition: 0.5s ease-in-out;
 }
 
 .wrapper .topnav #logo {
@@ -73,11 +89,20 @@ body {
 	display: block;
 }
 
-.wrapper .topnav #logo p {
-	margin-top: 20px;
-	font-size: 2em;
-	display: inline-block;
-	margin-left: 30px;
+.wrapper .topnav #logo a {
+	margin-left: 7%;
+	width: auto;
+	color: white;
+	font-family: 'Roboto';
+	font-weight: 300;
+	text-decoration: none;
+	line-height: 70px;
+	opacity: 0.6;
+}
+
+.wrapper .topnav #logo a:hover {
+	opacity: 0.8;
+		transition: 0.5s ease-in-out;
 }
 
 .wrapper .topspace {
