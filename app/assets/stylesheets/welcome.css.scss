@@ -279,5 +279,31 @@ div.info {
 
 }
 
+.buttons {
+	margin: auto;
+	position: relative;
+}
+
+#center {
+	width: 600px;
+	height: 100px;
+	margin: auto;
+	margin-top: 1em;
+}
+
+#price,
+#time,
+#dist,
+#ourrank {
+	width: 50px;
+	height: 50px;
+	color: red;
+	background-color: blue;
+	margin: auto;
+	font-size: 1.2em;
+}
+
+
+
 
 

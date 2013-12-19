@@ -136,7 +136,7 @@ class WelcomeController < ApplicationController
 
   def feelmap(feeling)
     if feeling=="Happy"
-      feelmap=["Music", "Family", "Charity", "Seasonal"]#cannot include every event because just happy, give them based on category here
+      feelmap=[]#["Music", "Family", "Charity", "Seasonal"]#cannot include every event because just happy, give them based on category here
     elsif feeling=="Sad"
       feelmap=["Comedy"]
     elsif feeling=="Excited"
@@ -184,7 +184,7 @@ class WelcomeController < ApplicationController
   		elsif money[/\d+/]
   			money=money[/\$\d+/][1..money.length]
   		else
-        
+
   			money=0
   		end
 	  end
