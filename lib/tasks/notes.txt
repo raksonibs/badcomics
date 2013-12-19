@@ -18,6 +18,7 @@ johnny-image on index page
 johnny-load page
 -google maps fix
 -production problems
+-	i think i don't care sets price to zero. shold be plus 300
 johnny-buttons for order
 -refactor javascript
 CHECK-need to generate migration of most recent value for recommendation, then show in network

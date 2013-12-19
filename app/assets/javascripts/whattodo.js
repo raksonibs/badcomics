@@ -59,7 +59,7 @@ $(function() {
 
   $(".price").on('click', function() {
     $(".price, .question3, .bk2category").fadeOut( function() {
-      $(".blackness")
+      $(".blackness, #foo")
         .show()
         .animate({left:"+45", opacity: 1}, 800)
         .delay(400);
@@ -72,6 +72,7 @@ $(function() {
       }, 1000);
 
       $(".blackness").fadeOut();
+      $("#foo").fadeOut("slow")
     });
   });
 
@@ -233,7 +234,7 @@ $(function() {
 });
 
 function start() {
-  $(".categories, .categories1, .price, .output, .question2, .question3, .question4, .output1, .bhome, .blackness")
+  $(".categories, .categories1, .price, .output, .question2, .question3, .question4, .output1, .bhome, .blackness, #foo")
     .animate({ opacity: 0}, 0);
 
   $(".question").delay().fadeIn(500);

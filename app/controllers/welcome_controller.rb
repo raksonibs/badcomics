@@ -136,7 +136,7 @@ class WelcomeController < ApplicationController
 
   def feelmap(feeling)
     if feeling=="Happy"
-      feelmap=[]#cannot include every event because just happy, give them based on category here
+      feelmap=["Music", "Family", "Charity", "Seasonal"]#cannot include every event because just happy, give them based on category here
     elsif feeling=="Sad"
       feelmap=["Comedy"]
     elsif feeling=="Excited"
@@ -189,6 +189,7 @@ class WelcomeController < ApplicationController
 	  end
 	  activity=activitymap(activity)
     @data=getposs(activity,feelingmap,money, timenow)
+    
     respondpage(@data,udist,activity,feeling,feelingmap, params, recommend)
   end
 
@@ -281,10 +282,13 @@ class WelcomeController < ApplicationController
   					e.save
   				end
   				if e.category.count("/")==0
+
   					if activity.include?(e.category) || feelingmap.include?(e.category) #need to penalize if come from feeling rather than category choice (doing right now by worht less)
   						@data << e
+
   					end
   				else
+
   					e.category.split("/").each do |cat|
   						if activity.include?(cat) || feelingmap.include?(cat)
   							@data<<e unless @data.include?(e)
@@ -334,6 +338,7 @@ class WelcomeController < ApplicationController
       @scores[score]=val.name
     end
     @result=[]
+
     return @result, @scores
   end
 

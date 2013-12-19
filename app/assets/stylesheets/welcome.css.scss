@@ -264,6 +264,12 @@ body {
 	display: none;
 }
 
+.wrapper #foo {
+	display: none;
+	left: 300px;
+	position: absolute;
+}
+
 .wrapper .buttonsdir {
 	visibility: hidden;
 }
