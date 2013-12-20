@@ -92,8 +92,8 @@ $(function() {
   });
 
   $(".categorybox2").on('click', function() {
-    choice3 = $(this).text();
-    console.log($(this))
+    choice3 = $($(this).children()[1]).text()
+
     $.ajax({
         url: "/result/" + choice1 + "/" + choice2 + "/" + choice3,
         type: "GET",

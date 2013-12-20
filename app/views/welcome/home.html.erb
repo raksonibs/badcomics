@@ -120,12 +120,12 @@
 			</div>
 
 			<div class='price'>
-				<button id='13' class='categorybox2'>Free!</button>
-				<button id='14' class='categorybox2'>&lt;$20</button>
-				<button id='15' class='categorybox2'>$20-$50</button>
-				<button id='16' class='categorybox2'>$50-$100</button>
-				<button id='17' class='categorybox2'>$100-$300</button>
-				<button id='18' class='categorybox2'>I don't care!</button>
+				<button id='13' class='categorybox2'><div id='13img'></div><div id='13text'>Free!</div></button>
+				<button id='14' class='categorybox2'><div id='14img'></div><div id='14text'>&lt;$20</div></button>
+				<button id='15' class='categorybox2'><div id='15img'></div><div id='15text'>$20-$50</div></button>
+				<button id='16' class='categorybox2'><div id='16img'></div><div id='16text'>$50-$100</div></button>
+				<button id='17' class='categorybox2'><div id='17img'></div><div id='17text'>$100-$300</div></button>
+				<button id='18' class='categorybox2'><div id='18img'></div><div id='18text'>I don't care!</div></button>
 			</div>
 
 			<!-- Output styling in result.css.scss -->
@@ -167,8 +167,8 @@
 
 
 			<div id="buttonsdir">
-				<button class="dir but">Up</button>
-				<button class="dir but">Down</button>
+				<button class="dir">Up</button>
+				<button class="dir">Down</button>
 			</div>
 		</div>
 
@@ -256,6 +256,13 @@ function start1() {
 	 indexes.push(num)
 	$("#"+i+"text").text(bank[num][0])
 	$("#"+i+"img").prepend('<img class="theImg" src='+ bank[num][1]+ '/>')
+	}
+	var bank3= ["/assets/dark/appbar.clothes.tie.png","/assets/dark/appbar.clothes.tie.png","/assets/dark/appbar.clothes.tie.png","/assets/dark/appbar.clothes.tie.png","/assets/dark/appbar.clothes.tie.png","/assets/dark/appbar.clothes.tie.png"]
+	var pricecount=0
+	for (var i=18; i>=13; i--) {
+
+		$("#"+i+"img").prepend('<img class="theImg" src='+ bank3[pricecount]+ '/>' )
+		pricecount++;
 	}
 
 

@@ -29,6 +29,22 @@
         <div class="profilepic">
           <img class="fbimg" src="<%= @picture %>"/>
         </div>
+        <div id="soonevents" style="display:none;">
+          Events happening soon:
+          <br>
+          <br>
+          <% @events[0..1].each do |event| %>
+          What: <%= eventname = event.name[0..25] %>
+          <% if event.name.length > 25 %>
+            <%= "..." %>
+          <% end %>
+            
+            When: <%= event.time %> <br>
+            Where: <%= event.location %> <br>
+            $$$: <%= event.price %> <br>
+            <br>
+          <% end %>
+        </div>
         <button class="appbutton">
           <%= link_to "To the App", "/whattodo" %>
         </button>
@@ -126,21 +142,33 @@
   $(".time").text("Hello")
   var d = new Date();
   var hr = d.getHours();
-  var min = d.getMinutes();
-  if (min < 10) {
-    min = "0" + min;
-  }
-  var ampm = hr < 12 ? "am" : "pm";
-  $(".time").text(hr+":"+min)
-setInterval(function() {
-  var d = new Date();
-  var hr = d.getHours();
+  
+  if (hr > 12) {
+    hr -= 12;
+} else if (hr === 0) {
+   hr = 12;
+}
   var min = d.getMinutes();
   if (min < 10) {
     min = "0" + min;
   }
 var ampm = hr < 12 ? "am" : "pm";
-  $(".time").text(hr+":"+min)
+
+  $(".time").text(hr+":"+min+" "+ ampm)
+setInterval(function() {
+  var d = new Date();
+  var hr = d.getHours();
+  if (hr > 12) {
+    hr -= 12;
+} else if (hr === 0) {
+   hr = 12;
+}
+  var min = d.getMinutes();
+  if (min < 10) {
+    min = "0" + min;
+  }
+var ampm = hr < 12 ? "am" : "pm";
+  $(".time").text(hr+":"+min+" "+ ampm)
   
 }, 10000)
 
