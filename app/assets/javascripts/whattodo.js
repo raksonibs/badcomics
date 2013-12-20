@@ -66,7 +66,7 @@ $(function() {
      
       $("#foo")
         .show()
-        .animate({left:"+700", opacity: 1}, 800)
+        .animate({left:"+900", opacity: 1}, 800)
         .css("display", "inline")
         .delay(400);
       var black = setTimeout(function() {

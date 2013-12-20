@@ -29,20 +29,21 @@
         <div class="profilepic">
           <img class="fbimg" src="<%= @picture %>"/>
         </div>
-        <div id="soonevents" style="display:none;">
-          Events happening soon:
-          <br>
+        <div id="soonevents" style="display:none;"><br><br>
+          <div style="display:inline;">Events happening soon:</div>
           <br>
           <% @events[0..1].each do |event| %>
-          What: <%= eventname = event.name[0..25] %>
+          <div class="nameevent event" style="display:inline;">
+          <%= eventname = event.name[0..25] %>
           <% if event.name.length > 25 %>
             <%= "..." %>
           <% end %>
+          </div>
+          <div class="timeevent event" style="display:inline;">
+            at <%= event.time %>    </div><div></div>
+            <!-- Where: <%= event.location %> <br>
+            $$$: <%= event.price %> <br> -->
             
-            When: <%= event.time %> <br>
-            Where: <%= event.location %> <br>
-            $$$: <%= event.price %> <br>
-            <br>
           <% end %>
         </div>
         <button class="appbutton">
@@ -154,7 +155,7 @@
   }
 var ampm = hr < 12 ? "am" : "pm";
 
-  $(".time").text(hr+":"+min+" "+ ampm)
+  $(".time").text(hr+":"+min)
 setInterval(function() {
   var d = new Date();
   var hr = d.getHours();
@@ -168,7 +169,7 @@ setInterval(function() {
     min = "0" + min;
   }
 var ampm = hr < 12 ? "am" : "pm";
-  $(".time").text(hr+":"+min+" "+ ampm)
+  $(".time").text(hr+":"+min)
   
 }, 10000)
 
