@@ -18,8 +18,4 @@
 # Ignore API Configs
 /config/whattodo.yml
 
-/app/assets/.DS_store
-
-/app/assets/images/.DS_Store
-/app/assets/images/dark/.DS_Store
-/app/controllers/.DS_Store
+/.DS_Store
