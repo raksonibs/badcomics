@@ -12,7 +12,7 @@
     <div class='topnav1'>
       <div class='profilethumb1'>
         <% if current_user %>
-          <%= link_to "Sign Out", signout_path %>
+          <%= link_to "Sign out", signout_path %>
         <% end %>
       </div>
       <!-- <div class='logo1'>
@@ -21,7 +21,7 @@
 
     <div class="container1">
       <h1 class="time">
-        
+
       </h1>
       <h1 class="welcome">
         Welcome back, <%= current_user.name.split(' ').first %>.
@@ -29,27 +29,30 @@
         <div class="profilepic">
           <img class="fbimg" src="<%= @picture %>"/>
         </div>
-        <div id="soonevents" style="display:none;"><br><br>
-          <div style="display:inline;">Events happening soon:</div>
-          <br>
-          <% @events[0..1].each do |event| %>
-          <div class="nameevent event" style="display:inline;">
-          <% value= event.link[/http/] ? event.link : 'http://' + event.link %>
-          <% value = value[/listed/] ? "" : value %>
-          <a href="<%= value %>">
-          <%= eventname = event.name[0..25] %>
-          <% if event.name.length > 25 %>
-            <%= "..." %>
-          </a>
-          <% end %>
-          </div>
-          <div class="timeevent event" style="display:inline;">
-            at <%= event.time %>    </div><div></div>
-            <!-- Where: <%= event.location %> <br>
-            $$$: <%= event.price %> <br> -->
-            
-          <% end %>
+        <div class="feature for later" style="display:none;">
+            <div id="soonevents" style="display:none;"><br><br>
+              <div style="display:inline;">Events happening soon:</div>
+              <br>
+              <% @events[0..1].each do |event| %>
+              <div class="nameevent event" style="display:inline;">
+              <% value= event.link[/http/] ? event.link : 'http://' + event.link %>
+              <% value = value[/listed/] ? "" : value %>
+              <a href="<%= value %>">
+              <%= eventname = event.name[0..25] %>
+              <% if event.name.length > 25 %>
+                <%= "..." %>
+              </a>
+              <% end %>
+              </div>
+              <div class="timeevent event" style="display:inline;">
+                at <%= event.time %>    </div><div></div>
+                <!-- Where: <%= event.location %> <br>
+                $$$: <%= event.price %> <br> -->
+
+              <% end %>
+            </div>
         </div>
+
         <button class="appbutton">
           <%= link_to "To the App", "/whattodo" %>
         </button>
@@ -147,7 +150,7 @@
   $(".time").text("Hello")
   var d = new Date();
   var hr = d.getHours();
-  
+
   if (hr > 12) {
     hr -= 12;
 } else if (hr === 0) {
@@ -174,7 +177,7 @@ setInterval(function() {
   }
 var ampm = hr < 12 ? "am" : "pm";
   $(".time").text(hr+":"+min)
-  
+
 }, 10000)
 
 $("#clickable").on("click",function(){
