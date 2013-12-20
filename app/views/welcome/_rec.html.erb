@@ -2,11 +2,19 @@
 	<table class="reco">
 		<% @result.each do |event| %>
 			<tr>
-				<td class="eventname">
+
+				<% value= Event.find_by_name(event[1]).link[/http/] ? Event.find_by_name(event[1]).link : 'http://' + Event.find_by_name(event[1]).link %>
+          	<% value = value[/listed/] ? "" : value %>
+          	<td class="eventname">
+         	 <a href="<%= value %>">
+
 					<%= eventname = event[1][0..15] %>
 					<% if event[1].length > 15 %>
 						<%= "..." %>
+					
 					<% end %>
+				
+				</a>
 				</td>
 
 				<td class="greenscore">

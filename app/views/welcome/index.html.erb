@@ -34,9 +34,13 @@
           <br>
           <% @events[0..1].each do |event| %>
           <div class="nameevent event" style="display:inline;">
+          <% value= event.link[/http/] ? event.link : 'http://' + event.link %>
+          <% value = value[/listed/] ? "" : value %>
+          <a href="<%= value %>">
           <%= eventname = event.name[0..25] %>
           <% if event.name.length > 25 %>
             <%= "..." %>
+          </a>
           <% end %>
           </div>
           <div class="timeevent event" style="display:inline;">

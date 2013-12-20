@@ -14,6 +14,7 @@ class WelcomeController < ApplicationController
   		pricechoice=pricecount(@result)
   		feelingchoice=feelingscount(@result)[1]
   		@result=algorthim(feelingchoice, catchoice,pricechoice,true)
+
       @recent, @installedfriends=getrecent()
       @picture=FbGraph::User.fetch(current_user.uid).picture
       @events=soonevents
