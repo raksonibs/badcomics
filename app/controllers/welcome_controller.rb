@@ -13,19 +13,17 @@ class WelcomeController < ApplicationController
   		catchoice=categorycount(@result)
   		pricechoice=pricecount(@result)
   		feelingchoice=feelingscount(@result)[1]
-
   		@result=algorthim(feelingchoice, catchoice,pricechoice,true)
       @recent, @installedfriends=getrecent()
       @picture=FbGraph::User.fetch(current_user.uid).picture
       @events=soonevents
-    
     end
   end
 
   def soonevents
     @events=[]
-    time=Time.parse("Friday December 20 2013 6:00pm")
-    Event.all[0..5].each do |event|
+    time=Time.now
+    Event.all.each do |event|
 
       if event.time!="Time not listed"
 
@@ -56,7 +54,7 @@ class WelcomeController < ApplicationController
 
   def categorycount(result)
     res=[]
-    categories=["Get Cultured", "Learn", "Trying New Things", "Be Merry", "Hangout with Strangers", "Laugh", "Be a Tourist", "Jam Out", "Be a Good Person", "Party Hardy", "Spend Spend Spend", "Family Channel", "Sporting Around", "Watch a Show", "Outdoor Fun", "Geeking Out"]
+    categories=["Get Cultured", "Learn", "Try New Things", "Be Merry", "Meet New People", "Laugh", "Touristy", "Jam Out", "Be a Good Person", "Party Hardy", "Spend $", "Family Channel", "Sports", "Watch a Show", "Outdoor Fun", "Geek Out"]
     categories.each do |i|
       res << [result.where(category: i).size, i]
     end
@@ -119,15 +117,15 @@ class WelcomeController < ApplicationController
   def activitymap(activity)
     if activity=="Learn"
       activity=["Reading", "Museum", "Art"]
-    elsif activity=="Trying New Things"
+    elsif activity=="Try New Things"
       activity="Misc."
     elsif activity=="Be Merry"
       activity="Seasonal"
-    elsif activity=="Hangout with Strangers"
+    elsif activity=="Meet New People"
       activity=["Hang Out", "Misc."]
     elsif activity=="Laugh"
       activity="Comedy"
-    elsif activity=="Be a Tourist"
+    elsif activity=="Touristy"
       activity=["Gallery", "Cinema", "Theatre", "Museum", "Attraction", "Featured Park", "Garden / Conservatory"]#[((rand()*8)-1).ceil]
     elsif activity=="Outdoor Fun"
       activity=["Featured Park", "Garden / Conservatory"]
@@ -137,13 +135,13 @@ class WelcomeController < ApplicationController
       activity="Charity"
     elsif activity=="Party Hardy"
       activity="Party"
-    elsif activity=="Spend Spend Spend"
+    elsif activity=="Spend $"
       activity="Shopping"
     elsif activity=="Family Channel"
       activity="Family"
-    elsif activity=="Sporting Around"
+    elsif activity=="Sports"
       activity="Sport"
-    elsif activity=="Geeking Out"
+    elsif activity=="Geek Out"
       activity=["Tech", "Reading"]
     elsif activity=="Watch a Show"
       activity=["Comedy", "Theatre", "Cinema", "Music"]

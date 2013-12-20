@@ -66,7 +66,7 @@ $(function() {
      
       $("#foo")
         .show()
-        .animate({left:"+700", opacity: 1}, 800)
+        .animate({left:"+900", opacity: 1}, 800)
         .css("display", "inline")
         .delay(400);
       var black = setTimeout(function() {
@@ -115,7 +115,7 @@ $(function() {
                   } else if (i === 2) {
                     arrcount = 4
                   }
-
+                  console.log(parseFloat(arr[arrcount]),parseFloat(arr[arrcount+1]))
                   var mapProp = {
                   center:new google.maps.LatLng(parseFloat(arr[arrcount]),parseFloat(arr[arrcount+1])),
                   zoom:15,

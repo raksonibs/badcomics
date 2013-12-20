@@ -257,12 +257,13 @@ function start1() {
 	$("#"+i+"text").text(bank[num][0])
 	$("#"+i+"img").prepend('<img class="theImg" src='+ bank[num][1]+ '/>')
 	}
-	var bank3= ["/assets/dark/appbar.clothes.tie.png","/assets/dark/appbar.clothes.tie.png","/assets/dark/appbar.clothes.tie.png","/assets/dark/appbar.clothes.tie.png","/assets/dark/appbar.clothes.tie.png","/assets/dark/appbar.clothes.tie.png"]
-	var pricecount=0
+	var bank3= ["/assets/png_white/brain.png","/assets/png_white/bill-dollar@2x.png","/assets/png_white/money.png","/assets/png_white/bill-euros.png","/assets/png_white/cash.png","/assets/dark/appbar.clothes.tie.png"]
+	var pricecount=bank3.length-1
 	for (var i=18; i>=13; i--) {
 
 		$("#"+i+"img").prepend('<img class="theImg" src='+ bank3[pricecount]+ '/>' )
-		pricecount++;
+		
+		pricecount--;
 	}
 
 
@@ -271,7 +272,7 @@ function start1() {
 }
 
 $("#try").on("click", function(){
-	for (var i=1; i<=12; i++) {
+	for (var i=1; i<=18; i++) {
 		$("#"+i+"img").children()[0].remove()
 	}
 	start1()
