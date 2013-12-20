@@ -140,12 +140,14 @@
 				<button id="try">Try Again!</button>
 			</div>
 
-			<div class="blackness">
-
+			<div id="contain">
+				<div class="blackness">
+					
+				</div>
+			
+			
+				<div id="foo"></div>
 			</div>
-
-			<div id="foo"></div>
-
 			<!-- Look in alloutput.css.scss file for styling -->
 			<div id="center">
 			<div class="buttons">
@@ -164,9 +166,9 @@
 			</div>
 
 
-			<div class="buttonsdir">
-				<button class="dir">Up</button>
-				<button class="dir">Down</button>
+			<div id="buttonsdir">
+				<button class="dir but">Up</button>
+				<button class="dir but">Down</button>
 			</div>
 		</div>
 
@@ -242,7 +244,7 @@ function start1() {
 	}
 
 
-	var bank2=["Lining up meter sticks...", "Asking robots politely...", "Using cheat codes...", "Consulting less than magic 8-ball...", "Stacking monkeys...", "Loading events into catapult...", "Thinking harder than ever...", "Asking Oracle of Delphi in bits...", "Cue Rocky montage song..."];
+	var bank2=["Lining up meter sticks...", "Asking robots politely...", "Using cheat codes...", "Consulting magic 8-ball...", "Stacking monkeys...", "Loading catapult...", "Thinking harder than ever...", "Asking Oracle of Delphi...", "Synergizing a lot..."];
 	$(".blackness").text(bank2[Math.ceil(Math.random()*bank2.length-1)])
 }
 

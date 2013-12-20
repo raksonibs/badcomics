@@ -59,11 +59,16 @@ $(function() {
 
   $(".price").on('click', function() {
     $(".price, .question3, .bk2category").fadeOut( function() {
-      $(".blackness, #foo")
+      $(".blackness")
         .show()
         .animate({left:"+45", opacity: 1}, 800)
         .delay(400);
-
+     
+      $("#foo")
+        .show()
+        .animate({left:"+700", opacity: 1}, 800)
+        .css("display", "inline")
+        .delay(400);
       var black = setTimeout(function() {
         $(".output, .question4, .output1")
           .delay(500)
@@ -171,6 +176,7 @@ $(function() {
   $('.sort-order').on('click', function() {
     var self = $(this);
 
+
     $.ajax({
         url: "/result/" + choice1 + "/" + choice2 + "/" + choice3,
         type: "GET",
@@ -229,7 +235,7 @@ $(function() {
     })
 
   $("#try").on("click", function() {
-      $(".question4, .alloutput, .buttons, .output, .b2feeling, .bk2category").hide();
+      $(".question4, .alloutput, .buttons, .output, .b2feeling, .bk2category, .output1").hide();
       $('html, body').animate({scrollTop: '0px'}, 900);
       all=undefined
       start();
