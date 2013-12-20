@@ -56,13 +56,14 @@ body {
 
 .wrapper .topnav #profilethumb {
 	float: right;
+	margin-right: 2%;
 	/*position: inline;*/
 	height: 100%;
-	width: 10%;
+	width: 15%;
 	/*border-left: solid rgba(255,255,255,0.11) 1px;*/
 	display: block;
 	overflow: hidden;
-	text-align: center;
+	text-align: right;
 }
 
 .wrapper .topnav #profilethumb a {
@@ -282,6 +283,7 @@ body {
 	top: 300px;
 	/*left: 30px;*/
 	position: absolute;
+	margin-left: 10%;
 	z-index: 100;
 	font-family: "Roboto";
 	font-weight: 300;

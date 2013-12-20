@@ -7,20 +7,27 @@
 
 .wrapper .output .result {
 	height: 100%;
+	font-family: "Roboto", sans-serif;
 }
 
 .wrapper .output .result .eachresult {
 	display: block;
-	border: 2px solid white;
+	/*border: 2px solid white;*/
 	border-radius: 6px;
 	padding: 1em;
 	margin-bottom: 5px;
 	background-color: rgba(255,255,255,0.31);
 }
 
-.wrapper .output .result .eachresult .name {
+.wrapper .output .result .eachresult .name a {
 	font-size: .9em;
-	font-family: Roboto, Robotothin, Helvetica;
+	text-decoration: none;
+	color: white;
+}
+
+.wrapper .output .result .eachresult .name a:hover {
+	font-size: .9em;
+	text-decoration: underline;
 }
 
 .wrapper .output .result .eachresult .location,
@@ -28,9 +35,11 @@
 .wrapper .output .result .eachresult .matchscore {
 	margin-left: 1.1em;
 	font-size: .7em;
+	font-weight: 100;
 }
 
 .wrapper .output .result .eachresult .matchscore .score {
 	color: green;
-	font-family: Roboto, Helvetica;
+	font-family: "Roboto", sans-serif;
+	font-weight: 300;
 }

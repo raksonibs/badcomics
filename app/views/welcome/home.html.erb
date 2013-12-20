@@ -142,10 +142,10 @@
 
 			<div id="contain">
 				<div class="blackness">
-					
+
 				</div>
-			
-			
+
+
 				<div id="foo"></div>
 			</div>
 			<!-- Look in alloutput.css.scss file for styling -->
@@ -203,7 +203,23 @@ var target = document.getElementById('foo');
 var spinner = new Spinner(opts).spin(target);
 start1()
 function start1() {
-	var bank1=["Get Cultured", "Learn", "Trying New Things", "Be Merry", "Hangout with Strangers", "Laugh", "Be a Tourist", "Jam Out", "Be a Good Person", "Party Hardy", "Spend Spend Spend", "Family Channel", "Sporting Around", "Watch a Show", "Outdoor Fun", "Geeking Out"];
+	var bank1=[["Get Cultured", "assets/dark/appbar.globe.png"],
+	["Learn", "/assets/dark/appbar.radar.screen.png"],
+	["Try New Things", "/assets/dark/appbar.map.treasure.png"],
+	["Be Merry", "assets/dark/appbar.snowflake.png"],
+ 	["Meet New People", "assets/dark/appbar.people.multiple.png"],
+	["Laugh", "assets/dark/appbar.smiley.kiki.png"],
+	["Touristy", "/assets/dark/appbar.city.sanfrancisco.png"],
+	["Jam Out", "/assets/dark/appbar.music.live.png"],
+	["Be a Good Person", "/assets/dark/appbar.thumbs.up.png"],
+	["Party Hardy", "/assets/dark/appbar.martini.png"],
+	["Spend $", "assets/dark/appbar.money.png"],
+	["Family Channel", "/assets/dark/appbar.home.png"],
+	["Sports", "/assets/dark/appbar.image.sports.png"],
+	["Watch a Show", "/assets/dark/appbar.movie.clapper.png"],
+	["Outdoor Fun", "assets/dark/appbar.tree.pine.png"],
+	["Geek Out", "assets/dark/appbar.potion.png"]];
+
 	var indexes1=[]
 	isInArray= function(value, array) {
 		return array.indexOf(value) > -1 ? true : false;
@@ -214,20 +230,19 @@ function start1() {
 		num1=Math.ceil(Math.random()*(bank1.length)-1)
 	 }
 	 indexes1.push(num1)
-	$("#"+i+"text").text(bank1[num1])
-	$("#"+i+"img").prepend('<img class="theImg" src="/assets/back.png" />')
-
+	$("#"+i+"text").text(bank1[num1][0])
+	$("#"+i+"img").prepend('<img class="theImg" src='+ bank1[num1][1]+ '/>')
 	}
 
 	var bank=[["Happy", "/assets/dark/appbar.smiley.happy.png"],
 	["Sad", "/assets/dark/appbar.smiley.frown.png"],
-	["Celebratory", "/assets/dark/appbar.martini.png"],
+	["Celebratory", "/assets/dark/appbar.trophy.png"],
 	["Lonely", "/assets/dark/appbar.user.png"],
 	["Restless", "/assets/dark/appbar.timer.alert.png"],
 	["Lazy", "/assets/dark/appbar.sleep.png"],
 	["Excited", "/assets/dark/appbar.smiley.kiki.png"],
 	["Blah", "/assets/dark/appbar.checkmark.uncrossed.png"],
-	["Festive", "/assets/dark/appbar.hat.santa.png"],
+	["Festive", "/assets/dark/appbar.snowman.png"],
 	["Weird", "/assets/dark/appbar.smiley.what.png"],
 	["Nerdy", "/assets/dark/appbar.smiley.glasses.png"],
 	["Normal", "/assets/dark/appbar.people.png"],
@@ -240,7 +255,7 @@ function start1() {
 	 }
 	 indexes.push(num)
 	$("#"+i+"text").text(bank[num][0])
-	$("#"+i+"img").prepend('<img class="theImg" src='+ bank[num][1]+ '/>' )
+	$("#"+i+"img").prepend('<img class="theImg" src='+ bank[num][1]+ '/>')
 	}
 
 
