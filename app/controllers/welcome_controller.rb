@@ -37,6 +37,10 @@ class WelcomeController < ApplicationController
     @events
   end
 
+  def test
+    @events=Event.cityhall
+  end
+
   def getrecent
 
     @installed=JSON.parse(open("https://graph.facebook.com/#{current_user.uid}/friends?access_token=#{current_user.oauth_token}&fields=installed").read)['data']

@@ -55,6 +55,7 @@ class Event < ActiveRecord::Base
   end
 
   def self.cityhall
+
   	info={}
   	date=Date.today#.strftime("%B %01d, %Y")
   	data=Nokogiri::HTML(open("http://wx.toronto.ca/festevents.nsf/tpaview?readviewentries")).xpath("//viewentry")
@@ -62,145 +63,149 @@ class Event < ActiveRecord::Base
   	count=0
   	dates=["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
   	data.each do |val|
-  		range = Date.parse(val.xpath("//entrydata[@name='DateBeginShow']")[count].text) .. Date.parse(val.xpath("//entrydata[@name='DateEndShow']")[count].text)
-  		if range.include?(date)
-			if dates.any?{|dat| val.xpath("//entrydata[@name='EventName']")[count].text[/#{dat}/]}
-  				if val.xpath("//entrydata[@name='EventName']")[count].text[/#{date.strftime("%A")}/]
-	  				info[val.xpath("//entrydata[@name='EventName']")[count].text]=[
-		  																  		val.xpath("//entrydata[@name='TimeBegin']")[count].text=="" ? "Time not listed" : Time.parse(val.xpath("//entrydata[@name='TimeBegin']")[count].text).strftime("%I:%M %p")]
+  		#if val.xpath("//entrydata[@name='EventName']")[count].text == "Exhibition: Alex Clemmer, Still Waters Forget"
+	  		range = Date.parse(val.xpath("//entrydata[@name='DateBeginShow']")[count].text) .. Date.parse(val.xpath("//entrydata[@name='DateEndShow']")[count].text)
+	  		if range.include?(date)
+				if dates.any?{|dat| val.xpath("//entrydata[@name='EventName']")[count].text[/#{dat}/]}
+	  				if val.xpath("//entrydata[@name='EventName']")[count].text[/#{date.strftime("%A")}/]
+		  				info[val.xpath("//entrydata[@name='EventName']")[count].text]=[
+			  																  		val.xpath("//entrydata[@name='TimeBegin']")[count].text=="" ? "Time not listed" : Time.parse(val.xpath("//entrydata[@name='TimeBegin']")[count].text).strftime("%I:%M %p")]
+			  			price=val.xpath("//entrydata[@name='Admission']")[count].text=="" ? "Price not listed" : val.xpath("//entrydata[@name='Admission']")[count].text
+			  			if price[/ - /]
+			  				price=price[/\s\$\d+/]
+			  				price=price[/\d+/]
+			  				info[val.xpath("//entrydata[@name='EventName']")[count].text] << price
+			  			else
+			  				if price=="Free" || price=="Price not listed"
+			  					info[val.xpath("//entrydata[@name='EventName']")[count].text] << price
+			  				else
+			  					info[val.xpath("//entrydata[@name='EventName']")[count].text]<< price[/\d+/]
+			  				end
+			  			end
+			  			info[val.xpath("//entrydata[@name='EventName']")[count].text]<< val.xpath("//entrydata[@name='Location']")[count*2].text+ ", Toronto, ON, Canada"
+			  			value=val.xpath("//entrydata[@name='CategoryList']")[count].text
+			  			if value[/talk/i] || value[/symposium/i] || value[/screening/i] || value[/lecture/i] || value[/speak/i] || value[/dicuss/i]
+				  			category="Reading"
+				  		end
+				  		if value[/music/i]
+				  			category = category==nil ? "Music" : category+"/Music"
+				  		end
+				  		if value[/perform.*/i]
+				  			category = category==nil ? "Theatre" : category+"/Theatre"
+				  		end
+				  		if value[/read.*/i] || value[/novel/i]
+				  			category = category==nil ? "Reading" : category+"/Reading"
+				  		end
+				  		if value[/festiv.*/i] || value[/holiday/i] || value[/christmas/i] || value[/carol/i] || value[/celebra.*/i]
+				  			category = category==nil ? "Seasonal" : category+"/Seasonal"
+				  		end
+				  		if value[/party/i] || value[/bash/i]
+				  			category = category==nil ? "Party" : category+"/Party"
+				  		end
+				  		if value[/fundrais.*/i] || value[/auction/i]
+				  			category = category==nil ? "Charity" : category+"/Charity"
+				  		end
+				  		if value[/tech.*/i]
+				  			category = category==nil ? "Tech" : category+"/Tech"
+				  		end
+				  		if value[/comed.*/i] || value[/laugh/i]
+				  			category = category==nil ? "Comedy" : category+"/Comedy"
+				  		end
+				  		if value[/^art.*/i] || value[/gallery/i]
+				  			category = category==nil ? "Art" : category+"/Art"
+				  		end
+				  		if value[/sport.*/i] || value[/dance/i]|| value[/athletic/i] || value[/hockey/i] || value[/basketball/i] || value[/baseball/i] || value[/swimming/i] || value[/football/i] || value[/tennis/i] || value[/golf/i] || value[/soccer/i]
+				  			category = category==nil ? "Sport" : category+"/Sport"
+				  		end
+				  		if value[/family.*/i] || value[/children/i]
+				  			category = category==nil ? "Family" : category+"/Family"
+				  		end
+				  		if category==nil
+				  			value=val.xpath("//entrydata[@name='Performance']")[count].text
+				  			if value[/perform.*/i]
+				  				category = category==nil ? "Theatre" : category+"/Theatre"
+				  			else
+				  				category="Misc."
+				  			end
+				  		end
+				  		info[val.xpath("//entrydata[@name='EventName']")[count].text] << category
+				  		url= val.xpath("//entrydata[@name='EventURL']")[count*2].text=="" || val.xpath("//entrydata[@name='EventURl']")[count*2]==nil ? "No url listed" : val.xpath("//entrydata[@name='EventURl']")[count*2].text
+
+				  		info[val.xpath("//entrydata[@name='EventName']")[count].text] << url
+		  			end
+			  	else
+		  			info[val.xpath("//entrydata[@name='EventName']")[count].text]=[
+		  																  	val.xpath("//entrydata[@name='TimeBegin']")[count].text=="" ? "Time not listed" : Time.parse(val.xpath("//entrydata[@name='TimeBegin']")[count].text).strftime("%I:%M %p")]
 		  			price=val.xpath("//entrydata[@name='Admission']")[count].text=="" ? "Price not listed" : val.xpath("//entrydata[@name='Admission']")[count].text
-		  			if price[/ - /]
-		  				price=price[/\s\$\d+/]
-		  				price=price[/\d+/]
-		  				info[val.xpath("//entrydata[@name='EventName']")[count].text] << price
-		  			else
-		  				if price=="Free" || price=="Price not listed"
-		  					info[val.xpath("//entrydata[@name='EventName']")[count].text] << price
-		  				else
-		  					info[val.xpath("//entrydata[@name='EventName']")[count].text]<< price[/\d+/]
-		  				end
-		  			end
-		  			info[val.xpath("//entrydata[@name='EventName']")[count].text]<< val.xpath("//entrydata[@name='Location']")[count].text+ ", Toronto, ON, Canada"
-		  			value=val.xpath("//entrydata[@name='CategoryList']")[count].text
-		  			if value[/talk/i] || value[/symposium/i] || value[/screening/i] || value[/lecture/i] || value[/speak/i] || value[/dicuss/i]
-			  			category="Reading"
-			  		end
-			  		if value[/music/i]
-			  			category = category==nil ? "Music" : category+"/Music"
-			  		end
-			  		if value[/perform.*/i]
-			  			category = category==nil ? "Theatre" : category+"/Theatre"
-			  		end
-			  		if value[/read.*/i] || value[/novel/i]
-			  			category = category==nil ? "Reading" : category+"/Reading"
-			  		end
-			  		if value[/festiv.*/i] || value[/holiday/i] || value[/christmas/i] || value[/carol/i] || value[/celebra.*/i]
-			  			category = category==nil ? "Seasonal" : category+"/Seasonal"
-			  		end
-			  		if value[/party/i] || value[/bash/i]
-			  			category = category==nil ? "Party" : category+"/Party"
-			  		end
-			  		if value[/fundrais.*/i] || value[/auction/i]
-			  			category = category==nil ? "Charity" : category+"/Charity"
-			  		end
-			  		if value[/tech.*/i]
-			  			category = category==nil ? "Tech" : category+"/Tech"
-			  		end
-			  		if value[/comed.*/i] || value[/laugh/i]
-			  			category = category==nil ? "Comedy" : category+"/Comedy"
-			  		end
-			  		if value[/^art.*/i] || value[/gallery/i]
-			  			category = category==nil ? "Art" : category+"/Art"
-			  		end
-			  		if value[/sport.*/i] || value[/dance/i]|| value[/athletic/i] || value[/hockey/i] || value[/basketball/i] || value[/baseball/i] || value[/swimming/i] || value[/football/i] || value[/tennis/i] || value[/golf/i] || value[/soccer/i]
-			  			category = category==nil ? "Sport" : category+"/Sport"
-			  		end
-			  		if value[/family.*/i] || value[/children/i]
-			  			category = category==nil ? "Family" : category+"/Family"
-			  		end
-			  		if category==nil
-			  			value=val.xpath("//entrydata[@name='Performance']")[count].text
-			  			if value[/perform.*/i]
-			  				category = category==nil ? "Theatre" : category+"/Theatre"
+			  			if price[/ - /]
+			  				price=price[/\s\$\d+/]
+			  				price=price[/\d+/]
+			  				info[val.xpath("//entrydata[@name='EventName']")[count].text] << price
 			  			else
-			  				category="Misc."
+			  				if price=="Free" || price=="Price not listed"
+			  					info[val.xpath("//entrydata[@name='EventName']")[count].text] << price
+			  				else
+			  					info[val.xpath("//entrydata[@name='EventName']")[count].text]<< price[/\d+/]
+			  				end
 			  			end
-			  		end
-			  		info[val.xpath("//entrydata[@name='EventName']")[count].text] << category
-			  		url= val.xpath("//entrydata[@name='EventURL']")[count].text=="" || val.xpath("//entrydata[@name='EventURl']")[count]==nil ? "No url listed" : val.xpath("//entrydata[@name='EventURl']")[count].text
-			  		info[val.xpath("//entrydata[@name='EventName']")[count].text] << url
-	  			end
-		  	else
-	  			info[val.xpath("//entrydata[@name='EventName']")[count].text]=[
-	  																  	val.xpath("//entrydata[@name='TimeBegin']")[count].text=="" ? "Time not listed" : Time.parse(val.xpath("//entrydata[@name='TimeBegin']")[count].text).strftime("%I:%M %p")]
-	  			price=val.xpath("//entrydata[@name='Admission']")[count].text=="" ? "Price not listed" : val.xpath("//entrydata[@name='Admission']")[count].text
-		  			if price[/ - /]
-		  				price=price[/\s\$\d+/]
-		  				price=price[/\d+/]
-		  				info[val.xpath("//entrydata[@name='EventName']")[count].text] << price
-		  			else
-		  				if price=="Free" || price=="Price not listed"
-		  					info[val.xpath("//entrydata[@name='EventName']")[count].text] << price
-		  				else
-		  					info[val.xpath("//entrydata[@name='EventName']")[count].text]<< price[/\d+/]
-		  				end
-		  			end
-		  			info[val.xpath("//entrydata[@name='EventName']")[count].text]<< val.xpath("//entrydata[@name='Location']")[count].text+ ", Toronto, ON, Canada"
-		  			value=val.xpath("//entrydata[@name='CategoryList']")[count].text
-		  			if value[/talk/i] || value[/symposium/i] || value[/screening/i] || value[/lecture/i] || value[/speak/i] || value[/dicuss/i]
-			  			category="Reading"
-			  		end
-			  		if value[/music/i]
-			  			category = category==nil ? "Music" : category+"/Music"
-			  		end
-			  		if value[/perform.*/i]
-			  			category = category==nil ? "Theatre" : category+"/Theatre"
-			  		end
-			  		if value[/read.*/i] || value[/novel/i]
-			  			category = category==nil ? "Reading" : category+"/Reading"
-			  		end
-			  		if value[/festiv.*/i] || value[/holiday/i] || value[/christmas/i] || value[/carol/i] || value[/celebra.*/i]
-			  			category = category==nil ? "Seasonal" : category+"/Seasonal"
-			  		end
-			  		if value[/party/i] || value[/bash/i]
-			  			category = category==nil ? "Party" : category+"/Party"
-			  		end
-			  		if value[/fundrais.*/i] || value[/auction/i]
-			  			category = category==nil ? "Charity" : category+"/Charity"
-			  		end
-			  		if value[/tech.*/i]
-			  			category = category==nil ? "Tech" : category+"/Tech"
-			  		end
-			  		if value[/comed.*/i] || value[/laugh/i]
-			  			category = category==nil ? "Comedy" : category+"/Comedy"
-			  		end
-			  		if value[/^art.*/i] || value[/gallery/i]
-			  			category = category==nil ? "Art" : category+"/Art"
-			  		end
-			  		if value[/sport.*/i] || value[/dance/i]|| value[/athletic/i] || value[/hockey/i] || value[/basketball/i] || value[/baseball/i] || value[/swimming/i] || value[/football/i] || value[/tennis/i] || value[/golf/i] || value[/soccer/i]
-			  			category = category==nil ? "Sport" : category+"/Sport"
-			  		end
-			  		if value[/family.*/i] || value[/children/i]
-			  			category = category==nil ? "Family" : category+"/Family"
-			  		end
-			  		if category==nil
-			  			value=val.xpath("//entrydata[@name='Performance']")[count].text
-			  			if value[/perform.*/i]
-			  				category = category==nil ? "Theatre" : category+"/Theatre"
-			  			else
-			  				category="Misc."
-			  			end
-			  		end
-			  		info[val.xpath("//entrydata[@name='EventName']")[count].text] << category
-			  		url= val.xpath("//entrydata[@name='EventURL']")[count].text=="" || val.xpath("//entrydata[@name='EventURL']")[count].text==nil ? "No url listed" : val.xpath("//entrydata[@name='EventURL']")[count].text
-			  		info[val.xpath("//entrydata[@name='EventName']")[count].text] << url
+			  			info[val.xpath("//entrydata[@name='EventName']")[count].text]<< val.xpath("//entrydata[@name='Location']")[count*2].text+ ", Toronto, ON, Canada"
+			  			value=val.xpath("//entrydata[@name='CategoryList']")[count].text
+			  			if value[/talk/i] || value[/symposium/i] || value[/screening/i] || value[/lecture/i] || value[/speak/i] || value[/dicuss/i]
+				  			category="Reading"
+				  		end
+				  		if value[/music/i]
+				  			category = category==nil ? "Music" : category+"/Music"
+				  		end
+				  		if value[/perform.*/i]
+				  			category = category==nil ? "Theatre" : category+"/Theatre"
+				  		end
+				  		if value[/read.*/i] || value[/novel/i]
+				  			category = category==nil ? "Reading" : category+"/Reading"
+				  		end
+				  		if value[/festiv.*/i] || value[/holiday/i] || value[/christmas/i] || value[/carol/i] || value[/celebra.*/i]
+				  			category = category==nil ? "Seasonal" : category+"/Seasonal"
+				  		end
+				  		if value[/party/i] || value[/bash/i]
+				  			category = category==nil ? "Party" : category+"/Party"
+				  		end
+				  		if value[/fundrais.*/i] || value[/auction/i]
+				  			category = category==nil ? "Charity" : category+"/Charity"
+				  		end
+				  		if value[/tech.*/i]
+				  			category = category==nil ? "Tech" : category+"/Tech"
+				  		end
+				  		if value[/comed.*/i] || value[/laugh/i]
+				  			category = category==nil ? "Comedy" : category+"/Comedy"
+				  		end
+				  		if value[/^art.*/i] || value[/gallery/i]
+				  			category = category==nil ? "Art" : category+"/Art"
+				  		end
+				  		if value[/sport.*/i] || value[/dance/i]|| value[/athletic/i] || value[/hockey/i] || value[/basketball/i] || value[/baseball/i] || value[/swimming/i] || value[/football/i] || value[/tennis/i] || value[/golf/i] || value[/soccer/i]
+				  			category = category==nil ? "Sport" : category+"/Sport"
+				  		end
+				  		if value[/family.*/i] || value[/children/i]
+				  			category = category==nil ? "Family" : category+"/Family"
+				  		end
+				  		if category==nil
+				  			value=val.xpath("//entrydata[@name='Performance']")[count].text
+				  			if value[/perform.*/i]
+				  				category = category==nil ? "Theatre" : category+"/Theatre"
+				  			else
+				  				category="Misc."
+				  			end
+				  		end
+				  		info[val.xpath("//entrydata[@name='EventName']")[count].text] << category
+				  		url= val.xpath("//entrydata[@name='EventURL']")[count*2].text=="" || val.xpath("//entrydata[@name='EventURL']")[count*2].text==nil ? "No url listed" : val.xpath("//entrydata[@name='EventURL']")[count*2].text
+
+				  		info[val.xpath("//entrydata[@name='EventName']")[count].text] << url
+				  	end
+		  		#end
+
 	  		end
 
-  		end
-
-  		count+=1
-  	end
-  	info
+	  		count+=1
+	  	end
+	  	info
   end
 
   def self.startupdigest
