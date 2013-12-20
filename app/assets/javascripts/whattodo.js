@@ -115,7 +115,7 @@ $(function() {
                   } else if (i === 2) {
                     arrcount = 4
                   }
-
+                  console.log(parseFloat(arr[arrcount]),parseFloat(arr[arrcount+1]))
                   var mapProp = {
                   center:new google.maps.LatLng(parseFloat(arr[arrcount]),parseFloat(arr[arrcount+1])),
                   zoom:15,
