@@ -11,18 +11,19 @@
 
 .wrapper .alloutput .allresults .eachresult1 {
 	display: block;
-	border: 2px solid white;
+	/*border: 2px solid white;*/
 	border-radius: 6px;
 	padding-left: 1em;
 	padding-top: .5em;
 	padding-bottom: .5em;
 	margin-bottom: 5px;
 	background-color: rgba(255,255,255,0.31);
+	font-family: "Roboto";
 }
 
 .wrapper .alloutput .allresults .eachresult1 .name1 {
 	font-size: .7em;
-	font-family: Roboto, Robotothin, Helvetica;
+	font-family: "Roboto", Robotothin, Helvetica;
 }
 
 .wrapper .alloutput .allresults .eachresult1 .location1,
@@ -30,9 +31,12 @@
 .wrapper .alloutput .allresults .eachresult1 .matchscore1 {
 	margin-left: 1.1em;
 	font-size: 0.5em;
+	font-weight: 100;
+
 }
 
 .wrapper .alloutput .allresults .eachresult1 .matchscore1 .score1 {
 	color: green;
-	font-family: Roboto, Helvetica;
+	font-family: "Roboto", Helvetica;
+	font-weight: 300;
 }

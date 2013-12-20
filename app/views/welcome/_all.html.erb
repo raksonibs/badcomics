@@ -5,7 +5,7 @@
       <% @result.each do |event| %>
         <div class="eachresult1">
             <div class="name1">
-              <%="Go to: #{event.name}" %>
+              <%="#{event.name}" %>
             </div>
             <div class="location1">
               <%= "@ #{event.location}" %>
@@ -14,7 +14,7 @@
               <%= "@ #{event.time}" %>
             </div>
             <div class="matchscore1">
-              Price: 
+              Price:
               <% if event.price==0 %>
                 <% score="Free"%>
               <% elsif event.price==1000 %>
@@ -30,7 +30,7 @@
       <% @result.each do |event, score| %>
         <div class="eachresult1">
             <div class="name1">
-              <%="Go to: #{event.name}" %>
+              <%="#{event.name}" %>
             </div>
             <div class="location1">
               <%= "@ #{event.location}" %>
@@ -39,7 +39,7 @@
               <%= "@ #{event.time}" %>
             </div>
             <div class="matchscore1">
-              Distance Away: 
+              Distance Away:
               <% if score>50 %>
                 <% score="Location not listed" %>
               <% end %>
@@ -52,7 +52,7 @@
       <% @result.each do |event| %>
         <div class="eachresult1">
             <div class="name1">
-              <%="Go to: #{event.name}" %>
+              <%="#{event.name}" %>
             </div>
             <div class="location1">
               <%= "@ #{event.location}" %>
@@ -61,7 +61,7 @@
               <%= "@ #{event.time}" %>
             </div>
             <div class="matchscore1">
-              At: 
+              At:
               <% if event.time!="Time not listed" %>
                 <% if event.time.strftime("%I:%M %p") == "11:59 PM" %>
                   <% event.time="Time not listed" %>
@@ -76,16 +76,16 @@
              </div>
         <% end %>
 
-            
-         
-     
+
+
+
 
     <% else %>
       <% @result.each do |score, name| %>
       	<% if name!="No 1st place" && name!="No 2nd place" && name!="No 3rd place" %>
       		<div class="eachresult1">
       			<div class="name1">
-      				<%="Go to: #{name}" %>
+      				<%="#{name}" %>
        			</div>
        			<div class="location1">
        				<%= "@ #{Event.find_by_name(name).location}" %>
@@ -94,10 +94,10 @@
        				<%= "@ #{Event.find_by_name(name).time}" %>
        			</div>
         		<div class="matchscore1">
-              Relevance score: 
+              Relevance score:
             	<a class="score1"><%= score.round(1) %>%</a>
           	</div>
-            
+
      		</div>
       	<% else %>
       		<div class="eachresult1">
