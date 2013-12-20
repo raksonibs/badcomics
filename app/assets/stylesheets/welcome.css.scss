@@ -266,12 +266,21 @@ body {
 
 .wrapper #foo {
 	display: none;
-	left: 300px;
+	left: 700px;
 	position: absolute;
+	top: 370px;
 }
 
-.wrapper .buttonsdir {
+.wrapper #buttonsdir {
 	visibility: hidden;
+	position: absolute;
+	left: 100px;
+	top: 100px;
+	border: 5px solid black;
+}
+
+button.dir {
+	border: 5px solid black;
 }
 
 div.info {
@@ -285,8 +294,9 @@ div.info {
 }
 
 #center {
-	width: 600px;
-	height: 100px;
+	left: 800px;
+	width: 1000px;
+	height: 75px;
 	margin: auto;
 	margin-top: 1em;
 }
@@ -294,13 +304,28 @@ div.info {
 #price,
 #time,
 #dist,
-#ourrank {
-	width: 50px;
+#ourrank,
+.dir {
+	left: 600px;
+	width: 150px;
 	height: 50px;
-	color: red;
-	background-color: blue;
-	margin: auto;
+	border-radius: 6px;
+	background-color: rgba(255,255,255,0.5);
+	text-align: center;
+	outline: 0;
+	color: white;
+	font-family: Robotothin, Helvetica;
 	font-size: 1.2em;
+}
+
+#price:hover,
+#time:hover,
+#dist:hover,
+#ourrank:hover {
+	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #dfdfdf), color-stop(1, #ededed) );
+	background:-moz-linear-gradient( center top, #dfdfdf 5%, #ededed 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#dfdfdf', endColorstr='#ededed');
+	background-color:#dfdfdf;
 }
 
 
