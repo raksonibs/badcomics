@@ -20,7 +20,7 @@
 			</div>
 
 
-			<!-- Question to ask user. We may want to also put
+			<!-- Question to ask user. We may want to also putq
 			the date in this question. -->
 				<div class="back">
 					<%= button_to "", root_url, :class => "bhome", :method => :get %>
@@ -51,20 +51,72 @@
 			<!-- This div is where all the categories will be
 			held (including an ad box for advertisers). -->
 			<div class='categories'>
-				<button id='1' class='categorybox'></button>
-				<button id='2' class='categorybox'></button>
-				<button id='3' class='categorybox'></button>
-				<button id='4' class='categorybox'></button>
-				<button id='5' class='categorybox'></button>
-				<button id='6' class='categorybox'></button>
+
+					<button id='1' class='categorybox'>
+					<div id='1img'></div>
+					<div id='1text'></div></button>
+
+
+
+
+					<button id='2' class='categorybox'>
+					<div id='2img'></div>
+					<div id='2text'></div></button>
+
+
+
+
+					<button id='3' class='categorybox'><div id='3img'></div><div id='3text'></div></button>
+
+
+
+
+					<button id='4' class='categorybox'><div id='4img'></div><div id='4text'></div></button>
+
+
+
+
+					<button id='5' class='categorybox'><div id='5img'></div><div id='5text'></div></button>
+
+
+
+
+					<button id='6' class='categorybox'><div id='6img'></div><div id='6text'></div></button>
+
+
+
 			</div>
 			<div class='categories1'>
-				<button id="7" class='categorybox1'></button>
-				<button id='8' class='categorybox1'></button>
-				<button id='9' class='categorybox1'></button>
-				<button id='10' class='categorybox1'></button>
-				<button id='11' class='categorybox1'></button>
-				<button id='12' class='categorybox1'></button>
+				<button id='7' class='categorybox1'>
+					<div id='7img'></div>
+					<div id='7text'></div></button>
+
+
+
+
+					<button id='8' class='categorybox1'>
+					<div id='8img'></div>
+					<div id='8text'></div></button>
+
+
+
+
+					<button id='9' class='categorybox1'><div id='9img'></div><div id='9text'></div></button>
+
+
+
+
+					<button id='10' class='categorybox1'><div id='10img'></div><div id='10text'></div></button>
+
+
+
+
+					<button id='11' class='categorybox1'><div id='11img'></div><div id='11text'></div></button>
+
+
+
+
+					<button id='12' class='categorybox1'><div id='12img'></div><div id='12text'></div></button>
 			</div>
 
 			<div class='price'>
@@ -160,12 +212,24 @@ function start1() {
 		num1=Math.ceil(Math.random()*(bank1.length)-1)
 	 }
 	 indexes1.push(num1)
-	$("#"+i).text(bank1[num1])
-	$("#"+i).prepend('<img id="theImg" src="/assets/back.png" />')
+	$("#"+i+"text").text(bank1[num1])
+	$("#"+i+"img").prepend('<img class="theImg" src="/assets/back.png" />')
 
 	}
 
-	var bank=["Happy", "Sad", "Celebratory", "Lonely", "Restless", "Lazy", "Excited", "Blah", "Festive", "Weird", "Nerdy", "Normal", "Fancy"];
+	var bank=[["Happy", "/assets/dark/appbar.smiley.happy.png"],
+	["Sad", "/assets/dark/appbar.smiley.frown.png"],
+	["Celebratory", "/assets/dark/appbar.martini.png"],
+	["Lonely", "/assets/dark/appbar.user.png"],
+	["Restless", "/assets/dark/appbar.timer.alert.png"],
+	["Lazy", "/assets/dark/appbar.sleep.png"],
+	["Excited", "/assets/dark/appbar.smiley.kiki.png"],
+	["Blah", "/assets/dark/appbar.checkmark.uncrossed.png"],
+	["Festive", "/assets/dark/appbar.hat.santa.png"],
+	["Weird", "/assets/dark/appbar.smiley.what.png"],
+	["Nerdy", "/assets/dark/appbar.smiley.glasses.png"],
+	["Normal", "/assets/dark/appbar.people.png"],
+	["Fancy", "/assets/dark/appbar.clothes.tie.png"]];
 	var indexes=[]
 	for (var i=6; i>=0; i--) {
 		var num=Math.ceil(Math.random()*(bank.length)-1)
@@ -173,8 +237,8 @@ function start1() {
 		num=Math.ceil(Math.random()*(bank.length)-1)
 	 }
 	 indexes.push(num)
-	$("#"+i).text(bank[num])
-
+	$("#"+i+"text").text(bank[num][0])
+	$("#"+i+"img").prepend('<img class="theImg" src='+ bank[num][1]+ '/>' )
 	}
 
 
@@ -183,7 +247,9 @@ function start1() {
 }
 
 $("#try").on("click", function(){
-
+	for (var i=1; i<=12; i++) {
+		$("#"+i+"img").children()[0].remove()
+	}
 	start1()
 })
 

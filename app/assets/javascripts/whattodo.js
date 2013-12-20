@@ -77,16 +77,18 @@ $(function() {
   });
 
   $(".categorybox").on('click', function() {
-    choice1 = $(this).text();
+    choice1 = $($(this).children()[1]).text()
+
   });
 
   $(".categorybox1").on('click', function() {
-    choice2 = $(this).text();
+    choice2 = $($(this).children()[1]).text()
+
   });
 
   $(".categorybox2").on('click', function() {
     choice3 = $(this).text();
-
+    console.log($(this))
     $.ajax({
         url: "/result/" + choice1 + "/" + choice2 + "/" + choice3,
         type: "GET",
@@ -118,7 +120,7 @@ $(function() {
                   var myLatlng= (parseFloat(arr[arrcount]),parseFloat(arr[arrcount+1]))
                   var map=new google.maps.Map($(".map")[i]
                     ,mapProp);
-                  
+
                   var marker = new google.maps.Marker({
                     position: mapProp.center,
                     map: map,
@@ -126,7 +128,7 @@ $(function() {
 
                   google.maps.event.addListenerOnce(map, 'idle', function() {
                      //var center = map.getCenter();
-                     
+
                      //map.setCenter(center);
                      google.maps.event.trigger(map, "resize");
                   });
@@ -135,7 +137,7 @@ $(function() {
           setTimeout(function() {
             initialize()
           }, 3000)
-          
+
         }
     })
 
