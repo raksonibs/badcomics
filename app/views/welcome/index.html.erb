@@ -33,7 +33,7 @@
           Events happening soon:
           <br>
           <br>
-          <% @events.each do |event| %>
+          <% @events[0..1].each do |event| %>
           What: <%= eventname = event.name[0..25] %>
           <% if event.name.length > 25 %>
             <%= "..." %>
