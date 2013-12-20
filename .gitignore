@@ -18,4 +18,4 @@
 # Ignore API Configs
 /config/whattodo.yml
 
-/*.DS_Store
+.DS_Store

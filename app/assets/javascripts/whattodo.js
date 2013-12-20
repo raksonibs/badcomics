@@ -63,7 +63,7 @@ $(function() {
         .show()
         .animate({left:"+45", opacity: 1}, 800)
         .delay(400);
-     
+
       $("#foo")
         .show()
         .animate({left:"+900", opacity: 1}, 800)
@@ -115,28 +115,31 @@ $(function() {
                   } else if (i === 2) {
                     arrcount = 4
                   }
-                  console.log(parseFloat(arr[arrcount]),parseFloat(arr[arrcount+1]))
-                  var mapProp = {
-                  center:new google.maps.LatLng(parseFloat(arr[arrcount]),parseFloat(arr[arrcount+1])),
-                  zoom:15,
-                  mapTypeId:google.maps.MapTypeId.ROADMAP
-                  };
+                  console.log(arr[arrcount].replace(/\s+/g, " "))
+                  console.log(arr[arrcount].replace(/\s+/g, " ") !== " " )
+                  if (arr[arrcount].replace(/\s+/g, " ") !== " " ) {
+                    var mapProp = {
+                    center:new google.maps.LatLng(parseFloat(arr[arrcount]),parseFloat(arr[arrcount+1])),
+                    zoom:15,
+                    mapTypeId:google.maps.MapTypeId.ROADMAP
+                    };
 
-                  var myLatlng= (parseFloat(arr[arrcount]),parseFloat(arr[arrcount+1]))
-                  var map=new google.maps.Map($(".map")[i]
-                    ,mapProp);
+                    var myLatlng= (parseFloat(arr[arrcount]),parseFloat(arr[arrcount+1]))
+                    var map=new google.maps.Map($(".map")[i]
+                      ,mapProp);
 
-                  var marker = new google.maps.Marker({
-                    position: mapProp.center,
-                    map: map,
-                  });
+                    var marker = new google.maps.Marker({
+                      position: mapProp.center,
+                      map: map,
+                    });
 
-                  google.maps.event.addListenerOnce(map, 'idle', function() {
-                     //var center = map.getCenter();
+                    google.maps.event.addListenerOnce(map, 'idle', function() {
+                       //var center = map.getCenter();
 
-                     //map.setCenter(center);
-                     google.maps.event.trigger(map, "resize");
-                  });
+                       //map.setCenter(center);
+                       google.maps.event.trigger(map, "resize");
+                    });
+                  }
             }
           }
           setTimeout(function() {
