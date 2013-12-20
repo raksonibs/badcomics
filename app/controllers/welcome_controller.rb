@@ -17,7 +17,25 @@ class WelcomeController < ApplicationController
   		@result=algorthim(feelingchoice, catchoice,pricechoice,true)
       @recent, @installedfriends=getrecent()
       @picture=FbGraph::User.fetch(current_user.uid).picture
+      @events=soonevents
+    
     end
+  end
+
+  def soonevents
+    @events=[]
+    time=Time.parse("Friday December 20 2013 6:00pm")
+    Event.all[0..5].each do |event|
+
+      if event.time!="Time not listed"
+
+        if (((Time.parse(event.time))- time).to_f)/3600 < 5 && (((Time.parse(event.time))-time).to_f)/3600 >0
+          @events << event
+        end
+      end
+
+    end
+    @events
   end
 
   def getrecent
