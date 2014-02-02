@@ -238,6 +238,30 @@ class WelcomeController < ApplicationController
           @choice.first_event=@result[0][1]
           @choice.save
         end
+        #need to look at last three choices made (activity, feeling, price, and if any are the 
+        #same as the current choice properties, check what the number one is. 
+        #if number one is the same, need to redo result, and penalize that event
+        #so in teh result method have a method which takes in usually nil,
+        #but in this case it actually takes in this event, so the condition
+        #would be if deduction is true and val==val to be deducted [so need two more in result])
+        #then takes severe penalities
+        #SOOOOO
+        #current_user.choices[-3..-1].each do |choice|
+          #if choice.feeling==@choice.feeling && choice.activity/category==@choice.activity &&
+          #choice.price==@choice.money && =-->
+          #[NEED TO CHECK IF FIRST EVENT IS JUST NAME OF THE EVENT ID]
+          #--->choice.first_event==@choice.first event. then
+          #@result, @scores=result(data,udist, activity, "rank", feeling, feelingmap, deduction=true, deductedevent=Event.find_by_name(@choice.first_event))
+        #@result=@scores.sort.reverse[0..2]
+       # @@all=@scores
+        #@@all=@scores
+        #@@all=@scores
+        #if current_user && !recommend
+          #@choice=current_user.choices.last
+          #@choice.first_event=@result[0][1]
+          #@choice.save
+          #[NEED TO MAKE SURE DOESNT SAVE TWICE, BUT RATHER UPDATES ATTRIBUTES. MAYBE USE METHOD!]
+        #end
         @hash = Gmaps4rails.build_markers(@result) do |res, marker|
           marker.lat Event.find_by_name(res).latitude
           marker.lng Event.find_by_name(res).longitude
@@ -350,10 +374,14 @@ class WelcomeController < ApplicationController
   end
 
   def result(data, udist,activity, choice='rank', feeling, feelingmap)
+   #need here deduction=false (true when necessary), deductedevent=nil(name of event when approriate)
     @scores={}
 
     data.each_with_index do |val,i|
       score=score(calculateprice(val, feeling), calculatedistance(val,udist), calculatepurity(val, activity), calculatetime(val), calculatefeeling(val,feeling, activity, udist, feelingmap)) if choice=="rank"
+      #if deduction && val==deductedevent
+        #score=score/1.3
+      #end
       score=score(calculateprice(val,true, feeling), 0, 0, 0,0) if choice=="price"
       score=score(0, calculatedistance(val,udist, true), 0, 0,0) if choice=="dist"
       score= score(0, 0, 0, calculatetime(val, true), 0) if choice=="time"
