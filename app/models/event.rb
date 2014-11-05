@@ -60,4 +60,40 @@ class Event < ActiveRecord::Base
     return events
   end
 
+  def self.nowmagazine
+    # reg expression for location has to watch for special chars and suit numbers
+    #categories seem talk(talk, symposium, screening, lecture, speak, discuss), music(music) theatre(performances), reading(reading, novel), comedy, seasonal(festiv,holiday, carol, christmas), party(party), charity(fundrais, auction), miscelianous (everything else) 
+    # for now standard category being event subgenre because not sure what events categories want yet
+    events = []
+    data = Nokogiri::HTML(open("http://www.nowtoronto.com/news/listings/"))
+    .css(".listing-entry")
+    # data is all the options, but not the actual day it is on .css("div[class^='List-Body']") for the listing entry is teh day
+    # know that all listing header has bunch of list events underneath them.
+    data[0...1].each do |listing|
+      dateForListing = listing.css('.listing-header').text
+      listing.css('.subgenre').each do |genreDetail|
+        genreDetail.css('.List-Body').each do |listingDetail|
+
+          price = listingDetail.text[/\$\w+|[fF]ree|Donation/] || 'Price not listed'
+          location = listingDetail.text[/\d+([A-Z]*)?\s[A-Z][a-z]+('[a-z])?(\s[A-Z][a-z]*)*,/] || 'Address not listed'
+          time = listingDetail.text[/([0-9]+:)?[0-9]+\s(a|p)m(-[0-9]+\s(a|p)m)?/] != nil ? Time.parse(time=listingDetail.text[/([0-9]+:)?[0-9]+\s(a|p)m(-[0-9]+\s(a|p)m)?/]).strftime("%I:%M %p") : 'Time not listed'
+          url = listingDetail.text[/[A-Za-z\-\\0-9]*(\.)?[A-Za-z\-\\0-9]+\.(ca|com)\./].try(:[], 0...-1) || 'Url not listed'
+          
+          events.push({
+            name: listingDetail.css('.List-Name').text,
+            dateOn: dateForListing,
+            desc: listingDetail.text,
+            price: price,
+            location: location,
+            category: genreDetail.css('.medgrey-txt').text,
+            time: time,
+            url: url
+          })
+        end
+      end
+      return events
+    end
+  end
+
+
 end
