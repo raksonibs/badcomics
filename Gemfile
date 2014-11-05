@@ -49,6 +49,7 @@ group :doc do
 end
 
 gem "geocoder"
+gem 'pry'
 
 gem 'whenever', :require => false
 # Use ActiveModel has_secure_password
