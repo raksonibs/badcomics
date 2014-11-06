@@ -95,5 +95,54 @@ class Event < ActiveRecord::Base
     end
   end
 
+  def self.eventbrite
+    # since this will only be run every sun and wed, just get events. Reason this is run less is because only have small api limit. Wonder if eventful is still pay what you have
+    # http://www.eventbrite.com/json/event_search?app_key=GUBRP2USZMDRRVPPSF&city=Toronto&date=2014-11-05%202014-11-10&page=2 -> testing
+    dateToday = Date.today#.strftime("%Y-%m-%d")
+    next60days = (dateToday+7).to_s
+    string = "http://www.eventbrite.com/json/event_search?app_key=GUBRP2USZMDRRVPPSF&city=Toronto&date="+dateToday.to_s+"%20"+next60days+'&max=100'
+    
+    data = JSON.parse((open(string)).read)
+    
+    totalEvents = data['events'][0]['summary']['total_items']
+
+    dataAll = {}
+
+    eventAll = []
+
+    eventCount = 1
+    pageCount = 1
+
+    while eventCount <= totalEvents
+      dataForPage = JSON.parse((open(string+'&page='+pageCount.to_s)).read)
+      dataAll['page'+pageCount.to_s] = dataForPage
+      eventCount += 100
+      pageCount += 1
+
+      dataForPage.each do |event|
+        name = event["event"]["title"]
+        timeStart = event["event"]["start_date"] #Time.parse(event["event"]["start_date"][/\d+:\d+:\d+/]).strftime("%I:%M %p")
+        timeEnd = event["event"]["end_date"]
+        price = event["event"]["tickets"][0]["ticket"]["price"]
+        price = price == "0.00" || price == nil ? "Free" : price
+        location = event["event"]["venue"]["address"] + event["event"]["venue"]["address_2"]
+        location = location == "" || location == nil ? "No address listed" : location + ", Toronto, ON, Canada"
+        url = event["event"]["url"]
+        desc = event["event"]["description"]
+        eventAll.push({
+          name: name,
+          dayOn: timeStart,
+          dayEnd: timeEnd,
+          price: price,
+          location: location, 
+          url: url,
+          desc: desc
+        })
+      end
+    end
+
+    return eventAll
+  end
+
 
 end
