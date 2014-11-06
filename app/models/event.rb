@@ -193,4 +193,45 @@ class Event < ActiveRecord::Base
     return eventAll
   end
 
+  def self.meetup 
+    string =  "https://api.meetup.com/2/open_events?&sign=true&city=Toronto&country=ca&time=0d,7d&status=upcoming&key=7b794c3657477db4e107a7e366f7b5f"
+    data = JSON.parse((open(string)).read)
+    totalEvents = data['meta']['total_count']
+    dataAll = {}
+    eventAll = []
+    eventCount = 1
+    pageCount = 0
+
+    while eventCount <= totalEvents
+      dataForPage = JSON.parse((open(string+'&offset='+pageCount.to_s)).read)
+      dataAll['page'+pageCount.to_s] = dataForPage
+      eventCount += data['meta']['count']
+      pageCount += 1
+
+      dataForPage.each do |event|
+        # might have to do event[count or something]
+        name = event["name"]
+        name = name == nil || name == "" ? event["group"]["name"]
+        time = Time.at(val["time"]/1000).strftime("%I:%M %p")
+        price = event["fee"]["amount"]
+        # price will have to be reg exp searching through description:()
+        price = price == 0 || price == nil || price == "0" ? "Free" : price
+        location = event["venue"]["address_1"]
+        location = location == "" || location == nil ? "No address listed" : location + ", Toronto, ON, Canada"
+        url = event["event_url"]
+        desc = event["description"]
+        eventAll.push({
+          name: name,
+          dayOn: time,
+          price: price,
+          location: location, 
+          url: url,
+          desc: desc
+        })
+      end
+    end
+
+    return eventAll
+  end
+
 end
