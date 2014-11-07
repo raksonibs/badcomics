@@ -302,12 +302,45 @@ class Event < ActiveRecord::Base
       dayCount += 1
       todaystr = (today+dayCount)
     end
+    return allEvents
 
   end
 
   def self.torontocom
-    # http://www.toronto.com/events/?date=2014-11-07&enddate=2014-12-07&tags=
+    # http://www.toronto.com/events/?date=2014-11-07&enddate=2014-11-14&
     # run with meetup and sort every sun and wed night for next 7 days? I think nine is better!
+    # this is run monthly
+    today = Date.today
+    todaystr = today.strftime("%Y-%m-%d")
+    sevenDays = (today+7).strftime("%Y-%m-%d")
+    pageCount = 1
+    eventAll = []
+    string = "http://www.toronto.com/events/?date="+todaystr+"&enddate="+sevenDays+"&pagination="+pageCount
+    numPages = Nokogiri::HTML(open(string)).css('.pager').css('a')[-1].text()
+    while pageCount < numPages
+      string = "http://www.toronto.com/events/?date="+todaystr+"&enddate="+sevenDays+"&pagination="+pageCount
+      dataEvents =  Nokogiri::HTML(open(string)).css('.listing').css('li')
+      dataEvents.each do |event|
+        url = event.css('a')map{|a| a["href"]}[0]
+        name = event.css('h2')[0].text()
+        desc = event.css('p').text()
+        matchReg = /[A-Z][a-z]+\s\d+\,\s\d+/.match(event.css('.meta').text())
+        dayStart = matchReg[0]
+        dayEnd = matchReg[1]
+        location = event.css('.meta').text()[/[A-Z][a-z]+(\s[a-z]*[A-Z]*)+/]
+        eventAll.push({
+          name: name,
+          url: url,
+          location: location,
+          dayOn: dayStart,
+          dayEnd: dayEnd,
+          desc: desc
+        })
+      end
+      pageCount += 1
+    end
+
+    return eventAll
   end
 
 end
