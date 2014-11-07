@@ -241,8 +241,6 @@ class Event < ActiveRecord::Base
     string = "http://justshows.com/toronto/"
     dataEvents = Nokogiri::HTML(open(string))
     totalPages = dataEvents.css('ul.pages').css('li.different-page')[-1].text().to_i
-    puts dataEvents
-
     eventAll = []
     pageCount = 1
 
@@ -270,8 +268,46 @@ class Event < ActiveRecord::Base
         end
       pageCount += 1
       
-    end
+      end
     return eventAll
+    end
+  end
+
+  def self.blogto
+    # http://www.blogto.com/events/?date=2014-11-11&status=started-today
+    today = Date.today
+    todaystr = today.strftime("%Y-%m-%d")
+    sevenDays = (today+7).strftime("%Y-%m-%d")
+    dayCount = 0
+    dataEvents = Nokogiri::HTML(open(string)).css('.events-list').css('.event-item')
+    allEvents = []
+    while dayCount <= 7
+      string = "http://www.blogto.com/events/?date="+todaystr+"&status=started-today"
+      dataEvents = Nokogiri::HTML(open(string)).css('.events-list').css('.event-item')
+      dataEvents.each do |event|
+        url = 'http://blogto.com'+event.css('.poster').map{|a| a['href']}
+        name = event.css('.event-name').text()
+        location = event.css('.event-address').text() + ', Toronto, ON, Canada'
+        dayTime = todaystr + " " + event.css('info-eventtime').text()
+        descIncomplete = event.css('.event-summary')
+        allEvents.push({
+          name: name,
+          location: location, 
+          dayOn: dayTime,
+          desc: descIncomplete,
+          url: url,
+          price: 'Check listing url!'
+          })
+      end
+      dayCount += 1
+      todaystr = (today+dayCount)
+    end
+
+  end
+
+  def self.torontocom
+    # http://www.toronto.com/events/?date=2014-11-07&enddate=2014-12-07&tags=
+    # run with meetup and sort every sun and wed night for next 7 days? I think nine is better!
   end
 
 end
