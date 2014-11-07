@@ -236,30 +236,42 @@ class Event < ActiveRecord::Base
 
   def self.justshows
     # http://feeds.justshows.net/rss/toronto/
+    # http://justshows.com/toronto/?p=2
     # ugh! can't use rss feed because no prices :()
-    string = "http://feeds.justshows.net/rss/toronto/"
-    dataEvents = Nokogiri::HTML(open(string)).xpath('//item')
-    # puts dataEvents
-    eventAll = []
-    # doubling on events (even tripling), need to not push if any object has name value as such
-    #  probably happening because on event I am looking for all titles, not just unique to date.
-    #  might need a count
+    string = "http://justshows.com/toronto/"
+    dataEvents = Nokogiri::HTML(open(string))
+    totalPages = dataEvents.css('ul.pages').css('li.different-page')[-1].text().to_i
     puts dataEvents
-    dataEvents.each do |event|
-      name = event.xpath('//title')[/\s[A-Z][a-z]+/]
-      dateOn = event.xpath('//title')[/[A-Z][a-z]+\s\d+\,\s\d+/]
-      url = event.xpath('//url')
-      description = event.xpath('//description')
-      unless eventAll.any? {|c| c.name == name}
-        eventAll.push({
-          name: name,
-          dateOn: dateOn,
-          url: url
 
-          })
-      end
+    eventAll = []
+    pageCount = 1
+
+    while pageCount < totalPages
+      pageEvents = Nokogiri::HTML(open(string+'?p='+pageCount)).css('ul.shows li')
+      pageEvents.each do |event|
+        dayTimeStart = event.css("strong.day").text + Time.parse(event.css("span.time").text).strftime("%I:%M %p")
+        price = event.css("span.venue-meta").text[/\$\d+(\.\d+\s)?(-$\d+\.\d+)?[^All]+[\d+]/]
+        price = price != nil || price != "Free" ? price : 'Free'
+        name = event.css("strong.summary").text
+        location = event.css("strong.location").text
+        # doc.css('div.heat a').map { |link| link['href'] }
+        url = event.css('a').map{|a| a['href']}
+        description = "Music"
+        unless eventAll.any? {|c| c.name == name}
+          eventAll.push({
+            name: name,
+            dateOn: dayTimeStart,
+            location: location,
+            description: description,
+            price: price,
+            url: url,
+            category: description
+            })
+        end
+      pageCount += 1
       
     end
+    return eventAll
   end
 
 end
