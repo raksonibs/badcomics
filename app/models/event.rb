@@ -211,8 +211,8 @@ class Event < ActiveRecord::Base
       dataForPage.each do |event|
         # might have to do event[count or something]
         name = event["name"]
-        name = name == nil || name == "" ? event["group"]["name"]
-        time = Time.at(val["time"]/1000).strftime("%I:%M %p")
+        name = name == nil || name == "" ? event["group"]["name"] : name
+        time = Time.at(event["time"]/1000).strftime("%I:%M %p")
         price = event["fee"]["amount"]
         # price will have to be reg exp searching through description:()
         price = price == 0 || price == nil || price == "0" ? "Free" : price
@@ -232,6 +232,34 @@ class Event < ActiveRecord::Base
     end
 
     return eventAll
+  end
+
+  def self.justshows
+    # http://feeds.justshows.net/rss/toronto/
+    # ugh! can't use rss feed because no prices :()
+    string = "http://feeds.justshows.net/rss/toronto/"
+    dataEvents = Nokogiri::HTML(open(string)).xpath('//item')
+    # puts dataEvents
+    eventAll = []
+    # doubling on events (even tripling), need to not push if any object has name value as such
+    #  probably happening because on event I am looking for all titles, not just unique to date.
+    #  might need a count
+    puts dataEvents
+    dataEvents.each do |event|
+      name = event.xpath('//title')[/\s[A-Z][a-z]+/]
+      dateOn = event.xpath('//title')[/[A-Z][a-z]+\s\d+\,\s\d+/]
+      url = event.xpath('//url')
+      description = event.xpath('//description')
+      unless eventAll.any? {|c| c.name == name}
+        eventAll.push({
+          name: name,
+          dateOn: dateOn,
+          url: url
+
+          })
+      end
+      
+    end
   end
 
 end
