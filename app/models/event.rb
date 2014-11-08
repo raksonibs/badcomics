@@ -10,9 +10,6 @@ class Event < ActiveRecord::Base
   	[self.cityhall
   	]
   end
-  # (name:k, time:source[k][0], price:source[k][1], 
-    # location:source[k][2], category:source[k][3], 
-    # link:source[k][4], feeling: "None")
 
   def self.cityhall
     # category split based on each new capital
@@ -61,14 +58,9 @@ class Event < ActiveRecord::Base
   end
 
   def self.nowmagazine
-    # reg expression for location has to watch for special chars and suit numbers
-    #categories seem talk(talk, symposium, screening, lecture, speak, discuss), music(music) theatre(performances), reading(reading, novel), comedy, seasonal(festiv,holiday, carol, christmas), party(party), charity(fundrais, auction), miscelianous (everything else) 
-    # for now standard category being event subgenre because not sure what events categories want yet
+    # THEY CHANGED NOW MAGAZINE:(!)
     events = []
-    data = Nokogiri::HTML(open("http://www.nowtoronto.com/news/listings/"))
-    .css(".listing-entry")
-    # data is all the options, but not the actual day it is on .css("div[class^='List-Body']") for the listing entry is teh day
-    # know that all listing header has bunch of list events underneath them.
+    data = Nokogiri::HTML(open("http://www.nowtoronto.com/news/listings/")).css(".listing-entry")
     data[0...1].each do |listing|
       dateForListing = listing.css('.listing-header').text
       listing.css('.subgenre').each do |genreDetail|
@@ -101,34 +93,27 @@ class Event < ActiveRecord::Base
     dateToday = Date.today#.strftime("%Y-%m-%d")
     next7days = (dateToday+7).to_s
     string = "http://www.eventbrite.com/json/event_search?app_key=GUBRP2USZMDRRVPPSF&city=Toronto&date="+dateToday.to_s+"%20"+next7days+'&max=100'
-    
     data = JSON.parse((open(string)).read)
-    
     totalEvents = data['events'][0]['summary']['total_items']
-
     dataAll = {}
-
     eventAll = []
-
     eventCount = 1
     pageCount = 1
 
     while eventCount <= totalEvents
-      dataForPage = JSON.parse((open(string+'&page='+pageCount.to_s)).read)
-      dataAll['page'+pageCount.to_s] = dataForPage
+      dataForPage = JSON.parse((open(string+'&page='+pageCount.to_s)).read)['events']
       eventCount += 100
       pageCount += 1
-
-      dataForPage.each do |event|
-        name = event["event"]["title"]
-        timeStart = event["event"]["start_date"] #Time.parse(event["event"]["start_date"][/\d+:\d+:\d+/]).strftime("%I:%M %p")
-        timeEnd = event["event"]["end_date"]
-        price = event["event"]["tickets"][0]["ticket"]["price"]
+      dataForPage[1..-1].each do |event|
+        name = event['event']["title"]
+        timeStart = event['event']["start_date"]
+        timeEnd = event['event']["end_date"]
+        price = event['event']["tickets"][0]["ticket"]["price"]
         price = price == "0.00" || price == nil ? "Free" : price
-        location = event["event"]["venue"]["address"] + event["event"]["venue"]["address_2"]
+        location = event['event']["venue"]["address"] + event['event']["venue"]["address_2"]
         location = location == "" || location == nil ? "No address listed" : location + ", Toronto, ON, Canada"
-        url = event["event"]["url"]
-        desc = event["event"]["description"]
+        url = event['event']["url"]
+        desc = event['event']["description"]
         eventAll.push({
           name: name,
           dayOn: timeStart,
@@ -140,44 +125,33 @@ class Event < ActiveRecord::Base
         })
       end
     end
-
     return eventAll
   end
 
   def self.eventful
     # very similiar to eventful, can be one method
     # http://api.eventful.com/json/events/search?app_key=hSXmLwVD99qfGPBs&location=Toronto&t=Next+7+days&page_size=100&page_number=2
-    string = "http://api.eventful.com/json/events/search?app_key=hSXmLwVD99qfGPBs&location=Toronto&t=Next+7+days&page_size=100"
-    
+    string = "http://api.eventful.com/json/events/search?app_key=hSXmLwVD99qfGPBs&location=Toronto&t=Next+7+days&page_size=100"   
     data = JSON.parse((open(string)).read)
-
-    totalEvents = data['events'][0]['summary']['total_items']
-
-    dataAll = {}
-
+    totalEvents = data['total_items'].to_i
     eventAll = []
-
     eventCount = 1
     pageCount = 1
 
     while eventCount <= totalEvents
-      dataForPage = JSON.parse((open(string+'&page_number='+pageCount.to_s)).read)
-      dataAll['page'+pageCount.to_s] = dataForPage
+      dataForPage = JSON.parse((open(string+'&page_number='+pageCount.to_s)).read)['events']['event']
       eventCount += 100
       pageCount += 1
 
       dataForPage.each do |event|
-        # might have to do event[count or something]
-        name = event["event"]["title"]
-        timeStart = event["event"]["start_time"] #Time.parse(event["event"]["start_date"][/\d+:\d+:\d+/]).strftime("%I:%M %p")
-        timeEnd = event["event"]["stop_time"]
-        # price = event["event"]["tickets"][0]["ticket"]["price"]
-        # price will have to be reg exp searching through description:()
-        price = price == "0.00" || price == nil ? "Free" : price
-        location = event["event"]["venue_address"]
+        name = event["title"]
+        timeStart = event["start_time"]
+        timeEnd = event["stop_time"]
+        price = 'Check listing url!'
+        location = event["venue_address"]
         location = location == "" || location == nil ? "No address listed" : location + ", Toronto, ON, Canada"
-        url = event["event"]["url"]
-        desc = event["event"]["description"]
+        url = event["url"]
+        desc = event["description"]
         eventAll.push({
           name: name,
           dayOn: timeStart,
@@ -203,20 +177,17 @@ class Event < ActiveRecord::Base
     pageCount = 0
 
     while eventCount <= totalEvents
-      dataForPage = JSON.parse((open(string+'&offset='+pageCount.to_s)).read)
-      dataAll['page'+pageCount.to_s] = dataForPage
+      dataForPage = JSON.parse((open(string+'&offset='+pageCount.to_s)).read)['results']
       eventCount += data['meta']['count']
       pageCount += 1
 
       dataForPage.each do |event|
-        # might have to do event[count or something]
         name = event["name"]
         name = name == nil || name == "" ? event["group"]["name"] : name
         time = Time.at(event["time"]/1000).strftime("%I:%M %p")
-        price = event["fee"]["amount"]
-        # price will have to be reg exp searching through description:()
+        price = event["fee"] != nil ? event["fee"]["amount"] : 0
         price = price == 0 || price == nil || price == "0" ? "Free" : price
-        location = event["venue"]["address_1"]
+        location = event["venue"] == nil ? "" : event["venue"]["address_1"]
         location = location == "" || location == nil ? "No address listed" : location + ", Toronto, ON, Canada"
         url = event["event_url"]
         desc = event["description"]
@@ -245,51 +216,51 @@ class Event < ActiveRecord::Base
     pageCount = 1
 
     while pageCount < totalPages
-      pageEvents = Nokogiri::HTML(open(string+'?p='+pageCount)).css('ul.shows li')
+      pageEvents = Nokogiri::HTML(open(string+'?p='+pageCount.to_s)).css('ul.shows li')
+
       pageEvents.each do |event|
         dayTimeStart = event.css("strong.day").text + Time.parse(event.css("span.time").text).strftime("%I:%M %p")
         price = event.css("span.venue-meta").text[/\$\d+(\.\d+\s)?(-$\d+\.\d+)?[^All]+[\d+]/]
         price = price != nil || price != "Free" ? price : 'Free'
         name = event.css("strong.summary").text
         location = event.css("strong.location").text
-        # doc.css('div.heat a').map { |link| link['href'] }
         url = event.css('a').map{|a| a['href']}
         description = "Music"
-        unless eventAll.any? {|c| c.name == name}
-          eventAll.push({
-            name: name,
-            dateOn: dayTimeStart,
-            location: location,
-            description: description,
-            price: price,
-            url: url,
-            category: description
-            })
-        end
-      pageCount += 1
-      
+        eventAll.push({
+          name: name,
+          dateOn: dayTimeStart,
+          location: location,
+          description: description,
+          price: price,
+          url: url,
+          category: description
+          })
       end
-    return eventAll
+      pageCount += 1
     end
+    return eventAll
   end
 
   def self.blogto
     # http://www.blogto.com/events/?date=2014-11-11&status=started-today
     today = Date.today
     todaystr = today.strftime("%Y-%m-%d")
+    string = "http://www.blogto.com/events/?date="+todaystr+"&status=started-today"
     sevenDays = (today+7).strftime("%Y-%m-%d")
     dayCount = 0
     dataEvents = Nokogiri::HTML(open(string)).css('.events-list').css('.event-item')
     allEvents = []
+
     while dayCount <= 7
       string = "http://www.blogto.com/events/?date="+todaystr+"&status=started-today"
-      dataEvents = Nokogiri::HTML(open(string)).css('.events-list').css('.event-item')
+      dataEvents = Nokogiri::HTML(open(string)).css('.events-list').css('.events-item')
+
       dataEvents.each do |event|
-        url = 'http://blogto.com'+event.css('.poster').map{|a| a['href']}
+        url = 'http://blogto.com' + event.css('.event-name').css('a')[0]['href']
         name = event.css('.event-name').text()
         location = event.css('.event-address').text() + ', Toronto, ON, Canada'
         dayTime = todaystr + " " + event.css('info-eventtime').text()
-        descIncomplete = event.css('.event-summary')
+        descIncomplete = event.css('.event-summary').text()
         allEvents.push({
           name: name,
           location: location, 
@@ -300,7 +271,7 @@ class Event < ActiveRecord::Base
           })
       end
       dayCount += 1
-      todaystr = (today+dayCount)
+      todaystr = (today+dayCount).strftime("%Y-%m-%d")
     end
     return allEvents
 
@@ -309,25 +280,28 @@ class Event < ActiveRecord::Base
   def self.torontocom
     # http://www.toronto.com/events/?date=2014-11-07&enddate=2014-11-14&
     # run with meetup and sort every sun and wed night for next 7 days? I think nine is better!
-    # this is run monthly
     today = Date.today
     todaystr = today.strftime("%Y-%m-%d")
     sevenDays = (today+7).strftime("%Y-%m-%d")
     pageCount = 1
     eventAll = []
-    string = "http://www.toronto.com/events/?date="+todaystr+"&enddate="+sevenDays+"&pagination="+pageCount
-    numPages = Nokogiri::HTML(open(string)).css('.pager').css('a')[-1].text()
+    string = "http://www.toronto.com/events/?date="+todaystr+"&enddate="+sevenDays+"&pagination="+pageCount.to_s
+    numPages = Nokogiri::HTML(open(string)).css('.pager').css('a')[-1].text().to_i
+
     while pageCount < numPages
-      string = "http://www.toronto.com/events/?date="+todaystr+"&enddate="+sevenDays+"&pagination="+pageCount
+      string = "http://www.toronto.com/events/?date="+todaystr+"&enddate="+sevenDays+"&pagination="+pageCount.to_s
       dataEvents =  Nokogiri::HTML(open(string)).css('.listing').css('li')
+
       dataEvents.each do |event|
-        url = event.css('a')map{|a| a["href"]}[0]
+        url = event.css('a').map{|a| a["href"]}[0]
         name = event.css('h2')[0].text()
         desc = event.css('p').text()
-        matchReg = /[A-Z][a-z]+\s\d+\,\s\d+/.match(event.css('.meta').text())
-        dayStart = matchReg[0]
-        dayEnd = matchReg[1]
-        location = event.css('.meta').text()[/[A-Z][a-z]+(\s[a-z]*[A-Z]*)+/]
+        matchReg = event.css('.meta').text().scan(/[A-Z][a-z]+\s\d+\,\s\d+/)
+        dayStart = matchReg[0] || "No start time specified"
+        dayEnd = matchReg[1] || "No end time specified"
+        location = event.css('.meta').text()[/Location:\s[A-z\s\']*/]
+        # sub here used to remove whitespace
+        location = location[9..-1].sub(/\s+\Z/, "") + ' ,Toronto, ON, Canada'
         eventAll.push({
           name: name,
           url: url,
