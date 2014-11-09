@@ -13,6 +13,11 @@ group :production do
 	gem 'pg'
 end
 
+gem 'capybara'
+gem 'selenium-webdriver'
+gem 'mechanize'
+gem 'capybara-webkit'
+
 gem "fb_graph"
 gem "koala", "~> 1.8.0rc1"
 # Use SCSS for stylesheets
@@ -60,8 +65,6 @@ gem 'whenever', :require => false
 
 # Use Capistrano for deployment
 # gem 'capistrano', group: :development
-
-gem 'pry'
 
 gem "nokogiri"
 
