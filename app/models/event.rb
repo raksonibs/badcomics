@@ -59,31 +59,37 @@ class Event < ActiveRecord::Base
 
   def self.nowmagazine
     # THEY CHANGED NOW MAGAZINE:(!)
-    events = []
-    data = Nokogiri::HTML(open("http://www.nowtoronto.com/news/listings/")).css(".listing-entry")
-    data[0...1].each do |listing|
-      dateForListing = listing.css('.listing-header').text
-      listing.css('.subgenre').each do |genreDetail|
-        genreDetail.css('.List-Body').each do |listingDetail|
+    # http://nowtoronto.com/search/event/all/
+    # http://nowtoronto.com/search/event/all/?page=6 this momentarily goes to dif page? Then js acts.
+    # instead of using capybara, what I will do is grab the first twenty events for each category on various dates. Somehow I think that is easier.
+    # http://nowtoronto.com/search/event/all/#categories=nt_216_benefit&search_date=2014-11-09. I will go ten days in the future for each category
+    # always nt_216_word
+    categoryUrls = [
+                    'art', 'benefit' #'books', 'comedy',
+                    # 'community_events', 'critics_pick', 
+                    # 'dance', 'music_dance', 'reading', 
+                    # 'festive_season', 'film', 'fitness',
+                    # 'music_folk', 'music_jazz', 'kid_friendly',
+                    # 'music', 'new_year', 'out_of_town', 'outdoors',
+                    # 'music_pop', 'pride', 'queer', 'reviewed', 'stage',
+                    # 'theatre', 'valentine'
+                  ]
+    daysSelected = [ ]
+    (0..0).each {|i| daysSelected << (Date.today+i).to_s}
 
-          price = listingDetail.text[/\$\w+|[fF]ree|Donation/] || 'Price not listed'
-          location = listingDetail.text[/\d+([A-Z]*)?\s[A-Z][a-z]+('[a-z])?(\s[A-Z][a-z]*)*,/] || 'Address not listed'
-          time = listingDetail.text[/([0-9]+:)?[0-9]+\s(a|p)m(-[0-9]+\s(a|p)m)?/] != nil ? Time.parse(time=listingDetail.text[/([0-9]+:)?[0-9]+\s(a|p)m(-[0-9]+\s(a|p)m)?/]).strftime("%I:%M %p") : 'Time not listed'
-          url = listingDetail.text[/[A-Za-z\-\\0-9]*(\.)?[A-Za-z\-\\0-9]+\.(ca|com)\./].try(:[], 0...-1) || 'Url not listed'
-          
-          events.push({
-            name: listingDetail.css('.List-Name').text,
-            dateOn: dateForListing,
-            desc: listingDetail.text,
-            price: price,
-            location: location,
-            category: genreDetail.css('.medgrey-txt').text,
-            time: time,
-            url: url
-          })
-        end
+    categoryUrls.each do |category|
+      daysSelected.each do |day|
+        # http://nowtoronto.com/search/event/all/#categories=nt_216_art&search_date=2014-11-09
+        string = "http://nowtoronto.com/search/event/all/#categories=nt_216_"+category+"&search_date="+day
+        puts string == "http://nowtoronto.com/search/event/all/#categories=nt_216_art&search_date=2014-11-09"
+        puts string
+        puts category
+        puts day
+        eventsCatDay = Nokogiri::HTML(open(string)).css('.event_result')
+        puts eventsCatDay
+
+
       end
-      return events
     end
   end
 
