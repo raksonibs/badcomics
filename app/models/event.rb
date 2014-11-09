@@ -1,8 +1,11 @@
 require 'open-uri'
 require 'nokogiri'
 require 'time'
+require_dependency 'scraper.rb'
 
 class Event < ActiveRecord::Base
+  include Scraper
+
 	geocoded_by :location
 	after_validation :geocode if :location_changed?
 
@@ -58,39 +61,8 @@ class Event < ActiveRecord::Base
   end
 
   def self.nowmagazine
-    # THEY CHANGED NOW MAGAZINE:(!)
     # http://nowtoronto.com/search/event/all/
-    # http://nowtoronto.com/search/event/all/?page=6 this momentarily goes to dif page? Then js acts.
-    # instead of using capybara, what I will do is grab the first twenty events for each category on various dates. Somehow I think that is easier.
-    # http://nowtoronto.com/search/event/all/#categories=nt_216_benefit&search_date=2014-11-09. I will go ten days in the future for each category
-    # always nt_216_word
-    categoryUrls = [
-                    'art', 'benefit' #'books', 'comedy',
-                    # 'community_events', 'critics_pick', 
-                    # 'dance', 'music_dance', 'reading', 
-                    # 'festive_season', 'film', 'fitness',
-                    # 'music_folk', 'music_jazz', 'kid_friendly',
-                    # 'music', 'new_year', 'out_of_town', 'outdoors',
-                    # 'music_pop', 'pride', 'queer', 'reviewed', 'stage',
-                    # 'theatre', 'valentine'
-                  ]
-    daysSelected = [ ]
-    (0..0).each {|i| daysSelected << (Date.today+i).to_s}
-
-    categoryUrls.each do |category|
-      daysSelected.each do |day|
-        # http://nowtoronto.com/search/event/all/#categories=nt_216_art&search_date=2014-11-09
-        string = "http://nowtoronto.com/search/event/all/#categories=nt_216_"+category+"&search_date="+day
-        puts string == "http://nowtoronto.com/search/event/all/#categories=nt_216_art&search_date=2014-11-09"
-        puts string
-        puts category
-        puts day
-        eventsCatDay = Nokogiri::HTML(open(string)).css('.event_result')
-        puts eventsCatDay
-
-
-      end
-    end
+    eventsAll = Scraper::NowMagazine.get_events
   end
 
   def self.eventbrite
