@@ -11,16 +11,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131216234028) do
+ActiveRecord::Schema.define(version: 20141110024146) do
 
-# Could not dump table "choices" because of following NoMethodError
-#   undefined method `[]' for nil:NilClass
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
+# Could not dump table "choices" because of following StandardError
+#   Unknown type 'name' for column 'first_event'
 
   create_table "events", force: true do |t|
     t.string   "name"
     t.string   "price"
     t.string   "location"
-    t.string   "category"
     t.string   "feeling"
     t.string   "time"
     t.datetime "created_at"
@@ -28,6 +30,7 @@ ActiveRecord::Schema.define(version: 20131216234028) do
     t.float    "latitude"
     t.float    "longitude"
     t.string   "link"
+    t.string   "category",   default: [], array: true
   end
 
   create_table "users", force: true do |t|
