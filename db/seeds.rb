@@ -1,7 +1,21 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
-#
-# Examples:
-#
-#   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
-#   Mayor.create(name: 'Emanuel', city: cities.first)
+Event.destroy_all
+
+contents = File.read('eventsseedfile.txt')
+eventAll = []
+contents = contents[1..-2]
+eventSeed = Array(contents).flatten
+count = 0 
+puts 'Creating Events from Seedfile'
+contents.split(/\{/).each_with_index do |event, index|
+  symbolData = event.split('", ')
+  tmpEvent = Event.new()
+  symbolData.each do |attribute|
+    syms = attribute.split('=>')
+    syms[1] = Array(syms[1]) if syms[0] == ':categoryList'
+    syms[0] = ':url' if syms[0] == ':eventUrl'
+    tmpEvent.update_attributes({
+      syms[0].gsub(':', '') => syms[1]
+    })
+  end
+  tmpEvent.save!
+end
