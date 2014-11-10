@@ -22,13 +22,13 @@ module Scraper
           categories = element.find('.cats span').text().split(/[,\/]/).map{|c| c.sub(' ', '')}
           eventAll.push({
               name: name,
-              dayOn: dayOn,
-              dayEnd: dayEnd,
               url: url,
               location: location,
+              price: price,
+              dayOn: dayOn,
+              dayEnd: dayEnd,
               desc: desc,
-              categoryList: categories,
-              price: price
+              categoryList: categories
             })
         end
         page = page.find('.next').click()

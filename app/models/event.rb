@@ -26,6 +26,7 @@ class Event < ActiveRecord::Base
 
   def self.cityhall
     # category split based on each new capital
+    # not using time end because uniimportant
   	events = []
   	data = Nokogiri::HTML(open("http://wx.toronto.ca/festevents.nsf/tpaview?readviewentries")).xpath("//viewentry")
     count = 0
@@ -53,15 +54,15 @@ class Event < ActiveRecord::Base
 
       url = val.xpath("//entrydata[@name='EventURL']")[count].text == "" || val.xpath("//entrydata[@name='EventURL']")[count].text == nil ? "No url listed" : val.xpath("//entrydata[@name='EventURL']")[count].text
       # day start and end used for ranges
+      dayOn = val.xpath("//entrydata[@name='DateBeginShow']")[count].text + timeStart
+      dayEnd = val.xpath("//entrydata[@name='DateEndShow']")[count].text
       events.push({name: val.xpath("//entrydata[@name='EventName']")[count].text, 
+                  eventUrl: url,
+                  location: location,
                   price: price,
                   dayOn: val.xpath("//entrydata[@name='DateBeginShow']")[count].text,
                   dayEnd: val.xpath("//entrydata[@name='DateEndShow']")[count].text,
-                  startTime: timeStart,
-                  endTime: timeEnd,
-                  location: location,
                   desc: val.xpath("//entrydata[@name='LongDesc']")[count].text,
-                  eventUrl: url,
                   categories: categoryList
                 })
       count += 1
@@ -104,11 +105,11 @@ class Event < ActiveRecord::Base
         desc = event['event']["description"]
         eventAll.push({
           name: name,
+          url: url,
+          location: location, 
+          price: price,
           dayOn: timeStart,
           dayEnd: timeEnd,
-          price: price,
-          location: location, 
-          url: url,
           desc: desc,
           categoryList: ["Misc"]
         })
@@ -143,11 +144,11 @@ class Event < ActiveRecord::Base
         desc = event["description"]
         eventAll.push({
           name: name,
+          url: url,
+          location: location, 
+          price: price,
           dayOn: timeStart,
           dayEnd: timeEnd,
-          price: price,
-          location: location, 
-          url: url,
           desc: desc,
           categoryList: ["Misc"]
         })
@@ -183,10 +184,11 @@ class Event < ActiveRecord::Base
         desc = event["description"]
         eventAll.push({
           name: name,
-          dayOn: time,
-          price: price,
-          location: location, 
           url: url,
+          location: location, 
+          price: price,
+          dayOn: time,
+          dayEnd: time,
           desc: desc,
           categoryList: ['Misc']
         })
@@ -219,11 +221,12 @@ class Event < ActiveRecord::Base
         description = "Music"
         eventAll.push({
           name: name,
-          dateOn: dayTimeStart,
-          location: location,
-          description: description,
-          price: price,
           url: url,
+          location: location,
+          price: price,
+          dateOn: dayTimeStart,
+          dayEnd: dayTimeStart,
+          desc: description,
           categoryList: description
           })
       end
@@ -254,11 +257,12 @@ class Event < ActiveRecord::Base
         descIncomplete = event.css('.event-summary').text()
         allEvents.push({
           name: name,
-          location: location, 
-          dayOn: dayTime,
-          desc: descIncomplete,
           url: url,
+          location: location, 
           price: 'Check listing url!',
+          dayOn: dayTime,
+          dayEnd: dayTime,
+          desc: descIncomplete,
           categoryList: ["Misc"]
           })
       end
@@ -298,6 +302,7 @@ class Event < ActiveRecord::Base
           name: name,
           url: url,
           location: location,
+          price: 'Check listing url!',
           dayOn: dayStart,
           dayEnd: dayEnd,
           desc: desc,
