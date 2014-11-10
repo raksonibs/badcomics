@@ -19,7 +19,7 @@ module Scraper
           location = element.all(:css, '.event_info a')[1].text() + ', Toronto, ON, Canada'
           desc = element.find('.description').text()
           price = desc[/\$\d+/] || "Free"
-          categories = element.find('.cats span').text()
+          categories = element.find('.cats span').text().split(/[,\/]/).map{|c| c.sub(' ', '')}
           eventAll.push({
               name: name,
               dayOn: dayOn,

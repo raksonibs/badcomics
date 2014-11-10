@@ -1,5 +1,4 @@
 require 'open-uri'
-require 'nokogiri'
 require 'time'
 require_dependency 'scraper.rb'
 
@@ -9,9 +8,20 @@ class Event < ActiveRecord::Base
 	geocoded_by :location
 	after_validation :geocode if :location_changed?
 
+  def self.writeToFile
+    File.open('eventsseedfile.txt', 'w') { |file| file.write(Event.getdata) }
+  end
+
   def self.getdata
-  	[self.cityhall
-  	]
+  	return [self.cityhall,
+      self.eventbrite,
+      self.nowmagazine,
+      self.eventful,
+      self.meetup,
+      self.justshows,
+      self.blogto,
+      self.torontocom
+  	].flatten
   end
 
   def self.cityhall
@@ -61,7 +71,7 @@ class Event < ActiveRecord::Base
   end
 
   def self.nowmagazine
-    # http://nowtoronto.com/search/event/all/
+    # http://nowtoronto.com/sesarch/event/all/
     eventsAll = Scraper::NowMagazine.get_events
   end
 
@@ -99,7 +109,8 @@ class Event < ActiveRecord::Base
           price: price,
           location: location, 
           url: url,
-          desc: desc
+          desc: desc,
+          categoryList: ["Misc"]
         })
       end
     end
@@ -137,7 +148,8 @@ class Event < ActiveRecord::Base
           price: price,
           location: location, 
           url: url,
-          desc: desc
+          desc: desc,
+          categoryList: ["Misc"]
         })
       end
     end
@@ -175,7 +187,8 @@ class Event < ActiveRecord::Base
           price: price,
           location: location, 
           url: url,
-          desc: desc
+          desc: desc,
+          categoryList: ['Misc']
         })
       end
     end
@@ -211,7 +224,7 @@ class Event < ActiveRecord::Base
           description: description,
           price: price,
           url: url,
-          category: description
+          categoryList: description
           })
       end
       pageCount += 1
@@ -245,7 +258,8 @@ class Event < ActiveRecord::Base
           dayOn: dayTime,
           desc: descIncomplete,
           url: url,
-          price: 'Check listing url!'
+          price: 'Check listing url!',
+          categoryList: ["Misc"]
           })
       end
       dayCount += 1
@@ -286,7 +300,8 @@ class Event < ActiveRecord::Base
           location: location,
           dayOn: dayStart,
           dayEnd: dayEnd,
-          desc: desc
+          desc: desc,
+          categoryList: ['Misc']
         })
       end
       pageCount += 1
