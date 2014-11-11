@@ -18,13 +18,6 @@ $(function() {
       opacity: 1},1500);
 
   $(".categories").on('click', function() {
-    $(".categories, .question, .bhome").fadeOut( function() {
-        $(".categories1, .question2, .b2feeling")
-          .show()
-          .animate({
-            left:"+15",
-            opacity: 1},800);
-    });
   });
 
   $(".b2feeling").on('click', function(event){

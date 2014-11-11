@@ -11,9 +11,35 @@
 // about supported directives.
 //
 //= require jquery
+//= require jquery-ui
 //= require jquery_ujs
-//= require_tree .
 //= require underscore
 //= require gmaps/google
 //= require spin
+//= require_tree .
 
+$(function() {
+  $.datepicker.setDefaults(
+    $.extend($.datepicker.regional[''])
+  );
+
+  $('#datepicker').datepicker({
+    onSelect: function(dateText, obj) {
+      $(this).css('background-color','');
+      alert('Selected: ' + dateText +
+        "\n\nid: " + obj.id +
+        "\nselectedDay: " + obj.selectedDay +
+        "\nselectedMonth: " + obj.selectedMonth +
+        "\nselectedYear: " + obj.selectedYear);
+      $(".categories, .question, .bhome").fadeOut( function() {
+        $(".categories1, .question2, .b2feeling")
+          .show()
+          .animate({
+            left:"+15",
+            opacity: 1},800);
+    });
+    }
+  });
+  $('#datepicker').datepicker();
+
+});
