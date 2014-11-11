@@ -8,30 +8,40 @@ class Event < ActiveRecord::Base
 	geocoded_by :location
 	after_validation :geocode if :location_changed?
 
-  def self.writeToFile
-    File.open('eventsseedfile.txt', 'w') { |file| file.write(Event.getdata) }
+  def self.writeToFile(events)
+    File.open('eventsseedfile.txt', 'w') { |file| file.write(events) }
+  end
+
+  def self.createEvents
+     arrEvents = Event.getdata
+     arrEvents.each do |event|
+      puts event
+      e = Event.new(event)
+      e.save!
+     end
+     writeToFile(arrEvents)
   end
 
   def self.getdata
-  	return [self.cityhall,
-      self.eventbrite,
-      self.nowmagazine,
-      self.eventful,
-      self.meetup,
-      self.justshows,
-      self.blogto,
-      self.torontocom
+  	return [
+            self.justshows,
+            self.cityhall,
+            self.nowmagazine,
+            self.eventbrite,
+            self.eventful,
+            self.meetup,
+            self.blogto,
+            self.torontocom
   	].flatten
   end
 
   def self.cityhall
-    # category split based on each new capital
-    # not using time end because uniimportant
   	events = []
   	data = Nokogiri::HTML(open("http://wx.toronto.ca/festevents.nsf/tpaview?readviewentries")).xpath("//viewentry")
     count = 0
     data.each do |val|
-      location = val.xpath("//entrydata[@name='Location']")[count].text+ ", Toronto, ON, Canada"
+      location = val.xpath("//entrydata[@name='Location']")[count].text
+      location = location == "" || location == nil ?  "Toronto, ON, Canada" : location + ', Toronto, ON, Canada'
 
       price = val.xpath("//entrydata[@name='Admission']")[count].text == "" ? "Price not listed" : val.xpath("//entrydata[@name='Admission']")[count].text
       if price[/ - /]
@@ -48,6 +58,7 @@ class Event < ActiveRecord::Base
                       else
                         categoryList.split(/([A-Z]+[a-z]*\s*[a-z]*)/).reject! { |c| c.empty? || c == "/"}
                       end
+      categoryList = categoryList.join('/')
 
       timeStart = val.xpath("//entrydata[@name='TimeBegin']")[count].text == "" || val.xpath("//entrydata[@name='TimeBegin']")[count].text == nil || val.xpath("//entrydata[@name='TimeBegin']")[count].text == ': ' ? "Time not listed" : Time.parse(val.xpath("//entrydata[@name='TimeBegin']")[count].text).strftime("%I:%M %p")
       timeEnd = val.xpath("//entrydata[@name='TimeEnd']")[count].text == "" || val.xpath("//entrydata[@name='TimeBegin']")[count].text == nil || val.xpath("//entrydata[@name='TimeBegin']")[count].text == ': ' ? "Time not listed" : Time.parse(val.xpath("//entrydata[@name='TimeEnd']")[count].text).strftime("%I:%M %p")
@@ -57,13 +68,13 @@ class Event < ActiveRecord::Base
       dayOn = val.xpath("//entrydata[@name='DateBeginShow']")[count].text + timeStart
       dayEnd = val.xpath("//entrydata[@name='DateEndShow']")[count].text
       events.push({name: val.xpath("//entrydata[@name='EventName']")[count].text, 
-                  eventUrl: url,
+                  url: url,
                   location: location,
                   price: price,
                   dayOn: val.xpath("//entrydata[@name='DateBeginShow']")[count].text,
                   dayEnd: val.xpath("//entrydata[@name='DateEndShow']")[count].text,
                   desc: val.xpath("//entrydata[@name='LongDesc']")[count].text,
-                  categories: categoryList
+                  categoryList: categoryList
                 })
       count += 1
     end
@@ -199,9 +210,7 @@ class Event < ActiveRecord::Base
   end
 
   def self.justshows
-    # http://feeds.justshows.net/rss/toronto/
     # http://justshows.com/toronto/?p=2
-    # ugh! can't use rss feed because no prices :()
     string = "http://justshows.com/toronto/"
     dataEvents = Nokogiri::HTML(open(string))
     totalPages = dataEvents.css('ul.pages').css('li.different-page')[-1].text().to_i
@@ -217,17 +226,17 @@ class Event < ActiveRecord::Base
         price = price != nil || price != "Free" ? price : 'Free'
         name = event.css("strong.summary").text
         location = event.css("strong.location").text
-        url = event.css('a').map{|a| a['href']}
+        url = event.css('a').map{|a| a['href']}[0]
         description = "Music"
         eventAll.push({
           name: name,
           url: url,
           location: location,
           price: price,
-          dateOn: dayTimeStart,
+          dayOn: dayTimeStart,
           dayEnd: dayTimeStart,
           desc: description,
-          categoryList: description
+          categoryList: [description]
           })
       end
       pageCount += 1
@@ -252,7 +261,8 @@ class Event < ActiveRecord::Base
       dataEvents.each do |event|
         url = 'http://blogto.com' + event.css('.event-name').css('a')[0]['href']
         name = event.css('.event-name').text()
-        location = event.css('.event-address').text() + ', Toronto, ON, Canada'
+        location = event.css('.event-address').text()
+        location = location== "" || location == nil ? 'Toronto, ON, Canada' : location + ', Toronto, ON, Canada'
         dayTime = todaystr + " " + event.css('info-eventtime').text()
         descIncomplete = event.css('.event-summary').text()
         allEvents.push({
@@ -296,6 +306,7 @@ class Event < ActiveRecord::Base
         dayStart = matchReg[0] || "No start time specified"
         dayEnd = matchReg[1] || "No end time specified"
         location = event.css('.meta').text()[/Location:\s[A-z\s\']*/]
+        location = location== "" || location == nil ? 'Toronto, ON, Canada' : location + ', Toronto, ON, Canada'
         # sub here used to remove whitespace
         location = location[9..-1].sub(/\s+\Z/, "") + ' ,Toronto, ON, Canada'
         eventAll.push({
