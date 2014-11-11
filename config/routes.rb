@@ -3,7 +3,7 @@ Whattodo::Application.routes.draw do
   get "/whattodo" => "welcome#home"
   get "/test"=>"welcome#test"
   get "/events"=> "events#populate"
-  get "/result/:feeling/:activity/:money"=>"welcome#algorthim"
+  get "/result/:date/:activity/:money"=>"welcome#matchEvents"
   get "/auth/:provider/callback" => "sessions#create"
   get "/signout" => "sessions#destroy", :as => :signout
   get "events/:event_id" => "events#show"

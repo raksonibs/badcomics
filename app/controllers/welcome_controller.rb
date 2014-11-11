@@ -2,13 +2,42 @@ require 'open-uri'
 require 'active_support/core_ext/numeric/time'
 
 class WelcomeController < ApplicationController
+
+  def matchEvents(date=nil,activity=nil, money=nil,recommend=false)
+  	udist=["43.6426, 79.3871"] #cannot hardcode location and time
+  	if feeling==nil
+  		feeling,activity,money=params[:choice1], params[:choice2], params[:choice3]
+  	end #also params[geolocation]
+  	if current_user && !recommend && params[:button]==nil
+  		current_user.choices << Choice.new({price: money,
+                      										category: activity,
+                      										feeling: feeling})
+  	end
+  	feelingmap=feelmap(feeling)
+  	timenow=Time.now
+	  unless recommend
+  		if money[/-/]
+  			money=money[/-\$\d+/][2..money.length]
+  		elsif money[/\d+/]
+  			money=money[/\$\d+/][1..money.length]
+  		else
+
+  			money=0
+  		end
+	  end
+	  activity=activitymap(activity)
+    @data=getposs(activity,feelingmap,money, timenow)
+
+    respondpage(@data,udist,activity,feeling,feelingmap, params, recommend)
+  end
+
   def index
-  	if current_user
-  		@result=current_user.choices
-  		catchoice=categorycount(@result)
-  		pricechoice=pricecount(@result)
-  		feelingchoice=feelingscount(@result)[1]
-  		@result=algorthim(feelingchoice, catchoice,pricechoice,true)
+    if current_user
+      @result=current_user.choices
+      catchoice=categorycount(@result)
+      pricechoice=pricecount(@result)
+      feelingchoice=feelingscount(@result)[1]
+      @result=matchEvents(feelingchoice, catchoice,pricechoice,true)
 
       @recent, @installedfriends=getrecent()
       @picture=FbGraph::User.fetch(current_user.uid).picture
@@ -84,28 +113,6 @@ class WelcomeController < ApplicationController
     avg=avg*1.0/result.size
   end
 
-  def feelingscount(result)
-    res=[]
-    feelings=["Happy", "Sad", "Celebratory", "Lonely", "Restless", "Lazy", "Excited", "Blah", "Festive", "Weird", "Nerdy", "Normal", "Fancy"]
-    feelings.each do |i|
-      res << [result.where(feeling: i).size, i]
-    end
-    max=0
-    feel=""
-    p res
-    res.each do |val|
-
-      if val[0]>max || max==0
-        feel,max=val,val[0]
-      elsif val[0]==max
-        if result.where(feeling: val[1]).order(:created_at).first.created_at > result.where(feeling: feel).order(:created_at).first.created_at
-          feel,max=val[1],val[0]
-        end
-      end
-    end
-    feel
-  end
-
   def activitymap(activity)
     if activity=="Learn"
       activity=["Reading", "Museum", "Art"]
@@ -142,66 +149,6 @@ class WelcomeController < ApplicationController
     end
   end
 
-  def feelmap(feeling)
-    if feeling=="Happy"
-      feelmap=[]#["Music", "Family", "Charity", "Seasonal"]#cannot include every event because just happy, give them based on category here
-    elsif feeling=="Sad"
-      feelmap=["Comedy"]
-    elsif feeling=="Excited"
-      feelmap=["Party", "Music"]
-    elsif feeling=="Blah"
-      feelmap=["Comedy"]#[((rand()*2)-1).ceil]
-    elsif feeling=="Nerdy"
-      feelmap=["Tech"]
-    elsif feeling=="Normal"
-      feelmap=["Music", "Hang Out"]#[((rand()*8)-1).ceil]
-    elsif feeling=="Celebrating"
-      feelmap=["Party"]#[((rand()*2)-1).ceil]
-    elsif feeling=="Lonely"
-      feelmap=["Hang Out"]
-    elsif feeling=="Restless"
-      feelmap=["Music"]
-    elsif feeling=="Lazy"
-      feelmap=["Hang Out"]
-    elsif feeling=="Festive"
-      feelmap=["Seasonal"]
-    elsif feeling=="Wierd"
-      feelmap=["Misc."]
-    elsif feeling=="Fancy"
-      feelmap=["Theatre"]
-    else
-      feelmap=[]
-    end
-  end
-
-  def algorthim(feeling=nil,activity=nil, money=nil,recommend=false)
-  	udist=["43.6426, 79.3871"] #cannot hardcode location and time
-  	if feeling==nil
-  		feeling,activity,money=params[:choice1], params[:choice2], params[:choice3]
-  	end #also params[geolocation]
-  	if current_user && !recommend && params[:button]==nil
-  		current_user.choices << Choice.new({price: money,
-                      										category: activity,
-                      										feeling: feeling})
-  	end
-  	feelingmap=feelmap(feeling)
-  	timenow=Time.now
-	  unless recommend
-  		if money[/-/]
-  			money=money[/-\$\d+/][2..money.length]
-  		elsif money[/\d+/]
-  			money=money[/\$\d+/][1..money.length]
-  		else
-
-  			money=0
-  		end
-	  end
-	  activity=activitymap(activity)
-    @data=getposs(activity,feelingmap,money, timenow)
-
-    respondpage(@data,udist,activity,feeling,feelingmap, params, recommend)
-  end
-
   def respondpage(data,udist,activity,feeling,feelingmap,params,recommend)
     respond_to do |format|
       if recommend
@@ -229,7 +176,7 @@ class WelcomeController < ApplicationController
           marker.lat Event.find_by_name(res).latitude
           marker.lng Event.find_by_name(res).longitude
         end
-        format.js{ render :action => "/algorthim.js.erb" }
+        format.js{ render :action => "/matchEvents.js.erb" }
       elsif params[:button]=="all"
         if params[:button2]!="dist" && params[:button2]!="price" && params[:button2]!="time"
           @result, @button, @button2 = buttons(params, @@all)
