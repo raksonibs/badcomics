@@ -18,6 +18,8 @@
 //= require spin
 //= require_tree .
 
+var dateValues;
+
 $(function() {
   $.datepicker.setDefaults(
     $.extend($.datepicker.regional[''])
@@ -26,11 +28,8 @@ $(function() {
   $('#datepicker').datepicker({
     onSelect: function(dateText, obj) {
       $(this).css('background-color','');
-      alert('Selected: ' + dateText +
-        "\n\nid: " + obj.id +
-        "\nselectedDay: " + obj.selectedDay +
-        "\nselectedMonth: " + obj.selectedMonth +
-        "\nselectedYear: " + obj.selectedYear);
+      // month/day/year
+      dateValues = dateText
       $(".categories, .question, .bhome").fadeOut( function() {
         $(".categories1, .question2, .b2feeling")
           .show()
@@ -41,5 +40,4 @@ $(function() {
     }
   });
   $('#datepicker').datepicker();
-
 });

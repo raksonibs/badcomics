@@ -4,15 +4,15 @@ require 'active_support/core_ext/numeric/time'
 class WelcomeController < ApplicationController
 
   def matchEvents(date=nil,activity=nil, money=nil,recommend=false)
-  	udist=["43.6426, 79.3871"] #cannot hardcode location and time
-  	if feeling==nil
-  		feeling,activity,money=params[:choice1], params[:choice2], params[:choice3]
-  	end #also params[geolocation]
-  	if current_user && !recommend && params[:button]==nil
+  	coords = get_ip
+  	date, activity, money = params[:choice1], params[:choice2], params[:choice3]
+
+  	if current_user && !recommend && params[:button] == nil
   		current_user.choices << Choice.new({price: money,
                       										category: activity,
                       										feeling: feeling})
   	end
+
   	feelingmap=feelmap(feeling)
   	timenow=Time.now
 	  unless recommend
@@ -502,6 +502,11 @@ class WelcomeController < ApplicationController
 
   def score(val,val2,val3,val4, val5)
     val+val2+val3+val4+val5
+  end
+
+  private
+  def get_ip
+    [request.location.latitude, request.location.longitude]
   end
 end
 

@@ -27,3 +27,9 @@ Whattodo::Application.configure do
   # number of complex assets.
   config.assets.debug = true
 end
+
+class ActionDispatch::Request
+  def ip
+    "192.206.151.131"
+  end
+end

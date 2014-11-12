@@ -17,9 +17,6 @@ $(function() {
       top:"+=45",
       opacity: 1},1500);
 
-  $(".categories").on('click', function() {
-  });
-
   $(".b2feeling").on('click', function(event){
     $(".categories1, .question2, .b2feeling").fadeOut( function() {
       $(".categories, .question, .bhome")
@@ -62,6 +59,7 @@ $(function() {
         .animate({left:"+900", opacity: 1}, 800)
         .css("display", "inline")
         .delay(400);
+
       var black = setTimeout(function() {
         $(".output, .question4, .output1")
           .delay(500)
@@ -74,11 +72,6 @@ $(function() {
     });
   });
 
-  $(".categorybox").on('click', function() {
-    choice1 = $($(this).children()[1]).text()
-
-  });
-
   $(".categorybox1").on('click', function() {
     choice2 = $($(this).children()[1]).text()
 
@@ -88,10 +81,10 @@ $(function() {
     choice3 = $($(this).children()[1]).text()
 
     $.ajax({
-        url: "/result/" + choice1 + "/" + choice2 + "/" + choice3,
+        url: "/result/" + dateValues + "/" + choice2 + "/" + choice3,
         type: "GET",
         dataType: "script",
-        data: { choice1: choice1,
+        data: { choice1: dateValues,
                 choice2: choice2,
                 choice3: choice3 },
         complete: function(data) {
@@ -142,99 +135,6 @@ $(function() {
         }
     })
 
-  });
-
-  $("#all").on("click", function() {
-    $(".buttons").toggle();
-
-    if (all === undefined) {
-      $.ajax({
-          url: "/result/" + choice1 + "/" + choice2 + "/" + choice3,
-          type: "GET",
-          dataType: "script",
-          data: { choice1: choice1,
-                  choice2: choice2,
-                  choice3: choice3,
-                  button: "all" },
-          complete: function(data) {
-            all=data.responseText;
-            $(".ourrankdir").css("visibility", "visible")
-          }
-      });
-      $(".alloutput").css("display","block");
-    } else {
-      $(".alloutput").toggle();
-      $(".buttons").toggle();
-    }
-
-  });
-
-  $('.sort-order').on('click', function() {
-    var self = $(this);
-
-
-    $.ajax({
-        url: "/result/" + choice1 + "/" + choice2 + "/" + choice3,
-        type: "GET",
-        dataType: "script",
-        data: { choice1: choice1,
-                choice2: choice2,
-                choice3: choice3,
-                button: "all",
-                button2: self.data('sort-order') },
-        complete: function() {
-            var value= "."+self.data('sort-order')+"dir"
-            for (var i=0; i<upsanddowns.length; i++) {
-              if (value === upsanddowns[i]) {
-                $(value).css("visibility", "visible")
-              } else {
-                $(upsanddowns[i]).css("visibility", "hidden")
-              }
-            }
-          }
-      });
-    });
-
-
-    $(".down").on("click", function(){
-      selection= ($(this).attr("class").split(/\s/)[0].replace(/dir/,""))
-
-      $.ajax({
-          url: "/result/" + choice1 + "/" + choice2 + "/" + choice3,
-          type: "GET",
-          dataType: "script",
-          data: { choice1: choice1,
-                  choice2: choice2,
-                  choice3: choice3,
-                  button: "all",
-                  button2: selection,
-                  button3: "down"}
-
-      })
-    })
-
-    $(".up").on("click", function(){
-      selection= ($(this).attr("class").split(/\s/)[0].replace(/dir/,""))
-      $.ajax({
-          url: "/result/" + choice1 + "/" + choice2 + "/" + choice3,
-          type: "GET",
-          dataType: "script",
-          data: { choice1: choice1,
-                  choice2: choice2,
-                  choice3: choice3,
-                  button: "all",
-                  button2: selection,
-                  button3: "up"
-                  }
-
-      })
-    })
-
-  $("#try").on("click", function() {
-      $(".question4, .alloutput, .buttons, .output, .b2feeling, .bk2category, .output1").hide();
-      $('html, body').animate({scrollTop: '0px'}, 900);
-      all=undefined
-      start();
   });
 
   start();
