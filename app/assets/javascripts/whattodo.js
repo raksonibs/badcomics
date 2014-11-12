@@ -4,10 +4,13 @@ var choice1,
     all,
     selection;
 
-var upsanddowns=[".ourrankdir", ".pricedir", ".distdir", ".timedir"]
+$(document).ready(function() {
+  $(".categories, .categories1, .price, .output, .question2, .question3, .question4, .output1, .bhome, .blackness, #foo")
+    .animate({ opacity: 0}, 0);
 
+  $(".question").delay().fadeIn(500);
 
-$(function() {
+  $(".categories, .bhome").delay().fadeIn().animate({left:"+20", opacity: 1}, 800);
 
   $(".topnav")
     .animate({
@@ -28,6 +31,7 @@ $(function() {
   });
 
   $(".categories1").on('click', function(e) {
+    choice2 = $($(this).children()[1]).text()
     $(".categories1, .question2, .b2feeling").fadeOut( function() {
       $(".price, .question3, .bk2category")
         .show()
@@ -70,11 +74,6 @@ $(function() {
       $(".blackness").fadeOut();
       $("#foo").fadeOut("slow")
     });
-  });
-
-  $(".categorybox1").on('click', function() {
-    choice2 = $($(this).children()[1]).text()
-
   });
 
   $(".categorybox2").on('click', function() {
@@ -136,16 +135,4 @@ $(function() {
     })
 
   });
-
-  start();
-});
-
-function start() {
-  $(".categories, .categories1, .price, .output, .question2, .question3, .question4, .output1, .bhome, .blackness, #foo")
-    .animate({ opacity: 0}, 0);
-
-  $(".question").delay().fadeIn(500);
-
-  $(".categories, .bhome").delay().fadeIn().animate({left:"+20", opacity: 1}, 800);
-
-};
+})
