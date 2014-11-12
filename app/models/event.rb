@@ -54,11 +54,12 @@ class Event < ActiveRecord::Base
       categoryList = val.xpath("//entrydata[@name='CategoryList']")[count].text
       # annoying regex to check for categoryList
       categoryList = if categoryList == nil 
-                        "Misc" 
+                        ["Misc"]
                       else
                         categoryList.split(/([A-Z]+[a-z]*\s*[a-z]*)/).reject! { |c| c.empty? || c == "/"}
                       end
-      categoryList = categoryList.join('/')
+
+      categoryList = ["Misc"] if categoryList == nil || categoryList == ""
 
       timeStart = val.xpath("//entrydata[@name='TimeBegin']")[count].text == "" || val.xpath("//entrydata[@name='TimeBegin']")[count].text == nil || val.xpath("//entrydata[@name='TimeBegin']")[count].text == ': ' ? "Time not listed" : Time.parse(val.xpath("//entrydata[@name='TimeBegin']")[count].text).strftime("%I:%M %p")
       timeEnd = val.xpath("//entrydata[@name='TimeEnd']")[count].text == "" || val.xpath("//entrydata[@name='TimeBegin']")[count].text == nil || val.xpath("//entrydata[@name='TimeBegin']")[count].text == ': ' ? "Time not listed" : Time.parse(val.xpath("//entrydata[@name='TimeEnd']")[count].text).strftime("%I:%M %p")
@@ -113,7 +114,9 @@ class Event < ActiveRecord::Base
         location = event['event']["venue"]["address"] + event['event']["venue"]["address_2"]
         location = location == "" || location == nil ? "No address listed" : location + ", Toronto, ON, Canada"
         url = event['event']["url"]
-        desc = event['event']["description"]
+        desc = event['event']["description"] || "No description"
+        categoryList = Event.findCats(desc)
+        categoryList = ["Misc"] if categoryList == nil || categoryList == ""
         eventAll.push({
           name: name,
           url: url,
@@ -122,7 +125,7 @@ class Event < ActiveRecord::Base
           dayOn: timeStart,
           dayEnd: timeEnd,
           desc: desc,
-          categoryList: ["Misc"]
+          categoryList: categoryList
         })
       end
     end
@@ -152,7 +155,9 @@ class Event < ActiveRecord::Base
         location = event["venue_address"]
         location = location == "" || location == nil ? "No address listed" : location + ", Toronto, ON, Canada"
         url = event["url"]
-        desc = event["description"]
+        desc = event["description"] || "No description"
+        categoryList = Event.findCats(desc)
+        categoryList = ["Misc"] if categoryList == nil || categoryList == ""
         eventAll.push({
           name: name,
           url: url,
@@ -161,7 +166,7 @@ class Event < ActiveRecord::Base
           dayOn: timeStart,
           dayEnd: timeEnd,
           desc: desc,
-          categoryList: ["Misc"]
+          categoryList: categoryList
         })
       end
     end
@@ -192,7 +197,9 @@ class Event < ActiveRecord::Base
         location = event["venue"] == nil ? "" : event["venue"]["address_1"]
         location = location == "" || location == nil ? "No address listed" : location + ", Toronto, ON, Canada"
         url = event["event_url"]
-        desc = event["description"]
+        desc = event["description"] || "No description"
+        categoryList = Event.findCats(desc)
+        categoryList = ["Misc"] if categoryList == nil || categoryList == ""
         eventAll.push({
           name: name,
           url: url,
@@ -201,7 +208,7 @@ class Event < ActiveRecord::Base
           dayOn: time,
           dayEnd: time,
           desc: desc,
-          categoryList: ['Misc']
+          categoryList: categoryList
         })
       end
     end
@@ -236,7 +243,7 @@ class Event < ActiveRecord::Base
           dayOn: dayTimeStart,
           dayEnd: dayTimeStart,
           desc: description,
-          categoryList: [description]
+          categoryList: ["Music"]
           })
       end
       pageCount += 1
@@ -265,6 +272,8 @@ class Event < ActiveRecord::Base
         location = location== "" || location == nil ? 'Toronto, ON, Canada' : location + ', Toronto, ON, Canada'
         dayTime = todaystr + " " + event.css('info-eventtime').text()
         descIncomplete = event.css('.event-summary').text()
+        categoryList = Event.findCats(descIncomplete)
+        categoryList = ["Misc"] if categoryList == nil || categoryList == ""
         allEvents.push({
           name: name,
           url: url,
@@ -273,7 +282,7 @@ class Event < ActiveRecord::Base
           dayOn: dayTime,
           dayEnd: dayTime,
           desc: descIncomplete,
-          categoryList: ["Misc"]
+          categoryList: categoryList
           })
       end
       dayCount += 1
@@ -309,6 +318,8 @@ class Event < ActiveRecord::Base
         location = location== "" || location == nil ? 'Toronto, ON, Canada' : location + ', Toronto, ON, Canada'
         # sub here used to remove whitespace
         location = location[9..-1].sub(/\s+\Z/, "") + ' ,Toronto, ON, Canada'
+        categoryList = Event.findCats(desc)
+        categoryList = ["Misc"] if categoryList == nil || categoryList == ""
         eventAll.push({
           name: name,
           url: url,
@@ -317,13 +328,35 @@ class Event < ActiveRecord::Base
           dayOn: dayStart,
           dayEnd: dayEnd,
           desc: desc,
-          categoryList: ['Misc']
+          categoryList: categoryList
         })
       end
       pageCount += 1
     end
 
     return eventAll
+  end
+
+  def self.findCats(desc)
+    catList = []
+    catList << "Music" if desc[/music/i] || desc[/jam/i] || desc[/concert/i] || desc[/band/i] || desc[/songs/i] || desc[/vocal/i] || desc[/singer/i] || desc[/songwriter/i]
+    catList << "Seasonal" if desc[/holiday/i] || desc[/christmas/i] || desc[/hannu/i] || desc[/season/i]
+    catList << "Cultured" if desc[/reading/i] || desc[/art/i] || desc[/museum/i] || desc[/gallery/i] || desc[/documentary/i]
+    catList << "Learn" if desc[/learn/i] || desc[/knowledge/i] || desc[/talk/i] || desc[/reading/i] || desc[/university/i] || desc[/school/i]
+    catList << "Investing" if desc[/invest/i] || desc[/business/i] || desc[/spend/i] || desc[/network/i] || desc[/money/i] 
+    catList << "Sport" if desc[/sport/i] || desc[/exercise/i] || desc[/yoga/i] || desc[/basketball/i] || desc[/hockey/i] || desc[/soccer/i]
+    catList << "Geek" if desc[/learn/i] || desc[/knowledge/i] || desc[/talk/i] || desc[/reading/i] || desc[/tech/i] || desc[/computer/i] || desc[/developer/i] || desc[/programmer/i] || desc[/wearable/i] || desc[/printer/i]
+    catList << "Outdoor" if desc[/park/i] || desc[/outdoor/i] || desc[/forest/i] || desc[/skating/i]
+    catList << "Good" if desc[/benefits/i] || desc[/gala/i] || desc[/charity/i] || desc[/fundraising/i]
+    # tourist is based on big locations but right now just misc cateogry
+    # also try new things and meet new people is this category as well
+    catList << "Party" if desc[/bash/i] || desc[/party/i] || desc[/alcohol/i] || desc[/dancing/i]
+    catList << "Watch" if desc[/show/i] || desc[/watch/i] || desc[/movie/i] || desc[/film/i]
+    catList << "Laugh" if desc[/comedy/i] || desc[/funny/i] || desc[/fun/i] || desc[/improv/i]
+    catList << "Religion" if desc[/religious/i] || desc[/religion/i] || desc[/jesus/i] || desc[/church/i]
+    catList << "Food" if desc[/food/i] || desc[/barbeque/i] || desc[/dinner/i] || desc[/lunch/i] || desc[/breakfast/i]
+    catList = catList != [] ? catList : ["Misc"]
+    catList
   end
 
 end

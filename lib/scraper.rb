@@ -19,7 +19,8 @@ module Scraper
           location = element.all(:css, '.event_info a')[1].text() + ', Toronto, ON, Canada'
           desc = element.find('.description').text()
           price = desc[/\$\d+/] || "Free"
-          categories = element.find('.cats span').text().split(', ').join('/')
+          categories = element.find('.cats span').text().split(/[\/\s,]/).reject!(&:empty?)
+          categories = ["Misc"] if categories == nil || categories == ""
           eventAll.push({
               name: name,
               url: url,
