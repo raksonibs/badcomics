@@ -30,8 +30,8 @@ $(document).ready(function() {
     });
   });
 
-  $(".categories1").on('click', function(e) {
-    choice2 = $($(this).children()[1]).text()
+  $(".categorybox1").on('click', function(e) {
+    choice2 = $(this).text().trim()
     $(".categories1, .question2, .b2feeling").fadeOut( function() {
       $(".price, .question3, .bk2category")
         .show()
@@ -77,8 +77,8 @@ $(document).ready(function() {
   });
 
   $(".categorybox2").on('click', function() {
-    choice3 = $($(this).children()[1]).text()
-
+    choice3 = $(this).text().trim()
+    console.log("/result/" + dateValues + "/" + choice2 + "/" + choice3)
     $.ajax({
         url: "/result/" + dateValues + "/" + choice2 + "/" + choice3,
         type: "GET",

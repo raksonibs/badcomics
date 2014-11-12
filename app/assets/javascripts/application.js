@@ -29,7 +29,8 @@ $(function() {
     onSelect: function(dateText, obj) {
       $(this).css('background-color','');
       // month/day/year
-      dateValues = dateText
+      dateValues = obj.selectedDay + '-' + (obj.selectedMonth + 1) + '-' + obj.selectedYear
+
       $(".categories, .question, .bhome").fadeOut( function() {
         $(".categories1, .question2, .b2feeling")
           .show()

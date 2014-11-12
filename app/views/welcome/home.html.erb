@@ -33,7 +33,7 @@
 				</div>
 
 				<div class='question2'>
-					<p>What do you feel like?</p>
+					<p>What do you feel like doing?</p>
 					<!-- <p class="subtext">We are almost there</p> -->
 				</div>
 
@@ -98,20 +98,9 @@
 
 			<!-- Output styling in result.css.scss -->
 
-			<div class='output'>
-				<p>Whoops! Try again.</p>
-				<%= render 'ranks'%>
-			</div>
-
-			<div class='output1'>
-				<button id="all">All Results</button>
-				<button id="try">Try Again!</button>
-			</div>
-
 			<div id="contain">
 				<div class="blackness">
-
-				</div>
+			</div>
 
 
 				<div id="foo"></div>
@@ -172,22 +161,24 @@ var spinner = new Spinner(opts).spin(target);
 start1()
 function start1() {
 	var categoryBank=[["Get Cultured", "assets/dark/appbar.globe.png"],
-	["Learn", "/assets/dark/appbar.radar.screen.png"],
+	["Expand Mind", "/assets/dark/appbar.radar.screen.png"],
 	["Try New Things", "/assets/dark/appbar.map.treasure.png"],
 	["Be Merry", "assets/dark/appbar.snowflake.png"],
  	["Meet New People", "assets/dark/appbar.people.multiple.png"],
-	["Laugh", "assets/dark/appbar.smiley.kiki.png"],
-	["Touristy", "/assets/dark/appbar.city.sanfrancisco.png"],
+	["Joke/Laugh/Cry", "assets/dark/appbar.smiley.kiki.png"],
+	["Be a Tourist", "/assets/dark/appbar.city.sanfrancisco.png"],
 	["Jam Out", "/assets/dark/appbar.music.live.png"],
 	["Be a Good Person", "/assets/dark/appbar.thumbs.up.png"],
 	["Party Hardy", "/assets/dark/appbar.martini.png"],
 	["Family Channel", "/assets/dark/appbar.home.png"],
-	["Sports", "/assets/dark/appbar.image.sports.png"],
+	["Sports, sport", "/assets/dark/appbar.image.sports.png"],
 	["Watch a Show", "/assets/dark/appbar.movie.clapper.png"],
-	["Outdoor Fun", "assets/dark/appbar.tree.pine.png"],
+	["Trek Outdoors", "assets/dark/appbar.tree.pine.png"],
 	["Foody Cravings", "assets/dark/appbar.tree.pine.png"],
-	["Divine Inspirations", "assets/dark/appbar.tree.pine.png"],
+	["Divine Revelation", "assets/dark/appbar.tree.pine.png"],
 	["All Business", "assets/dark/appbar.money.png"],
+	["Artsy Fartsy", "assets/dark/appbar.money.png"],
+	["A Day at the Theatre", "assets/dark/appbar.money.png"],
 	["Geek Out", "assets/dark/appbar.potion.png"]];
 
 	var indexes1=[]
