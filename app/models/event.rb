@@ -12,6 +12,29 @@ class Event < ActiveRecord::Base
     File.open('eventsseedfile.txt', 'w') { |file| file.write(events) }
   end
 
+  def self.getMatchingEvents
+    priceSent = 300
+    catList = ['DJ', 'Celebrations', 'Party', 'Dance', 'Lounge'] 
+    date = "12-11-2014"
+    eventsCat = []
+    catList.each do |cat| 
+      eventsCat << Event.select{|e| e.categoryList.include? cat }
+    end
+    eventsCat.flatten!
+
+    eventsCatDay = eventsCat.select {|e| Date.parse(e.dayOn) == Date.parse(date) }
+
+    eventsCatDayPrice = []
+    eventsCatDay.each do |event|
+      price  = event.price
+      price = 0 if price == "Free"
+      # currently making check lisitng url very expensive because difficult
+      price = 300 if price == "Check listing url!"
+      eventsCatDayPrice << event if price.to_i <= priceSent
+    end
+    eventsCatDayPrice
+  end
+
   def self.createEvents
      arrEvents = Event.getdata
      arrEvents.each do |event|
@@ -66,7 +89,7 @@ class Event < ActiveRecord::Base
 
       url = val.xpath("//entrydata[@name='EventURL']")[count].text == "" || val.xpath("//entrydata[@name='EventURL']")[count].text == nil ? "No url listed" : val.xpath("//entrydata[@name='EventURL']")[count].text
       # day start and end used for ranges
-      dayOn = val.xpath("//entrydata[@name='DateBeginShow']")[count].text + timeStart
+      dayOn = val.xpath("//entrydata[@name='DateBeginShow']")[count].text + " " + timeStart
       dayEnd = val.xpath("//entrydata[@name='DateEndShow']")[count].text
       events.push({name: val.xpath("//entrydata[@name='EventName']")[count].text, 
                   url: url,
@@ -191,7 +214,7 @@ class Event < ActiveRecord::Base
       dataForPage.each do |event|
         name = event["name"]
         name = name == nil || name == "" ? event["group"]["name"] : name
-        time = Time.at(event["time"]/1000).strftime("%I:%M %p")
+        time = Time.at(event["time"]/1000).to_datetime
         price = event["fee"] != nil ? event["fee"]["amount"] : 0
         price = price == 0 || price == nil || price == "0" ? "Free" : price
         location = event["venue"] == nil ? "" : event["venue"]["address_1"]
