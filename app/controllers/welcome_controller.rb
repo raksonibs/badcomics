@@ -22,16 +22,32 @@ class WelcomeController < ApplicationController
 
 	  activityMappedInterests = activityMapInterests(activity)
 
-    @matchedEvents = getMatchingEvents(date, activityMappedInterests, money)
-    binding.pry
+    @matchedEvents = uniqueEvents(getMatchingEvents(date, activityMappedInterests, money))
+    @matchedDayEvents = uniqueEvents(getMatchingDayEvents(date) - @matchedEvents)
 
     respond_to do |format|
       format.js{ render :action => "/all.js.erb" }
     end
-    # Note: must subtract above from result of getDay events
-    # @sameDayEvents = getDayEvents(date) - @matchedEvents
+  end
 
-    # respondpage(@data,udist,activity,feeling,feelingmap, params, recommend)
+  def getMatchingDayEvents(dateSent)
+    # events for that day is huge (1000+). Need to sift out duplicates somehow
+    # check each listings location, price, name, day on and end, and see how many are similiar. Generally name is best indicator.
+    eventsDay = []
+    Event.all.each do |event|
+      #  stupid conditions because nil endtime and inapproritate datetime
+      if event.dayOn != "No start time specified" && event.dayEnd != "No end time specified" && !event.dayEnd.nil? && event.dayEnd.length > 9
+        dateRange = (Date.parse(event.dayOn) .. Date.parse(event.dayEnd))
+        if Date.parse(event.dayOn) == Date.parse(dateSent)
+          eventsDay <<  event 
+        elsif dateRange.cover?(Date.parse(dateSent))
+          eventsDay <<  event 
+        end
+      elsif event.dayOn != "No start time specified" && Date.parse(event.dayOn) == Date.parse(dateSent)
+        eventsDay <<  event 
+      end
+    end
+    eventsDay
   end
 
   def getMatchingEvents(dateSent, catListSent, priceSent)
@@ -40,18 +56,18 @@ class WelcomeController < ApplicationController
       eventsCat << Event.select{|e| e.categoryList.include? cat }
     end
     eventsCat.flatten!
-    # also need to check if dates are inbetween!
-    # also time could not be specified
+
     eventsCatDay = []
     eventsCat.each do |event|
-      if event.dayOn != "No start time specified"
-        dateRange = (Date.parse(e.dayOn) .. Date.parse(e.dayEnd))
-        if Date.parse(e.dayOn) == Date.parse(dateSent)
+      if event.dayOn != "No start time specified" && event.dayEnd != "No end time specified" && !event.dayEnd.nil? && event.dayEnd.length > 9
+        dateRange = (Date.parse(event.dayOn) .. Date.parse(event.dayEnd))
+        if Date.parse(event.dayOn) == Date.parse(dateSent)
           eventsCatDay <<  event 
         elsif dateRange.cover?(Date.parse(dateSent))
           eventsCatDay <<  event 
         end
-          
+      elsif event.dayOn != "No start time specified" && Date.parse(event.dayOn) == Date.parse(dateSent)
+        eventsCatDay <<  event 
       end
     end 
 
