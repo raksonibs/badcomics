@@ -107,6 +107,51 @@ class WelcomeController < ApplicationController
   end
 
   private
+
+  def uniqueEvents(eventArray)
+    eventsUnique = []
+    eventArray.each do |event|
+      eventsUnique << event if !eventsUnique.any?{|c| c.name.downcase == event.name.downcase}
+    end
+    eventsUnique
+  end
+
+  def uniqueLeven(eventsArray)
+    # this recursive running with double loop is too slow. 
+    largeDistanceEvents = []
+    eventsArray.each do |event|
+      eventsArray.each do |secondEvent|
+        largeDistanceEvents << secondEvent if levenshtein(event.name, secondEvent.name) > 3
+      end
+    end
+    largeDistanceEvents
+  end
+
+  def levenshtein(first, second)
+    # comparing each string with the other is difficult to do. Especially comparing every created string with every next string. that is o(n)  +matrix traversal. On the smaller list slightly faster.
+    first = first.downcase
+    second = second.downcase
+    matrix = [(0..first.length).to_a]
+    (1..second.length).each do |j|
+      matrix << [j] + [0] * (first.length)
+    end
+   
+    (1..second.length).each do |i|
+      (1..first.length).each do |j|
+        if first[j-1] == second[i-1]
+          matrix[i][j] = matrix[i-1][j-1]
+        else
+          matrix[i][j] = [
+            matrix[i-1][j],
+            matrix[i][j-1],
+            matrix[i-1][j-1],
+          ].min + 1
+        end
+      end
+    end
+    return matrix.last.last
+  end
+
   def get_ip
     coords = [request.location.latitude, request.location.longitude]
   end
