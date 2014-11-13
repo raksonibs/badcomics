@@ -8,6 +8,7 @@ class WelcomeController < ApplicationController
     # going to list match that day, activity, and price range
     # then all events on that date
     # then can quickly change on that page in side bar
+    # 12-11-2014 Joke, Laugh, Cry, free
   	date, activity, money = params[:choice1], params[:choice2], params[:choice3]
   	timenow = Time.now
 
@@ -72,7 +73,7 @@ class WelcomeController < ApplicationController
     activityInterests << ['Seminars', 'Workshops', 'History', 'Books', 'Geek'] if activitySelected == "Geek Out"
     activityInterests << ['Misc', 'Queer'] if activitySelected == "Try New Things"
     activityInterests << ['Seasonal', 'Season', 'Festive', 'Holiday'] if activitySelected == "Be Merry"
-    activityInterests << ['Comedy', 'Laugh'] if activitySelected == "Joke/Laugh/Cry"
+    activityInterests << ['Comedy', 'Laugh'] if activitySelected == "Joke, Laugh, Cry"
     activityInterests << ['Celebrations', 'Farmers markets', 'Exhibits', 'Festivals'] if activitySelected == "Be a Tourist"
     activityInterests << ['Charity', 'Cause', 'Benefits', 'Good', 'Community'] if activitySelected == "Be a Good Person"
     activityInterests << ['DJ', 'Celebrations', 'Party', 'Dance', 'Lounge'] if activitySelected == "Party Hardy"

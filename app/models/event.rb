@@ -12,29 +12,6 @@ class Event < ActiveRecord::Base
     File.open('eventsseedfile.txt', 'w') { |file| file.write(events) }
   end
 
-  def self.getMatchingEvents
-    priceSent = 300
-    catList = ['DJ', 'Celebrations', 'Party', 'Dance', 'Lounge'] 
-    date = "12-11-2014"
-    eventsCat = []
-    catList.each do |cat| 
-      eventsCat << Event.select{|e| e.categoryList.include? cat }
-    end
-    eventsCat.flatten!
-
-    eventsCatDay = eventsCat.select {|e| Date.parse(e.dayOn) == Date.parse(date) }
-
-    eventsCatDayPrice = []
-    eventsCatDay.each do |event|
-      price  = event.price
-      price = 0 if price == "Free"
-      # currently making check lisitng url very expensive because difficult
-      price = 300 if price == "Check listing url!"
-      eventsCatDayPrice << event if price.to_i <= priceSent
-    end
-    eventsCatDayPrice
-  end
-
   def self.createEvents
      arrEvents = Event.getdata
      arrEvents.each do |event|
@@ -363,7 +340,7 @@ class Event < ActiveRecord::Base
   def self.findCats(desc)
     catList = []
     catList << "Music" if desc[/music/i] || desc[/jam/i] || desc[/concert/i] || desc[/band/i] || desc[/songs/i] || desc[/vocal/i] || desc[/singer/i] || desc[/songwriter/i]
-    catList << "Seasonal" if desc[/holiday/i] || desc[/christmas/i] || desc[/hannu/i] || desc[/season/i]
+    catList << "Seasonal" if desc[/holiday/i] || desc[/christmas/i] || desc[/hannu/i] || desc[/seasonal/i] || desc[/festive/i]
     catList << "Cultured" if desc[/reading/i] || desc[/art/i] || desc[/museum/i] || desc[/gallery/i] || desc[/documentary/i]
     catList << "Learn" if desc[/learn/i] || desc[/knowledge/i] || desc[/talk/i] || desc[/reading/i] || desc[/university/i] || desc[/school/i]
     catList << "Investing" if desc[/invest/i] || desc[/business/i] || desc[/spend/i] || desc[/network/i] || desc[/money/i] 
@@ -375,7 +352,7 @@ class Event < ActiveRecord::Base
     # also try new things and meet new people is this category as well
     catList << "Party" if desc[/bash/i] || desc[/party/i] || desc[/alcohol/i] || desc[/dancing/i]
     catList << "Watch" if desc[/show/i] || desc[/watch/i] || desc[/movie/i] || desc[/film/i]
-    catList << "Laugh" if desc[/comedy/i] || desc[/funny/i] || desc[/fun/i] || desc[/improv/i]
+    catList << "Laugh" if desc[/comedy/i] || desc[/funny/i] || desc[/improv/i] || desc[/comic/i]
     catList << "Religion" if desc[/religious/i] || desc[/religion/i] || desc[/jesus/i] || desc[/church/i]
     catList << "Food" if desc[/food/i] || desc[/barbeque/i] || desc[/dinner/i] || desc[/lunch/i] || desc[/breakfast/i]
     catList = catList != [] ? catList : ["Misc"]

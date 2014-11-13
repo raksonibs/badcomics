@@ -5,6 +5,7 @@ var choice1,
     selection;
 
 $(document).ready(function() {
+
   $(".categories, .categories1, .price, .output, .question2, .question3, .question4, .output1, .bhome, .blackness, #foo")
     .animate({ opacity: 0}, 0);
 
@@ -87,7 +88,7 @@ $(document).ready(function() {
                 choice2: choice2,
                 choice3: choice3 },
         complete: function(data) {
-
+            $('.buttonAllDay, .btnTry').show()
             function initialize()
             {
                 var arrcount=0
