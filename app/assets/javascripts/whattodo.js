@@ -137,3 +137,7 @@ $(document).ready(function() {
 
   });
 })
+
+$(document).on('click', '.buttonAllDay', function() {  
+  $('.allDayResults').toggle()
+})

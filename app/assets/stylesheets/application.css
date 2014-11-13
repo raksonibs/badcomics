@@ -12,3 +12,27 @@
  *= require font-awesome
  *= require_tree .
  */
+
+ .allDayResults,
+ .buttonAllDay,
+ .btnTry {
+  display: none;
+ }
+
+ .bottomBtns {
+  text-align: center;
+ }
+
+ .bottomBtns .buttonAllDay,
+ .bottomBtns .btnTry {
+  border: none;
+  background-color: rgba(255,255,255,0.21);
+  border-radius: 6px;
+  font-family: "Roboto";
+  font-weight: 300;
+  font-size: 1.7em;
+  color: white;
+  box-shadow: 3px 3px 4px 1px rgba(0, 0, 0, 0.43);
+  -moz-box-shadow: 3px 3px 4px 1px rgba(0, 0, 0, 0.43);
+  -webkit-box-shadow: 3px 3px 4px 1px rgba(0, 0, 0, 0.43);
+ }

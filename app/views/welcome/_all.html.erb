@@ -4,13 +4,38 @@
     <% @matchedEvents.each do |event| %>
       <div class="eachresult1">
         <div class="name1">
-          <a href="#{event.url}"> <%="#{event.name}" %></a>
+          <a href="<%= event.url%>"> <%="#{event.name}" %></a>
         </div>
         <div class="location1">
           <%= "@ #{event.location}" %>
         </div>
         <div class="time1">
-          <%= "@ #{event.dayOn}" %>
+          <%= "@ #{event.dayOn}" %> - <%= "@ #{event.dayEnd}" %>
+        </div>
+        <div class="matchscore1">
+           Price: <%= "#{event.price}" %>
+        </div>
+      </div>
+  <% end %>
+<% end %>
+<br />
+<div class="bottomBtns">
+  <button class="buttonAllDay">Results for this day</button>
+  <a class="btnTry" href="/whattodo">Try Again</a>
+</div>
+<br />
+<% if @matchedDayEvents %>
+  <div class="allDayResults">
+    <% @matchedDayEvents.each do |event| %>
+      <div class="eachresult1">
+        <div class="name1">
+          <a href="<%= event.url%>"> <%="#{event.name}" %></a>
+        </div>
+        <div class="location1">
+          <%= "@ #{event.location}" %>
+        </div>
+        <div class="time1">
+          <%= "@ #{event.dayOn}" %> - <%= "@ #{event.dayEnd}" %>
         </div>
         <div class="matchscore1">
            Price: <%= "#{event.price}" %>
