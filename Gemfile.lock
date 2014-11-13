@@ -150,6 +150,9 @@ GEM
     json (1.8.1)
     jwt (0.1.8)
       multi_json (>= 1.5)
+    kaminari (0.15.1)
+      actionpack (>= 3.0.0)
+      activesupport (>= 3.0.0)
     kgio (2.9.2)
     koala (1.8.0rc1)
       addressable
@@ -328,6 +331,7 @@ DEPENDENCIES
   jbuilder (~> 1.2)
   jquery-rails
   jquery-ui-rails
+  kaminari
   koala (~> 1.8.0rc1)
   mechanize
   mini_magick

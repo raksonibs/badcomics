@@ -30,9 +30,12 @@ class WelcomeController < ApplicationController
     end
   end
 
+  def test
+    @matchedEvents  = uniqueEvents(getMatchingEvents('13-11-2014', activityMapInterests('Family Channel'), 0))
+    @matchedDayEvents = uniqueEvents(getMatchingDayEvents('13-11-2014') - @matchedEvents)
+  end
+
   def getMatchingDayEvents(dateSent)
-    # events for that day is huge (1000+). Need to sift out duplicates somehow
-    # check each listings location, price, name, day on and end, and see how many are similiar. Generally name is best indicator.
     eventsDay = []
     Event.all.each do |event|
       #  stupid conditions because nil endtime and inapproritate datetime
@@ -102,7 +105,7 @@ class WelcomeController < ApplicationController
     activityInterests << ['Arts', 'Exhibits', 'Stage', 'Theatre', 'Cultural', 'Cultured', 'Art'] if activitySelected == "Get Cultured"
     activityInterests << ['Family', 'Children', 'Charity', 'All'] if activitySelected == "Family Channel"
     activityInterests << ['Art', 'Arts', 'Exihibts', 'Cultured'] if activitySelected == "Artsy Fartsy"
-    activityInterests << ['Film', 'Theatre', 'Stage', 'Watch'] if activitySelected == "A Day at the Theatre"
+    activityInterests << ['Film', 'Theatre', 'Stage', 'Watch'] if activitySelected == "Where Art Thou?"
     activityInterests.flatten!
   end
 
