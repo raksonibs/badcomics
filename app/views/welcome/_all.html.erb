@@ -1,5 +1,5 @@
 <!-- why is this necessary? -->
-<% if @matchedEvents %>
+<% if @matchedEvents != nil && @matchedEvents != [] %>
   <div class="allresults">
     <% @matchedEvents.each do |event| %>
       <div class="eachresult1">
@@ -17,6 +17,10 @@
         </div>
       </div>
   <% end %>
+<% else %>
+<div class='output allresults'>
+  <p>Whoops! Try again.</p>
+</div>
 <% end %>
 <br />
 <div class="bottomBtns">
