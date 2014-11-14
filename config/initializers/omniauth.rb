@@ -1,3 +1,8 @@
 Rails.application.config.middleware.use OmniAuth::Builder do
-	provider :facebook, "490186127763039", "712c85f9b75e8728d6a49ba7d22454e3"
+	provider :facebook, Figaro.env.facebook_id, Figaro.env.facebook_secret,
+   :scope => 'email,read_stream',
+    :client_options => {
+      :site => 'https://graph.facebook.com/v2.0',
+      :authorize_url => "https://www.facebook.com/v2.0/dialog/oauth"
+    }
 end

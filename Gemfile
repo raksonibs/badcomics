@@ -43,6 +43,7 @@ gem 'mini_magick'
 
 gem "fql"
 gem 'kaminari'
+gem 'figaro'
 
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 

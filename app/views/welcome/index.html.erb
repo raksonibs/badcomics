@@ -33,23 +33,8 @@
             <div id="soonevents" style="display:none;"><br><br>
               <div style="display:inline;">Events happening soon:</div>
               <br>
-              <% @events[0..1].each do |event| %>
-              <div class="nameevent event" style="display:inline;">
-              <% value= event.link[/http/] ? event.link : 'http://' + event.link %>
-              <% value = value[/listed/] ? "" : value %>
-              <a href="<%= value %>">
-              <%= eventname = event.name[0..25] %>
-              <% if event.name.length > 25 %>
-                <%= "..." %>
-              </a>
-              <% end %>
-              </div>
-              <div class="timeevent event" style="display:inline;">
-                at <%= event.time %>    </div><div></div>
-                <!-- Where: <%= event.location %> <br>
-                $$$: <%= event.price %> <br> -->
-
-              <% end %>
+              
+              
             </div>
         </div>
 
@@ -58,57 +43,6 @@
         </button>
     </div>
 
-    <div class="recommend">
-      <div class="rightfade">
-
-        <h2 class="recommendmsg">
-          Recommendations
-        </h2>
-        <!-- Note: took out recs because not tracking choices right now! No point! Might remove completely -->
-       <!--  <div class="recommendations">
-          <%= render 'rec' %>
-        </div> -->
-        <% count=0 %>
-
-        <div class="friendmsg">
-          Friends using the App
-        </div>
-
-        <div class="friendoutput">
-          <% @installedfriends.each do |key, value| %>
-
-          <div class="picandname">
-            <div class="imgfb"><img src=<%=key.picture%>/></div>
-            <div class="namefb"><%=key.name%></div>
-          </div>
-
-          <div class="rover <%= count %>">
-            <div id="info">
-              <% unless @recent[User.find_by_name(key.name)]==nil %>
-
-              was feeling <%= @recent[User.find_by_name(key.name)].feeling %>, looking for <%= @recent[User.find_by_name(key.name)].category %> and wanted it at <%= @recent[User.find_by_name(key.name)].price %>
-              <hr>
-              <% if Event.find_by_name(@recent[User.find_by_name(key.name)].first_event)==nil %>
-                <%= "Happened yesterday!" %>
-              <% else %>
-                <%= Event.find_by_name(@recent[User.find_by_name(key.name)].first_event).name %> <br>
-                @<%= Event.find_by_name(@recent[User.find_by_name(key.name)].first_event).location %><br>
-                @<%= Event.find_by_name(@recent[User.find_by_name(key.name)].first_event).time %>
-              <!-- want distance from you -->
-              <% end %>
-              <% end %>
-            </div>
-            <%= @recent[User.find_by_name(key.name)]!=nil ? "-"+@recent[User.find_by_name(key.name)].first_event : "Nothing yet" %>
-          </div>
-
-          </a><br>
-          <% count+=1 %>
-          <% end %>
-
-
-
-        </div>
-    </div>
 
 </div>
 

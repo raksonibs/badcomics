@@ -16,8 +16,6 @@
 //= require underscore
 //= require gmaps/google
 //= require spin
-//= require grid
-//= require modernizr.custom
 //= require_tree .
 
 var dateValues;

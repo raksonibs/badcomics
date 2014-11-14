@@ -4,6 +4,13 @@ require 'active_support/core_ext/numeric/time'
 class WelcomeController < ApplicationController
   # before_action :get_ip, only: [:matchEvents]
 
+  def index
+    if current_user
+      user = FbGraph::User.me(current_user.oauth_token)
+      @picture = FbGraph::User.fetch(current_user.uid).picture if current_user
+    end
+  end
+
   def matchEvents(date=Date.today,activity=nil, money=nil)
     # going to list match that day, activity, and price range
     # then all events on that date
