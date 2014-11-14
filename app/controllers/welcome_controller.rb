@@ -3,6 +3,11 @@ require 'active_support/core_ext/numeric/time'
 
 class WelcomeController < ApplicationController
   # before_action :get_ip, only: [:matchEvents]
+  before_action :get_categories ,only: [:matchEvents, :home]
+  before_action :get_prices ,only: [:matchEvents, :home]
+
+  def home
+  end
 
   def index
     if current_user
@@ -117,6 +122,21 @@ class WelcomeController < ApplicationController
   end
 
   private
+
+  def get_categories
+    @categories = ["Get Cultured", "Expand Mind", "Try New Things", 
+                  "Be Merry", "Meet New People", "Joke, Laugh, Cry", 
+                  "Be a Tourist", "Jam Out", "Be a Good Person", 
+                  "Party Hardy", "Family Channel", "Sports, sport", 
+                  "Watch a Show", "Trek Outdoors", "Foody Cravings", 
+                  "Divine Revelation", "All Business", "Artsy Fartsy", 
+                  "Where Art Thou?", "Geek Out"]
+  end
+
+  def get_prices
+    @prices = ["Free", "<20", "20-40",
+                "40-80", "80-160", "I don't care!"]
+  end
 
   def uniqueEvents(eventArray)
     eventsUnique = []

@@ -56,8 +56,20 @@
 			<div class="right-results-change">
 				<h2>Change Things!</h2>
 				<div id="datepickerAfter" class="all-right"></div>
-				<div id="input-for-category" class="all-right"></div>
-				<div id="input-for-price" class="all-right"></div>
+				<div id="input-for-category" class="all-right">
+					<select name="selectCat">
+						<% @categories.each do |cat| %>
+							<option value="<%= cat %>"> <%= cat %> </option>
+						<% end %>
+					</select>
+				</div>
+				<div id="input-for-price" class="all-right">
+					<select name="selectPrice">
+						<% @prices.each do |price| %>
+							<option value="<%= price %>"> <%= price %> </option>
+						<% end %>
+					</select>
+				</div>
 			</div>
 
 			<div class='categories1'>
@@ -81,9 +93,9 @@
 			<div class='price'>
 				<button id='13' class='categorybox2'><div id='13img'></div> <i class="fa fa-mortar-board fa-2x"></i><div id='13text'>Free!</div></button>
 				<button id='14' class='categorybox2'><div id='14img'> <i class="fa fa-money fa-2x"></i></div><div id='14text'>&lt;$20</div></button>
-				<button id='15' class='categorybox2'><div id='15img'> <i class="fa fa-btc fa-2x"></i></div><div id='15text'>$20-$50</div></button>
-				<button id='16' class='categorybox2'><div id='16img'></div> <i class="fa fa-shopping-cart fa-2x"></i><div id='16text'>$50-$100</div></button>
-				<button id='17' class='categorybox2'><div id='17img'></div> <i class="fa fa-cc-visa fa-2x"></i><div id='17text'>$100-$300</div></button>
+				<button id='15' class='categorybox2'><div id='15img'> <i class="fa fa-btc fa-2x"></i></div><div id='15text'>$20-$40</div></button>
+				<button id='16' class='categorybox2'><div id='16img'></div> <i class="fa fa-shopping-cart fa-2x"></i><div id='16text'>$40-$80</div></button>
+				<button id='17' class='categorybox2'><div id='17img'></div> <i class="fa fa-cc-visa fa-2x"></i><div id='17text'>$80-$160</div></button>
 				<button id='18' class='categorybox2'><div id='18img'></div> <i class="fa fa-line-chart fa-2x"></i><div id='18text'>I don't care!</div></button>
 			</div>
 
