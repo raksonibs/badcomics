@@ -88,7 +88,7 @@ $(document).ready(function() {
                 choice2: choice2,
                 choice3: choice3 },
         complete: function(data) {
-            $('.buttonAllDay, .btnTry').show()
+            $('.buttonAllDay, .btnTry, .right-results-change').show()
             function initialize()
             {
                 var arrcount=0

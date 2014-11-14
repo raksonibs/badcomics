@@ -25,7 +25,7 @@ $(function() {
     $.extend($.datepicker.regional[''])
   );
 
-  $('#datepicker').datepicker({
+  $('#datepicker, #datepickerAfter').datepicker({
     onSelect: function(dateText, obj) {
       $(this).css('background-color','');
       // month/day/year

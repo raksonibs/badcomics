@@ -6,8 +6,8 @@ class WelcomeController < ApplicationController
 
   def index
     if current_user
-      user = FbGraph::User.me(current_user.oauth_token)
-      @picture = FbGraph::User.fetch(current_user.uid).picture if current_user
+      user = FbGraph::User.new(current_user.uid, access_token: current_user.oauth_token)
+      @picture = user.picture
     end
   end
 
