@@ -3,8 +3,9 @@ require 'active_support/core_ext/numeric/time'
 
 class WelcomeController < ApplicationController
   # before_action :get_ip, only: [:matchEvents]
-  before_action :get_categories ,only: [:matchEvents, :home]
-  before_action :get_prices ,only: [:matchEvents, :home]
+  before_action :get_categories, only: [:matchEvents, :home]
+  before_action :get_prices, only: [:matchEvents, :home]
+  before_action :getFriends, only: :index
 
   def home
   end
@@ -13,6 +14,7 @@ class WelcomeController < ApplicationController
     if current_user
       user = FbGraph::User.new(current_user.uid, access_token: current_user.oauth_token)
       @picture = user.picture
+      @daysEvents = getMatchingDayEvents(Date.today.to_s, 3).shuffle!
     end
   end
 
@@ -174,6 +176,18 @@ class WelcomeController < ApplicationController
       end
     end
     return matrix.last.last
+  end
+
+  def getFriends
+    if current_user
+      @installed = JSON.parse(open("https://graph.facebook.com/#{current_user.uid}/friends?access_token=#{current_user.oauth_token}&fields=installed").read)['data']
+      @friends = {}
+      @installed.each do |friend|
+        if friend["installed"]
+          @friends[FbGraph::User.fetch(friend["id"])] = friend["id"]
+        end
+      end
+    end
   end
 
   def get_ip

@@ -26,7 +26,7 @@ $(document).ready(function() {
   $(".b2feeling").on('click', function(event){
     $(".categories1, .question2, .b2feeling").fadeOut( function() {
       $(".categories, .question, .bhome")
-        .show()
+        .fadeIn()
         .animate({
           left:"+15",
           opacity: 1},800);
@@ -37,7 +37,7 @@ $(document).ready(function() {
     choice2 = $(this).text().trim()
     $(".categories1, .question2, .b2feeling").fadeOut( function() {
       $(".price, .question3, .bk2category")
-        .show()
+        .fadeIn()
         .animate({
           left: "+15",
           opacity: 1}, 800);
@@ -47,7 +47,7 @@ $(document).ready(function() {
   $(".bk2category").on('click', function(event){
     $(".price, .question3, .bk2category").fadeOut( function() {
       $(".categories1, .question2, .b2feeling")
-        .show()
+        .fadeIn()
         .animate({
           left:"+15",
           opacity: 1},800);
@@ -57,7 +57,7 @@ $(document).ready(function() {
   $(".price").on('click', function() {
     $(".price, .question3, .bk2category").fadeOut( function() {
       $(".blackness")
-        .show()
+        .fadeIn()
         .animate({left:"+45", opacity: 1}, 800)
         .delay(400);
 
