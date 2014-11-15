@@ -31,15 +31,16 @@ $(function() {
       $(this).css('background-color','');
       // month/day/year
       dateValues = obj.selectedDay + '-' + (obj.selectedMonth + 1) + '-' + obj.selectedYear
-
-      $(".categories, .question, .bhome").fadeOut( function() {
-        $(".categories1, .question2, .b2feeling")
-          .show()
-          .animate({
-            left:"+15",
-            opacity: 1},800);
-    });
-    }
+      if ($(this).attr('id') !== "datepickerAfter") {
+        $(".categories, .question, .bhome").fadeOut( function() {
+          $(".categories1, .question2, .b2feeling")
+            .show()
+            .animate({
+              left:"+15",
+              opacity: 1},800);
+            });
+          }
+      }
   });
   $('#datepicker').datepicker();
 });

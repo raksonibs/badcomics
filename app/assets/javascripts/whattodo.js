@@ -56,29 +56,21 @@ $(document).ready(function() {
 
   $(".price").on('click', function() {
     $(".price, .question3, .bk2category").fadeOut( function() {
-      $(".blackness")
-        .fadeIn()
+    });
+    $(".blackness")
+        .delay(1500)
+        .fadeIn('slow')
         .animate({left:"+45", opacity: 1}, 800)
-        .delay(400);
 
       $("#foo")
-        .show()
+        .delay(1500)
+        .fadeIn('slow')
         .animate({left:"+900", opacity: 1}, 800)
         .css("display", "inline")
-        .delay(400);
-
-      var black = setTimeout(function() {
-        $(".output, .question4, .output1")
-          .delay(500)
-          .show()
-          .animate({left:"+15", opacity: 1}, 1000);
-      }, 1000);
-    });
   });
 
   $(".categorybox2").on('click', function() {
     choice3 = $(this).text().trim()
-    console.log("/result/" + dateValues + "/" + choice2 + "/" + choice3)
     $('.alloutput').hide()
     $.ajax({
         url: "/result/" + dateValues + "/" + choice2 + "/" + choice3,
@@ -90,20 +82,30 @@ $(document).ready(function() {
         complete: function(data) {
             $("#foo").hide()
             $(".blackness").hide();
-            $('.buttonAllDay, .btnTry, .right-results').show()
+            $('.buttonAllDay, .btnTry, .right-results').fadeIn()
             $('.alloutput').fadeIn()
         }
     })
   });
 
   $(".redoSelection").bind().on('click', function() {
-    $('.alloutput').fadeOut('slow')
+    $('.alloutput, .right-results').fadeOut('slow')
     $("#foo")
-        .show()
+        .fadeIn()
         .animate({left:"+900", opacity: 1}, 800)
         .css("display", "inline")
         .delay(400);
-    console.log("/result/" + dateValues + "/" + catAfter + "/" + priceAfter)
+    var funnyLoads=["Lining up meter sticks...", "Asking robots politely...", 
+                    "Using cheat codes...", "Consulting magic 8-ball...", 
+                    "Stacking monkeys...", "Loading catapult...", 
+                    "Thinking harder than ever...", 
+                    "Asking Oracle of Delphi...", 
+                    "Synergizing a lot..."];
+    $(".blackness").text(funnyLoads[Math.ceil(Math.random()*funnyLoads.length-1)])
+    $('.blackness')
+        .fadeIn('slow')
+        .animate({left:"+45", opacity: 1}, 800)
+        .delay(400)
     $.ajax({
         url: "/result/" + dateValues + "/" + catAfter + "/" + priceAfter,
         type: "GET",
