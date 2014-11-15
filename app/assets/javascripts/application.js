@@ -18,7 +18,8 @@
 //= require spin
 //= require_tree .
 
-var dateValues;
+var dateValues = new Date();
+dateValues = dateValues.getDate() + '-' + (dateValues.getMonth()+1) + '-' + dateValues.getFullYear()
 
 $(function() {
   $.datepicker.setDefaults(

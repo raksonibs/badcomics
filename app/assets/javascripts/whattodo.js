@@ -2,7 +2,9 @@ var choice1,
     choice2,
     choice3,
     all,
-    selection;
+    selection,
+    catAfter = "Get Cultured",
+    priceAfter = "Free";
 
 $(document).ready(function() {
 
@@ -71,15 +73,13 @@ $(document).ready(function() {
           .show()
           .animate({left:"+15", opacity: 1}, 1000);
       }, 1000);
-
-      $(".blackness").fadeOut();
-      $("#foo").fadeOut("slow")
     });
   });
 
   $(".categorybox2").on('click', function() {
     choice3 = $(this).text().trim()
     console.log("/result/" + dateValues + "/" + choice2 + "/" + choice3)
+    $('.alloutput').hide()
     $.ajax({
         url: "/result/" + dateValues + "/" + choice2 + "/" + choice3,
         type: "GET",

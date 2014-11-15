@@ -16,11 +16,7 @@ class WelcomeController < ApplicationController
     end
   end
 
-  def matchEvents(date=Date.today,activity=nil, money=nil)
-    # going to list match that day, activity, and price range
-    # then all events on that date
-    # then can quickly change on that page in side bar
-    # 12-11-2014 Joke, Laugh, Cry, free
+  def matchEvents(date = Date.today, activity = nil, money = nil)
   	date, activity, money = params[:choice1], params[:choice2], params[:choice3]
   	timenow = Time.now
 
@@ -98,6 +94,7 @@ class WelcomeController < ApplicationController
     activityInterests << ['Seminars', 'Workshops', 'History', 'Books', 'Learn', 'Art', 'Exhibits', 'Cultural'] if activitySelected == "Expand Mind"
     activityInterests << ['Seminars', 'Workshops', 'History', 'Books', 'Geek'] if activitySelected == "Geek Out"
     activityInterests << ['Misc', 'Queer'] if activitySelected == "Try New Things"
+    activityInterests << ['Misc', 'Experimental', "Hip-Hop", 'Hiking', 'Benefits'] if activitySelected == "Meet New People"
     activityInterests << ['Seasonal', 'Season', 'Festive', 'Holiday'] if activitySelected == "Be Merry"
     activityInterests << ['Comedy', 'Laugh'] if activitySelected == "Joke, Laugh, Cry"
     activityInterests << ['Celebrations', 'Farmers markets', 'Exhibits', 'Festivals'] if activitySelected == "Be a Tourist"
@@ -112,7 +109,7 @@ class WelcomeController < ApplicationController
     activityInterests << ['Arts', 'Exhibits', 'Stage', 'Theatre', 'Cultural', 'Cultured', 'Art'] if activitySelected == "Get Cultured"
     activityInterests << ['Family', 'Children', 'Charity', 'All'] if activitySelected == "Family Channel"
     activityInterests << ['Art', 'Arts', 'Exihibts', 'Cultured'] if activitySelected == "Artsy Fartsy"
-    activityInterests << ['Film', 'Theatre', 'Stage', 'Watch'] if activitySelected == "Where Art Thou?"
+    activityInterests << ['Film', 'Theatre', 'Stage', 'Watch'] if activitySelected == "Where Art Thou"
     activityInterests.flatten!
   end
 
@@ -125,12 +122,12 @@ class WelcomeController < ApplicationController
                   "Party Hardy", "Family Channel", "Sports, sport", 
                   "Watch a Show", "Trek Outdoors", "Foody Cravings", 
                   "Divine Revelation", "All Business", "Artsy Fartsy", 
-                  "Where Art Thou?", "Geek Out"]
+                  "Where Art Thou", "Geek Out"]
   end
 
   def get_prices
-    @prices = ["Free", "<20", "20-40",
-                "40-80", "80-160", "I don't care!"]
+    @prices = ["Free", "<$20", "$20-$40",
+                "$40-$80", "$80-$160", "I don't care!"]
   end
 
   def uniqueEvents(eventArray)
