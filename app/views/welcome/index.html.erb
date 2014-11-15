@@ -4,75 +4,11 @@
 
 <% if current_user %>
 
-<div class="container">
+<%= render "signed_in" %>
 
-    <div id="data">
-    </div>
-
-    <div class='topnav1'>
-      <div class='profilethumb1'>
-        <% if current_user %>
-          <%= link_to "Sign out", signout_path %>
-        <% end %>
-      </div>
-      <!-- <div class='logo1'>
-      </div> -->
-    </div>
-
-    <div class="container1">
-      <h1 class="time">
-
-      </h1>
-      <h1 class="welcome">
-        Welcome back, <%= current_user.name.split(' ').first %>.
-      </h1>
-        <div class="profilepic">
-          <img class="fbimg" src="<%= @picture %>"/>
-        </div>
-        <div class="feature for later" style="display:none;">
-            <div id="soonevents" style="display:none;"><br><br>
-              <div style="display:inline;">Events happening soon:</div>
-              <br>
-              
-              
-            </div>
-        </div>
-
-        <button class="appbutton">
-          <%= link_to "To the App", "/whattodo" %>
-        </button>
-    </div>
-
-
-</div>
-
-
-
-<!-- If the user is not signed in, this below section will pop up and
-  promp a sign in or an option to go straight to the app. -->
 <% else %>
 
-<div class="overlay">
-  <div class="topright">
-  </div>
-
-  <div class="lightbox">
-    <h1 class="hellomsg">What's happening in Toronto?</h1>
-    <h1 class="shortds">We will help you decide what to do,<br>
-      <span class="stext"> in just a few clicks.</span> For free!
-    </h1>
-    <br>
-    <div class="fbbuttonpos">
-      <a class="btn-auth btn-facebook large" href="/auth/facebook">
-      Sign in with <b>Facebook</b>
-      </a>
-    </div>
-    <br>
-    <h2 class="theapp"><%= link_to "Just let me use the app.", "/whattodo" %></h2>
-    <br>
-  </div>
-
-</div>
+<%= render 'not_signed_in' %>
 
 <% end %>
 
@@ -113,68 +49,5 @@ var ampm = hr < 12 ? "am" : "pm";
   $(".time").text(hr+":"+min)
 
 }, 10000)
-
-$("#clickable").on("click",function(){
-	var thiss= this;
-	if ("geolocation" in navigator) {
-		var longitude;
-		var latitude;
-		var button;
-  		navigator.geolocation.getCurrentPosition(function(position){
-  			$.ajax({
-  				url: "/",
-  				type: "GET",
-  				dataType: "script",
-  				data: {
-  					button: $(thiss).text(),
-  					longitude: position.coords.longitude,
-  					latitude: position.coords.latitude,
-
-  				}
-
-  			})
-  		})
-	} else {
-		//will need to guess
-  		alert("no geolocation")
-	}
-})
-
-$(".rover").hover(function(){
-  //ajax request to get info
-  var self= $(this)
-  console.log($(this))
-  var value= $(this).text()
-  console.log(value)
-  var nothing= new RegExp("Nothing")
-  if (!nothing.test(value)) {
-  // //if ($(this).attr("class").split(/\s/).size>=2){
-
-    self.children().toggle()
-    //$(this).children[0].attr("display", "block")
-
-  }
-}, function(){
-  var self= $(this)
-  console.log($(this))
-  var value= $(this).text()
-  console.log(value)
-  var nothing= new RegExp("Nothing")
-  if (!nothing.test(value)) {
-
-    self.children().toggle()
-  }
-})
-
-
-  var _gaq = _gaq || [];
-  _gaq.push(['_setAccount', 'UA-46454307-1']);
-  _gaq.push(['_trackPageview']);
-
-  (function() {
-    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-  })();
 
 </script>

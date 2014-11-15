@@ -30,15 +30,15 @@ class WelcomeController < ApplicationController
 
 	  activityMappedInterests = activityMapInterests(activity)
 
-    @matchedEvents = uniqueEvents(getMatchingEvents(date, activityMappedInterests, money))
-    @matchedDayEvents = uniqueEvents(getMatchingDayEvents(date) - @matchedEvents)
+    @matchedEvents = uniqueEvents(getMatchingEvents(date, activityMappedInterests, money)).shuffle!
+    @matchedDayEvents = uniqueEvents(getMatchingDayEvents(date) - @matchedEvents).shuffle!
 
     respond_to do |format|
       format.js{ render :action => "/all.js.erb" }
     end
   end
 
-  def getMatchingDayEvents(dateSent)
+  def getMatchingDayEvents(dateSent = Date.today, howMany = nil)
     eventsDay = []
     Event.all.each do |event|
       #  stupid conditions because nil endtime and inapproritate datetime
@@ -52,6 +52,8 @@ class WelcomeController < ApplicationController
       elsif event.dayOn != "No start time specified" && Date.parse(event.dayOn) == Date.parse(dateSent)
         eventsDay <<  event 
       end
+
+      return eventsDay if howMany != nil && eventsDay.count == howMany
     end
     eventsDay
   end
