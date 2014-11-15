@@ -115,12 +115,12 @@ $(document).ready(function() {
                 choice3: priceAfter },
         complete: function(data) {
             $("#foo").fadeOut("slow")
-            $('.alloutput').fadeIn('slow')
-            $('.buttonAllDay, .btnTry, .right-results-change').show()
+            $(".blackness").fadeOut("slow")
+            $('.alloutput, .right-results').fadeIn('slow')
+            $('.buttonAllDay, .btnTry, .right-results-change').fadeIn()
         }
     })
   });
-
   
 })
 
