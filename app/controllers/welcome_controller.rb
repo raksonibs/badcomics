@@ -42,11 +42,6 @@ class WelcomeController < ApplicationController
     end
   end
 
-  def test
-    @matchedEvents  = uniqueEvents(getMatchingEvents('13-11-2014', activityMapInterests('Family Channel'), 0))
-    @matchedDayEvents = uniqueEvents(getMatchingDayEvents('13-11-2014') - @matchedEvents)
-  end
-
   def getMatchingDayEvents(dateSent)
     eventsDay = []
     Event.all.each do |event|

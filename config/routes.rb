@@ -5,8 +5,6 @@ Whattodo::Application.routes.draw do
   get "/auth/:provider/callback" => "sessions#create"
   get "/signout" => "sessions#destroy", :as => :signout
 
-  get "/test" => "welcome#test"
-
   # ttp://api.localhost.com/events
   namespace :api, :path => "", :constraints => {:subdomain => "api"} do
     resources :people
