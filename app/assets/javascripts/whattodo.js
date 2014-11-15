@@ -88,56 +88,50 @@ $(document).ready(function() {
                 choice2: choice2,
                 choice3: choice3 },
         complete: function(data) {
-            $('.buttonAllDay, .btnTry, .right-results-change').show()
-            function initialize()
-            {
-                var arrcount=0
-                var arr=$(".hidden").text().split(",")
-                for (var i=0; i<=2; i++) {
-                  if (i === 0) {
-                    arrcount=0
-                  } else if (i === 1) {
-                    arrcount = 2
-                  } else if (i === 2) {
-                    arrcount = 4
-                  }
-                  console.log(arr[arrcount].replace(/\s+/g, " "))
-                  console.log(arr[arrcount].replace(/\s+/g, " ") !== " " )
-                  if (arr[arrcount].replace(/\s+/g, " ") !== " " ) {
-                    var mapProp = {
-                    center:new google.maps.LatLng(parseFloat(arr[arrcount]),parseFloat(arr[arrcount+1])),
-                    zoom:15,
-                    mapTypeId:google.maps.MapTypeId.ROADMAP
-                    };
-
-                    var myLatlng= (parseFloat(arr[arrcount]),parseFloat(arr[arrcount+1]))
-                    var map=new google.maps.Map($(".map")[i]
-                      ,mapProp);
-
-                    var marker = new google.maps.Marker({
-                      position: mapProp.center,
-                      map: map,
-                    });
-
-                    google.maps.event.addListenerOnce(map, 'idle', function() {
-                       //var center = map.getCenter();
-
-                       //map.setCenter(center);
-                       google.maps.event.trigger(map, "resize");
-                    });
-                  }
-            }
-          }
-          setTimeout(function() {
-            initialize()
-          }, 3000)
-
+            $("#foo").hide()
+            $(".blackness").hide();
+            $('.buttonAllDay, .btnTry, .right-results').show()
+            $('.alloutput').fadeIn()
         }
     })
-
   });
+
+  $(".redoSelection").bind().on('click', function() {
+    $('.alloutput').fadeOut('slow')
+    $("#foo")
+        .show()
+        .animate({left:"+900", opacity: 1}, 800)
+        .css("display", "inline")
+        .delay(400);
+    console.log("/result/" + dateValues + "/" + catAfter + "/" + priceAfter)
+    $.ajax({
+        url: "/result/" + dateValues + "/" + catAfter + "/" + priceAfter,
+        type: "GET",
+        dataType: "script",
+        data: { choice1: dateValues,
+                choice2: catAfter,
+                choice3: priceAfter },
+        complete: function(data) {
+            $("#foo").fadeOut("slow")
+            $('.alloutput').fadeIn('slow')
+            $('.buttonAllDay, .btnTry, .right-results-change').show()
+        }
+    })
+  });
+
+  
 })
 
 $(document).on('click', '.buttonAllDay', function() {  
   $('.allDayResults').toggle()
+})
+
+$(document).on('change', '.select', function() {
+  $this = $(this)
+  selectedOpt = $this.find(':selected').text()
+  if ($this.attr('name') == "selectCat") {
+    catAfter = selectedOpt.trim()
+  } else {
+    priceAfter = selectedOpt.trim()
+  } 
 })

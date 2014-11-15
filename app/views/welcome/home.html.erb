@@ -49,24 +49,25 @@
 				<div id="datepicker"></div>
 			</div>
 			
-			<div class="right-results-change">
-				<h2>Change Things!</h2>
-				<div id="datepickerAfter" class="all-right"></div>
-				<div id="input-for-category" class="all-right">
-					<select name="selectCat">
-						<% @categories.each do |cat| %>
-							<option value="<%= cat %>"> <%= cat %> </option>
-						<% end %>
-					</select>
-				</div>
-				<div id="input-for-price" class="all-right">
-					<select name="selectPrice">
-						<% @prices.each do |price| %>
-							<option value="<%= price %>"> <%= price %> </option>
-						<% end %>
-					</select>
-				</div>
-			</div>
+			<div class="right-results">
+        <h2>Change Things!</h2>
+          <div id="datepickerAfter" class="all-right select"></div>
+          <div id="input-for-category" class="all-right">
+            <select class="select" name="selectCat">
+              <% @categories.each do |cat| %>
+                <option value="<%= cat %>"> <%= cat %> </option>
+              <% end %>
+            </select>
+          </div>
+          <div id="input-for-price" class="all-right">
+            <select class="select" name="selectPrice">
+              <% @prices.each do |price| %>
+                <option value="<%= price %>"> <%= price %> </option>
+              <% end %>
+            </select>
+          </div>
+          <input type="submit" class="redoSelection"></input>
+      </div>
 
 			<div class='categories1'>
 				<button id='7' class='categorybox1'>
