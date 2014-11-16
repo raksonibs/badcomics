@@ -11,6 +11,11 @@ gem 'selenium-webdriver'
 gem 'mechanize'
 gem 'capybara-webkit'
 
+gem 'capistrano', '~> 3.1.0'
+gem 'capistrano-bundler', '~> 1.1.2'
+gem 'capistrano-rails', '~> 1.1.1'
+
+
 gem "jquery-ui-rails"
 
 gem "fb_graph"
