@@ -21,10 +21,11 @@
 
 			<!-- Question to ask user. We may want to also putq
 			the date in this question. -->
+			<div class="container-back">
 				<div class="back">
-					<%= button_to "", root_url, :class => "bhome", :method => :get %>
-					<input class="b2feeling" type="button"/>
-					<input class="bk2category" type="button"/>
+					<a href="/" class="bhome"><i class="fa fa-reply"></i></a>
+					<input class="b2feeling" type="button" value="&#xf112;"/> 
+					<input class="bk2category" type="button" value="&#xf112;"/>					
 				</div>
 
 				<div class='question'>
@@ -37,8 +38,9 @@
 				</div>
 
 				<div class='question3'>
-					<p>How much to spend?</p>
+					<p>How much do you want to spend?</p>
 				</div>
+			</div>
 
 				<div class="clear">
 				</div>
@@ -55,11 +57,11 @@
           <div class="inputs">
 	          <div id="input-for-category dd" class="all-right wrapper-dropdown-3" tab-index="1">
 	          	<span>Categories</span>
-	            <ul class="select dropdown" name="selectCat">
+	            <select class="select" name="selectCat">
 	              <% @categories.each do |cat| %>
-	                <li value="<%= cat %>"> <i class="fa fa-github"></i><%= cat %> </li>
+	                <option value="<%= cat %>"> <%= cat %> </option>
 	              <% end %>
-	            </ul>
+	            </select>
 	          </div>
 	          <div id="input-for-price" class="all-right">
 	            <select class="select" name="selectPrice">

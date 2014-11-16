@@ -121,7 +121,7 @@ body.home {
 .wrapper .question4 {
 	height: auto;
 	padding: 0;
-	width: 67%;
+	width: 75%;
 	margin-bottom: 1%;
 	margin-top: 1%;
 	font-family: Roboto;
@@ -136,7 +136,7 @@ body.home {
 .wrapper .back {
 	/*display: none;*/
 	margin-top: 1%;
-	width: 25%;
+	width: 13%;
 	float: left;
 	height: 144px;
 }
@@ -148,7 +148,6 @@ body.home {
 	float: right;
 	margin-top: 54px;
 	font-size: 2.5em;
-	background: url('/assets/dark/appbar.undo.point.png') center no-repeat;
 	background-color: transparent;
 	/*background-color: rgba(255,255,255,0.25);*/
   		transition: .5s;
@@ -160,7 +159,7 @@ body.home {
 	color: white;
 	font-family: "Roboto";
 	outline: 0;
-
+  font-family: FontAwesome;
 }
 
 .wrapper .back input[type=submit]:hover,
@@ -254,6 +253,21 @@ body.home {
   	-webkit-transition: .8s;
   	transition: .8s;
 
+}
+
+@media screen and (max-width: 800px) {
+  .categories {
+    width: 100% !important;
+  }
+
+  .container-back {
+    width: 90% !important;
+  }
+
+  .categories1, .price {
+    width: 90% !important;
+    margin-left: 40px !important;
+  }
 }
 
 .wrapper .output1 {
@@ -568,6 +582,12 @@ div.info {
     color: #b4b3b3;  
 	}
 
+}
+
+.container-back {
+  width: 78%;
+  left: 12%;
+  position: relative;
 }
 
 

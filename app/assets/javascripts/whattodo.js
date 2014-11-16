@@ -72,6 +72,7 @@ $(document).ready(function() {
   $(".categorybox2").on('click', function() {
     choice3 = $(this).text().trim()
     $('.alloutput').hide()
+    $('.back').hide()
     $.ajax({
         url: "/result/" + dateValues + "/" + choice2 + "/" + choice3,
         type: "GET",
@@ -106,6 +107,7 @@ $(document).ready(function() {
         .fadeIn('slow')
         .animate({left:"+45", opacity: 1}, 800)
         .delay(400)
+    $('.back').hide()
     $.ajax({
         url: "/result/" + dateValues + "/" + catAfter + "/" + priceAfter,
         type: "GET",

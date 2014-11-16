@@ -183,9 +183,7 @@ class WelcomeController < ApplicationController
       @installed = JSON.parse(open("https://graph.facebook.com/#{current_user.uid}/friends?access_token=#{current_user.oauth_token}&fields=installed").read)['data']
       @friends = {}
       @installed.each do |friend|
-        if friend["installed"]
-          @friends[FbGraph::User.fetch(friend["id"])] = friend["id"]
-        end
+        @friends[FbGraph::User.fetch(friend["id"])] = friend["id"] if friend["installed"]
       end
     end
   end
