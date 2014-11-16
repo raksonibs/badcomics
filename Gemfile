@@ -32,14 +32,6 @@ gem 'jquery-rails'
 gem 'zurb-foundation'
 
 # Forms
-gem 'cocoon'
-gem 'country_select'
-gem 'simple_form', git: "https://github.com/plataformatec/simple_form.git"
-
-# Files/Images
-gem 'carrierwave'
-gem 'fog'
-gem 'mini_magick'
 
 gem "fql"
 gem 'kaminari'
