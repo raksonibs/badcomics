@@ -60,6 +60,7 @@ gem "nokogiri"
 
 gem 'sidekiq'
 
+gem 'therubyracer',  platforms: :ruby
 
 group :production do
   gem 'rails_12factor'
