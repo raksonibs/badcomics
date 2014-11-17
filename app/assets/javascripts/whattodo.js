@@ -45,7 +45,7 @@ $(document).ready(function() {
   });
 
   $(".bk2category").on('click', function(event){
-    $(".price, .question3, .bk2category").fadeOut( function() {
+    $(".price, .question3, .bk2category, .back").fadeOut( function() {
       $(".categories1, .question2, .b2feeling")
         .fadeIn()
         .animate({
@@ -125,6 +125,36 @@ $(document).ready(function() {
   });
   
 })
+
+$(document).ready(function (){
+    var strings = ['#selectCat', '#selectPrice']
+    for (var i = 0; i < strings.length; i++) {
+      string = strings[i]
+      $(string).wrap('<div class="select_wrapper"></div>')
+      $(string).parent().prepend('<span>'+ $(this).find(':selected').text() +'</span>');
+      $(string).parent().children('span').width($(string).width('100%'));   
+      $(string).css('display', 'none');                 
+      $(string).parent().append('<ul class="select_inner"></ul>');
+      $(string).children().each(function(){
+        var opttext = $(this).text();
+        var optval = $(this).val();
+        $(string).parent().children('.select_inner').append('<li id="' + optval + '">' + opttext + '</li>');
+      });
+       
+       
+       
+      $(string).parent().find('li').on('click', function (){
+        var cur = $(this).attr('id');
+        $(string).parent().children('span').text($(this).text());
+        $(string).children().removeAttr('selected');
+        $(string).children('[value="'+cur+'"]').attr('selected','selected');                    
+        console.log($(string).children('[value="'+cur+'"]').text());
+      });
+      $(string).parent().on('click', function (){
+        $(this).find('ul').slideToggle('fast');
+      });
+    }
+});
 
 $(document).on('click', '.buttonAllDay', function() {  
   $('.allDayResults').toggle()
