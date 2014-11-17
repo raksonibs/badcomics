@@ -50,29 +50,6 @@
 			<div class='categories'>
 				<div id="datepicker"></div>
 			</div>
-			
-			<div class="right-results">
-        <h2>Change Things!</h2>
-          <div id="datepickerAfter" class="all-right select"></div>
-          <div class="inputs">
-	          <div id="input-for-category dd" class="all-right wrapper-dropdown-3" tab-index="1">
-	          	<span>Categories</span>
-	            <select class="select" name="selectCat">
-	              <% @categories.each do |cat| %>
-	                <option value="<%= cat %>"> <%= cat %> </option>
-	              <% end %>
-	            </select>
-	          </div>
-	          <div id="input-for-price" class="all-right">
-	            <select class="select" name="selectPrice">
-	              <% @prices.each do |price| %>
-	                <option value="<%= price %>"> <%= price %> </option>
-	              <% end %>
-	            </select>
-	          </div>
-	          <input type="submit" class="redoSelection"></input>
-          </div>
-      </div>
 
 			<div class='categories1'>
 				<button id='7' class='categorybox1'>
@@ -115,6 +92,31 @@
 				<%= render "all" %>
 			</div>
 
+      <div class="right-results">
+        <h2 class="lower-h2">Change Things!</h2>
+          <div id="datepickerAfter" class="all-right select"></div>
+          <div class="inputs">
+            <br >
+            <div id="input-for-category dd" class="all-right wrapper-dropdown-3" tab-index="1">
+              <span>Categories</span>
+              <select class="select" id="selectCat" name="selectCat">
+                <% @categories.each do |cat| %>
+                  <option value="<%= cat %>"> <%= cat %> </option>
+                <% end %>
+              </select>
+            </div>
+            <div id="input-for-price" class="all-right">
+              <span>Prices</span>
+              <select class="select" id="selectPrice" name="selectPrice">
+                <% @prices.each do |price| %>
+                  <option value="<%= price %>"> <%= price %> </option>
+                <% end %>
+              </select>
+            </div>
+            <input type="submit" class="redoSelection"></input>
+          </div>
+      </div>
+
 		</div>
 	</body>
 
@@ -156,11 +158,11 @@ function start1() {
 	["Sports, sport", "/assets/dark/appbar.image.sports.png"],
 	["Watch a Show", "/assets/dark/appbar.movie.clapper.png"],
 	["Trek Outdoors", "assets/dark/appbar.tree.pine.png"],
-	["Foody Cravings", "assets/dark/appbar.tree.pine.png"],
-	["Divine Revelation", "assets/dark/appbar.tree.pine.png"],
+	["Foody Cravings", "assets/dark/appbar.food.png"],
+	["Divine Revelation", "assets/dark/appbar.church.png"],
 	["All Business", "assets/dark/appbar.money.png"],
-	["Artsy Fartsy", "assets/dark/appbar.money.png"],
-	["Where Art Thou", "assets/dark/appbar.money.png"],
+	["Artsy Fartsy", "assets/dark/appbar.nyan.png"],
+	["Where Art Thou", "assets/dark/appbar.marvel.ironman.mask.png"],
 	["Geek Out", "assets/dark/appbar.potion.png"]];
 
 	var indexes1=[]
