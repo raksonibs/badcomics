@@ -6,8 +6,11 @@ Whattodo::Application.routes.draw do
   get "/signout" => "sessions#destroy", :as => :signout
 
   # ttp://api.localhost.com/events
-  namespace :api, :path => "", :constraints => {:subdomain => "api"} do
-    resources :people
+  namespace :api, defaults: {format: 'json'} do
+    namespace :v1 do 
+      resources :events
+      get '/today' => "events#today"
+    end
   end
 
 end

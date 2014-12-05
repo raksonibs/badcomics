@@ -5,7 +5,6 @@
 	padding: 0;
 	height: 100%;
 	width: 100%;
-	background: url("Richard_Gottardo_500px.jpg");
 	background-position: bottom;
 }
 
@@ -128,7 +127,7 @@
     float: left;
     width: 22px;
     height: 22px;
-    background: url(auth-icons.png) no-repeat 99px 99px;
+    background: url(dark/appbar.church.png) no-repeat 99px 99px;
 }
 
 /*
@@ -198,7 +197,7 @@
 }
 
 .btn-facebook.large:before {
-    background-position: 0 -22px;
+    background-position: -19px -22px;
 }
 
 /*----------------FACEBOOK BUTTON CODE END-------------------------------------*/

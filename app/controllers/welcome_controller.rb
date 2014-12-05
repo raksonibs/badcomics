@@ -6,6 +6,9 @@ class WelcomeController < ApplicationController
   before_action :get_categories, only: [:matchEvents, :home]
   before_action :get_prices, only: [:matchEvents, :home]
   before_action :getFriends, only: :index
+  helper_method :getMatchingEvents
+  helper_method :getMatchingDayEvents
+  helper_method :uniqueEvents
 
   def home
   end
@@ -38,58 +41,6 @@ class WelcomeController < ApplicationController
     respond_to do |format|
       format.js{ render :action => "/all.js.erb" }
     end
-  end
-
-  def getMatchingDayEvents(dateSent = Date.today, howMany = nil)
-    eventsDay = []
-    Event.all.each do |event|
-      #  stupid conditions because nil endtime and inapproritate datetime
-      if event.dayOn != "No start time specified" && event.dayEnd != "No end time specified" && !event.dayEnd.nil? && event.dayEnd.length > 9
-        dateRange = (Date.parse(event.dayOn) .. Date.parse(event.dayEnd))
-        if Date.parse(event.dayOn) == Date.parse(dateSent)
-          eventsDay <<  event 
-        elsif dateRange.cover?(Date.parse(dateSent))
-          eventsDay <<  event 
-        end
-      elsif event.dayOn != "No start time specified" && Date.parse(event.dayOn) == Date.parse(dateSent)
-        eventsDay <<  event 
-      end
-
-      return eventsDay if howMany != nil && eventsDay.count == howMany
-    end
-    eventsDay
-  end
-
-  def getMatchingEvents(dateSent, catListSent, priceSent)
-    eventsCat = []
-    catListSent.each do |cat| 
-      eventsCat << Event.select{|e| e.categoryList.include? cat }
-    end
-    eventsCat.flatten!
-
-    eventsCatDay = []
-    eventsCat.each do |event|
-      if event.dayOn != "No start time specified" && event.dayEnd != "No end time specified" && !event.dayEnd.nil? && event.dayEnd.length > 9
-        dateRange = (Date.parse(event.dayOn) .. Date.parse(event.dayEnd))
-        if Date.parse(event.dayOn) == Date.parse(dateSent)
-          eventsCatDay <<  event 
-        elsif dateRange.cover?(Date.parse(dateSent))
-          eventsCatDay <<  event 
-        end
-      elsif event.dayOn != "No start time specified" && Date.parse(event.dayOn) == Date.parse(dateSent)
-        eventsCatDay <<  event 
-      end
-    end 
-
-    eventsCatDayPrice = []
-    eventsCatDay.each do |event|
-      price  = event.price
-      price = 0 if price == "Free"
-      # currently making check lisitng url very expensive because difficult
-      price = 300 if price == "Check listing url!"
-      eventsCatDayPrice << event if price.to_i <= priceSent
-    end
-    eventsCatDayPrice
   end
 
   def activityMapInterests(activitySelected)
@@ -132,50 +83,6 @@ class WelcomeController < ApplicationController
   def get_prices
     @prices = ["Free", "<$20", "$20-$40",
                 "$40-$80", "$80-$160", "I don't care!"]
-  end
-
-  def uniqueEvents(eventArray)
-    eventsUnique = []
-    eventArray.each do |event|
-      eventsUnique << event if !eventsUnique.any?{|c| c.name.downcase == event.name.downcase}
-    end
-    eventsUnique
-  end
-
-  def uniqueLeven(eventsArray)
-    # this recursive running with double loop is too slow. 
-    largeDistanceEvents = []
-    eventsArray.each do |event|
-      eventsArray.each do |secondEvent|
-        largeDistanceEvents << secondEvent if levenshtein(event.name, secondEvent.name) > 3
-      end
-    end
-    largeDistanceEvents
-  end
-
-  def levenshtein(first, second)
-    # comparing each string with the other is difficult to do. Especially comparing every created string with every next string. that is o(n)  +matrix traversal. On the smaller list slightly faster.
-    first = first.downcase
-    second = second.downcase
-    matrix = [(0..first.length).to_a]
-    (1..second.length).each do |j|
-      matrix << [j] + [0] * (first.length)
-    end
-   
-    (1..second.length).each do |i|
-      (1..first.length).each do |j|
-        if first[j-1] == second[i-1]
-          matrix[i][j] = matrix[i-1][j-1]
-        else
-          matrix[i][j] = [
-            matrix[i-1][j],
-            matrix[i][j-1],
-            matrix[i-1][j-1],
-          ].min + 1
-        end
-      end
-    end
-    return matrix.last.last
   end
 
   def getFriends
