@@ -41,6 +41,7 @@ gem 'zurb-foundation'
 gem "fql"
 gem 'kaminari'
 gem 'figaro'
+gem "rspec-rails"
 
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 
