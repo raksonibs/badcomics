@@ -3,7 +3,7 @@ class API::V1::EventsController < ApplicationController
   helper_method :getMatchingDayEvents
   helper_method :uniqueEvents
 
-  # before_filter :restrict_access
+  before_filter :restrict_access
 
   respond_to :json
 
@@ -23,7 +23,8 @@ class API::V1::EventsController < ApplicationController
 
   def restrict_access
     api_key = APIKey.find_by_access_token(params[:access_token])
-    head :unauthorized unless api_key
+    expired = api_key.expires_on != nil && Date.today < Date.parse(api_key.expires_on)
+    head :unauthorized unless api_key && expired
   end
 
   # def restrict_access
