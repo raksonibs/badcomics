@@ -7,13 +7,17 @@ var choice1,
     priceAfter = "Free";
 
 $(document).ready(function() {
-
+  $('.mainOptions').delay().fadeIn(500);
   $(".categories, .categories1, .price, .output, .question2, .question3, .question4, .output1, .bhome, .blackness, #foo")
     .animate({ opacity: 0}, 0);
 
-  $(".question").delay().fadeIn(500);
+   $('#select-app').click(function() {
+    $(".mainOptions").delay().fadeOut(500);
+    $(".question").delay().fadeIn(500);
+    $(".categories, .bhome").delay().fadeIn().animate({left:"+20", opacity: 1}, 800);
+   }) 
 
-  $(".categories, .bhome").delay().fadeIn().animate({left:"+20", opacity: 1}, 800);
+
 
   $(".topnav")
     .animate({

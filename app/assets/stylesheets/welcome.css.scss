@@ -202,7 +202,8 @@ body.home {
 
 .wrapper .categories .categorybox,
 .wrapper .categories1 .categorybox1,
-.wrapper .price .categorybox2 {
+.wrapper .price .categorybox2, 
+.wrapper .mainOptions .selectOpts {
 	height: 146px;
 	width: 236px;
 	vertical-align: top;
@@ -221,6 +222,19 @@ body.home {
 	-moz-box-shadow: 3px 3px 4px 1px rgba(0, 0, 0, 0.43);
 	-webkit-box-shadow: 3px 3px 4px 1px rgba(0, 0, 0, 0.43);
 
+}
+
+.wrapper .mainOptions {
+  width: 100%;
+  position: relative;
+  display:none;
+  top: 150px;
+  .selectOpts {
+    max-width: 20vw;
+    width: 23vw;
+    position: relative;
+    left: -35px;
+  }
 }
 
 .wrapper .categories button,
