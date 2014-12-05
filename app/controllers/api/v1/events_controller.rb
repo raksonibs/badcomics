@@ -3,7 +3,11 @@ class API::V1::EventsController < ApplicationController
   helper_method :getMatchingDayEvents
   helper_method :uniqueEvents
 
+  # before_filter :restrict_access
+
   respond_to :json
+
+  # http_basic_authenticate_with name: Figaro.env.api_name, password: Figaro.env.api_password
 
   def index
     @events = Event.all
@@ -14,4 +18,16 @@ class API::V1::EventsController < ApplicationController
     @eventsToday = uniqueEvents(getMatchingDayEvents)
     respond_with @eventsToday
   end
+
+  private
+
+  def restrict_access
+    api_key = APIKey.find_by_access_token(params[:access_token])
+    head :unauthorized unless api_key
+  end
+
+  # def restrict_access
+  #   authenticate_or_request_with_http_token do |token, options|
+  #   ApiKey.exists?(access_token: token)
+  # end
 end

@@ -11,10 +11,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141110050613) do
+ActiveRecord::Schema.define(version: 20141205014215) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "api_keys", force: true do |t|
+    t.string   "access_token"
+    t.string   "user_id"
+    t.string   "expires_on"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
 # Could not dump table "choices" because of following StandardError
 #   Unknown type 'name' for column 'first_event'
