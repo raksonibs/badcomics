@@ -23,7 +23,7 @@ class API::V1::EventsController < ApplicationController
 
   def restrict_access
     api_key = APIKey.find_by_access_token(params[:access_token])
-    expired = api_key.expires_on != nil && Date.today < Date.parse(api_key.expires_on)
+    expired = api_key != nil && Date.today < Date.parse(api_key.expires_on)
     head :unauthorized unless api_key && expired
   end
 

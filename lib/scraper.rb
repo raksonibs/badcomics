@@ -73,7 +73,8 @@ module Scraper
               dayEnd: dayEnd,
               desc: desc,
               categoryList: categories,
-              source: "Nowmagazine"
+              source: "Nowmagazine",
+              image: "http://i.imgur.com/ixz8pZT.png?1"
             })
         end
         page = page.find('.next').click()

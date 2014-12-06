@@ -6,7 +6,7 @@ class Event < ActiveRecord::Base
   include Scraper
 
 	geocoded_by :location
-	after_validation :geocode if :location_changed?
+	after_validation :geocode, if: ->(obj){ obj.location.present? and obj.location_changed? and !obj.latitude.nil? and !obj.longitude.nil? }
 
   def self.writeToFile(events)
     File.open('eventsseedfile.txt', 'w') { |file| file.write(events) }
@@ -65,18 +65,25 @@ class Event < ActiveRecord::Base
       timeEnd = val.xpath("//entrydata[@name='TimeEnd']")[count].text == "" || val.xpath("//entrydata[@name='TimeBegin']")[count].text == nil || val.xpath("//entrydata[@name='TimeBegin']")[count].text == ': ' ? "Time not listed" : Time.parse(val.xpath("//entrydata[@name='TimeEnd']")[count].text).strftime("%I:%M %p")
 
       url = val.xpath("//entrydata[@name='EventURL']")[count].text == "" || val.xpath("//entrydata[@name='EventURL']")[count].text == nil ? "No url listed" : val.xpath("//entrydata[@name='EventURL']")[count].text
+
+      image = val.xpath("//entrydata[@name='Image']")[count].text == "" || val.xpath("//entrydata[@name='Image']")[count].text == nil ? "http://i.imgur.com/ixz8pZT.png?1" : val.xpath("//entrydata[@name='Image']")[count].text
+
       # day start and end used for ranges
       dayOn = val.xpath("//entrydata[@name='DateBeginShow']")[count].text + " " + timeStart
       dayEnd = val.xpath("//entrydata[@name='DateEndShow']")[count].text
+
+      desc = val.xpath("//entrydata[@name='LongDesc']")[count].text
+
       events.push({name: val.xpath("//entrydata[@name='EventName']")[count].text, 
                   url: url,
                   location: location,
                   price: price,
-                  dayOn: val.xpath("//entrydata[@name='DateBeginShow']")[count].text,
-                  dayEnd: val.xpath("//entrydata[@name='DateEndShow']")[count].text,
-                  desc: val.xpath("//entrydata[@name='LongDesc']")[count].text,
+                  dayOn: dayOn,
+                  dayEnd: dayEnd,
+                  desc: desc,
                   categoryList: categoryList,
-                  source: "City Hall"
+                  source: "City Hall",
+                  image: image
                 })
       count += 1
     end
@@ -118,6 +125,8 @@ class Event < ActiveRecord::Base
         desc = event['event']["description"] || "No description"
         categoryList = Event.findCats(desc)
         categoryList = ["Misc"] if categoryList == nil || categoryList == ""
+        image = event['event']['logo'] != nil || event['event']['logo'] != "" ? event['event']['logo'] : "http://i.imgur.com/ixz8pZT.png?1"
+
         eventAll.push({
           name: name,
           url: url,
@@ -127,7 +136,8 @@ class Event < ActiveRecord::Base
           dayEnd: timeEnd,
           desc: desc,
           categoryList: categoryList,
-          source: "Eventbrite"
+          source: "Eventbrite",
+          image: image
         })
       end
     end
@@ -160,6 +170,11 @@ class Event < ActiveRecord::Base
         desc = event["description"] || "No description"
         categoryList = Event.findCats(desc)
         categoryList = ["Misc"] if categoryList == nil || categoryList == ""
+        longitude = event["longitude"]
+        latitude = event['latitude']
+        image = event['image']['medium']['url']
+        image = image != nil || image != "" ? image : "http://i.imgur.com/ixz8pZT.png?1"
+
         eventAll.push({
           name: name,
           url: url,
@@ -169,8 +184,12 @@ class Event < ActiveRecord::Base
           dayEnd: timeEnd,
           desc: desc,
           categoryList: categoryList,
-          source: "Eventful"
+          source: "Eventful",
+          longitude: longitude,
+          latitude: latitude,
+          image: image
         })
+
       end
     end
 
@@ -203,6 +222,10 @@ class Event < ActiveRecord::Base
         desc = event["description"] || "No description"
         categoryList = Event.findCats(desc)
         categoryList = ["Misc"] if categoryList == nil || categoryList == ""
+        latitude = event['venue']['lat']
+        longitude = event['venue']['lon']
+        image = "http://i.imgur.com/ixz8pZT.png?1"
+
         eventAll.push({
           name: name,
           url: url,
@@ -212,7 +235,10 @@ class Event < ActiveRecord::Base
           dayEnd: time,
           desc: desc,
           categoryList: categoryList,
-          source: "Meetup"
+          source: "Meetup",
+          latitude: latitude,
+          longitude: longitude,
+          image: image
         })
       end
     end
@@ -239,6 +265,8 @@ class Event < ActiveRecord::Base
         location = event.css("strong.location").text
         url = event.css('a').map{|a| a['href']}[0]
         description = "Music"
+        image = "http://i.imgur.com/ixz8pZT.png?1"
+
         eventAll.push({
           name: name,
           url: url,
@@ -248,7 +276,8 @@ class Event < ActiveRecord::Base
           dayEnd: dayTimeStart,
           desc: description,
           categoryList: ["Music"],
-          source: "Just Shows"
+          source: "Just Shows",
+          image: image
           })
       end
       pageCount += 1
@@ -279,6 +308,8 @@ class Event < ActiveRecord::Base
         descIncomplete = event.css('.event-summary').text()
         categoryList = Event.findCats(descIncomplete)
         categoryList = ["Misc"] if categoryList == nil || categoryList == ""
+        image = event.css('.poster img').attribute('src').value
+
         allEvents.push({
           name: name,
           url: url,
@@ -288,9 +319,11 @@ class Event < ActiveRecord::Base
           dayEnd: dayTime,
           desc: descIncomplete,
           categoryList: categoryList,
-          source: "Blog.to"
-          })
+          source: "Blog.to",
+          image: image
+        })
       end
+
       dayCount += 1
       todaystr = (today+dayCount).strftime("%Y-%m-%d")
     end
@@ -326,6 +359,8 @@ class Event < ActiveRecord::Base
         location = location[9..-1].sub(/\s+\Z/, "") + ' ,Toronto, ON, Canada'
         categoryList = Event.findCats(desc)
         categoryList = ["Misc"] if categoryList == nil || categoryList == ""
+        image = event.css('.img-holder img').attribute('src').value
+
         eventAll.push({
           name: name,
           url: url,
@@ -335,7 +370,8 @@ class Event < ActiveRecord::Base
           dayEnd: dayEnd,
           desc: desc,
           categoryList: categoryList,
-          source: "Toronto.com"
+          source: "Toronto.com",
+          image: image
         })
       end
       pageCount += 1
@@ -363,8 +399,7 @@ class Event < ActiveRecord::Base
       desc = event["description"] || "No description"
       categoryList = event['categories'].split(',')
       categoryList = ["Misc"] if categoryList == nil || categoryList == "" || categoryList == " "
-      image = "No image listed"
-      # right now don't use because not sure how many have. May just geocode if not already there when create?
+      image = "http://i.imgur.com/ixz8pZT.png?1"
       latitude = event['lat']
       longitude = event['lon']
 
@@ -378,7 +413,9 @@ class Event < ActiveRecord::Base
         desc: desc,
         categoryList: categoryList,
         image: image,
-        source: "Elmcity"
+        source: "Elmcity",
+        latitude: latitude,
+        longitude: longitude
       })
     end
 
@@ -406,5 +443,10 @@ class Event < ActiveRecord::Base
     catList = catList != [] ? catList : ["Misc"]
     catList
   end
+
+  # checkout lat long on geocoder
+  # get request every 24 hours to me
+  # normalize data for some reasons?
+  # set all long lats, if already have some of them?
 
 end
