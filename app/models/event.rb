@@ -346,8 +346,43 @@ class Event < ActiveRecord::Base
 
   def self.club_crawlers
     eventAll = Scraper::NowMagazine.club_events
+  end
 
-    # end
+  def self.elmcity
+    string =  "http://elmcity.cloudapp.net/Toronto/json"
+    data = JSON.parse((open(string)).read)
+    eventAll = []
+    data.each do |event|
+      name = event["title"]
+      dayOn = DateTime.parse(event['dtstart']).to_time
+      dayEnd = DateTime.parse(event['dtend']).to_time
+      url = event["url"]
+      source = event["source"]
+      location = event["location"]
+      location = location == "" || location == nil ? "No address listed" : location + ", Toronto, ON, Canada"
+      desc = event["description"] || "No description"
+      categoryList = event['categories'].split(',')
+      categoryList = ["Misc"] if categoryList == nil || categoryList == "" || categoryList == " "
+      image = "No image listed"
+      # right now don't use because not sure how many have. May just geocode if not already there when create?
+      latitude = event['lat']
+      longitude = event['lon']
+
+      eventAll.push({
+        name: name,
+        url: url,
+        location: location, 
+        price: "Price not listed",
+        dayOn: dayOn,
+        dayEnd: dayEnd,
+        desc: desc,
+        categoryList: categoryList,
+        image: image,
+        source: "Elmcity"
+      })
+    end
+
+    return eventAll
   end
 
   def self.findCats(desc)
