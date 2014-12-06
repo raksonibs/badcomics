@@ -35,7 +35,8 @@ module Scraper
               dayOn: date,
               dayEnd: date,
               desc: 'A night to be remembered',
-              categoryList: ["Party"]
+              categoryList: ["Party"],
+              source: "Club Crawlers"
             })
         end
         break
@@ -71,7 +72,8 @@ module Scraper
               dayOn: dayOn,
               dayEnd: dayEnd,
               desc: desc,
-              categoryList: categories
+              categoryList: categories,
+              source: "Nowmagazine"
             })
         end
         page = page.find('.next').click()

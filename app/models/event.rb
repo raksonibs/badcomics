@@ -75,7 +75,8 @@ class Event < ActiveRecord::Base
                   dayOn: val.xpath("//entrydata[@name='DateBeginShow']")[count].text,
                   dayEnd: val.xpath("//entrydata[@name='DateEndShow']")[count].text,
                   desc: val.xpath("//entrydata[@name='LongDesc']")[count].text,
-                  categoryList: categoryList
+                  categoryList: categoryList,
+                  source: "City Hall"
                 })
       count += 1
     end
@@ -125,7 +126,8 @@ class Event < ActiveRecord::Base
           dayOn: timeStart,
           dayEnd: timeEnd,
           desc: desc,
-          categoryList: categoryList
+          categoryList: categoryList,
+          source: "Eventbrite"
         })
       end
     end
@@ -166,7 +168,8 @@ class Event < ActiveRecord::Base
           dayOn: timeStart,
           dayEnd: timeEnd,
           desc: desc,
-          categoryList: categoryList
+          categoryList: categoryList,
+          source: "Eventful"
         })
       end
     end
@@ -208,7 +211,8 @@ class Event < ActiveRecord::Base
           dayOn: time,
           dayEnd: time,
           desc: desc,
-          categoryList: categoryList
+          categoryList: categoryList,
+          source: "Meetup"
         })
       end
     end
@@ -243,7 +247,8 @@ class Event < ActiveRecord::Base
           dayOn: dayTimeStart,
           dayEnd: dayTimeStart,
           desc: description,
-          categoryList: ["Music"]
+          categoryList: ["Music"],
+          source: "Just Shows"
           })
       end
       pageCount += 1
@@ -282,7 +287,8 @@ class Event < ActiveRecord::Base
           dayOn: dayTime,
           dayEnd: dayTime,
           desc: descIncomplete,
-          categoryList: categoryList
+          categoryList: categoryList,
+          source: "Blog.to"
           })
       end
       dayCount += 1
@@ -328,7 +334,8 @@ class Event < ActiveRecord::Base
           dayOn: dayStart,
           dayEnd: dayEnd,
           desc: desc,
-          categoryList: categoryList
+          categoryList: categoryList,
+          source: "Toronto.com"
         })
       end
       pageCount += 1
