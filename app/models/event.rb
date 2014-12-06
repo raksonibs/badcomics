@@ -337,6 +337,12 @@ class Event < ActiveRecord::Base
     return eventAll
   end
 
+  def self.club_crawlers
+    eventAll = Scraper::NowMagazine.club_events
+
+    # end
+  end
+
   def self.findCats(desc)
     catList = []
     catList << "Music" if desc[/music/i] || desc[/jam/i] || desc[/concert/i] || desc[/band/i] || desc[/songs/i] || desc[/vocal/i] || desc[/singer/i] || desc[/songwriter/i]

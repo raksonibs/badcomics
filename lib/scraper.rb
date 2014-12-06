@@ -3,6 +3,48 @@ include Capybara::DSL
 module Scraper
   class NowMagazine
 
+    def self.club_events
+      string = "http://www.clubcrawlers.com/toronto/events/all-events"
+      Capybara.app_host = string
+      eventsAll = []
+
+      page = visit('/')
+      while page.has_css?('.load-more')
+        page.all(:css, '.event-block').each do |event|
+          name = event.find('.event-info h2').text()
+          image = "http://www.clubcrawlers.com" + event.find('.hov img')[:src]
+          locationAndDate = event.find('.event-info h3').text()
+          #  checks if Dec. or something like that, so then know if Saturday or actual date for event
+          if locationAndDate[/\./]
+            location = locationAndDate.split(/\d+\s/)[1]
+            date = locationAndDate.scan(/.+\d+/)[0]
+          else 
+            locationAndDate = locationAndDate.split(/\s/)
+            date = locationAndDate[0]
+            location = locationAndDate[1..-1].join(" ")
+          end
+
+          url = "http://www.clubcrawlers.com" + event.find('.hov')[:href]
+
+          eventsAll.push({
+              name: name,
+              image: image,
+              url: url,
+              location: location,
+              price: 'Price not listed',
+              dayOn: date,
+              dayEnd: date,
+              desc: 'A night to be remembered',
+              categoryList: ["Party"]
+            })
+        end
+        break
+
+        page = page.find('.load-more').click() if page.has_css?('.load-more')
+      end
+      
+    end
+
     def self.get_events
       eventAll = []
       #  eventually each page needs to be changed by click so keep runnnnig that click until count is ten
