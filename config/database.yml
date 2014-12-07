@@ -4,8 +4,8 @@ development:
   database: whattodo_development
   host: localhost
   pool: 5
-  username:
-  password:
+  username: myapp
+  password: password1
 
 test:
   adapter: postgresql
@@ -13,8 +13,8 @@ test:
   database: whattodo_test
   host: localhost
   pool: 5
-  username:
-  password:
+  username: myapp
+  password: password1
 
 production:
   adapter: postgresql
@@ -22,5 +22,5 @@ production:
   database: whattodo_production
   host: localhost
   pool: 5
-  username:
-  password:
+  username: myapp
+  password: password1
