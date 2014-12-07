@@ -15,8 +15,26 @@ gem 'capistrano', '~> 3.1.0'
 gem 'capistrano-bundler', '~> 1.1.2'
 gem 'capistrano-rails', '~> 1.1.1'
 
+
+gem "jquery-ui-rails"
+
+gem "fb_graph"
+gem "koala", "~> 1.8.0rc1"
+
+gem "gmaps4rails"
+
 gem 'omniauth'
 gem "omniauth-facebook"
+
+# Asset Handling
+gem 'bourbon' # Should replace w/ autoprefixer: https://github.com/ai/autoprefixer-rails
+gem 'sass-rails', '~> 4.0.2'
+gem 'uglifier', '>= 1.3.0'
+
+gem 'bootstrap-datepicker-rails'
+gem 'font-awesome-rails'
+gem 'jquery-rails'
+gem 'zurb-foundation'
 
 # Forms
 
@@ -46,6 +64,8 @@ end
 
 gem "nokogiri"
 
+gem 'rack'
+
 gem 'sidekiq'
 
 gem 'therubyracer',  platforms: :ruby
@@ -58,5 +78,5 @@ group :production do
 
   # Server
   gem 'unicorn'
-  gem 'hooves', require: "hooves/default"
+  # gem 'hooves', require: "hooves/default"
 end
