@@ -17,30 +17,3 @@
 //= require gmaps/google
 //= require spin
 //= require_tree .
-
-var dateValues = new Date();
-dateValues = dateValues.getDate() + '-' + (dateValues.getMonth()+1) + '-' + dateValues.getFullYear()
-
-$(function() {
-  $.datepicker.setDefaults(
-    $.extend($.datepicker.regional[''])
-  );
-
-  $('#datepicker, #datepickerAfter').datepicker({
-    onSelect: function(dateText, obj) {
-      $(this).css('background-color','');
-      // month/day/year
-      dateValues = obj.selectedDay + '-' + (obj.selectedMonth + 1) + '-' + obj.selectedYear
-      if ($(this).attr('id') !== "datepickerAfter") {
-        $(".categories, .question, .bhome").fadeOut( function() {
-          $(".categories1, .question2, .b2feeling")
-            .show()
-            .animate({
-              left:"+15",
-              opacity: 1},800);
-            });
-          }
-      }
-  });
-  $('#datepicker').datepicker();
-});
