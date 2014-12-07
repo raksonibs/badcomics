@@ -6,7 +6,7 @@ class Event < ActiveRecord::Base
   include Scraper
 
 	geocoded_by :location
-	after_validation :geocode, if: ->(obj){ obj.location.present? and obj.location_changed? and !obj.latitude.nil? and !obj.longitude.nil? }
+	# after_validation :geocode, if: ->(obj){ obj.location.present? and obj.location_changed? and !obj.latitude.nil? and !obj.longitude.nil? }
 
   def self.writeToFile(events)
     File.open('eventsseedfile.txt', 'w') { |file| file.write(events) }
@@ -17,21 +17,23 @@ class Event < ActiveRecord::Base
      arrEvents.each do |event|
       puts event
       e = Event.new(event)
+      e.geocode if e.latitude == nil || e.longitude == nil
       e.save!
      end
      writeToFile(arrEvents)
   end
 
   def self.getdata
-  	return [
-            self.justshows,
+  	return [self.justshows,
             self.cityhall,
-            self.nowmagazine,
             self.eventbrite,
             self.eventful,
             self.meetup,
+            self.nowmagazine,
             self.blogto,
-            self.torontocom
+            self.torontocom,
+            self.elmcity,
+            self.club_crawlers
   	].flatten
   end
 
@@ -172,9 +174,12 @@ class Event < ActiveRecord::Base
         categoryList = ["Misc"] if categoryList == nil || categoryList == ""
         longitude = event["longitude"]
         latitude = event['latitude']
-        image = event['image']['medium']['url']
-        image = image != nil || image != "" ? image : "http://i.imgur.com/ixz8pZT.png?1"
-
+        image = event['image']
+        begin
+          image = image != nil && image != "" && image != " " ? image['medium']['url'] : "http://i.imgur.com/ixz8pZT.png?1"
+        rescue
+          image = "http://i.imgur.com/ixz8pZT.png?1"
+        end
         eventAll.push({
           name: name,
           url: url,
@@ -308,7 +313,11 @@ class Event < ActiveRecord::Base
         descIncomplete = event.css('.event-summary').text()
         categoryList = Event.findCats(descIncomplete)
         categoryList = ["Misc"] if categoryList == nil || categoryList == ""
-        image = event.css('.poster img').attribute('src').value
+        image = if !event.css('.poster').css('img').empty?
+          event.css('.poster').css('img')[0]['src']
+        else
+          "http://i.imgur.com/ixz8pZT.png?1"
+        end
 
         allEvents.push({
           name: name,
@@ -354,12 +363,16 @@ class Event < ActiveRecord::Base
         dayStart = matchReg[0] || "No start time specified"
         dayEnd = matchReg[1] || "No end time specified"
         location = event.css('.meta').text()[/Location:\s[A-z\s\']*/]
-        location = location== "" || location == nil ? 'Toronto, ON, Canada' : location + ', Toronto, ON, Canada'
+        location = location== "" || location == nil ? 'Toronto, ON, Canada' : location[1..-1].sub(/\s+\Z/, "") + ', Toronto, ON, Canada'
         # sub here used to remove whitespace
         location = location[9..-1].sub(/\s+\Z/, "") + ' ,Toronto, ON, Canada'
         categoryList = Event.findCats(desc)
         categoryList = ["Misc"] if categoryList == nil || categoryList == ""
-        image = event.css('.img-holder img').attribute('src').value
+        image = if !event.css('.img-holder').css('img').empty?
+          event.css('.img-holder').css('img')[0]['src']
+        else
+          "http://i.imgur.com/ixz8pZT.png?1"
+        end
 
         eventAll.push({
           name: name,
@@ -433,8 +446,6 @@ class Event < ActiveRecord::Base
     catList << "Geek" if desc[/learn/i] || desc[/conference/i] || desc[/tech/i] || desc[/computer/i] || desc[/developer/i] || desc[/programmer/i] || desc[/wearable/i] || desc[/printer/i]
     catList << "Outdoor" if desc[/park/i] || desc[/outdoor/i] || desc[/forest/i] || desc[/skating/i]
     catList << "Good" if desc[/benefits/i] || desc[/gala/i] || desc[/charity/i] || desc[/fundraising/i]
-    # tourist is based on big locations but right now just misc cateogry
-    # also try new things and meet new people is this category as well
     catList << "Party" if desc[/bash/i] || desc[/party/i] || desc[/alcohol/i] || desc[/dancing/i]
     catList << "Watch" if desc[/show/i] || desc[/watch/i] || desc[/movie/i] || desc[/film/i]
     catList << "Laugh" if desc[/comedy/i] || desc[/funny/i] || desc[/improv/i] || desc[/comedic/i]
@@ -444,8 +455,9 @@ class Event < ActiveRecord::Base
     catList
   end
 
-  # checkout lat long on geocoder
   # get request every 24 hours to me
+  # deploy api to digital ocean
+  # deploy actual app to heroku. different branches, or projects?
   # normalize data for some reasons?
   # set all long lats, if already have some of them?
 

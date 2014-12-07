@@ -16,12 +16,12 @@ module Scraper
           locationAndDate = event.find('.event-info h3').text()
           #  checks if Dec. or something like that, so then know if Saturday or actual date for event
           if locationAndDate[/\./]
-            location = locationAndDate.split(/\d+\s/)[1]
+            location = locationAndDate.split(/\d+\s/)[1] + ", Toronto, ON, Canada"
             date = locationAndDate.scan(/.+\d+/)[0]
           else 
             locationAndDate = locationAndDate.split(/\s/)
             date = locationAndDate[0]
-            location = locationAndDate[1..-1].join(" ")
+            location = locationAndDate[1..-1].join(" ") + ", Toronto, ON, Canada"
           end
 
           url = "http://www.clubcrawlers.com" + event.find('.hov')[:href]
@@ -39,10 +39,10 @@ module Scraper
               source: "Club Crawlers"
             })
         end
-        break
 
         page = page.find('.load-more').click() if page.has_css?('.load-more')
       end
+      return eventsAll
       
     end
 
