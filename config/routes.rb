@@ -8,6 +8,7 @@ Whattodo::Application.routes.draw do
   # ttp://api.localhost.com/events
   namespace :api, defaults: {format: 'json'} do
     namespace :v1 do 
+      get '/create_token' => "events#create_token"
       resources :events
       get '/today' => "events#today"
     end

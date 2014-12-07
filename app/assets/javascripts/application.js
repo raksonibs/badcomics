@@ -16,3 +16,11 @@
 //= require underscore
 //= require spin
 //= require_tree .
+$(document).ready(function() {
+
+  $('.button').click(function() {
+    $.get("/api/v1/create_token", function(data) {
+      $('.key-holder').text("Your access token: " + data.access_token)
+    })
+  })
+})

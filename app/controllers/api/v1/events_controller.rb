@@ -3,11 +3,16 @@ class API::V1::EventsController < ApplicationController
   helper_method :getMatchingDayEvents
   helper_method :uniqueEvents
 
-  before_filter :restrict_access
+  before_filter :restrict_access, except: :create_token
 
   respond_to :json
 
   # http_basic_authenticate_with name: Figaro.env.api_name, password: Figaro.env.api_password
+
+  def create_token
+    @apikey = APIKey.create!
+    respond_with @apikey
+  end
 
   def index
     @events = Event.all
