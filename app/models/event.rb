@@ -227,8 +227,8 @@ class Event < ActiveRecord::Base
         desc = event["description"] || "No description"
         categoryList = Event.findCats(desc)
         categoryList = ["Misc"] if categoryList == nil || categoryList == ""
-        latitude = event['venue']['lat']
-        longitude = event['venue']['lon']
+        latitude = event["venue"] == nil ? nil : event['venue']['lat']
+        longitude = event["venue"] == nil ? nil :event['venue']['lon']
         image = "http://i.imgur.com/ixz8pZT.png?1"
 
         eventAll.push({
