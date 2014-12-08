@@ -14,17 +14,58 @@ module Scraper
     end
 
     def self.club_events
-      string = "http://www.clubcrawlers.com/toronto/events/all-events"
-      Capybara.app_host = string
-      eventsAll = []
-      count = 0
-      page = visit('/')
-      while count < 2
-      #while page.has_css?('.load-more')
-        page.all(:css, '.event-block').each do |event|
-          name = event.find('.event-info h2').text()
-          image = "http://www.clubcrawlers.com" + event.find('.hov img')[:src]
-          locationAndDate = event.find('.event-info h3').text()
+      # this breaks on ubuntu
+      begin
+        string = "http://www.clubcrawlers.com/toronto/events/all-events"
+        Capybara.app_host = string
+        eventsAll = []
+        count = 0
+        page = visit('/')
+        while count < 2
+        #while page.has_css?('.load-more')
+          page.all(:css, '.event-block').each do |event|
+            name = event.find('.event-info h2').text()
+            image = "http://www.clubcrawlers.com" + event.find('.hov img')[:src]
+            locationAndDate = event.find('.event-info h3').text()
+            #  checks if Dec. or something like that, so then know if Saturday or actual date for event
+            if locationAndDate[/\./]
+              location = locationAndDate.split(/\d+\s/)[1] + ", Toronto, ON, Canada"
+              date = locationAndDate.scan(/.+\d+/)[0]
+            else 
+              locationAndDate = locationAndDate.split(/\s/)
+              date = locationAndDate[0][0...-1]
+              location = locationAndDate[1..-1].join(" ") + ", Toronto, ON, Canada"
+            end
+
+            url = "http://www.clubcrawlers.com" + event.find('.hov')[:href]
+
+            eventsAll.push({
+                name: name,
+                image: image,
+                url: url,
+                location: location,
+                price: 'Price not listed',
+                dayOn: date,
+                dayEnd: date,
+                desc: 'A night to be remembered',
+                categoryList: ["Party"],
+                source: "Club Crawlers"
+              })
+          end
+
+          page = page.find('.load-more').click() if page.has_css?('.load-more')
+          count += 1
+        end
+      rescue
+        # http://www.clubcrawlers.com/toronto/events/tonightsevents
+        string = "http://www.clubcrawlers.com/toronto/events/tonightsevents"
+        data = Nokogiri::HTML(open(string)).css('.event-block')
+
+        data.each do |event|
+
+          name = event.css('.event-info h2').text()
+          image = "http://www.clubcrawlers.com" + event.css('.hov img').attribute('src').value
+          locationAndDate = event.css('.event-info h3').text()
           #  checks if Dec. or something like that, so then know if Saturday or actual date for event
           if locationAndDate[/\./]
             location = locationAndDate.split(/\d+\s/)[1] + ", Toronto, ON, Canada"
@@ -35,25 +76,24 @@ module Scraper
             location = locationAndDate[1..-1].join(" ") + ", Toronto, ON, Canada"
           end
 
-          url = "http://www.clubcrawlers.com" + event.find('.hov')[:href]
+          url = "http://www.clubcrawlers.com" + event.css('.hov').attribute('href').value
 
           eventsAll.push({
-              name: name,
-              image: image,
-              url: url,
-              location: location,
-              price: 'Price not listed',
-              dayOn: date,
-              dayEnd: date,
-              desc: 'A night to be remembered',
-              categoryList: ["Party"],
-              source: "Club Crawlers"
-            })
+            name: name,
+            image: image,
+            url: url,
+            location: location,
+            price: 'Price not listed',
+            dayOn: date,
+            dayEnd: date,
+            desc: 'A night to be remembered',
+            categoryList: ["Party"],
+            source: "Club Crawlers"
+          })
         end
 
-        page = page.find('.load-more').click() if page.has_css?('.load-more')
-        count += 1
       end
+
       @headless.destroy
       return eventsAll
       
