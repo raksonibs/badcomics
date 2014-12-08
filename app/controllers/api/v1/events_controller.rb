@@ -21,6 +21,10 @@ class API::V1::EventsController < ApplicationController
 
   def today
     @eventsToday = uniqueEvents(getMatchingDayEvents)
+    
+    @eventsToday = @eventsToday.select{|event| event.categoryList.include?(params[:cat])} if params[:cat]
+    @eventsToday = @eventsToday[0..params[:limit].to_i] if params[:limit]
+
     respond_with @eventsToday
   end
 
