@@ -1,5 +1,16 @@
 include Capybara::DSL
 
+require 'headless'
+
+if Capybara.current_driver == :webkit
+  require 'headless'
+
+  puts 'Starting headless'
+
+  headless = Headless.new
+  headless.start
+end
+
 module Scraper
   class NowMagazine
 

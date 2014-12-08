@@ -25,6 +25,8 @@ gem 'uglifier', '>= 1.3.0'
 gem 'font-awesome-rails'
 gem 'jquery-rails'
 
+gem 'headless'
+
 # Forms
 gem 'figaro'
 gem "rspec-rails"

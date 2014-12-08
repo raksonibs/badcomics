@@ -72,6 +72,7 @@ GEM
       railties (>= 3.2, < 5.0)
     geocoder (1.1.8)
     hashie (2.0.5)
+    headless (1.0.2)
     hike (1.2.3)
     http-cookie (1.0.2)
       domain_name (~> 0.5)
@@ -245,6 +246,7 @@ DEPENDENCIES
   figaro
   font-awesome-rails
   geocoder
+  headless
   jbuilder (~> 1.2)
   jquery-rails
   mechanize
