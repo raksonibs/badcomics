@@ -2,17 +2,16 @@ include Capybara::DSL
 
 require 'headless'
 
-if Capybara.current_driver == :webkit
-  require 'headless'
-
-  puts 'Starting headless'
-
-  headless = Headless.new
-  headless.start
-end
-
 module Scraper
   class NowMagazine
+
+    if Capybara.current_driver == :webkit
+
+      puts 'Starting headless'
+
+      @headless = Headless.new
+      @headless.start
+    end
 
     def self.club_events
       string = "http://www.clubcrawlers.com/toronto/events/all-events"
@@ -53,11 +52,13 @@ module Scraper
 
         page = page.find('.load-more').click() if page.has_css?('.load-more')
       end
+      @headless.destroy
       return eventsAll
       
     end
 
     def self.get_events
+      @headless.start
       eventAll = []
       #  eventually each page needs to be changed by click so keep runnnnig that click until count is ten
       #  someties node attachment error. so when that happens need to wait and rerun
