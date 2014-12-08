@@ -9,6 +9,7 @@ class Event < ActiveRecord::Base
 	# after_validation :geocode, if: ->(obj){ obj.location.present? and obj.location_changed? and !obj.latitude.nil? and !obj.longitude.nil? }
 
   def self.writeToFile(events)
+    puts 'Writing to File'
     File.open('eventsseedfile.txt', 'w') { |file| file.write(events) }
   end
 
@@ -38,6 +39,7 @@ class Event < ActiveRecord::Base
   end
 
   def self.cityhall
+    puts 'Running cityhall'
   	events = []
   	data = Nokogiri::HTML(open("http://wx.toronto.ca/festevents.nsf/tpaview?readviewentries")).xpath("//viewentry")
     count = 0
@@ -94,6 +96,7 @@ class Event < ActiveRecord::Base
   end
 
   def self.nowmagazine
+    puts 'Running nowmagazine'
     # http://nowtoronto.com/sesarch/event/all/
     eventsAll = Scraper::NowMagazine.get_events
   end
@@ -101,6 +104,7 @@ class Event < ActiveRecord::Base
   def self.eventbrite
     # since this will only be run every sun and wed, just get events. Reason this is run less is because only have small api limit. Wonder if eventful is still pay what you have
     # http://www.eventbrite.com/json/event_search?app_key=GUBRP2USZMDRRVPPSF&city=Toronto&date=2014-11-05%202014-11-10&page=2 -> testing
+    puts 'Running eventbrite'
     dateToday = Date.today#.strftime("%Y-%m-%d")
     next7days = (dateToday+7).to_s
     string = "http://www.eventbrite.com/json/event_search?app_key=GUBRP2USZMDRRVPPSF&city=Toronto&date="+dateToday.to_s+"%20"+next7days+'&max=100'
@@ -149,6 +153,7 @@ class Event < ActiveRecord::Base
   def self.eventful
     # very similiar to eventful, can be one method
     # http://api.eventful.com/json/events/search?app_key=hSXmLwVD99qfGPBs&location=Toronto&t=Next+7+days&page_size=100&page_number=2
+    puts 'Running eventful'
     string = "http://api.eventful.com/json/events/search?app_key=hSXmLwVD99qfGPBs&location=Toronto&t=Next+7+days&page_size=100"   
     data = JSON.parse((open(string)).read)
     totalEvents = data['total_items'].to_i
@@ -202,6 +207,7 @@ class Event < ActiveRecord::Base
   end
 
   def self.meetup 
+    puts 'Running meetup'
     string =  "https://api.meetup.com/2/open_events?&sign=true&city=Toronto&country=ca&time=0d,7d&status=upcoming&key=7b794c3657477db4e107a7e366f7b5f"
     data = JSON.parse((open(string)).read)
     totalEvents = data['meta']['total_count']
@@ -252,6 +258,7 @@ class Event < ActiveRecord::Base
   end
 
   def self.justshows
+    puts 'Running justshows'
     # http://justshows.com/toronto/?p=2
     string = "http://justshows.com/toronto/"
     dataEvents = Nokogiri::HTML(open(string))
@@ -291,6 +298,7 @@ class Event < ActiveRecord::Base
   end
 
   def self.blogto
+    puts 'Running blogto'
     # http://www.blogto.com/events/?date=2014-11-11&status=started-today
     today = Date.today
     todaystr = today.strftime("%Y-%m-%d")
@@ -341,6 +349,7 @@ class Event < ActiveRecord::Base
   end
 
   def self.torontocom
+    puts 'Running torontocom'
     # http://www.toronto.com/events/?date=2014-11-07&enddate=2014-11-14&
     # run with meetup and sort every sun and wed night for next 7 days? I think nine is better!
     today = Date.today
@@ -394,6 +403,7 @@ class Event < ActiveRecord::Base
   end
 
   def self.club_crawlers
+    puts 'Running club_crawlers'
     eventAll = Scraper::NowMagazine.club_events
   end
 
@@ -454,11 +464,4 @@ class Event < ActiveRecord::Base
     catList = catList != [] ? catList : ["Misc"]
     catList
   end
-
-  # get request every 24 hours to me
-  # deploy api to digital ocean
-  # deploy actual app to heroku. different branches, or projects?
-  # normalize data for some reasons?
-  # set all long lats, if already have some of them?
-
 end
