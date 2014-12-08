@@ -5,6 +5,8 @@ gem 'rails', '4.0.0'
 
 gem 'pg'
 
+gem 'os'
+
 gem 'capybara'
 gem 'selenium-webdriver'
 gem 'mechanize'
