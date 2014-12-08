@@ -257,6 +257,16 @@ class Event < ActiveRecord::Base
     return eventAll
   end
 
+  def self.club_crawler_create
+    arrEvents = Event.club_crawlers
+    arrEvents.each do |event|
+      puts event
+      e = Event.new(event)
+      e.geocode if e.latitude == nil || e.longitude == nil
+      e.save!
+    end
+  end
+
   def self.justshows
     puts 'Running justshows'
     # http://justshows.com/toronto/?p=2
