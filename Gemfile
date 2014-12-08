@@ -2,7 +2,6 @@ source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.0.0'
-gem 'roo'
 
 gem 'pg'
 
@@ -15,14 +14,6 @@ gem 'capistrano', '~> 3.1.0'
 gem 'capistrano-bundler', '~> 1.1.2'
 gem 'capistrano-rails', '~> 1.1.1'
 
-
-gem "jquery-ui-rails"
-
-gem "fb_graph"
-gem "koala", "~> 1.8.0rc1"
-
-gem "gmaps4rails"
-
 gem 'omniauth'
 gem "omniauth-facebook"
 
@@ -31,15 +22,10 @@ gem 'bourbon' # Should replace w/ autoprefixer: https://github.com/ai/autoprefix
 gem 'sass-rails', '~> 4.0.2'
 gem 'uglifier', '>= 1.3.0'
 
-gem 'bootstrap-datepicker-rails'
 gem 'font-awesome-rails'
 gem 'jquery-rails'
-gem 'zurb-foundation'
 
 # Forms
-
-gem "fql"
-gem 'kaminari'
 gem 'figaro'
 gem "rspec-rails"
 
@@ -65,8 +51,6 @@ end
 gem "nokogiri"
 
 gem 'rack'
-
-gem 'sidekiq'
 
 gem 'therubyracer',  platforms: :ruby
 
