@@ -17,9 +17,10 @@ module Scraper
       string = "http://www.clubcrawlers.com/toronto/events/all-events"
       Capybara.app_host = string
       eventsAll = []
-
+      count = 0
       page = visit('/')
-      while page.has_css?('.load-more')
+      while count < 2
+      #while page.has_css?('.load-more')
         page.all(:css, '.event-block').each do |event|
           name = event.find('.event-info h2').text()
           image = "http://www.clubcrawlers.com" + event.find('.hov img')[:src]
@@ -30,7 +31,7 @@ module Scraper
             date = locationAndDate.scan(/.+\d+/)[0]
           else 
             locationAndDate = locationAndDate.split(/\s/)
-            date = locationAndDate[0]
+            date = locationAndDate[0][0...-1]
             location = locationAndDate[1..-1].join(" ") + ", Toronto, ON, Canada"
           end
 
@@ -51,6 +52,7 @@ module Scraper
         end
 
         page = page.find('.load-more').click() if page.has_css?('.load-more')
+        count += 1
       end
       @headless.destroy
       return eventsAll
@@ -64,7 +66,7 @@ module Scraper
       #  someties node attachment error. so when that happens need to wait and rerun
       page = visit('/')
       count = 0
-      while count <= 100
+      while count <= 1
         page.all(:css, '.event_result').each do |element|
           name = element.find('.event_title').text()
           splitedDate = element.find('.event_date').text().split('-')
