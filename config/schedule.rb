@@ -1,4 +1,4 @@
-every :sunday, :at=> "04:00am" do
+every :tuesday, :at=> "04:00am" do
 	rake "get_events:get_events"
 end
 
