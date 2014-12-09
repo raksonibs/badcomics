@@ -25,8 +25,8 @@ module Scraper
         eventsAll = []
         count = 0
         page = visit('/')
-        while count < 2
-        #while page.has_css?('.load-more')
+       # while count < 2
+        while page.has_css?('.load-more')
           page.all(:css, '.event-block').each do |event|
             name = event.find('.event-info h2').text()
             image = "http://www.clubcrawlers.com" + event.find('.hov img')[:src]
@@ -110,7 +110,7 @@ module Scraper
       #  someties node attachment error. so when that happens need to wait and rerun
       page = visit('/')
       count = 0
-      while count <= 1
+      while count <= 100
         page.all(:css, '.event_result').each do |element|
           name = element.find('.event_title').text()
           splitedDate = element.find('.event_date').text().split('-')
