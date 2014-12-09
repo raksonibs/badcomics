@@ -6,17 +6,6 @@ require 'os'
 module Scraper
   class NowMagazine
 
-
-    if !OS.mac?
-      if Capybara.current_driver == :webkit
-
-        puts 'Starting headless'
-
-        @headless = Headless.new
-        @headless.start
-      end
-    end
-
     def self.club_events
       # this breaks on ubuntu
       begin
@@ -98,12 +87,19 @@ module Scraper
 
       end
 
-      @headless.destroy if !OS.mac? 
+      @headless.destroy if !OS.mac? && !@headless.nil?
       return eventsAll
       
     end
 
     def self.get_events
+      if !OS.mac?
+        if Capybara.current_driver == :webkit
+          puts 'Starting headless'
+          @headless = Headless.new
+          @headless.start
+        end
+      end
       @headless.start if !OS.mac? 
       eventAll = []
       #  eventually each page needs to be changed by click so keep runnnnig that click until count is ten
