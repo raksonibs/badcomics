@@ -3,10 +3,24 @@ class UsersController < ApplicationController
     @user = User.new
   end
 
+  def home
+  end
+
   def create
     @user = User.new(params[:user_params])
     @user.password = params[:password]
-    @user.save!
+
+    if params[:user][:name] == Figaro.env.username && params[:user][:password] == Figaro.env.password
+      if @user.save
+        session[:user] = @user
+        redirect_to root_url
+      else
+        render :new
+      end
+    else
+      @user.errors.add(:password, 'Either username or password is incorrect')
+      render :new
+    end
   end
 
   def login
