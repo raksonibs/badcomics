@@ -4,6 +4,7 @@ class UsersController < ApplicationController
   end
 
   def home
+    @user = current_user
   end
 
   def create
@@ -12,7 +13,7 @@ class UsersController < ApplicationController
 
     if params[:user][:name] == Figaro.env.username && params[:user][:password] == Figaro.env.password
       if @user.save
-        session[:user] = @user
+        session[:user] = @user.id
         redirect_to root_url
       else
         render :new

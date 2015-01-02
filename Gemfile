@@ -33,3 +33,5 @@ gem 'sdoc', '~> 0.4.0',          group: :doc
 gem 'spring',        group: :development
 
 gem 'haml'
+
+gem "paperclip", "~> 4.2"
