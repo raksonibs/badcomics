@@ -1,6 +1,9 @@
 require 'bcrypt'
 
 class User < ActiveRecord::Base
+  has_many :images, :dependent => :destroy
+  has_secure_password
+
   include BCrypt
 
   # has_attached_file :comic, :styles => { :medium => "300x300>", :thumb => "100x100>" }, :default_url => "/images/:style/missing.png"

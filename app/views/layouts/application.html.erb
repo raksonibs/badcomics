@@ -13,27 +13,11 @@
 
   <body>
 
-  <!-- <% if current_user %>
-  <%= current_user.name %>
-<% else %>
-  <p> No one signed in </p>
-<% end %> -->
-
-<!-- <h1 class="main-logo"><%= image_tag "logo.png" %></h1> -->
-
-
-<!-- <%= image_tag "logo.png" %>
-<%= image_tag "two_ppl.png" %>
-<%= image_tag "tabs.png" %>
-<%= image_tag "first.png" %>
-<%= image_tag "previous.png" %>
-<%= image_tag "comic1.png" %>
-<%= image_tag "next.png" %>
-<%= image_tag "last.png" %>
-<%= image_tag "comic1_text.png" %>
-<%= image_tag "facebook.png" %>
-<%= image_tag "twitter.png" %> -->
-
+  <% if current_user %>
+  Signed in as <%= current_user.name %> | <%= link_to "Logout", '/logout' %>
+  <% else %>
+    <%= link_to 'Login', '/login' %>
+  <% end %>
 
 <div class="row">
   <div class="large-6 small-6 columns">

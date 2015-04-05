@@ -24,6 +24,9 @@ class UsersController < ApplicationController
     end
   end
 
+  def loginPage
+  end
+
   def login
     @user = User.find_by_name(params[:name])
     if @user.password == params[:password]
