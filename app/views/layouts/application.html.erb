@@ -1,20 +1,132 @@
 <!DOCTYPE html>
-<html>
-<head>
-  <title>Badcomics</title>
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
-  <%= csrf_meta_tags %>
-</head>
-<body>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-<% if current_user %>
+    <title><%= content_for?(:title) ? yield(:title) : 'Bad Comics' %></title>
+
+    <%= stylesheet_link_tag    "application" %>
+    <%= javascript_include_tag "vendor/modernizr" %>
+    <%= csrf_meta_tags %>
+  </head>
+
+  <body>
+
+  <!-- <% if current_user %>
   <%= current_user.name %>
 <% else %>
   <p> No one signed in </p>
-<% end %>
+<% end %> -->
 
-<%= yield %>
+<!-- <h1 class="main-logo"><%= image_tag "logo.png" %></h1> -->
 
-</body>
+
+<!-- <%= image_tag "logo.png" %>
+<%= image_tag "two_ppl.png" %>
+<%= image_tag "tabs.png" %>
+<%= image_tag "first.png" %>
+<%= image_tag "previous.png" %>
+<%= image_tag "comic1.png" %>
+<%= image_tag "next.png" %>
+<%= image_tag "last.png" %>
+<%= image_tag "comic1_text.png" %>
+<%= image_tag "facebook.png" %>
+<%= image_tag "twitter.png" %> -->
+
+
+<div class="row">
+  <div class="large-6 small-6 columns">
+    <h1><%= image_tag "logo.png" %></h1>
+  </div>
+  <div class="large-6 small-6 columns">
+    <ul class="right button-group">
+      <li><%= image_tag "two_ppl.png" %></li>
+      <li><%= image_tag "tabs.png" %></li>
+    </ul>
+   </div>
+ </div>
+
+
+
+
+
+<!-- <div class="row">
+  <div class="large-7 columns right">
+    <div id="slider">
+      <%= image_tag "tabs.png" %>
+    </div>
+    <br/>
+  </div>
+</div> -->
+
+
+
+<div class="row">
+  <div class="large-1 small-1 columns">
+    <%= image_tag "first.png" %>
+  </div>
+  
+  <div class="large-1 small-1 columns">
+    <%= image_tag "previous.png" %>
+  </div>
+  
+  <div class="large-8 small-8 columns">
+    <%= image_tag "comic1.png" %>
+    <br>
+    <%= image_tag "comic1_text.png" %>
+  </div>
+
+  <div class="large-1 small-1 columns">
+    <%= image_tag "next.png" %>
+  </div>
+  
+  <div class="large-1 small-1 columns">
+    <%= image_tag "last.png" %>
+  </div>
+
+</div>
+
+<br>
+<br>
+<br>
+<br>
+<br>
+
+<div class="row">
+  <div class="large-12 columns icon-text">
+  
+    <div class="icons">
+      <%= image_tag "facebook.png" %>
+      <%= image_tag "twitter.png" %>
+    </div>
+    
+  </div>
+</div>
+
+ 
+
+<!-- <footer class="row">
+  <div class="large-12 columns">
+    <hr/>
+    <div class="row">
+      <div class="large-6 columns">
+        <p>© Copyright no one at all. Go to town.</p>
+      </div>
+      <div class="large-6 columns">
+        <ul class="inline-list right">
+          <li><a href="#">Link 1</a></li>
+          <li><a href="#">Link 2</a></li>
+          <li><a href="#">Link 3</a></li>
+          <li><a href="#">Link 4</a></li>
+        </ul>
+      </div>
+    </div>
+  </div> 
+</footer> -->
+
+
+    <%= yield %>
+    <%= javascript_include_tag "application" %>
+  </body>
 </html>
