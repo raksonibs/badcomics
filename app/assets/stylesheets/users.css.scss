@@ -13,8 +13,56 @@
   font-style: normal;
 }
 
+li.nav.first {
+  margin-left: 18px;
+}
+
+li.nav:hover {
+  color: blue;
+}
+
 li.nav {  
   font-family: 'Acki-Preschool';
-  margin: 3px;
+  margin: 7px;
+  font-size: 2.7em;
 }
-  
+
+@media only screen and (max-width: 906px) {
+  li.nav {
+    font-size: 2.0em;
+  }
+}
+
+@media only screen and (max-width: 720px) {
+  li.nav {
+    font-size: 1.5em;
+  }
+} 
+
+@media only screen and (max-width: 593px) {
+  li.nav.first {
+    margin-left: 10px;
+  }
+
+  li.nav {
+    font-size: 1.25em;
+  }
+} 
+
+@media only screen and (max-width: 520px) {
+  .buttons {
+    width: 60%;
+  }
+
+  .logo {
+    width: 40%;
+  }
+
+  li.nav.first {
+    margin-left: 0px;
+  }
+
+  li.nav {
+    font-size: 1.15em;
+  }
+} 
