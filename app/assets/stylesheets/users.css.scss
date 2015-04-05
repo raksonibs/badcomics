@@ -1,3 +1,14 @@
 // Place all the styles related to the users controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+@font-face {
+  font-family: 'AckiPreschool';
+  src: url('/assets/AckiPreschool.ttf') format('truetype');
+}
+
+li.nav {  
+  font-family: 'AckiPreschool';
+  margin: 3px;
+}
+  
