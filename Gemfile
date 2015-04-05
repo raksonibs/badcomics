@@ -37,3 +37,4 @@ gem 'haml'
 gem "paperclip", "~> 4.2"
 
 gem 'foundation-rails'
+

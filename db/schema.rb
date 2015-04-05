@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150102070234) do
+ActiveRecord::Schema.define(version: 20150405060137) do
 
   create_table "users", force: true do |t|
     t.string   "name"
@@ -27,6 +27,7 @@ ActiveRecord::Schema.define(version: 20150102070234) do
     t.string   "comic_content_type"
     t.integer  "comic_file_size"
     t.datetime "comic_updated_at"
+    t.string   "email"
   end
 
 end
