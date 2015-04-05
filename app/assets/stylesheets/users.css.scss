@@ -3,12 +3,18 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 @font-face {
-  font-family: 'AckiPreschool';
-  src: url('/assets/AckiPreschool.ttf') format('truetype');
+  font-family: 'Acki-Preschool';    
+  src: url('/assets/Acki-Preschool.eot');
+  src: url('/assets/Acki-Preschool.eot') format('eot'),
+  url('/assets/Acki-Preschool.woff') format('woff'),
+  url('/assets/Acki-Preschool.ttf') format('truetype'),
+  url('/assets/Acki-Preschool.svg') format('svg');
+  font-weight: normal;
+  font-style: normal;
 }
 
 li.nav {  
-  font-family: 'AckiPreschool';
+  font-family: 'Acki-Preschool';
   margin: 3px;
 }
   
