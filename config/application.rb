@@ -20,5 +20,21 @@ module Badcomics
     # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     # config.i18n.default_locale = :de
+
+    config.generators do |g|
+        g.test_framework :rspec, :fixture => false
+        g.fixture_replacement :factory_girl, :dir => "spec/factories"
+    end
+
+    config.time_zone
+    config.generators.stylesheets = false
+    config.generators.javascripts = false
+    config.generators.helper = false
+    config.generators.specs = false
+
+    config.autoload_paths += Dir["#{config.root}/lib/**/"]
+
+    # config.assets.precompile += ['que/que.js', 'pages/prework.css', 'pages/student_names.css',
+                                 # 'hiring_board/hiring_board.css', 'hiring_board/hiring_board.js']
   end
 end
