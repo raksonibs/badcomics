@@ -34,7 +34,6 @@ module Badcomics
 
     config.autoload_paths += Dir["#{config.root}/lib/**/"]
 
-    # config.assets.precompile += ['que/que.js', 'pages/prework.css', 'pages/student_names.css',
-                                 # 'hiring_board/hiring_board.css', 'hiring_board/hiring_board.js']
+    config.assets.paths < Rails.root.join('app','assets','fonts')
   end
 end
