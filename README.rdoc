@@ -1,1 +1,6 @@
 - make sure to create application.yml file first. Create user via script.
+
+-> need to login only the admin, who has the password and username. No other users
+-> Currently authenitcated through sorcery
+-> only login can upload images
+-> need funny animations for each image

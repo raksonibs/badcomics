@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  skip_before_filter :require_login, except: [:home]
+  # before_filter :require_login, only: [:home]
 
   def new
     @user = User.new
@@ -33,12 +33,12 @@ class UsersController < ApplicationController
   end
 
   def login
-    @user = User.find_by_name(params[:name])
-    if @user.password == params[:password]
-      give_token
-    else
-      redirect_to home_url
-    end
+    # @user = User.find_by_name(params[:name])
+    # if @user.password == params[:password]
+    #   give_token
+    # else
+    #   redirect_to home_url
+    # end
   end
 
   private
