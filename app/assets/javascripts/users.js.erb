@@ -1,0 +1,13 @@
+$(document).ready(function() {
+  $('.hovered img').hide();
+
+  $('.nav').hover(function() {
+    $(this).css('color', 'blue')
+    $(this).css('background-image', "<%= asset_path('outline_t.png') %>")
+    debugger
+  },
+  function() {
+    $(this).css('color', 'black')
+    
+  })
+})

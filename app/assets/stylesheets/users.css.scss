@@ -17,8 +17,15 @@ li.nav.first {
   margin-left: 18px;
 }
 
-li.nav:hover {
-  color: blue;
+.hovered {
+  width: 150px;
+  position: relative;
+  left: -125px;
+  display: none;
+}
+
+li.nav {
+  transition: all 1s ease;
 }
 
 li.nav {  
