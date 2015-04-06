@@ -1,6 +1,11 @@
 class UsersController < ApplicationController
+  skip_before_filter :require_login, except: [:home]
+
   def new
     @user = User.new
+  end
+
+  def normal
   end
 
   def home
