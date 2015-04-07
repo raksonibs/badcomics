@@ -3,7 +3,10 @@ Rails.application.routes.draw do
 
   root 'users#normal'
 
-  get '/home/:user_id' => 'users#home'
+  get '/home/:user_id' => 'users#home', as: :home
+
+  post '/upload/:user_id' => 'users#upload', :as => :upload
+  patch '/upload/:user_id' => 'users#upload', :as => :upload_patch
 
   resources :sessions
   resources :users

@@ -15,7 +15,7 @@
 
   <div id="nav">
     <% if current_user %>
-      <%= link_to "Edit Profile", home_user_path(current_user.id) %> | 
+      <%= link_to "Upload A Comic", home_path(current_user.id) %> | 
       <%= link_to "Logout", :logout, method: :post %>
     <% else %>
       <!-- <%= link_to "Register", new_user_path %> | -->
@@ -45,21 +45,6 @@
    </div>
  </div>
 
-
-
-
-
-<!-- <div class="row">
-  <div class="large-7 columns right">
-    <div id="slider">
-      <%= image_tag "tabs.png" %>
-    </div>
-    <br/>
-  </div>
-</div> -->
-
-
-
 <div class="row">
   <div class="large-1 small-1 columns">
     <%= image_tag "first.png" %>
@@ -72,7 +57,7 @@
   <div class="large-8 small-8 columns">
     <%= image_tag "comic1.png" %>
     <br>
-    <%= image_tag "comic1_text.png" %>
+    <%= image_tag User.adminUser.images.first.comic %>
   </div>
 
   <div class="large-1 small-1 columns">

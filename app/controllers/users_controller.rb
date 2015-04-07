@@ -12,6 +12,23 @@ class UsersController < ApplicationController
     @user = current_user
   end
 
+  def upload
+    binding.pry
+    @user = current_user
+    if @user.save
+     # params[:avatar] will be an array.
+     # you can check total number of photos selected using params[:avatar].count
+      params[:user][:comic].each do |picture|      
+
+        @user.images.create(:comic=> picture)
+        # Don't forget to mention :avatar(field name)
+
+      end
+      binding.pry
+      redirect_to :root
+    end
+  end
+
   def create
     @user = User.new(params[:user_params])
     @user.password = params[:password]
