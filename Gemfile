@@ -39,3 +39,14 @@ gem 'foundation-rails'
 
 gem 'sorcery'
 # want to switch to pg
+
+group :production do
+  gem 'rails_12factor'
+
+  # App Monitoring
+  gem 'newrelic_rpm'
+
+  # Server
+  gem 'unicorn'
+  # gem 'hooves', require: "hooves/default"
+end
