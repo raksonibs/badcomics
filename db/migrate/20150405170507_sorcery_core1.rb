@@ -1,4 +1,4 @@
-class SorceryCore < ActiveRecord::Migration
+class SorceryCore1 < ActiveRecord::Migration
   def change
 
     add_column :users, :crypted_password, :string
