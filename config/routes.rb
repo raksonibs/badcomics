@@ -3,7 +3,7 @@ Rails.application.routes.draw do
 
   root 'users#normal'
 
-  get '/home' => 'users#home'
+  get '/home/:user_id' => 'users#home'
 
   resources :sessions
   resources :users
