@@ -1,0 +1,79 @@
+// Place all the styles related to the users controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+@font-face {
+  font-family: 'Acki-Preschool';    
+  src: url('/assets/Acki-Preschool.eot');
+  src: url('/assets/Acki-Preschool.eot') format('eot'),
+  url('/assets/Acki-Preschool.woff') format('woff'),
+  url('/assets/Acki-Preschool.ttf') format('truetype'),
+  url('/assets/Acki-Preschool.svg') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+a {
+  color: black;
+}
+
+li.nav.first {
+  margin-left: 18px;
+}
+
+.hovered {
+  width: 150px;
+  position: relative;
+  left: -125px;
+  display: none;
+}
+
+li.nav {
+  transition: all 1s ease;
+}
+
+li.nav {  
+  font-family: 'Acki-Preschool';
+  margin: 7px;
+  font-size: 2.7em;
+}
+
+@media only screen and (max-width: 906px) {
+  li.nav {
+    font-size: 2.0em;
+  }
+}
+
+@media only screen and (max-width: 720px) {
+  li.nav {
+    font-size: 1.5em;
+  }
+} 
+
+@media only screen and (max-width: 593px) {
+  li.nav.first {
+    margin-left: 10px;
+  }
+
+  li.nav {
+    font-size: 1.25em;
+  }
+} 
+
+@media only screen and (max-width: 520px) {
+  .buttons {
+    width: 60%;
+  }
+
+  .logo {
+    width: 40%;
+  }
+
+  li.nav.first {
+    margin-left: 0px;
+  }
+
+  li.nav {
+    font-size: 1.15em;
+  }
+} 

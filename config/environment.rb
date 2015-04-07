@@ -2,6 +2,7 @@
 require File.expand_path('../application', __FILE__)
 
 # Initialize the Rails application.
+<<<<<<< HEAD
 Whattodo::Application.initialize!
 
 Capybara.register_driver :selenium do |app|
@@ -15,3 +16,6 @@ Capybara.configure do |config|
   config.automatic_reload = false
 end
 
+=======
+Rails.application.initialize!
+>>>>>>> 6721de769c2e5cfebde11d8b6c385461dda1287d

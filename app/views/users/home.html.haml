@@ -1,0 +1,11 @@
+= @user.name 
+%br
+= @user.images.inspect
+
+- if current_user
+  = form_for @user, :url => upload_path, :html => { :multipart => true } do |form|
+    = form.label :comic , "Upload Comic"
+    = form.file_field :comic, :multiple =>:true
+    = form.submit
+- else
+  %p no one logged in so no upload

@@ -1,4 +1,5 @@
 module ApplicationHelper
+<<<<<<< HEAD
 	def attracts
 		info={}
 		#price(nonexistant), category, address
@@ -7,4 +8,6 @@ module ApplicationHelper
 			info[oo.cell(i+2,"F")]=["Need price for each place", oo.cell(i+2, "J"), oo.cell(i+2,"C")]
 		end
 	end
+=======
+>>>>>>> 6721de769c2e5cfebde11d8b6c385461dda1287d
 end

@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<<<<<<< HEAD
 <html>
 
 <head>
@@ -15,4 +16,71 @@
 
 </body>
 
+=======
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title><%= content_for?(:title) ? yield(:title) : 'Bad Comics' %></title>
+
+    <%= stylesheet_link_tag    "application" %>
+    <%= javascript_include_tag "vendor/modernizr" %>
+    <%= csrf_meta_tags %>
+  </head>
+
+  <body>
+
+  <div id="nav">
+    <% if current_user %>
+      <%= link_to "Upload A Comic", home_path(current_user.id) %> | 
+      <%= link_to "Logout", :logout, method: :post %>
+    <% else %>
+      <!-- <%= link_to "Register", new_user_path %> | -->
+      <%= link_to "Login", :login %>
+    <% end %>
+  </div>
+  <div>
+    <p id="notice"><%= flash[:notice] %></p>
+    <p id="alert"><%= flash[:alert] %></p>
+  </div>
+
+<div class="row">
+  <div class="large-5 small-5 columns logo">
+    <h1><%= image_tag "logo.png" %></h1>
+  </div>
+  <div class="large-7 small-7 columns buttons">
+    <ul class="right button-group">
+      <li><%= image_tag "two_ppl.png" %></li>
+      <!-- <div class='centered'> -->
+        <li class="nav first"><%= link_to "Today", root_url %></li>
+        <li class="hovered"><%= image_tag "outline_t.png" %></li>
+        <li class="nav"><%= link_to "Past", past_path %></li>
+        <li class="nav">About</li>
+        <li class="nav"><%= link_to "Random", random_path %></li>
+      <!-- </div> -->
+    </ul>
+   </div>
+ </div>
+
+    <%= yield %>
+    <%= javascript_include_tag "application" %>
+    <br>
+<br>
+<br>
+<br>
+<br>
+
+<div class="row">
+  <div class="large-12 columns icon-text">
+  
+    <div class="icons">
+      <%= image_tag "facebook.png" %>
+      <%= image_tag "twitter.png" %>
+    </div>
+    
+  </div>
+</div>
+  </body>
+>>>>>>> 6721de769c2e5cfebde11d8b6c385461dda1287d
 </html>
