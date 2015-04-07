@@ -2,5 +2,7 @@
 
 -> only login can upload images
 -> need funny animations for each image
--> make sure latest upload shows on normal page, then past is all, random is random, today is the one created today (or latest?), amke sure prev next etc work.
 -> want to make multiupload work
+-> two factor authentication
+-> problem with prev next on changes
+-> make look better
