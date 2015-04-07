@@ -1,6 +1,5 @@
 require 'open-uri'
 require 'time'
-require_dependency 'scraper.rb'
 
 class Event < ActiveRecord::Base
   include Scraper
