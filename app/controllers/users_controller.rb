@@ -6,14 +6,14 @@ class UsersController < ApplicationController
   end
 
   def normal
+    @image = User.latestImage
   end
 
   def home
     @user = current_user
   end
 
-  def upload
-    binding.pry
+  def upload    
     @user = current_user
     if @user.save
      # params[:avatar] will be an array.
@@ -23,8 +23,7 @@ class UsersController < ApplicationController
         @user.images.create(:comic=> picture)
         # Don't forget to mention :avatar(field name)
 
-      end
-      binding.pry
+      end      
       redirect_to :root
     end
   end
