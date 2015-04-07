@@ -5,6 +5,30 @@ class UsersController < ApplicationController
     @user = User.new
   end
 
+  def prev
+    @image = User.prevImage(Image.find(params[:current]))
+    render :normal
+  end
+
+  def next
+    @image = User.nextImage(Image.find(params[:current]))
+    render :normal
+  end
+
+  def first
+    @image = User.firstImage
+    render :normal
+  end
+
+  def past
+    @images = User.allImages
+  end
+
+  def random
+    @image = User.allImages.sample
+    render :normal
+  end
+
   def normal
     @image = User.latestImage
   end
