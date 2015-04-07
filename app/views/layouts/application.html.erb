@@ -35,42 +35,19 @@
     <ul class="right button-group">
       <li><%= image_tag "two_ppl.png" %></li>
       <!-- <div class='centered'> -->
-        <li class="nav first">Today</li>
+        <li class="nav first"><%= link_to "Today", root_url %></li>
         <li class="hovered"><%= image_tag "outline_t.png" %></li>
-        <li class="nav">Past</li>
+        <li class="nav"><%= link_to "Past", past_path %></li>
         <li class="nav">About</li>
-        <li class="nav">Random</li>
+        <li class="nav"><%= link_to "Random", random_path %></li>
       <!-- </div> -->
     </ul>
    </div>
  </div>
 
-<div class="row">
-  <div class="large-1 small-1 columns">
-    <%= image_tag "first.png" %>
-  </div>
-  
-  <div class="large-1 small-1 columns">
-    <%= image_tag "previous.png" %>
-  </div>
-  
-  <div class="large-8 small-8 columns">
-    <%= image_tag "comic1.png" %>
+    <%= yield %>
+    <%= javascript_include_tag "application" %>
     <br>
-    <%= image_tag User.adminUser.images.first.comic %>
-  </div>
-
-  <div class="large-1 small-1 columns">
-    <%= image_tag "next.png" %>
-  </div>
-  
-  <div class="large-1 small-1 columns">
-    <%= image_tag "last.png" %>
-  </div>
-
-</div>
-
-<br>
 <br>
 <br>
 <br>
@@ -86,30 +63,5 @@
     
   </div>
 </div>
-
- 
-
-<!-- <footer class="row">
-  <div class="large-12 columns">
-    <hr/>
-    <div class="row">
-      <div class="large-6 columns">
-        <p>© Copyright no one at all. Go to town.</p>
-      </div>
-      <div class="large-6 columns">
-        <ul class="inline-list right">
-          <li><a href="#">Link 1</a></li>
-          <li><a href="#">Link 2</a></li>
-          <li><a href="#">Link 3</a></li>
-          <li><a href="#">Link 4</a></li>
-        </ul>
-      </div>
-    </div>
-  </div> 
-</footer> -->
-
-
-    <%= yield %>
-    <%= javascript_include_tag "application" %>
   </body>
 </html>
