@@ -1,4 +1,4 @@
-- make sure to create application.yml file first. Create user via script. Run seed file
+- make sure to create application.yml file first. Create user via script. Run seed file. visit /twofactor
 
 -> only login can upload images
 -> need funny animations for each image
@@ -12,3 +12,5 @@ dev
 -> make transitions better
 -> mailchimp set up (or just grab emails or something)
 -> two factor authetnication -> NOW
+6178422
+-> think about sharing!
