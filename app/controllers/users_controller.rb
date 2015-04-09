@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  # before_filter :require_login, only: [:home]
+  before_filter :authenticate!, only: [:home]
 
   def new
     @user = User.new
@@ -13,6 +13,11 @@ class UsersController < ApplicationController
   def next
     @image = User.nextImage(Image.find(params[:current]))
     render :normal
+  end
+
+  def twofactor
+    flash.now[:alert] = 'Two factor set up correctly'
+    redirect_to :root
   end
 
   def first
@@ -83,6 +88,6 @@ class UsersController < ApplicationController
 
   private
     def user_params
-      params.require(:user).permit(:email, :password, :password_confirmation)
+      params.require(:user).permit(:email, :password, :password_confirmation, :name, :country_code, :phone_number)
     end
 end

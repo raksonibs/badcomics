@@ -50,3 +50,5 @@ group :production do
   gem 'unicorn'
   # gem 'hooves', require: "hooves/default"
 end
+
+gem 'authy'

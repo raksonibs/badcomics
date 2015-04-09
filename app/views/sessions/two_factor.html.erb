@@ -1,0 +1,16 @@
+<h1>Just To Be Safe...</h1>
+<p>
+    We've sent you a one-time password to verify your posession of a mobile phone tied to this account. Can you enter the code we sent?
+</p>
+<%= form_tag sessions_verify_path do %>
+  <div class="form-group">
+    <%= label_tag :code, "Verification Code:" %>
+    <%= text_field_tag :token, '', class: "form-control" %>
+  </div>
+  <button type="submit" class="btn btn-primary">Verify code</button>
+<% end -%>
+
+<hr>
+<%= form_tag sessions_resend_path do %>
+  <button type="submit" class="btn">Resend code</button>
+<% end -%>

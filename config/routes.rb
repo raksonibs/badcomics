@@ -8,7 +8,13 @@ Rails.application.routes.draw do
   post '/upload/:user_id' => 'users#upload', :as => :upload
   patch '/upload/:user_id' => 'users#upload', :as => :upload_patch
 
-  resources :sessions
+  get '/register_twofactor' => 'users#twofactor', :as => :two_factor
+
+  resources :sessions, only: [:create]
+  get "sessions/two_factor"
+  post "sessions/verify"
+  post "sessions/resend"
+
   resources :users
 
   get 'login' => 'sessions#new', :as => :login
