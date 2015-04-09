@@ -23,3 +23,5 @@
 /config/application.yml
 
 /public/system
+
+/public/assets
