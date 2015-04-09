@@ -6,3 +6,9 @@
 -> two factor authentication
 -> problem with prev next on changes
 -> make look better
+
+dev
+-> use postgress -> might stay with sqlite because single-user? Actually no, many users, none change.
+-> make transitions better
+-> mailchimp set up (or just grab emails or something)
+-> two factor authetnication -> NOW
