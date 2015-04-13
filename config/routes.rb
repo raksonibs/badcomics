@@ -31,5 +31,7 @@ Rails.application.routes.draw do
   get '/next/:current' => 'users#next', as: :next
 
   get '/prev/:current' => 'users#prev', as: :prev
+
+  get '/zohoverify/verifyforzoho' => 'users#zoho'
   
 end

@@ -5,6 +5,9 @@ class UsersController < ApplicationController
     @user = User.new
   end
 
+  def zoho
+  end
+
   def prev
     @image = User.prevImage(Image.find(params[:current]))
     render :normal
