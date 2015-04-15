@@ -1,4 +1,10 @@
 Rails.application.routes.draw do
+  get 'subscribers/new'
+
+  get 'subscribers/create'
+
+  get 'subscribers/destroy'
+
   # resources :users
 
   root 'users#normal'
@@ -16,6 +22,8 @@ Rails.application.routes.draw do
   post "sessions/resend"
 
   resources :users
+
+  resources :subscribers
 
   get 'login' => 'sessions#new', :as => :login
   post 'logout' => 'sessions#destroy', :as => :logout

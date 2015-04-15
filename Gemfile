@@ -38,6 +38,8 @@ gem "paperclip", "~> 4.2"
 gem 'foundation-rails'
 
 gem 'sorcery'
+
+gem 'simple_form'
 # want to switch to pg
 
 group :production do

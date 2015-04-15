@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   before_filter :authenticate!, only: [:home]
+  before_filter :set_subscriber
 
   def new
     @user = User.new
@@ -90,6 +91,11 @@ class UsersController < ApplicationController
   end
 
   private
+
+    def set_subscriber
+      @subscriber = Subscriber.new
+    end
+
     def user_params
       params.require(:user).permit(:email, :password, :password_confirmation, :name, :country_code, :phone_number)
     end
