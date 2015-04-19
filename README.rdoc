@@ -14,3 +14,8 @@ dev
 -> two factor authetnication -> NOW
 6178422
 -> think about sharing!
+
+-> better upload (drag and drop)
+-> editor for quick comics with characters used already
+-> email grabber and then weekly digest
+-> shop branch with merch
