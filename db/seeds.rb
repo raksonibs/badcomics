@@ -9,7 +9,7 @@ User.destroy_all
 case Rails.env
 when "development"
   User.create!(name: 'BadAdmin', password: 'ihatepies12', email: 'thisbetterbeacompliment@badcomics.ca', country_code: '1', phone_number: '9058697375')
-  image = Image.new(:comic => File.new('app/assets/images/CakeComicwDialogue.png', "r"))
+  image = Image.new(:comic => File.new('app/assets/images/CakeComicwDialogueCorrect.png', "r"))
   User.last.images << image
   User.last.save!
   @user = User.last
@@ -27,7 +27,7 @@ when "development"
   end
 when "production"
   User.create!(name: 'BadAdmin', password: 'ihatepies12', email: 'thisbetterbeacompliment@badcomics.ca', country_code: '1', phone_number: '9058697375')
-  image = Image.new(:comic => File.new('app/assets/images/CakeComicwDialogue.png', "r"))
+  image = Image.new(:comic => File.new('app/assets/images/CakeComicwDialogueCorrect.png', "r"))
   User.last.images << image
   User.last.save!
   @user = User.last
