@@ -33,7 +33,8 @@
     .seventh-image
       You son of a bitch. There is no unsubscribe!
     .confirm-unsubscribe
-      = button_to 'Fine. Shit wo/man. Ruin our lives.', unsubscribe_confirm(@subscriber)
+      - @subscriber = params[:subscriber_id]
+      = button_to 'Fine. Shit wo/man. Ruin our lives.', unsubscribe_confirm_path(@subscriber)
   .next-image
     %button NEXT
   .cancel

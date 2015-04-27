@@ -9,7 +9,8 @@ class SubscribersController < ApplicationController
     # set delayjob for sending intro email?
     # at intro send for person, set subscriber.intro_sent = true
     if @subscriber.save
-      BadMailer.intro_email(@subscriber).deliver
+      hostname = request.original_url || "http://badcomics.ca" 
+      BadMailer.intro_email(@subscriber, hostname).deliver
       flash[:notice] = "You are signed up noob!"
       #  shouldn't redirect, should be ajax request
       redirect_to :root
