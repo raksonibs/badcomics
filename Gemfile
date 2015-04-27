@@ -40,6 +40,8 @@ gem 'foundation-rails'
 gem 'sorcery'
 
 gem 'simple_form'
+
+gem "letter_opener", :group => :development
 # want to switch to pg
 
 group :production do
