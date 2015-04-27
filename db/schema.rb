@@ -27,6 +27,8 @@ ActiveRecord::Schema.define(version: 20150427012036) do
     t.string   "email"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "subscribed", default: true
+    t.boolean  "intro_sent", default: true
   end
 
   create_table "users", force: true do |t|
