@@ -1,6 +1,8 @@
 class BadMailer < ActionMailer::Base
   default from: "thisbetterbeacompliment@badcomics.ca"
 
+  layout 'mailer'
+
   def intro_email(subscriber)
     @subscriber = subscriber
     @subscriber.intro_sent = true

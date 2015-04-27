@@ -82,4 +82,9 @@ Rails.application.configure do
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
 
+  config.absolute_site_url = 'badcomics.ca'
+  config.action_controller.asset_host = 'badcomics.ca'
+  config.action_mailer.asset_host = 'badcomics.ca'
+
+
 end

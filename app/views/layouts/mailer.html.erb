@@ -1,0 +1,173 @@
+<html>
+<head>
+  <title>Bad Comics</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<style type="text/css">
+  html,body {
+    margin: 0; 
+    padding: 0;
+    background-color:#f4f7fc;  
+    line-height: 10px;
+  }
+  img {
+    padding: 0;
+    margin: 0; 
+    vertical-align:bottom; 
+    border:0px; 
+  }
+  ol li{
+    margin-top:7px;
+  }
+  table,tr,td {
+    border-collapse: collapse;   
+  }
+  a {
+    outline: 0;
+  } 
+  p {
+    margin: 0px 20px;
+    padding: 0;
+  }
+  /* Client-specific Styles */
+  div, p, a, li, td { -webkit-text-size-adjust:none; }
+  #outlook a {padding:0;} /* Force Outlook to provide a "view in browser" menu link. */
+  html{width: 100%; }
+  body{width:100% !important; -webkit-text-size-adjust:100%; -ms-text-size-adjust:100%; margin:0; padding:0;}
+  /* Prevent Webkit and Windows Mobile platforms from changing default font sizes, while not breaking desktop design. */
+  .ExternalClass {width:100%;} /* Force Hotmail to display emails at full width */
+  .ExternalClass, .ExternalClass p, .ExternalClass span, .ExternalClass font, .ExternalClass td, .ExternalClass div {line-height: 100%;} /* Force Hotmail to display normal line spacing. */
+  .backgroundTable {margin:0; padding:0; width:100% !important; line-height: 100% !important;}
+  img {outline:none; text-decoration:none;border:none; -ms-interpolation-mode: bicubic;}
+  a img {border:none;}
+  img {
+    border: medium none;
+    outline: medium none;
+    text-decoration: none;
+  }
+  a img {
+    border: medium none;
+  }
+  .image_fix {
+    display: block;
+  }
+  table[class="devicewidth"] {
+    text-align: center!important;
+    margin: 0 auto!important;
+  }
+  body[yahoo] table {
+    text-align: center!important;
+    margin: 0 auto!important;
+  }
+
+  @media only screen and (max-width: 640px) {
+    table[class="devicewidth"] {
+      text-align: center!important;
+      width: 440px!important;
+    }
+    table[class="devicewidth2"] {
+      text-align: center!important;
+      width: 430px!important;
+    }
+    table tr td[class="remove-li"] img {
+      display: none !important;
+    }
+    table tr td[class="remove-li"] {
+      width: 5px;
+    }
+    /*table tr td[class="removebr"] br {
+      display: none;
+      line-height: 0;
+      height:0;
+    }*/
+    table tr td[class="removebr"] p[class="margin-bottom"] {
+      margin-bottom: 20px;
+    }
+    table tr td[class="removebr"] p[class="padding"] {
+      padding: 5px 3px;
+    }
+    
+  }
+  @media only screen and (max-width: 480px) {
+    table[class=devicewidth] {
+      width: 300px!important;
+      text-align:center!important;
+    }
+    table[class="devicewidth2"] {
+      text-align: center!important;
+      width: 290px!important;
+    }
+  }
+</style>
+<body bgcolor="#f4f7fc" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+  <div style="background-color:#f4f7fc;margin:0;padding:0;">
+
+    <table class="devicewidth" width="600" cellspacing="0" cellpadding="0" border="0" align="center" bgcolor="#f4f7fc" height="20">
+      <tr width="600" height="20">
+        <td width="600" style="line-height:0px">
+          &nbsp;
+        </td>
+      </tr>
+    </table>
+    <table class="devicewidth" width="600" cellspacing="0" cellpadding="0" border="0" align="center" bgcolor="#f4f7fc">
+      <tr>
+        <td width="150" style="width:150px;" align="center" style="text-align:center;">
+          Badcomics, the place to be. Or not to be. Not really a question. More of a statement. Lookie below.
+        </td>
+      </tr>
+    </table>
+    <table class="devicewidth" width="600" cellspacing="0" cellpadding="0" border="0" align="center" bgcolor="#f4f7fc" height="20">
+      <tr width="600" height="20">
+        <td width="600" style="line-height:20px">
+          &nbsp;
+        </td>
+      </tr>
+    </table>
+    <table class="devicewidth" style="border-radius: 10px; border: 1px solid #d3d6db; width: 600px; display: block; border-collapse: separate;" width="600" cellspacing="0" cellpadding="0" border="0"  align="center" bgcolor="#f4f7fc">
+      <%= yield %>
+    </table>
+
+    <table class="devicewidth" style="width: 600px;" width="600" cellspacing="0" cellpadding="0" border="0"  align="center">
+      <tr width="600" height="20">
+        <td width="600" style="line-height:0px">
+          &nbsp;
+        </td>
+      </tr>
+    </table>
+
+    <table class="devicewidth" style="border-radius: 10px; border: 1px solid #d3d6db; width: 600px; display: block; border-collapse: separate;" width="600" cellspacing="0" cellpadding="0" border="0"  align="center" bgcolor="#f4f7fc">
+      <tr width="600" height="20">
+        <td width="600" style="line-height:0px">
+          &nbsp;
+        </td>
+      </tr>
+
+      <tr width="600" align="center">
+        <td width="auto" valign="middle">
+          <%= image_tag "facebook.png", input_html: { class: 'large-1 small-1 medium-1 columns'} %>
+        <%= image_tag "twitter.png", input_html: { class: 'large-1 small-1 medium-1 columns'} %>
+          
+          <p style="display:inline-block;vertical-align:middle;font-size:12px;font-family: Arial, Helvetica, sans-serif,Tahoma;color:#706c69;line-height:16px;"><br/>
+            <a href="thisbetterbeacompliment@badomics.ca">thisbetterbeacompliment@badomics.ca</a> | 
+            <a href="badcomics.ca">badcomics.ca</a>
+            <br>1 De Boers, Toronto ON M3J 0G6 <br><%= link_to "Don't like our stuff? Too bad. Just kidding. Unsubscribe Here.", unsubscribe_path(@subscriber) %></a></p>
+          </td>
+        </tr>
+
+
+        <tr width="600" height="20">
+          <td width="600" style="line-height:0px">
+            &nbsp;
+          </td>
+        </tr>
+      </table>
+      <table class="devicewidth" width="600" cellspacing="0" cellpadding="0" border="0" align="center" bgcolor="#f4f7fc">
+        <tr width="600" align="center">
+          <td width="auto" valign="middle">
+            
+          </td>
+        </tr>
+      </table>
+    </div>
+  </body>
+  </html>

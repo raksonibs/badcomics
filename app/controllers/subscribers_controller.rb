@@ -20,7 +20,16 @@ class SubscribersController < ApplicationController
 
   end
 
-  def destroy
+  def unsubcribe
+    # Should I have two factor unsubscribe. Like are your sure you want to do this? With something funny. I tihnk so! Like pictures of us as children, and then it is saying if you unsubcribe, you kill the hopes and dreams of all these children. Make it really hard. ha.
+    @subscriber = Subscriber.find(params[:subscriber_id])
+  end
+
+  def confirm_unsubscribe
+    @subscriber = Subscriber.find(params[:subscriber_id])
+    @subscriber.subscribed = false
+    flash[:notice] = "Fine you unsubscribed asshole"
+    redirect :root
   end
 
   private
