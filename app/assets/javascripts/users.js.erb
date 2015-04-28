@@ -11,9 +11,12 @@ $(document).ready(function() {
     
   })
 
-  $('.images-unsubscribe').hide()
-
   $('.next-image').click(function() {
-
+    var visibleImage = $('.images-unsubscribe:visible');
+    var numberImage = $(visibleImage[0]).attr('class').split(" ")[0];
+    var currentNumber = /\d+/.exec(numberImage);
+    var nxtNumber = parseInt(currentNumber[0]) + 1;
+    $(visibleImage[0]).hide();
+    $('.'+nxtNumber + '-image.images-unsubscribe').show();
   })
 })
