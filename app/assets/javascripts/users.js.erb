@@ -16,6 +16,14 @@ $(document).ready(function() {
     var numberImage = $(visibleImage[0]).attr('class').split(" ")[0];
     var currentNumber = /\d+/.exec(numberImage);
     var nxtNumber = parseInt(currentNumber[0]) + 1;
+    
+    if (currentNumber[0] == '1') {
+      var audio = new Audio('/assets/music.mp3');
+      audio.play();
+    }
+
+    $('#background-wrap').show();
+    $('body').addClass('clouds')
     $(visibleImage[0]).hide();
     if (nxtNumber == 16) {
       $('.next-image button').addClass('alert').removeClass('success');

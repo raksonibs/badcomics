@@ -16,8 +16,37 @@
   font-style: normal;
 }
 
-a {
+a, button, input.button {
   color: black;
+  font-family: 'tomhand' !important;
+  font-size: 1em;
+  font-weight: 900;
+}
+
+.soon-clouds {
+  transition: all 2s ease;
+}
+
+body {
+  overflow-x: hidden;
+}
+
+#background-wrap {
+  bottom: 0;
+  left: 0;
+  padding-top: 50px;
+  position: fixed;
+  right: 0;
+  top: 0;
+  z-index: -1;
+}
+
+body.clouds {
+  background: #00b4ff;
+}
+
+input.button {
+  color: white;
 }
 
 li.nav.first {
@@ -45,8 +74,8 @@ li.nav {
   transition: all 1s ease;
 }
 
-li.nav {  
-  font-family: 'Acki-Preschool';
+.buttons li.nav a {
+  font-family: 'Acki-Preschool' !important;
   margin: 7px;
   font-size: 2.7em;
 }
