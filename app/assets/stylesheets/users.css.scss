@@ -9,6 +9,13 @@
   font-style: normal;
 }
 
+@font-face {
+  font-family: 'tomhand';    
+  src: url('/assets/tomhand.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
 a {
   color: black;
 }
@@ -19,6 +26,8 @@ li.nav.first {
 
 .images-unsubscribe {
   display: none;
+  font-size: 2.7em;
+  font-family: 'tomhand'
 }
 
 .images-unsubscribe:first-of-type {

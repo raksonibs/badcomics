@@ -1,9 +1,8 @@
 .row
   .large-12.small-12.columns
     .1-image.images-unsubscribe
-      It is too bad you want to leave us. Just click next below to unsubscribe, or Cancel to cancel the subscription!
-    .2-image.images-unsubscribe
-      But, wait. Have you ever had dreams? 
+      It is too bad you want to leave us. Just click next below to unsubscribe, or 'Cancel' to cancel the subscription!
+    .2-image.images-unsubscribe ... But, wait! Have you ever had dreams? 
     .3-image.images-unsubscribe
       These children had them, still do in fact.
     .4-image.images-unsubscribe
@@ -39,7 +38,7 @@
     .13-image.images-unsubscribe
       Fuck you man.
     .14-image.images-unsubscribe
-      Seriously, my dad can beat your dad up.
+      Seriously, you are the lowest kind of scum on earth. You are so scummy that your dad doesn't even love you.
     .15-image.images-unsubscribe
       I am sorry. I lost my cool. That was not cool. We are better than that. You are better than that. In fact you are the best. THe very best! Our favourite subscriber!
     .16-image.images-unsubscribe
@@ -48,7 +47,10 @@
     .17-image.confirm-unsubscribe.images-unsubscribe
       - @subscriber = params[:subscriber_id]
       = button_to 'Fine. Shit wo/man. Ruin our lives.', unsubscribe_confirm_path(@subscriber)
-  .next-image
-    %button NEXT
-  .cancel
-    = link_to "CANCEL", root_url
+    .row
+      .large-6.small-6.columns
+        .next-image
+          %button.button.radius.success NEXT
+      .large-6.small-6.columns
+        .cancel
+          = link_to "CANCEL", root_url, class: 'button radius alert'

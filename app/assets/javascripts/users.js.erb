@@ -17,6 +17,14 @@ $(document).ready(function() {
     var currentNumber = /\d+/.exec(numberImage);
     var nxtNumber = parseInt(currentNumber[0]) + 1;
     $(visibleImage[0]).hide();
+    if (nxtNumber == 16) {
+      $('.next-image button').addClass('alert').removeClass('success');
+      $('.cancel a').addClass('success').removeClass('alert');
+    } 
+    if (nxtNumber == 17) {
+      $('.next-image').hide();
+      $('.cancel a').text('CANCEL').addClass('alert').removeClass('success');
+    }
     $('.'+nxtNumber + '-image.images-unsubscribe').show();
   })
 })
