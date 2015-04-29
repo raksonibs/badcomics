@@ -5,25 +5,33 @@
     .2-image.images-unsubscribe ... But, wait! Have you ever had dreams? 
     .3-image.images-unsubscribe
       These children had them, still do in fact.
-      
+      = image_tag "babies.png"
     .4-image.images-unsubscribe
-      Because these children are us. Us, the creators of bad comics, when we were four. Look how happy we were.
+      Because these children are us. Us, the creators of bad comics, when we were two. Look how happy we were.
+      = image_tag "car.png"
     .5-image.images-unsubscribe
       If you unsubscribe, you give up on these children.
+      = image_tag 'convo.png'
     .6-image.images-unsubscribe
       On their hopes, on their dreams.
+      = image_tag 'mickeymouse.png'
     .7-image.images-unsubscribe
       Please don't. We trust you. This subscription means something!
+      = image_tag 'growingup.png'
     .8-image.images-unsubscribe
       We promise we will be better. I mean look, here is some art we are currently working on.
+      = image_tag 'face.png'
     .9-image.images-unsubscribe
-      We are begging now. Please. Have we shown you us as children yet? Here:
+      We are begging now. Please. Have we shown you us as children yet? Here!
+      = image_tag 'smallcastle.jpg'
     .10-image.images-unsubscribe
-      What do you want from us? Sex, reading buddies for those lazy Sundays where the sun is just peaking out your window, or pies? Who doesn't like pies?! Here is a pie.
+      What do you want from us if not happiness? Sex, love, a reading buddy for those lazy Sundays where the winter's sun is just peaking into your window gently as you lay in your heavy but warm covers and embrace the essence of comfort, or pies? Who doesn't like pies?! For you friend!
+      -# # need shitty pie drawing.
     .11-image.images-unsubscribe
-      Yeah fuck you. You don't deserve a real pie. You are fucking monster.
+      YOU DON'T LIKE FUCKEN FAKE PIES BITCH?!?! Fuck you. You fucking monster.
+      -# clouds should change maybe. or nothing. i think the clouds with soft music is hilarious with this.
     .12-image.images-unsubscribe
-      I didn't mean that. I am sorry. You just probably don't like emails. You are all about time efficency. We get that. YOu like to get a job done quick and fast. So do we. I guess we have a lot in common, us and you. I mean, we would probably be great friends. I am sorry for all that stuff I pulled back there, with the slander and dreams. I mean, we're both just average guys, trying to have a few good laughs before we die. YOu know, that final end, which we all kind know is coming but are trying to avoid. I mean, I guess I am just saying is I am afraid of it all, you know, what is coming and what isn't. I guess I just wanted that subscription to enver end, for us to become friends, virtually and trhough comedy. I mean people can change right? Change often makes me thing about this poem I read by Keats once, I really enjoyed it, maybe you will too: 
+      I didn't mean that. I am sorry. You just probably don't like emails. You are all about time efficency. We get that. You like to get a job done quick and fast. In and out. Top to bottom. And you know what? So do we. I guess we have a lot in common then, us and you. I mean, we would probably be great friends if we met in real life. Heck, I barely know anything about you? Where are you from? What do you do? I am sure it is fun! Heck, I am sorry for all that stuff I pulled back there, with the slander and dreams and junk. I mean, we're both just average people, trying to have a few good laughs before we die. You know, that final end, which we all kinda know is coming but are trying to avoid and not think of. I mean, I guess I am just saying is I am afraid of it all, you know, what is coming and what isn't. That end. And I thought badcomics was a way of combatting this terminal sentence... Conversely I guess I just wanted that subscription to never end, for what dies on the internet, and we outlast it all, you know? Our laughs live on. Heck, in those laughs I feel like we become friends, closer through the love and goodness of humanity. I mean, this kinda of reminds me of a poem I read by Keats once, I really enjoyed it, maybe you will too: 
       %pre
         Where are the songs of Spring? Ay, where are they? 
         Think not of them, thou hast thy music too,--
@@ -41,13 +49,14 @@
     .14-image.images-unsubscribe
       Seriously, you are the lowest kind of scum on earth. You are so scummy that your dad doesn't even love you.
     .15-image.images-unsubscribe
-      I am sorry. I lost my cool. That was not cool. We are better than that. You are better than that. In fact you are the best. THe very best! Our favourite subscriber!
+      I am sorry. I lost my cool. That was not cool. We are better than that. You are better than that. In fact you are the best. The very best! Our favourite subscriber! Hell, we like you so much remember that castle picture of us when we were small, here is that same location 13 years later, us as teenagers! For you favourite friend!
+      = image_tag 'bigcastle.jpg'
     .16-image.images-unsubscribe
       You son of a bitch. There is no unsubscribe!
       -# switch cancel and subscribe buttons, text and colour.
     .17-image.confirm-unsubscribe.images-unsubscribe
       - @subscriber = params[:subscriber_id]
-      = button_to 'Fine. Shit wo/man. Ruin our lives.', unsubscribe_confirm_path(@subscriber)
+      = button_to 'Fine. Shit wo/man. Ruin our lives.', unsubscribe_confirm_path(@subscriber), class: 'button radius info'
     .row
       .large-6.small-6.columns
         .next-image
