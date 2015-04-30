@@ -32,6 +32,8 @@ Rails.application.configure do
   # Generate digests for assets URLs.
   config.assets.digest = true
 
+  config.action_mailer.delivery_method = :sendmail
+
   config.assets.version = '1.0'
   config.serve_static_assets = true
   config.action_dispatch.x_sendfile_header = "X-Accel-Redirect"
