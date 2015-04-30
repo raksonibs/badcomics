@@ -1,6 +1,12 @@
 $(document).ready(function() {
   $('.hovered img').hide();
 
+  var audio = new Audio('/assets/music.mp3');
+
+  $('.alert').click(function() {
+    audio.pause();
+  })
+
   $('.nav').hover(function() {
     $(this).css('color', 'blue')
     $(this).css('background-image', "url(/assets/outline_t.png)").css('background-size', 'cover').css('padding-right','44px').css('padding-left', '10px')
@@ -18,12 +24,11 @@ $(document).ready(function() {
     var nxtNumber = parseInt(currentNumber[0]) + 1;
     
     if (currentNumber[0] == '1') {
-      var audio = new Audio('/assets/music.mp3');
       audio.play();
     }
 
     $('#background-wrap').show();
-    $('body').addClass('clouds')
+    $('body').addClass('clouds');
     $(visibleImage[0]).hide();
     if (nxtNumber == 16) {
       $('.next-image button').addClass('alert').removeClass('success');
