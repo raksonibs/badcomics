@@ -1,5 +1,6 @@
 class SessionsController < ApplicationController
   def new
+    @subscriber = Subscriber.new
     @user = User.new
   end
 
