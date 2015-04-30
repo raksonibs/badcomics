@@ -5,6 +5,7 @@ class SessionsController < ApplicationController
   end
 
   def create
+    @subscriber = Subscriber.new
     if @user = login(params[:email], params[:password])
       session[:user_id] = nil
       session[:pre_2fa_auth_user_id] = @user.id
@@ -17,10 +18,12 @@ class SessionsController < ApplicationController
   end
 
   def two_factor
+    @subscriber = Subscriber.new
     return redirect_to new_session_path unless session[:pre_2fa_auth_user_id]
   end
 
   def verify
+    @subscriber = Subscriber.new
     @user = User.find(session[:pre_2fa_auth_user_id])
     token = Authy::API.verify(id: @user.authy_id, token: params[:token])
     if token.ok?
@@ -35,6 +38,7 @@ class SessionsController < ApplicationController
   end
 
   def resend
+    @subscriber = Subscriber.new
     @user = User.find(session[:pre_2fa_auth_user_id])
     Authy::API.request_sms(id: @user.authy_id)
     flash[:notice] = "Verification code re-sent"
@@ -42,6 +46,7 @@ class SessionsController < ApplicationController
   end
 
   def destroy
+    @subscriber = Subscriber.new
     logout
     redirect_to(:root, notice: 'Logged out!')
   end
