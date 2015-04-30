@@ -23,7 +23,7 @@ Rails.application.routes.draw do
 
   resources :users
 
-  resources :subscribers, except: [:destroy]
+  resources :subscribers, except: [:destroy, :index, :edit, :update]
 
   get '/unsubscribe/:subscriber_id' => "subscribers#unsubscribe", as: :unsubscribe
   get '/unsubscribe_confirm/:subscriber_id' => "subscribers#unsubscribe_confirm", as: :unsubscribe_confirm 

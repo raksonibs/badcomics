@@ -11,7 +11,7 @@
 -> weekly digest
 -> make look better
 -> capistrano deployment
--> more hidden gems. right now unsubscribe, subscribe will be confetti or background changes multi colour, clikcing twitter can make the bird kind of fly, facebook can do a bunch of twirls or something. 
+-> more hidden gems. right now unsubscribe, subscribe will be confetti or background changes multi colour, clikcing twitter can make the bird kind of fly, facebook can do a bunch of twirls or something.  404 PAGE! FUNNY
 
 dev
 -> use postgress -> might stay with sqlite because single-user? Actually no, many users, none change.
