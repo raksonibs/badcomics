@@ -145,4 +145,61 @@ li.nav {
   .buttons li.nav {
     font-size: 1.15em;
   }
-} 
+}
+
+.box {
+  margin: 50px auto;
+  width:400px;
+  height:400px;
+}
+input[type="email"] {
+  appearance: none;
+  width:380px;
+  height:70px;
+  font-size:3em;
+  background:transparent;
+  border:none;
+  border-bottom:solid 4px #e6e8eb;
+  text-align:center;
+  transition: border-color 0.6s ease;
+}
+
+::-webkit-input-placeholder {
+   color: #464c4c;
+   transition: color 0.3s ease;
+}
+
+:focus::-webkit-input-placeholder {
+   color: transparent;
+   transition: color 0.3s ease;
+}
+
+
+input[type="email"]:focus {
+   outline:none;
+   border:none;
+  border-bottom:solid 4px #00AEEF;
+  transition: border-color 1s ease;
+}
+
+input[type="submit"] {
+  appearance: none;
+  width:380px;
+  height:50px;
+  font-size:1.05em;
+  background:transparent;
+  color: #e6e8eb;
+  border:none;
+  text-align:center;
+  letter-spacing:0.15em;
+  text-transform:uppercase;
+  transition: color 0.5s ease;
+  outline:none;
+   border:none;
+}
+
+input[type="submit"]:hover {
+  color: #464c4c;
+  cursor:pointer;
+  transition: color 0.5s ease;
+}
