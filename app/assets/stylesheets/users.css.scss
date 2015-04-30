@@ -9,6 +9,23 @@
   font-style: normal;
 }
 
+.links-nav {
+  margin-left: 0;
+  padding-left: 0;
+
+  .large-3.small-3 {
+    padding-left: 0;
+    padding-right: 10px;
+  }
+}
+
+.header-image {
+  width: 100%;
+  img {
+    width: 100%;
+  }
+}
+
 @font-face {
   font-family: 'tomhand';    
   src: url('/assets/tomhand.ttf') format('truetype');
@@ -85,13 +102,13 @@ li.nav {
 }
 
 @media only screen and (max-width: 906px) {
-  li.nav {
+  .buttons li.nav a {
     font-size: 2.0em;
   }
 }
 
 @media only screen and (max-width: 720px) {
-  li.nav {
+  .buttons li.nav a {
     font-size: 1.5em;
   }
 } 
@@ -101,7 +118,7 @@ li.nav {
     margin-left: 10px;
   }
 
-  li.nav {
+  .buttons li.nav a {
     font-size: 1.25em;
   }
 } 
@@ -119,7 +136,7 @@ li.nav {
     margin-left: 0px;
   }
 
-  li.nav {
+  .buttons li.nav {
     font-size: 1.15em;
   }
 } 
