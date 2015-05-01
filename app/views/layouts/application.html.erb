@@ -57,7 +57,7 @@
     <p id="alert"><%= flash[:alert] %></p>
   </div>
 
-<div class="row">
+<div class="row container">
   <div class="large-5 small-5 columns logo">
     <h1><%= image_tag "logo.png" %></h1>
   </div>
@@ -88,25 +88,26 @@
     </div>
    </div>
  </div>
+ <br>
+ <br>
 
     <%= yield %>
     <%= javascript_include_tag "application" %>
     <br>
 <br>
 <br>
-<br>
-<br>
 
-<div class="row">
+<div class="row container">
   <div class="icon-text">
   
     <div class="icons">
+      <%= image_tag "Submarine_1.png", input_html: { class: 'columns submarine'} %>
       <%= image_tag "facebook.png", input_html: { class: 'large-1 small-1 medium-1 columns'} %>
       <%= image_tag "twitter.png", input_html: { class: 'large-1 small-1 medium-1 columns'} %>
       <div class="large-8 small-8 medium-8 columns">
         <%= simple_form_for @subscriber, html: { class: 'box' } do |f| %>
-          <%= f.input :email, label: false, input_html: { class: 'subscriber-email large-4 columns' } %>
-          <%= f.button :submit, :label => 'Subscribe', input_html: { value: 'Subscribe', class: 'subscriber-submit large-2 columns' } %>
+          <%= f.input :email, label: false, class: 'subscriber-email large-4 columns' %>
+          <%= f.button :submit, :label => 'Subscribe', value: 'Subscribe', class: 'subscriber-submit large-2 columns' %>
         <% end %>
         
       </div>
