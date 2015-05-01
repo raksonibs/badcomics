@@ -46,4 +46,12 @@ $(document).ready(function() {
     // maybe even a trumpet sound or something!
     $('.conf-cont').fadeIn().next().delay(5000).fadeOut();
   })
+
+  $('.submarine-hidden').click(function() {
+    $('.icons').animate({
+      left: "+=22%"
+    }, function() {
+      $('.box').css('display', 'inline-block');
+    })
+  })
 })
