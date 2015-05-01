@@ -25,3 +25,6 @@ dev
 -> editor for quick comics with characters used already
 -> email grabber and then weekly digest
 -> shop branch with merch
+-> rearrange pictures
+-> view images for kacper (save, publish?)
+-> rspec

@@ -1,3 +1,19 @@
+.icons {
+  margin: auto;
+}
+
+.icon-text {
+  text-align: center;
+}
+
+.icons img {
+  width: 10%;    
+}
+
+.container .large-1 {
+  vertical-align: middle;
+}
+
 @font-face {
   font-family: 'Acki-Preschool';    
   src: url('/assets/Acki-Preschool.eot');
@@ -27,6 +43,8 @@
 
 .header-image {
   width: 100%;
+  margin-bottom: 42px !important;
+
   img {
     width: 100%;
   }
@@ -260,4 +278,8 @@ input[type="submit"]:hover {
   border-radius: 28px;
   padding-top: 20px;
   padding-bottom: 20px;
+}
+
+.container.align {
+  vertical-align: middle;
 }

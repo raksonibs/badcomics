@@ -9,20 +9,3 @@
  *= require foundation_and_overrides
 
  */
-
-.icons {
-margin: auto;
-}
-
-.icon-text {
-text-align: center;
-}
-
-.icons img {
-  width: 10%;    
-}
-
-.large-1.small-1 img {
-  position: relative;
-  top: 200px;
-}
