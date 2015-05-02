@@ -26,7 +26,7 @@ Rails.application.routes.draw do
   resources :subscribers, except: [:destroy, :index, :edit, :update]
 
   get '/unsubscribe/:subscriber_id' => "subscribers#unsubscribe", as: :unsubscribe
-  get '/unsubscribe_confirm/:subscriber_id' => "subscribers#unsubscribe_confirm", as: :unsubscribe_confirm 
+  post '/unsubscribe_confirm/:subscriber_id' => "subscribers#unsubscribe_confirm", as: :unsubscribe_confirm 
 
   get 'login' => 'sessions#new', :as => :login
   post 'logout' => 'sessions#destroy', :as => :logout

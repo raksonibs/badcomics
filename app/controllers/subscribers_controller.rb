@@ -26,11 +26,16 @@ class SubscribersController < ApplicationController
     @subscriber = Subscriber.find(params[:subscriber_id])
   end
 
-  def confirm_unsubscribe
-    @subscriber = Subscriber.find(params[:subscriber_id])
-    @subscriber.subscribed = false
-    flash[:notice] = "Fine you unsubscribed asshole"
-    redirect :root
+  def unsubscribe_confirm
+    begin
+      @subscriber = Subscriber.find(params[:subscriber_id])
+      @subscriber.subscribed = false
+      flash[:notice] = "Fine you unsubscribed asshole"
+      redirect_to :root
+    rescue
+      flash[:notice] = "You tricky mixy you. There is no subscriber like that"
+      redirect_to :root
+    end
   end
 
   private

@@ -107,7 +107,13 @@ li.nav.first {
 .images-unsubscribe {
   display: none;
   font-size: 2.7em;
-  font-family: 'tomhand'
+  font-family: 'tomhand';
+  text-align: center;
+}
+
+.icons-subscribe {
+  padding-top: 15px;
+  text-align: center;
 }
 
 .images-unsubscribe:first-of-type {
@@ -241,6 +247,14 @@ input[type="submit"] {
   transition: color 0.5s ease;
   outline:none;
    border:none;
+}
+
+input[type="submit"].success {
+  font-size: 1rem;
+}
+
+.hidden-first {
+  display: none;
 }
 
 input[type="submit"]:hover {
