@@ -42,6 +42,9 @@ class UsersController < ApplicationController
     @image = User.latestImage
   end
 
+  def error_404
+  end
+
   def home
     @user = current_user
   end

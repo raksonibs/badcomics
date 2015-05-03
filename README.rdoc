@@ -28,3 +28,13 @@ dev
 -> rearrange pictures
 -> view images for kacper (save, publish?)
 -> rspec
+-> flash nice look
+-> outline around tabs
+-> copy for emails + work on production
+-> rearrange tabs
+-> need title for comics
+-> rearrange and delete comics as see fit (so hide them)
+-> confetti overlap
+-> make sub click once
+-> handle subscribers better. if doesn't work
+-> 404 and error page
