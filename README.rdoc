@@ -4,7 +4,7 @@
 -> want to make multiupload work
 -> problem with prev next on changes
 -> make look better
--> random page should link to actual image that is shareable. right now the url is random, which doesn't allow it to actually be shared!
+
 -> confetti when subscribe
 -> fix unsubscribe
 -> welcome email

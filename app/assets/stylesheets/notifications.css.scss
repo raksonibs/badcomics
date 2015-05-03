@@ -1,0 +1,153 @@
+@import url(http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css);
+/*@import url(https://raw.github.com/necolas/normalize.css/master/normalize.css);*/
+/**
+* Set up reusable colors
+*/
+/**
+* Colors from Flat UI
+* Source: http://flatuicolors.com
+*/
+
+.container-notifications {
+  /*display: none;*/
+}
+
+.flag.note {
+  display: none;
+}
+
+.flag.note.error {
+  display: block;
+  position: fixed;
+  z-index: 100;
+  top: 0;
+  font-size: 2em;
+}
+
+/**
+* This can be extended to anything to make it get slightly bigger on hover,
+* which is a pretty commonly desired effect
+
+.big-on-hover {
+  transform: scale(1, 1);
+}
+.big-on-hover:hover {
+  transform: scale(1.2, 1.2);
+}
+
+/**
+* Reusable single-direction margin declaration
+*/
+.margin, p, .flag {
+  margin-top: 0;
+  margin-bottom: 24px;
+}
+.margin:last-child, p:last-child, .flag:last-child {
+  margin-bottom: 0;
+}
+
+/**
+* Flag Object
+* Original Source: http://csswizardry.com/2013/05/the-flag-object/
+*/
+.flag {
+  display: table;
+  width: 100%;
+}
+
+.flag__image,
+.flag__body {
+  display: table-cell;
+  vertical-align: middle;
+}
+.flag--top .flag__image, .flag--top
+.flag__body {
+  vertical-align: top;
+}
+.flag--bottom .flag__image, .flag--bottom
+.flag__body {
+  vertical-align: bottom;
+}
+
+.flag__image {
+  padding-right: 24px;
+}
+.flag__image > img {
+  display: block;
+  max-width: none;
+}
+.flag--rev .flag__image {
+  padding-right: 0;
+  padding-left: 24px;
+}
+
+.flag__body {
+  width: 100%;
+}
+
+/**
+* Notification Styles
+*/
+.note {
+  position: relative;
+  overflow: hidden;
+  color: white;
+  background-color: #9b59b6;
+}
+
+.note--secondary {
+  background-color: #34495e;
+}
+
+.note--success {
+  background-color: #27ae60;
+}
+
+.note--warning {
+  background-color: #f39c12;
+}
+
+.note--error {
+  background-color: #e74c3c;
+}
+
+.note--info {
+  background-color: #3498db;
+}
+
+.note__icon,
+.note__text {
+  padding: 24px;
+}
+
+.note__icon {
+  min-width: 80px;
+  text-align: center;
+  font-size: 32px;
+  font-size: 2rem;
+  background-color: rgba(0, 0, 0, 0.25);
+}
+
+.note__text {
+  padding-right: 48px;
+}
+
+.note__close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 29px;
+  line-height: 30px;
+  font-size: 24px;
+  text-align: center;
+  color: white;
+  background-color: rgba(0, 0, 0, 0.25);
+  opacity: 0;
+  transition: all 0.25s;
+}
+.note__close:hover {
+  background-color: rgba(0, 0, 0, 0.15);
+}
+.note:hover .note__close {
+  opacity: 1;
+}

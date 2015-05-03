@@ -75,12 +75,87 @@
       <!-- <%= link_to "Login", :login %> -->
     <% end %>
   </div>
-  <div>
-    <p id="notice"><%= flash[:notice] %></p>
-    <p id="alert"><%= flash[:alert] %></p>
+  
+  <div class="row">
+    <div class="columns large-12 small-12">
+      <div class="container-notifications">
+  
+        <div class="flag note notice">
+          <div class="flag__image note__icon">
+            <i class="fa fa-heart"></i>
+          </div>
+          <div class="flag__body note__text">
+            <%= flash[:notice] %>
+          </div>
+          <a href="#" class="note__close">
+            <i class="fa fa-times"></i>
+          </a>
+        </div>
+          
+        <div class="flag note secondary note--secondary">
+          <div class="flag__image note__icon">
+            <i class="fa fa-comment"></i>
+          </div>
+          <div class="flag__body note__text">
+            <%= flash[:secondary_notice] %>
+          </div>
+          <a href="#" class="note__close">
+            <i class="fa fa-times"></i>
+          </a>
+        </div>
+
+        <div class="flag note success note--success">
+          <div class="flag__image note__icon">
+            <i class="fa fa-check"></i>
+          </div>
+          <div class="flag__body note__text">
+            <%= flash[:success] %>
+          </div>
+          <a href="#" class="note__close">
+            <i class="fa fa-times"></i>
+          </a>
+        </div>
+          
+        <div class="flag note alert note--warning">
+          <div class="flag__image note__icon">
+            <i class="fa fa-exclamation"></i>
+          </div>
+          <div class="flag__body note__text">
+            <%= flash[:alert] %>
+          </div>
+          <a href="#" class="note__close">
+            <i class="fa fa-times"></i>
+          </a>
+        </div>
+          
+        <div class="flag note error note--error">
+          <div class="flag__image note__icon">
+            <i class="fa fa-times"></i>
+          </div>
+          <div class="flag__body note__text">
+            Hey that isn't a correct email. You trying to screw with us?
+          </div>
+          <!-- <a href="#" class="note__close">
+            <i class="fa fa-times"></i>
+          </a> -->
+        </div>
+          
+        <div class="flag note info note--info">
+          <div class="flag__image note__icon">
+            <i class="fa fa-info"></i>
+          </div>
+          <div class="flag__body note__text">
+            <p><%= flash[:info] %></p>
+          </div>
+          <a href="#" class="note__close">
+            <i class="fa fa-times"></i>
+          </a>
+        </div>
+      </div>
+    </div>
   </div>
 
-<div class="row container">
+<div class="row container header">
   <div class="large-5 small-5 columns logo">
     <h1><%= image_tag "logo.png" %></h1>
   </div>
