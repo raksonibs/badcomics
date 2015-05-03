@@ -34,7 +34,7 @@ class UsersController < ApplicationController
   end
 
   def random
-    @image = User.allImages.sample
+    @image = Image.find(params[:id])
     render :normal
   end
 

@@ -33,7 +33,7 @@ Rails.application.routes.draw do
 
   get '/past' => 'users#past', as: :past
 
-  get '/random' => 'users#random', as: :random
+  get '/random/:id' => 'users#random', as: :random
 
   get '/about' => 'users#about', as: :about
 
