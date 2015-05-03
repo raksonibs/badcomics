@@ -45,10 +45,15 @@ $(document).ready(function() {
   $('.box').submit(function() {
     // banner saying we love you with their email. and confetti falling.
     // maybe even a trumpet sound or something!
-    $('.conf-cont').fadeIn().next().delay(5000).fadeOut();
-    setTimeout(function() {
-      $('.conf-cont').fadeOut();
-    }, 10000);
+    var email = $($('input[type="email"]')[0]).val()
+    if (email !== "") {
+      $('.conf-cont').fadeIn().next().delay(5000).fadeOut();
+      setTimeout(function() {
+        $('.conf-cont').fadeOut();
+      }, 10000);
+    } else {
+      alert('damn');
+    }
   })
 
   $('.submarine-hidden').click(function() {

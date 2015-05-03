@@ -35,5 +35,5 @@ dev
 -> need title for comics
 -> rearrange and delete comics as see fit (so hide them)
 -> confetti overlap -> needs banner
--> make sub click once
+-> make sub click once -> and handle errors for subscriber
 -> handle subscribers better. if doesn't work
