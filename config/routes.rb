@@ -46,8 +46,10 @@ Rails.application.routes.draw do
   get '/zohoverify/verifyforzoho' => 'users#zoho'
 
 
-  match '*path' => redirect('/404'), via: :get
-  match '/404' => 'users#error', as: :error_404, via: [ :get, :post, :patch, :delete ]
-  match '/500' => 'users#error_us', as: :error_us, via: [ :get, :post, :patch, :delete ]
+  # match '*path' => redirect('/404'), via: :get
+
+  match '/404', to: 'users#error_404', via: :all
+  match '/422', to: 'users#error_422', via: :all
+  match '/500', to: 'users#error_us', via: :all
   
 end
