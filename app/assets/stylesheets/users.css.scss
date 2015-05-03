@@ -291,17 +291,31 @@ input[type="submit"]:hover {
   padding-bottom: 20px;
 }
 
-.container.align {
-  display: table;
+.arrow-nav {
+  position: relative;
+  top: 50%;
+  transform: translateY(297%);
 }
 
-
-.container.align .large-1.small-1 {
+.arrow-nav-dif {
   position: relative;
-  top: 17em;
+  top: 50%;
+  transform: translateY(256%);
 }
 
-.smaller-next {
-  position: relative;
-  top: 16.5em !important;
+.arrow-nav-dif.dif-image {
+  transform: translateY(210%);
+}
+
+.arrow-nav-dif, .arrow-nav {
+  width: 8.33%;
+  display: inline-block;
+}
+
+.left-nav {
+  float: left;
+}
+
+.right-nav {
+  float: right;
 }
