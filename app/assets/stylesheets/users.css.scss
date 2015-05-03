@@ -10,10 +10,6 @@
   width: 10%;    
 }
 
-.container .large-1 {
-  vertical-align: middle;
-}
-
 @font-face {
   font-family: 'Acki-Preschool';    
   src: url('/assets/Acki-Preschool.eot');
@@ -59,6 +55,7 @@
 
 body {
   background: #899EC9;
+  height: 100%;
 }
 
 h5 {
@@ -295,5 +292,15 @@ input[type="submit"]:hover {
 }
 
 .container.align {
+  display: table;
+}
+
+.smaller-next {
+  position: relative;
+  top: -1%;
+}
+
+.container.align .large-1.small-1 {
+  display: table-cell;
   vertical-align: middle;
 }
