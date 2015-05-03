@@ -230,11 +230,55 @@ input[type="email"]:focus {
   transition: border-color 1s ease;
 }
 
+
+@media only screen and (max-width: 830px) {
+  .box {
+    left: 30px !important;
+    top: -170px !important;
+    height: 75%;
+  }
+
+  input[type="submit"] {
+    width: 275px !important;
+    margin: 0 !important;
+    font-size: 0.7em !important;
+    height: 35px !important;
+  }
+
+  input[type="email"] {
+    width: 275px !important;
+    font-size: 0.7em;
+    height: 75%;
+  }
+} 
+
+@media only screen and (max-width: 593px) {
+  .box {
+    left: 10px !important;
+    top: -70px !important;
+    height: 50%;
+    margin: 0 !important;
+  }
+
+  input[type="submit"] {
+    width: 200px !important;
+    margin: 0 !important;
+    font-size: 0.50em !important;
+    height: 25px !important;
+  }
+
+  input[type="email"] {
+    width: 200px !important;
+    font-size: 0.3em;
+    height: 50%;
+  }
+} 
+
 input[type="submit"] {
   appearance: none;
   width:380px;
   height:50px;
-  font-size:1.05em;
+  font-size: 0.80em;
   background:transparent;
   color: #899EC9;
   border:none;
@@ -243,8 +287,10 @@ input[type="submit"] {
   text-transform:uppercase;
   transition: color 0.5s ease;
   outline:none;
-   border:none;
+  border:none;
+  padding-bottom: 30px;
 }
+
 
 input[type="submit"].success {
   font-size: 1rem;

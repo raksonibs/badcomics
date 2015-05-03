@@ -34,7 +34,6 @@ dev
 -> rearrange tabs
 -> need title for comics
 -> rearrange and delete comics as see fit (so hide them)
--> confetti overlap
+-> confetti overlap -> needs banner
 -> make sub click once
 -> handle subscribers better. if doesn't work
--> 404 and error page
