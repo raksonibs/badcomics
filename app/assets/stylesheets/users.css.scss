@@ -295,12 +295,13 @@ input[type="submit"]:hover {
   display: table;
 }
 
-.smaller-next {
-  position: relative;
-  top: -1%;
-}
 
 .container.align .large-1.small-1 {
-  display: table-cell;
-  vertical-align: middle;
+  position: relative;
+  top: 17em;
+}
+
+.smaller-next {
+  position: relative;
+  top: 16.5em !important;
 }
