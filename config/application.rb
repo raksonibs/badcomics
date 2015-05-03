@@ -24,5 +24,8 @@ module Badcomics
     config.autoload_paths += Dir["#{config.root}/lib/**/"]
 
     config.assets.paths << Rails.root.join('app','assets','fonts')
+
+    require Rails.root.join("lib/custom_public_exceptions")
+    config.exceptions_app = CustomPublicExceptions.new(Rails.public_path)
   end
 end

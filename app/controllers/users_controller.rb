@@ -43,6 +43,10 @@ class UsersController < ApplicationController
   end
 
   def error_404
+    render status: :not_found
+  end
+
+  def error_us
   end
 
   def home
