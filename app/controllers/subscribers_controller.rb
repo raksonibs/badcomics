@@ -15,6 +15,7 @@ class SubscribersController < ApplicationController
       #  shouldn't redirect, should be ajax request
       redirect_to :root
     else
+      binding.pry
       flash[:notice] = "Put an actual email ya goof!"
       render :new
     end

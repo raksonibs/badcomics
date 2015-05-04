@@ -92,35 +92,12 @@
           </a>
         </div>
           
-        <div class="flag note secondary note--secondary columns large-12 small-12">
-          <div class="flag__image note__icon">
-            <i class="fa fa-comment"></i>
-          </div>
-          <div class="flag__body note__text">
-            <%= flash[:secondary_notice] %>
-          </div>
-          <a href="#" class="note__close">
-            <i class="fa fa-times"></i>
-          </a>
-        </div>
 
         <div class="flag note success note--success columns large-12 small-12">
           <div class="flag__image note__icon">
             <i class="fa fa-check"></i>
           </div>
           <div class="flag__body note__text success-text">
-          </div>
-          <a href="#" class="note__close">
-            <i class="fa fa-times"></i>
-          </a>
-        </div>
-          
-        <div class="flag note alert note--warning columns large-12 small-12">
-          <div class="flag__image note__icon">
-            <i class="fa fa-exclamation"></i>
-          </div>
-          <div class="flag__body note__text">
-            <%= flash[:alert] %>
           </div>
           <a href="#" class="note__close">
             <i class="fa fa-times"></i>
@@ -134,9 +111,9 @@
           <div class="flag__body note__text">
             Hey that isn't an actual email! You tricky hobbit!
           </div>
-          <!-- <a href="#" class="note__close">
+          <a href="#" class="note__close">
             <i class="fa fa-times"></i>
-          </a> -->
+          </a>
         </div>
           
         <div class="flag note info note--info columns large-12 small-12">
@@ -210,7 +187,11 @@
         <%= f.input :email, label: false, class: 'subscriber-email large-4 columns' %>
         <%= f.button :submit, :label => 'Subscribe', value: 'Subscribe', class: 'subscriber-submit large-2 columns' %>
       <% end %>
-      
+    </div>
+    <div class="row">
+      <div class="large-12 small-12 columns disclaimer-text">
+        <p class="disclaimer">These comics aren't meant to offend anyone. Except you - you nosey, little twerp.</p>
+      </div>
     </div>
     
   </div>

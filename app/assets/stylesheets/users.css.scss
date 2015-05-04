@@ -71,6 +71,17 @@ a, button, input.button {
   font-weight: 900;
 }
 
+p.disclaimer {
+  font-family: 'tomhand' !important;
+  font-size: 10px;
+  font-weight: 900;
+  margin-top: 20px;
+}
+
+.disclaimer-text {
+  text-align: center;
+}
+
 .soon-clouds {
   transition: all 2s ease;
 }
