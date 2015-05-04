@@ -1,11 +1,4 @@
 Rails.application.routes.draw do
-  get 'subscribers/new'
-
-  get 'subscribers/create'
-
-  get 'subscribers/destroy'
-
-  # resources :users
 
   root 'users#normal'
 
