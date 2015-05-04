@@ -49,11 +49,21 @@ $(document).ready(function() {
     var email = $($('input[type="email"]')[0]).val()
     if (email !== "") {
       $('.conf-cont').fadeIn().next().delay(5000).fadeOut();
+      $('.success-text').text("You've subscribed "+email+". We love you "+email+"! Confetti for "+ email+"!")
+
+      $('.flag.note.success').slideDown();
+
+      setTimeout(function() {
+        $('.flag.note.success').slideUp();
+      }, 10000);
       setTimeout(function() {
         $('.conf-cont').fadeOut();
       }, 10000);
     } else {
-      $('.flag.note.error').show();
+      $('.flag.note.error').slideDown();
+      setTimeout(function() {
+        $('.flag.note.error').slideUp();
+      }, 5000);
     }
   })
 

@@ -14,19 +14,14 @@
 
 .flag.note {
   display: none;
-}
-
-.flag.note.error {
-  display: block;
   position: fixed;
-  z-index: 100;
+  width: 78.5%;
+  z-index: 2;
   top: 0;
-  font-size: 2em;
+  font-size: 1.8em;
+  padding: 0;
 }
 
-/**
-* This can be extended to anything to make it get slightly bigger on hover,
-* which is a pretty commonly desired effect
 
 .big-on-hover {
   transform: scale(1, 1);
@@ -37,7 +32,7 @@
 
 /**
 * Reusable single-direction margin declaration
-*/
+
 .margin, p, .flag {
   margin-top: 0;
   margin-bottom: 24px;
@@ -52,7 +47,6 @@
 */
 .flag {
   display: table;
-  width: 100%;
 }
 
 .flag__image,
@@ -79,10 +73,6 @@
 .flag--rev .flag__image {
   padding-right: 0;
   padding-left: 24px;
-}
-
-.flag__body {
-  width: 100%;
 }
 
 /**
