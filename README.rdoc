@@ -37,3 +37,6 @@ dev
 -> confetti overlap -> needs banner
 -> make sub click once -> and handle errors for subscriber
 -> handle subscribers better. if doesn't work
+-> update about and welcome email gif
+-> make weekly
+-> contact page with contact vals

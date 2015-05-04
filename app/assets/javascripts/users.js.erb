@@ -64,7 +64,7 @@ $(document).ready(function() {
     }
   })
 
-  $('.submarine-hidden').click(function() {
+  $('.submarine-hidden').one('click', function() {
     $('.icons').animate({
       left: "+=22%"
     }, function() {
