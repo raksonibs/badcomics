@@ -21,22 +21,40 @@ dev
 6178422
 -> think about sharing!
 
--> better upload (drag and drop)
--> editor for quick comics with characters used already
--> email grabber and then weekly digest
--> shop branch with merch
--> rearrange pictures
--> view images for kacper (save, publish?)
--> rspec
--> flash nice look
--> outline around tabs
--> copy for emails + work on production
--> rearrange tabs
--> need title for comics
--> rearrange and delete comics as see fit (so hide them)
--> confetti overlap -> needs banner
--> make sub click once -> and handle errors for subscriber
--> handle subscribers better. if doesn't work
--> update about and welcome email gif
--> make weekly
--> contact page with contact vals
+-> better upload (drag and drop and publish private) NECESSARY
+
+-> editor for quick comics with characters used already ( not vital)
+
+-> email grabber and then weekly digest NECESSARY
+
+-> shop branch with merch (NO)
+
+-> rearrange pictures (YES
+)
+-> view images for kacper (save, publish?) (YES)
+
+-> rspec (NO)
+
+-> flash nice look (KINDA EXISTS)
+
+-> outline around tabs (YES)
+
+-> copy for emails + work on production (YES)
+
+-> rearrange tabs (WHAT DOES THIS MEAN?)
+
+-> need title for comics (YES)
+
+-> rearrange and delete comics as see fit (so hide them) (YES)
+
+-> confetti overlap -> needs banner (KINDA DONE)
+
+-> make sub click once -> and handle errors for subscriber (KINDA DONE)
+
+-> handle subscribers better. if doesn't work (KINDA DONE)
+
+-> update about and welcome email gif (YES)
+
+-> make weekly (YES)
+
+-> contact page with contact vals (YES NECESSARY)
