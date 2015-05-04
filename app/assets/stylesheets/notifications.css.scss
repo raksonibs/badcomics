@@ -9,13 +9,16 @@
 */
 
 .container-notifications {
+  position: fixed;
+  left: -15px;
   /*display: none;*/
+  z-index: 2;
 }
 
 .flag.note {
   display: none;
-  position: fixed;
-  width: 78.5%;
+  width: inherit;
+  position: absolute;
   z-index: 2;
   top: 0;
   font-size: 1.8em;
@@ -141,3 +144,9 @@
 .note:hover .note__close {
   opacity: 1;
 }
+
+/*@media only screen and (max-width: 1010px) {
+  .flag {
+    width: 100% !important;
+  }
+}*/
