@@ -42,32 +42,35 @@ $(document).ready(function() {
     $('.'+nxtNumber + '-image.images-unsubscribe').show();
   })
 
+  $.ajaxSetup({
+    dataType: 'json'
+  })
+
+  $('.box').on("ajax:success", function(e,data, status, xhr) {
+  }).on("ajax:error", function(e, data, status, xhr) {
+    $('.note-text').text("Nice as that email is, it already is subscribed. Your mother's isn't though.")
+    $('.flag.note.notice').slideDown();
+      setTimeout(function() {
+        $('.flag.note.notice').slideUp();
+      }, 5000);
+  })
+
   $('.box').submit(function() {
     var email = $($('input[type="email"]')[0]).val()
     if (email !== "") {
-      // var url = '/subscribers'
-      // $.ajax({
-      //   url: url,
-      //   type: "POST",
-      //   dataType: "json",
-      //   data: { email: email },
-      //   success: function() {
-      //     $('.conf-cont').fadeIn().next().delay(5000).fadeOut();
-      //     $('.success-text').text("You've subscribed "+email+". We love you "+email+"! Confetti for "+ email+"!")
+      console.log('good email')
+      $('.conf-cont').fadeIn().next().delay(5000).fadeOut();
+      $('.success-text').text("You've subscribed "+email+". We love you "+email+"! Confetti for "+ email+"!")
 
-      //     $('.flag.note.success').slideDown();
+      $('.flag.note.success').slideDown();
 
-      //     setTimeout(function() {
-      //       $('.flag.note.success').slideUp();
-      //     }, 10000);
-      //     setTimeout(function() {
-      //       $('.conf-cont').fadeOut();
-      //     }, 10000);
-      //   }, 
-      //   error: function() {
+      setTimeout(function() {
+        $('.flag.note.success').slideUp();
+      }, 10000);
+      setTimeout(function() {
+        $('.conf-cont').fadeOut();
+      }, 10000);
 
-      //   }
-      // )}
     } else {
       $('.flag.note.error').slideDown();
       setTimeout(function() {
