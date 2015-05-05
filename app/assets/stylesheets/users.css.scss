@@ -233,7 +233,7 @@ li.nav a {
   left: 0px;
 }
 
-input[type="email"] {
+input[type="email"].subscriber-email {
   appearance: none;
   width:380px;
   height:70px;
@@ -410,4 +410,14 @@ input[type="submit"]:hover {
 
 .contact-guy {
   height: 75%;
+}
+
+.shift-right {
+  position: relative;
+  left: 100px;
+}
+
+.shift-left {
+  position: relative;
+  left: -100px;
 }

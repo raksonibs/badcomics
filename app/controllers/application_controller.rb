@@ -7,6 +7,8 @@ class ApplicationController < ActionController::Base
   helper_method :current_user
   helper_method :signed_in?
 
+  before_filter :set_subscriber
+
   def current_user
     begin
       @current_user ||= User.find(session[:user_id]) if session[:user_id]
@@ -24,6 +26,10 @@ class ApplicationController < ActionController::Base
 
   def authenticate!
     redirect_to new_session_path and return unless signed_in?
+  end
+
+  def set_subscriber
+    @subscriber = Subscriber.new
   end
 
 end
