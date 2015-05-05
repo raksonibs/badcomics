@@ -38,6 +38,9 @@ Rails.application.routes.draw do
 
   get '/zohoverify/verifyforzoho' => 'users#zoho'
 
+  match '/contacts', to: 'contacts#new', via: 'get'
+  resources "contacts", only: [:new, :create]
+
   resources :images
 
   match '/404', to: 'users#error_404', via: :all

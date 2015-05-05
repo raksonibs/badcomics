@@ -58,3 +58,5 @@ dev
 -> make weekly (YES)
 
 -> contact page with contact vals (YES NECESSARY)
+
+-> www webfont not showing?

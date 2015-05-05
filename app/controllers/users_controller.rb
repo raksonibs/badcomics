@@ -19,6 +19,9 @@ class UsersController < ApplicationController
     render :normal
   end
 
+  def contact
+  end
+
   def twofactor
     flash.now[:alert] = 'Two factor set up correctly'
     redirect_to :root
