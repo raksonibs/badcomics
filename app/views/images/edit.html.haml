@@ -1,0 +1,6 @@
+= simple_form_for @image do |f|
+  = f.input :title
+  Currently this comic file. upload a new one below.
+  = @image.comic_file_name
+  = f.file_field :comic
+  = f.submit
