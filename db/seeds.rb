@@ -10,6 +10,7 @@ case Rails.env
 when "development"
   User.create!(name: 'BadAdmin', password: 'ihatepies12', email: 'thisbetterbeacompliment@badcomics.ca', country_code: '1', phone_number: '9058697375')
   image = Image.new(:comic => File.new('app/assets/images/Cake_1.jpg', "r"))
+  image.title = "Cake"
   User.last.images << image
   User.last.save!
   @user = User.last
@@ -28,6 +29,7 @@ when "development"
 when "production"
   User.create!(name: 'BadAdmin', password: 'ihatepies12', email: 'thisbetterbeacompliment@badcomics.ca', country_code: '1', phone_number: '9058697375')
   image = Image.new(:comic => File.new('app/assets/images/Cake_1.jpg', "r"))
+  image.title = "Cake"
   User.last.images << image
   User.last.save!
   @user = User.last

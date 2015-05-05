@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150427012036) do
+ActiveRecord::Schema.define(version: 20150505034359) do
 
   create_table "images", force: true do |t|
     t.integer  "user_id"
@@ -21,6 +21,9 @@ ActiveRecord::Schema.define(version: 20150427012036) do
     t.string   "comic_content_type"
     t.integer  "comic_file_size"
     t.datetime "comic_updated_at"
+    t.integer  "order"
+    t.boolean  "published",          default: false
+    t.string   "title"
   end
 
   create_table "subscribers", force: true do |t|

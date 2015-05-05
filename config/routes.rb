@@ -1,11 +1,5 @@
 Rails.application.routes.draw do
 
-  get 'images/edit'
-
-  get 'images/update'
-
-  get 'images/destroy'
-
   root 'users#normal'
 
   get '/home/:user_id' => 'users#home', as: :home
