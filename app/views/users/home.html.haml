@@ -1,11 +1,31 @@
-= @user.name 
-%br
-= @user.images.inspect
+-# %p Hey you bitch. Let's keep going, let's keep trying.
+.container.row
+  .large-12.small-12.columns
+    Hey, 
+    = @user.name 
+    %br
+    %h1 Comics
+    %br
+    
+    .row
+    - @user.images.each do |image|
+      .large-4.small-4.columns
+        = image.title.inspect
+        = image_tag image.comic
+        = image.comic_file_name
+        %br
+        = link_to 'Destroy | ', image, method: :delete, data: { confirm: 'Are you sure?' }
+        = link_to 'Edit', edit_image_path(image)
+        | Publish
+        | Publish Title
 
-- if current_user
-  = form_for @user, :url => upload_path, :html => { :multipart => true } do |form|
-    = form.label :comic , "Upload Comic"
-    = form.file_field :comic, :multiple =>:true
-    = form.submit
-- else
-  %p no one logged in so no upload
+    - if current_user
+      = form_for @user, :url => upload_path, :html => { :multipart => true } do |form|
+        = form.label :comic, "Upload Comic"
+        = form.file_field :comic, :multiple =>:true
+        = form.fields_for :image do |ff|
+          = ff.label :title, "Comic Title"
+          = ff.text_field :title, class: 'input-comic-title'
+        = form.submit
+    - else
+      %p no one logged in so no upload

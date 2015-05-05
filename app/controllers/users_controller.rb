@@ -63,11 +63,11 @@ class UsersController < ApplicationController
      # you can check total number of photos selected using params[:avatar].count
       params[:user][:comic].each do |picture|      
 
-        @user.images.create(:comic=> picture)
+        @user.images.create(:comic=> picture, title: params[:user][:image][:title])
         # Don't forget to mention :avatar(field name)
 
       end      
-      redirect_to :root
+      redirect_to :home
     end
   end
 

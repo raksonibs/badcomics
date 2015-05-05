@@ -3,4 +3,8 @@ class Image < ActiveRecord::Base
   validates_attachment_content_type :comic, :content_type => /\Aimage\/.*\Z/
 
   belongs_to :user
+
+  def lastOrder
+    Image.sort(:order).last.order
+  end
 end

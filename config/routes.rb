@@ -1,5 +1,11 @@
 Rails.application.routes.draw do
 
+  get 'images/edit'
+
+  get 'images/update'
+
+  get 'images/destroy'
+
   root 'users#normal'
 
   get '/home/:user_id' => 'users#home', as: :home
@@ -38,7 +44,7 @@ Rails.application.routes.draw do
 
   get '/zohoverify/verifyforzoho' => 'users#zoho'
 
-
+  resources :images
 
   match '/404', to: 'users#error_404', via: :all
   match '/422', to: 'users#error_422', via: :all
