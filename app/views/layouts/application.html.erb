@@ -129,20 +129,22 @@
           <li class='header-image'><%= image_tag "NewestHeader.png", class: 'header-img'%></li>
           <div class="large-12 small-12 columns links-nav">
             <div class="row">
-              <li class="hovered"><%= image_tag "outline_t.png" %></li>
-              <div class="large-3 small-3 columns">
-                <li class="nav first"><%= link_to "Today", root_url %></li>
-              </div>
-              <div class="large-3 small-3 columns">
-                <li class="nav"><%= link_to "Past", past_path %></li>
-              </div>
-              <div class="large-3 small-3 columns">
-                <li class="nav"><%= link_to 'About', about_path %></li>
-              </div>
-              <div class="large-3 small-3 columns">
-                <% unless User.allPublishedImages.empty? %>
+              <% if !User.allPublishedImages.empty? %>
+                <li class="hovered"><%= image_tag "outline_t.png" %></li>
+                <div class="large-3 small-3 columns">
+                  <li class="nav first"><%= link_to "Today", root_url %></li>
+                </div>
+                <div class="large-3 small-3 columns">
+                  <li class="nav"><%= link_to "Past", past_path %></li>
+                </div>
+                <div class="large-3 small-3 columns">
+                  <li class="nav"><%= link_to 'About', about_path %></li>
+                </div>
+                <div class="large-3 small-3 columns">
                   <% randomId = User.allPublishedImages.sample.id %>
                   <li class="nav"><%= link_to "Random", random_path(randomId) %></li>
+                <% else %>
+                  Nothing is published. Publish something
                 <% end %>
               </div>
             </div>          
