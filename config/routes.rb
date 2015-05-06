@@ -43,6 +43,8 @@ Rails.application.routes.draw do
   get '/unshowtitle/:image_id' => 'users#unshowtitle', as: :unshowtitle
   get '/showtitle/:image_id' => 'users#showtitle', as: :showtitle
 
+  get '/save_order' => 'users#save_order', as: :save_order
+
   match '/contacts', to: 'contacts#new', via: 'get'
   resources "contacts", only: [:new, :create]
 

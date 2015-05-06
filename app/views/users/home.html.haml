@@ -6,27 +6,31 @@
     %br
     %h1 Comics
     %br
-    
-    .row
-    - @user.images.each do |image|
-      .large-4.small-4.columns
-        = image.order.to_s 
-        = ": "
-        = image.title.inspect
-        = image_tag image.comic
-        = image.comic_file_name
-        %br
-        = link_to 'Destroy | ', image, method: :delete, data: { confirm: 'Are you sure?' }
-        = link_to 'Edit', edit_image_path(image)
-        - if image.published?
-          = link_to "| Unpublish", unpublish_path(image.id), remote: true, class: 'unpublish'
-        - else
-          = link_to "| Publish", publish_path(image.id), remote: true, class: 'publish'
 
-        - if !image.show_title?
-          = link_to "| Show Title?", showtitle_path(image.id), remote: true, class: 'showtitle'
-        - else
-          = link_to "| Unshow Title!", unshowtitle_path(image.id), remote: true, class: 'unshowtitle'
+    = button_to 'Save Order', save_order_path, class: 'button radius info save-order', method: 'get'
+    
+    %ul#sortable
+      - @user.images.each do |image|
+        %li.ui-state-default{id: image.id}
+          %span.ui-icon.ui-icon-arrowthick-2-n-s
+          .image-order{data: {order: "#{image.order}"}}
+            = image.order.to_s
+          = ": "
+          = image.title.inspect
+          = image_tag image.comic, class: 'smaller-image-admin'
+          = image.comic_file_name
+          %br
+          = link_to 'Destroy | ', image, method: :delete, data: { confirm: 'Are you sure?' }
+          = link_to 'Edit', edit_image_path(image)
+          - if image.published?
+            = link_to "| Unpublish", unpublish_path(image.id), remote: true, class: 'unpublish'
+          - else
+            = link_to "| Publish", publish_path(image.id), remote: true, class: 'publish'
+
+          - if !image.show_title?
+            = link_to "| Show Title?", showtitle_path(image.id), remote: true, class: 'showtitle'
+          - else
+            = link_to "| Unshow Title!", unshowtitle_path(image.id), remote: true, class: 'unshowtitle'
     %hr
     %h2 New Comic
   - if current_user

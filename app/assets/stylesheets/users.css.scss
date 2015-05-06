@@ -253,6 +253,14 @@ input[type="email"].subscriber-email {
   margin-bottom: 20px;
 }
 
+.smaller-image-admin {
+  height: 150px;
+}
+
+.border-admin {
+  border: 1px solid black;
+}
+
 ::-webkit-input-placeholder {
    color: #464c4c;
    transition: color 0.3s ease;

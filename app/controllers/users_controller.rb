@@ -69,6 +69,17 @@ class UsersController < ApplicationController
     redirect_to :home
   end
 
+  def save_order
+    images = params[:images]
+    images.each do |i|
+      splitStr = i.split(" = ")
+      img = Image.find(splitStr[0].strip())
+      img.order = splitStr[1].strip().to_i
+      img.save!
+    end
+    redirect_to home_url(current_user)
+  end
+
   def showtitle
     @user = current_user
     @image = Image.find(params[:image_id])

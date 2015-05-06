@@ -1,7 +1,7 @@
 <div class="container row">
   <div class="large-12 small-12 columns">
     <div class="left shift-right">
-      <h3>Send A message to Us</h3>
+      <h3>We take messages. And smoke signals. </h3>
 
       <%= simple_form_for @contact, :html => {:class => 'form-horizontal' } do |f| %>
         <%= f.input :name, :required => true %>
@@ -9,7 +9,7 @@
         <%= f.input :message, :as => :text, :required => true %>
         <div>
           </br>
-          <%= f.button :submit, 'Send message', :class=> "btn btn-primary" %>
+          <%= f.button :submit, 'Send message', :class=> "button radius primary" %>
         </div>
       <% end %>
     </div>
