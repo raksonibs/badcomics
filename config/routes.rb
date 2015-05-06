@@ -40,6 +40,8 @@ Rails.application.routes.draw do
 
   get '/unpublish/:image_id' => 'users#unpublish', as: :unpublish
   get '/publish/:image_id' => 'users#publish', as: :publish
+  get '/unshowtitle/:image_id' => 'users#unshowtitle', as: :unshowtitle
+  get '/showtitle/:image_id' => 'users#showtitle', as: :showtitle
 
   match '/contacts', to: 'contacts#new', via: 'get'
   resources "contacts", only: [:new, :create]

@@ -22,7 +22,11 @@
           = link_to "| Unpublish", unpublish_path(image.id), remote: true, class: 'unpublish'
         - else
           = link_to "| Publish", publish_path(image.id), remote: true, class: 'publish'
-        | Publish Title
+
+        - if !image.show_title?
+          = link_to "| Show Title?", showtitle_path(image.id), remote: true, class: 'showtitle'
+        - else
+          = link_to "| Unshow Title!", unshowtitle_path(image.id), remote: true, class: 'unshowtitle'
     %hr
     %h2 New Comic
   - if current_user

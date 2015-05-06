@@ -245,6 +245,14 @@ input[type="email"].subscriber-email {
   transition: border-color 0.6s ease;
 }
 
+.entitled .title-class {
+  margin-left: 150px;
+  font-family: 'tomhand' !important;
+  font-size: 2em;
+  font-weight: 900;
+  margin-bottom: 20px;
+}
+
 ::-webkit-input-placeholder {
    color: #464c4c;
    transition: color 0.3s ease;

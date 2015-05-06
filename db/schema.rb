@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150505034359) do
+ActiveRecord::Schema.define(version: 20150506041359) do
 
   create_table "images", force: true do |t|
     t.integer  "user_id"
@@ -24,6 +24,7 @@ ActiveRecord::Schema.define(version: 20150505034359) do
     t.integer  "order"
     t.boolean  "published",          default: false
     t.string   "title"
+    t.boolean  "show_title",         default: false
   end
 
   create_table "subscribers", force: true do |t|

@@ -69,6 +69,22 @@ class UsersController < ApplicationController
     redirect_to :home
   end
 
+  def showtitle
+    @user = current_user
+    @image = Image.find(params[:image_id])
+    @image.show_title = true
+    @image.save!
+    redirect_to :home
+  end
+
+  def unshowtitle
+    @user = current_user
+    @image = Image.find(params[:image_id])
+    @image.show_title = false
+    @image.save!
+    redirect_to home_url(@user.id)
+  end
+
   def home
     @user = current_user
   end

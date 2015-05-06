@@ -17,13 +17,17 @@ $(document).ready(function() {
     
   })
 
-  $('.publish, .unpublish').click(function() {
+  $('.publish, .unpublish, .showtitle, .unshowtitle').click(function() {
     var klass = $(this).attr('class')
-
+    
     if (klass == 'publish') {
       $('.note-text').text("You published. Nice job Kacper.")
-    } else {
+    } else if (klass == 'unpublish') {
       $('.note-text').text("You unpublished. Less nice job Kacper.")
+    } else if (klass == 'showtitle') {
+      $('.note-text').text("You showed the title. Why?")
+    } else {
+      $('.note-text').text("You unshowed the title. Let me jam!")
     }
     $('.flag.note.notice').slideDown();
       setTimeout(function() {
