@@ -4,6 +4,8 @@ class Image < ActiveRecord::Base
 
   belongs_to :user
 
+  scope :published, where(published: true)
+
   def lastOrder
     Image.sort(:order).last.order
   end

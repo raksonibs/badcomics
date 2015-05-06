@@ -38,6 +38,9 @@ Rails.application.routes.draw do
 
   get '/zohoverify/verifyforzoho' => 'users#zoho'
 
+  get '/unpublish/:image_id' => 'users#unpublish', as: :unpublish
+  get '/publish/:image_id' => 'users#publish', as: :publish
+
   match '/contacts', to: 'contacts#new', via: 'get'
   resources "contacts", only: [:new, :create]
 

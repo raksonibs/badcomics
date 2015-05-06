@@ -17,6 +17,20 @@ $(document).ready(function() {
     
   })
 
+  $('.publish, .unpublish').click(function() {
+    var klass = $(this).attr('class')
+
+    if (klass == 'publish') {
+      $('.note-text').text("You published. Nice job Kacper.")
+    } else {
+      $('.note-text').text("You unpublished. Less nice job Kacper.")
+    }
+    $('.flag.note.notice').slideDown();
+      setTimeout(function() {
+        $('.flag.note.notice').slideUp();
+      }, 5000);
+  })
+
   $('.next-image').click(function() {
     var visibleImage = $('.images-unsubscribe:visible');
     var numberImage = $(visibleImage[0]).attr('class').split(" ")[0];

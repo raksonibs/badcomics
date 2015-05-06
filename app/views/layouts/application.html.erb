@@ -140,8 +140,10 @@
                 <li class="nav"><%= link_to 'About', about_path %></li>
               </div>
               <div class="large-3 small-3 columns">
-                <% randomId = User.allImages.sample.id %>
-                <li class="nav"><%= link_to "Random", random_path(randomId) %></li>
+                <% unless User.allPublishedImages.empty? %>
+                  <% randomId = User.allPublishedImages.sample.id %>
+                  <li class="nav"><%= link_to "Random", random_path(randomId) %></li>
+                <% end %>
               </div>
             </div>          
           </div>

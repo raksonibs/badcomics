@@ -10,22 +10,28 @@
     .row
     - @user.images.each do |image|
       .large-4.small-4.columns
+        = image.order.to_s 
+        = ": "
         = image.title.inspect
         = image_tag image.comic
         = image.comic_file_name
         %br
         = link_to 'Destroy | ', image, method: :delete, data: { confirm: 'Are you sure?' }
         = link_to 'Edit', edit_image_path(image)
-        | Publish
+        - if image.published?
+          = link_to "| Unpublish", unpublish_path(image.id), remote: true, class: 'unpublish'
+        - else
+          = link_to "| Publish", publish_path(image.id), remote: true, class: 'publish'
         | Publish Title
-
-    - if current_user
-      = form_for @user, :url => upload_path, :html => { :multipart => true } do |form|
-        = form.label :comic, "Upload Comic"
-        = form.file_field :comic, :multiple =>:true
-        = form.fields_for :image do |ff|
-          = ff.label :title, "Comic Title"
-          = ff.text_field :title, class: 'input-comic-title'
-        = form.submit
-    - else
-      %p no one logged in so no upload
+    %hr
+    %h2 New Comic
+  - if current_user
+    = form_for @user, :url => upload_path, :html => { :multipart => true } do |form|
+      = form.label :comic, "Upload Comic"
+      = form.file_field :comic, :multiple =>:true
+      = form.fields_for :image do |ff|
+        = ff.label :title, "Comic Title"
+        = ff.text_field :title, class: 'input-comic-title'
+      = form.submit
+  - else
+    %p no one logged in so no upload

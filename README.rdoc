@@ -60,3 +60,5 @@ dev
 -> contact page with contact vals (YES NECESSARY)
 
 -> www webfont not showing?
+
+-> need to host images on s3 or imgur because too long to load.

@@ -33,7 +33,7 @@ class UsersController < ApplicationController
   end
 
   def past
-    @images = User.allImages
+    @images = User.allPublishedImages
   end
 
   def random
@@ -53,6 +53,20 @@ class UsersController < ApplicationController
   end
 
   def error_422
+  end
+
+  def publish
+    @image = Image.find(params[:image_id])
+    @image.published = true
+    @image.save!
+    redirect_to :home
+  end
+
+  def unpublish
+    @image = Image.find(params[:image_id])
+    @image.published = false
+    @image.save!
+    redirect_to :home
   end
 
   def home

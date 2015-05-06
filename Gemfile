@@ -58,3 +58,5 @@ group :production do
 end
 
 gem 'authy'
+
+gem 'jquery-ui-rails'
