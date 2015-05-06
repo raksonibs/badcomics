@@ -4,13 +4,14 @@
     Hey, 
     = @user.name 
     %br
+    %p Reminder that if order is lower number, is earlier in the comic stream (like the first one). We also only show published ones. So there could be an earlier comic that is published while a later one should be first, but is unpublished
     %h1 Comics
     %br
 
     = button_to 'Save Order', save_order_path, class: 'button radius info save-order', method: 'get'
     
     %ul#sortable
-      - @user.images.each do |image|
+      - @images.each do |image|
         %li.ui-state-default{id: image.id}
           %span.ui-icon.ui-icon-arrowthick-2-n-s
           .image-order{data: {order: "#{image.order}"}}

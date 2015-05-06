@@ -97,6 +97,7 @@ class UsersController < ApplicationController
   end
 
   def home
+    @images = current_user.images.order(:order)
     @user = current_user
   end
 
