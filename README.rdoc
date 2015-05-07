@@ -23,44 +23,46 @@ dev
 6178422
 -> think about sharing!
 
--> better upload (drag and drop and publish private) NECESSARY
+-> better upload (drag and drop and publish private) NECESSARY -> kinda done.
 
 -> editor for quick comics with characters used already ( not vital)
 
--> email grabber and then weekly digest NECESSARY
+-> email grabber and then weekly digest NECESSARY -> kinda done
 
--> shop branch with merch (NO)
+-> shop branch with merch (NO) -> will work on if have time.
 
--> rearrange pictures (YES
-)
--> view images for kacper (save, publish?) (YES)
+-> rearrange pictures (YES) -> done
+
+-> view images for kacper (save, publish?) (YES) -> done
 
 -> rspec (NO)
 
--> flash nice look (KINDA EXISTS)
+-> flash nice look (KINDA EXISTS) -> need to work on
 
--> outline around tabs (YES)
+-> outline around tabs (YES) -> need to do
 
--> copy for emails + work on production (YES)
+-> copy for emails + work on production (YES) -> need to do
 
--> rearrange tabs (WHAT DOES THIS MEAN?)
+-> rearrange tabs (WHAT DOES THIS MEAN?) -> ???
 
--> need title for comics (YES)
+-> need title for comics (YES) -> done + publish title
 
--> rearrange and delete comics as see fit (so hide them) (YES)
+-> rearrange and delete comics as see fit (so hide them) (YES) -> done
 
--> confetti overlap -> needs banner (KINDA DONE)
+-> confetti overlap -> needs banner (KINDA DONE) -> done?
 
--> make sub click once -> and handle errors for subscriber (KINDA DONE)
+-> make sub click once -> and handle errors for subscriber (KINDA DONE) -> done?
 
--> handle subscribers better. if doesn't work (KINDA DONE)
+-> handle subscribers better. if doesn't work (KINDA DONE) -> done?
 
--> update about and welcome email gif (YES)
+-> update about and welcome email gif (YES) -> need to do!
 
--> make weekly (YES)
+-> make weekly (YES) -> kinda done
 
--> contact page with contact vals (YES NECESSARY)
+-> contact page with contact vals (YES NECESSARY) -> kinda done?
 
--> www webfont not showing?
+-> www webfont not showing? -> need to do
 
--> need to host images on s3 or imgur because too long to load.
+-> need to host images on s3 or imgur because too long to load. -> need to do
+
+-> contact iamges and stuff animations -> need to do
