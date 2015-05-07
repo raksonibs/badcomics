@@ -10,3 +10,7 @@ namespace :get_events do
     puts "Created #{Event.all.count} Events"
   end
 end
+
+# namespace :weekly_email do
+#   Subscriber.all.where(subscri)
+# end

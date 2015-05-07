@@ -1,3 +1,5 @@
+generate aws.yml file
+
 - make sure to create application.yml file first. Create user via script. Run seed file. visit /twofactor
 
 -> need funny animations for each image

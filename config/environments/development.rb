@@ -26,6 +26,14 @@ Rails.application.configure do
   # number of complex assets.
   config.assets.debug = true
 
+  config.paperclip_defaults = {
+    :storage => :s3,
+    :s3_credentials => {
+      :bucket => 'badcomics',
+      :s3_credentials => "#{Rails.root}/config/aws.yml",
+    }
+  }
+
   # Adds additional error checking when serving assets at runtime.
   # Checks for improperly declared sprockets dependencies.
   # Raises helpful error messages.

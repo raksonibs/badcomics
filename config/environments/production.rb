@@ -44,6 +44,15 @@ Rails.application.configure do
     :enable_starttls_auto => true    
   }
 
+  config.paperclip_defaults = {
+    :storage => :s3,
+    :s3_credentials => {
+      :bucket => 'badcomics', 
+      :access_key_id => ENV['AWS_ACCESS_KEY'],
+      :secret_access_key => ENV['AWS_SECRET_ACCESS_KEY']
+    }
+  }
+
   # Enable threaded mode
   # config.threadsafe!
 
