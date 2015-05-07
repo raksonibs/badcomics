@@ -99,6 +99,7 @@ class UsersController < ApplicationController
   def home
     @images = current_user.images.order(:order)
     @user = current_user
+    redirect_to :home
   end
 
   def upload    
