@@ -66,3 +66,5 @@ dev
 -> need to host images on s3 or imgur because too long to load. -> need to do
 
 -> contact iamges and stuff animations -> need to do
+
+-> check browser compatbility

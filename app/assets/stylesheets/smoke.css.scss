@@ -1,0 +1,70 @@
+/*  Animations
+------------------------------------------ */
+
+.submarine-hidden::after {
+  -webkit-animation: steam 4s 2s infinite;
+}
+
+.sub-stuff {
+  width: 12%;
+}
+
+/*.submarine-hidden {
+  -webkit-animation: rock 3s ease-in-out infinite;
+}*/
+
+.lilCloud, .midCloud, .bigCloud {
+  transform: matrix(0.125, 0, 0, 0.125, 0, 0);
+  /*display: none;*/
+  -webkit-animation: steam 4s 2s infinite;
+}
+
+.midCloud {
+  transform: matrix(0.125, 0, 0, 0.125, 0, 0);
+  -webkit-animation: steam 4s 2s infinite;
+  width: 9% !important;
+}
+
+.bigCloud {
+  transform: matrix(0.5, 0, 0, 0.5, 0, 0);
+  -webkit-animation: steam-delay-second 4s 2s infinite;
+}
+
+@-webkit-keyframes smoke {
+  40%,
+  60%  { opacity: .8; }
+  100% { -webkit-transform: translate(-15%, -35%) rotateZ(20deg); }
+}
+
+
+/*  Keyframes - WebKit only
+------------------------------------------ */
+/*NTD: Update animation keyframes*/
+
+@-webkit-keyframes steam {
+  20%,
+  40%  { opacity: .8; }
+  100% { -webkit-transform: translate(-15%, -35%) rotateZ(20deg); }
+}
+
+@-webkit-keyframes steam-delay {
+  30%,
+  60%  { opacity: .8; }
+  100% { -webkit-transform: translate(-15%, -35%) rotateZ(20deg); }
+}
+
+@-webkit-keyframes steam-delay-second {
+  40%,
+  80%  { opacity: .8; }
+  100% { -webkit-transform: translate(-15%, -35%) rotateZ(20deg); }
+}
+
+keyframes steam {
+  40%,
+  60%  { opacity: .8; }
+  100% { transform: translate(-15%, -35%) rotateZ(20deg); }
+}
+
+@-webkit-keyframes rock {
+  50%  { -webkit-transform: rotate(-5deg) translateY(-10px); }
+}
