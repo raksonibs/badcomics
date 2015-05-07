@@ -13,4 +13,16 @@ class BadMailer < ActionMailer::Base
     end
     mail(to: @subscriber.email, subject: "It's a trap!")
   end
+
+  def weekly_email(subscriber, hostname, showThisOne, published)
+    @showThisOne = showThisOne
+    @published = published
+    @subscriber = subscriber
+    if Rails.env.development?
+      @hostname = "http://localhost:3000" 
+    else
+      @hostname = "http://badcomics.ca" 
+    end
+    mail(to: @subscriber.email, subject: "Your Weekly Bad Comics")
+  end
 end
