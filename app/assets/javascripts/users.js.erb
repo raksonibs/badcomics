@@ -1,7 +1,9 @@
 $(document).ready(function() {
   $('.hovered img').hide();
 
-  var audio = new Audio('/assets/music.mp3');
+  if (!([].equals($('.images-unsubscribe')))) {
+    var audio = new Audio('/assets/music.mp3');
+  }
 
   $('.alert').click(function() {
     audio.pause();
@@ -12,11 +14,11 @@ $(document).ready(function() {
 
   $('.nav a').hover(function() {
     $(this).css('color', '#899EC9')
-    $(this).css('background-image', "url(/assets/outline_t.png)").css('background-size', 'cover').css('padding-right','44px').css('padding-left', '10px')
+    $(this).parent().parent().css('background-image', "url(/assets/outline_t.png)").css('background-size', 'cover')//.css('padding-right','44px').css('padding-left', '10px')
   },
   function() {
     $(this).css('color', 'black')
-     $(this).css('background-image', "none").css('background-size', 'cover').css('padding','0')
+    $(this).parent().parent().css('background-image', "none").css('background-size', 'cover')//.css('padding','0')
     
    })
 
@@ -30,7 +32,7 @@ $(document).ready(function() {
   })
 
   $('.submarine-hidden').hover(function() {
-    
+
   })
 
 

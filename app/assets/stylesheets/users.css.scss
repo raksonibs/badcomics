@@ -148,8 +148,13 @@ li.nav.first {
   display: none;
 }
 
-li.nav a {
+li.nav a,
+li.nav {
   transition: all 1s ease;
+}
+
+li.nav {
+  text-align: center;
 }
 
 .buttons li.nav a {

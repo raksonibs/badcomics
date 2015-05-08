@@ -63,7 +63,7 @@ dev
 
 -> www webfont not showing? -> need to do
 
--> need to host images on s3 or imgur because too long to load. -> need to do
+-> need to host images on s3 or imgur because too long to load. -> need to do -> Kinda done I think?
 
 -> contact iamges and stuff animations -> need to do
 
