@@ -1,9 +1,7 @@
-.row.container
+.row.container.past
+  %h2 Past Comics:
   - @images.each do |image|
     .large-12-small-12.columns
       %h5
-        = image.created_at.strftime("%A %B %d %Y at %H:%M")
-      %br
-      = image_tag image.comic 
-      %br
+        = link_to image.title, image
     

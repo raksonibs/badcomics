@@ -14,7 +14,7 @@
         %li.ui-state-default{id: image.id}
           %span.ui-icon.ui-icon-arrowthick-2-n-s
           .image-order{data: {order: "#{image.order}"}}
-            = image.order.to_s.empty? ? "No order, publish to order: " :  "image.order.to_s: "
+            = image.order.to_s.empty? ? "No order, publish to order: " :  "#{image.order.to_s}: "
           = image.title.inspect
           = image_tag image.comic, class: 'smaller-image-admin'
           = image.comic_file_name

@@ -73,10 +73,18 @@ body {
   transform-style: preserve-3d;
 }
 
-h5 {
+h5, h2 {
   font-family: 'tomhand' !important;
   font-size: 2em;
   font-weight: 900;
+}
+
+h2 {
+  font-size: 3em;
+}
+
+.past {
+  padding-left: 30px;
 }
 
 a, button, input.button {
