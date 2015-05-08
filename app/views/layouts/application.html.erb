@@ -143,6 +143,7 @@
                 <div class="large-3 small-3 columns">
                   <% randomId = User.allPublishedImages.sample.id %>
                   <li class="nav"><%= link_to "Random", random_path(randomId) %></li>
+                </div>
                 <% else %>
                   Nothing is published. Publish something
                 <% end %>

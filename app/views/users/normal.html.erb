@@ -1,33 +1,37 @@
+<div class="row align">
 <% if !User.allPublishedImages.empty? %>
-  <div class="row container align">
-    <% if @image.show_title? %>
+
+    <div class="container large-12 small-12 columns <%= @image.large_img? ? 'extended' : '' %>">
+      <% if @image.show_title? %>
         <div class="row entitled">
           <div class="offset-2 large-10 small-10 columns">
             <h3 class="title-class"><%= @image.title %></h3>
           </div>
           
         </div>
-    <% end %>
-    <div class="arrow-nav left-nav">
-      <a class="navigation-arrows" href="<%= first_url %>"><%= image_tag "first.png" %></a>
-    </div>
-    
-    <div class="arrow-nav-dif left-nav">
-      <a class="navigation-arrows" href="<%= prev_url(@image) %>"><%= image_tag "previous.png" %></a>
-    </div>
-    
-    <div class="large-8 small-8 columns comic-img">
-      <%= image_tag @image.comic %>
-    </div>
+      <% end %>
+      <div class="arrow-nav left-nav">
+        <a class="navigation-arrows" href="<%= first_url %>"><%= image_tag "first.png" %></a>
+      </div>
+      
+      <div class="arrow-nav-dif left-nav">
+        <a class="navigation-arrows" href="<%= prev_url(@image) %>"><%= image_tag "previous.png" %></a>
+      </div>
+      
+      <div class="large-8 small-8 columns comic-img">
+        <%= image_tag @image.comic %>
+      </div>
 
-    <div class="arrow-nav-dif right-nav">
-      <a class="navigation-arrows" href="<%= root_url %>"><%= image_tag "last.png" %></a>
-    </div>
+      <div class="arrow-nav-dif right-nav">
+        <a class="navigation-arrows" href="<%= root_url %>"><%= image_tag "last.png" %></a>
+      </div>
 
-    <div class="arrow-nav-dif dif-image smaller-next right-nav">
-      <a class="navigation-arrows" href="<%= next_url(@image) %>"><%= image_tag "next.png" %></a>
+      <div class="arrow-nav-dif dif-image smaller-next right-nav">
+        <a class="navigation-arrows" href="<%= next_url(@image) %>"><%= image_tag "next.png" %></a>
+      </div>
     </div>
-  </div>
 <% else %>
-  Need to publish.
+    Need to publish.
 <% end %>
+</div>
+    

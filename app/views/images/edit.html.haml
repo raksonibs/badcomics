@@ -1,6 +1,9 @@
-= simple_form_for @image do |f|
-  = f.input :title
-  Currently this comic file. upload a new one below.
-  = @image.comic_file_name
-  = f.file_field :comic
-  = f.submit
+.row.container
+  .large-12.small-12.columns
+    = simple_form_for @image do |f|
+      = f.input :title
+      = f.input :large_img
+      Currently this comic file. upload a new one below.
+      = @image.comic_file_name
+      = f.file_field :comic
+      = f.submit

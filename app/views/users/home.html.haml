@@ -14,11 +14,12 @@
         %li.ui-state-default{id: image.id}
           %span.ui-icon.ui-icon-arrowthick-2-n-s
           .image-order{data: {order: "#{image.order}"}}
-            = image.order.to_s
-          = ": "
+            = image.order.to_s.empty? ? "No order, publish to order: " :  "image.order.to_s: "
           = image.title.inspect
           = image_tag image.comic, class: 'smaller-image-admin'
           = image.comic_file_name
+          = "|"
+          = image.large_img? ? "Large image flagged" : "Not flagged as large image"
           %br
           = link_to 'Destroy | ', image, method: :delete, data: { confirm: 'Are you sure?' }
           = link_to 'Edit', edit_image_path(image)
@@ -40,6 +41,8 @@
       = form.fields_for :image do |ff|
         = ff.label :title, "Comic Title"
         = ff.text_field :title, class: 'input-comic-title'
+        = ff.label :large_img, "Large Image?"
+        = ff.check_box(:large_img)
       = form.submit
   - else
     %p no one logged in so no upload
