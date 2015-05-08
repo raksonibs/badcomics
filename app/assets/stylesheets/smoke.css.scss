@@ -6,7 +6,14 @@
 }
 
 .sub-stuff {
-  width: 12%;
+  width: 100%;
+  display: inline;
+  .midCloud {
+    visiblity: hidden;
+    position: relative;
+    left: 10%;
+    top: -82px;
+  }
 }
 
 /*.submarine-hidden {

@@ -14,7 +14,13 @@ $(document).ready(function() {
       }
     })
   }
-  
+
+  $('#sub-hover').hover(function() {
+      $('.midCloud').fadeIn()
+    }, function() {
+      $('.midCloud').fadeOut()
+  })
+
   $('.comic-img-load').load(function() {
     // console.log('loaded')
     var height = document.getElementById('img-shown').clientHeight;
@@ -29,6 +35,12 @@ $(document).ready(function() {
         $(value).css('position', 'relative').css('top', '50%').css('transform', 'translateY('+((height/2)-50)+'px)')
       }
     })
+  })
+
+  $('.contact-guy').hover(function() {
+    $(this).attr('src', '/assets/ContactSmallGif.gif').css('height', '100%')
+  }, function() {
+    $(this).attr('src', '/assets/Contact_1.jpg').css('width', '9.5%')
   })
 
 

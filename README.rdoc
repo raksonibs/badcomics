@@ -45,6 +45,8 @@ dev
 
 -> check browser compatbility
 
+-> past click here visual random generated
+
 
 
 -> vert center -> kinda hacky but done-> better upload (drag and drop and publish private) NECESSARY -> kinda done.
