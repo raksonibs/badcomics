@@ -1,4 +1,21 @@
 $(document).ready(function() {
+
+  $('.comic-img-load').load(function() {
+    console.log('loaded')
+    var height = document.getElementById('img-shown').clientHeight;
+    console.log(height)
+    $.each($('.arrow-vert'), function( index, value ) {
+      console.log(value)
+      // $(value).css('display', 'flex').css('align-items', 'center').css('justify-content', 'center')
+      if ($(value).hasClass('smaller-next')) {
+        $(value).css('position', 'relative').css('top', '50%').css('transform', 'translateY('+((height/2)-70)+'px)')
+      } else {
+
+        $(value).css('position', 'relative').css('top', '50%').css('transform', 'translateY('+((height/2)-50)+'px)')
+      }
+    })
+  })
+
   $('.hovered img').hide();
 
   if (!([].equals($('.images-unsubscribe')))) {
