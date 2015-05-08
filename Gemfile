@@ -64,3 +64,5 @@ gem 'jquery-ui-rails'
 gem 'aws-sdk', '< 2.0'
 
 gem 's3_direct_upload'
+
+gem 'friendly_id'

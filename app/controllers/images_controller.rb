@@ -16,6 +16,15 @@ class ImagesController < ApplicationController
     end
   end
 
+  def show
+    @image = Image.friendly.find(params[:id])
+    if @image.published?
+      # redirect_to @image
+    else
+      redirect_to normal_path
+    end
+  end
+
   def destroy
     @image = Image.find(params[:id])
     @image.destroy!

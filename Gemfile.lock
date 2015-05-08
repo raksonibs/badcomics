@@ -59,6 +59,8 @@ GEM
     foundation-rails (5.4.5.0)
       railties (>= 3.1.0)
       sass (>= 3.2.0)
+    friendly_id (5.1.0)
+      activerecord (>= 4.0.0)
     haml (4.0.6)
       tilt
     hike (1.2.3)
@@ -199,6 +201,7 @@ DEPENDENCIES
   coffee-rails (~> 4.0.0)
   figaro
   foundation-rails
+  friendly_id
   haml
   jbuilder (~> 2.0)
   jquery-rails

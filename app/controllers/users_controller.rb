@@ -10,13 +10,13 @@ class UsersController < ApplicationController
   end
 
   def prev
-    @image = User.prevImage(Image.find(params[:current]))
-    render :normal
+    @image = User.prevImage(Image.friendly.find(params[:current]))
+    redirect_to @image
   end
 
   def next
-    @image = User.nextImage(Image.find(params[:current]))
-    render :normal
+    @image = User.nextImage(Image.friendly.find(params[:current]))
+    redirect_to @image
   end
 
   def contact
@@ -29,7 +29,7 @@ class UsersController < ApplicationController
 
   def first
     @image = User.firstImage
-    render :normal
+    redirect_to @image
   end
 
   def past
@@ -38,11 +38,13 @@ class UsersController < ApplicationController
 
   def random
     @image = Image.find(params[:id])
-    render :normal
+    redirect_to @image
   end
 
   def normal
     @image = User.latestImage
+    # binding.pry
+    redirect_to @image
   end
 
   def error_404

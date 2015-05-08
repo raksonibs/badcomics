@@ -6,6 +6,10 @@ class Image < ActiveRecord::Base
 
   scope :published, where(published: true)
 
+  include FriendlyId
+
+  friendly_id :title
+
   def lastOrder
     Image.sort(:order).last.order
   end
