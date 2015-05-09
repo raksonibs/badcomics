@@ -462,6 +462,10 @@ input[type="submit"]:hover {
           transition: all 2s ease;
 }
 
+.arrow-vert {
+  visibility: hidden;
+}
+
 /*.comic-vert {
   display: flex;
   flex-direction: column;

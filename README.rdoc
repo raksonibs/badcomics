@@ -37,8 +37,6 @@ dev
 
 -> contact page with contact vals (YES NECESSARY) -> kinda done?
 
--> www webfont not showing? -> need to do
-
 -> contact iamges and stuff animations -> need to do
 
 -> check browser compatbility
@@ -51,11 +49,10 @@ dev
 
 -> automate twitter and facebook
 
-
-
 -> update about and welcome email gif (YES) -> need to do! -> think work
 
 
+-> www webfont not showing? -> need to do -> solved
 -> vert center -> kinda hacky but done-> better upload (drag and drop and publish private) NECESSARY -> kinda done.
 -> email grabber and then weekly digest NECESSARY -> kinda done
 -> need to host images on s3 or imgur because too long to load. -> need to do -> Kinda done I think?

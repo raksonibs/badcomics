@@ -10,25 +10,30 @@
           
         </div>
       <% end %>
-      <div class="arrow-vert arrow-nav left-nav">
-        <a class="navigation-arrows" href="<%= first_url %>"><%= image_tag "first.png" %></a>
-      </div>
-      
-      <div class="arrow-vert arrow-nav-dif left-nav">
-        <a class="navigation-arrows" href="<%= prev_url(@image) %>"><%= image_tag "previous.png" %></a>
-      </div>
+
+      <% unless @image.last? %>
+        <div class="arrow-vert arrow-nav left-nav">
+          <a class="navigation-arrows" href="<%= first_url %>"><%= image_tag "first.png" %></a>
+        </div>
+        
+        <div class="arrow-vert arrow-nav-dif left-nav">
+          <a class="navigation-arrows" href="<%= prev_url(@image) %>"><%= image_tag "previous.png" %></a>
+        </div>
+      <% end %>
       
       <div class="large-8 small-8 columns comic-img">
         <%= image_tag @image.comic, class: 'comic-img-load', id: 'img-shown' %>
       </div>
 
-      <div class="arrow-vert arrow-nav-dif right-nav">
-        <a class="navigation-arrows" href="<%= root_url %>"><%= image_tag "last.png" %></a>
-      </div>
+      <% unless @image.first? %>
+        <div class="arrow-vert arrow-nav-dif right-nav">
+          <a class="navigation-arrows" href="<%= root_url %>"><%= image_tag "last.png" %></a>
+        </div>
 
-      <div class="arrow-vert arrow-nav-dif dif-image smaller-next right-nav">
-        <a class="navigation-arrows" href="<%= next_url(@image) %>"><%= image_tag "next.png" %></a>
-      </div>
+        <div class="arrow-vert arrow-nav-dif dif-image smaller-next right-nav">
+          <a class="navigation-arrows" href="<%= next_url(@image) %>"><%= image_tag "next.png" %></a>
+        </div>
+      <% end %>
     </div>
 <% else %>
     Need to publish.
