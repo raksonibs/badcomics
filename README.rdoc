@@ -47,6 +47,12 @@ dev
 
 -> past click here visual random generated
 
+-> copy changes
+
+-> postgress
+
+-> automate twitter and facebook
+
 
 
 -> vert center -> kinda hacky but done-> better upload (drag and drop and publish private) NECESSARY -> kinda done.

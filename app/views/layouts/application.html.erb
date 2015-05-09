@@ -167,10 +167,7 @@
     <div class="icons">
 
       <div class="sub-stuff">
-        <img class="midCloud" src="http://i221.photobucket.com/albums/dd22/djmid71/cloud__0000s_0011_Cloud_zps0caeeec1.png">
-        <!-- <img class="lilCloud" src="http://i221.photobucket.com/albums/dd22/djmid71/cloud__0000s_0011_Cloud_zps0caeeec1.png">
-        <img class="bigCloud" src="http://i221.photobucket.com/albums/dd22/djmid71/cloud__0000s_0011_Cloud_zps0caeeec1.png"> -->
-
+        <img class="midCloud" src="http://i221.photobucket.com/albums/dd22/djmid71/cloud__0000s_0011_Cloud_zps0caeeec1.png">       
         <%= image_tag "Submarine_1.png", id: 'sub-hover', class: 'submarine-hidden' %>
       </div>
       <%= image_tag "facebook.png", input_html: { class: 'large-1 small-1 medium-1 columns'} %>
@@ -180,9 +177,6 @@
       </a>
     </div>
     <div class="large-8 small-8 medium-8 columns">
-      <!-- <div class="base-cont">
-        <%= image_tag "Submarine_1.png", input_html: { class: 'columns submarine'} %>
-      </div> -->
       <%= simple_form_for @subscriber, html: { class: 'box' }, remote: true do |f| %>
         <%= f.input :email, label: false, class: 'subscriber-email large-4 columns' %>
         <%= f.button :submit, :label => 'Subscribe', value: 'Subscribe', class: 'subscriber-submit large-2 columns' %>

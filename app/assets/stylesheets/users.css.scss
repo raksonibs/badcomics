@@ -227,10 +227,11 @@ li.nav {
   margin: 50px auto;
   width:400px;
   height:400px;
+  text-align: center
 }
 
 .box{
-  width: 70%;
+  width: 56%;
   height: 100%;
   position: absolute;
   left: 80px;
@@ -251,7 +252,7 @@ li.nav {
 
 input[type="email"].subscriber-email {
   appearance: none;
-  width:380px;
+  width:300px;
   height:70px;
   font-size:1em;
   background:transparent;
@@ -341,7 +342,7 @@ input[type="email"]:focus {
 
 input[type="submit"] {
   appearance: none;
-  width:380px;
+  width: 75%;
   height:50px;
   font-size: 0.80em;
   background:transparent;
@@ -354,6 +355,7 @@ input[type="submit"] {
   outline:none;
   border:none;
   padding-bottom: 30px;
+  left: 14%;
 }
 
 
