@@ -26,32 +26,18 @@ dev
 
 
 -> editor for quick comics with characters used already ( not vital)
-
 -> shop branch with merch (NO) -> will work on if have time.
-
 -> rspec (NO)
-
 -> copy for emails + work on production (YES) -> need to do
-
 -> make weekly (YES) -> kinda done
-
 -> contact page with contact vals (YES NECESSARY) -> kinda done?
-
 -> contact iamges and stuff animations -> need to do
-
 -> check browser compatbility
-
 -> past click here visual random generated
-
 -> copy changes
-
 -> postgress
-
 -> automate twitter and facebook
-
 -> update about and welcome email gif (YES) -> need to do! -> think work
-
-
 -> www webfont not showing? -> need to do -> solved
 -> vert center -> kinda hacky but done-> better upload (drag and drop and publish private) NECESSARY -> kinda done.
 -> email grabber and then weekly digest NECESSARY -> kinda done
@@ -67,3 +53,12 @@ dev
 -> rearrange pictures (YES) -> done
 
 -> view images for kacper (save, publish?) (YES) -> done
+
+
+
+-sketch 3
+-  finance presentation
+- read books (emyth, kawaski again?, personal finance (get to etfs), rework, great companies)
+- pack (sunscreen, checklist)
+-  badcomics push
+- update site
