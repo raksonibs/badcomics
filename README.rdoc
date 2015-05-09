@@ -33,8 +33,6 @@ dev
 
 -> copy for emails + work on production (YES) -> need to do
 
--> update about and welcome email gif (YES) -> need to do!
-
 -> make weekly (YES) -> kinda done
 
 -> contact page with contact vals (YES NECESSARY) -> kinda done?
@@ -53,6 +51,9 @@ dev
 
 -> automate twitter and facebook
 
+
+
+-> update about and welcome email gif (YES) -> need to do! -> think work
 
 
 -> vert center -> kinda hacky but done-> better upload (drag and drop and publish private) NECESSARY -> kinda done.
