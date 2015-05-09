@@ -7,10 +7,11 @@
 //= require_tree .
 
 
-var re = /http:\/\/www\./;
+var re = /http:\/\/www\.badcomics.ca/;
 // var re = /http:\/\//;
 if (re.exec(window.location.href) !== "") {
   // CORS not working, hacky approach NTD: Fix this.
+  console.log('matched')
   window.location.replace('http://badcomics.ca');
 }
 
