@@ -3,6 +3,9 @@
     Hey, 
     = @user.name 
     %br
+    %p We have
+      = Subscriber.all.count
+      number of subscribers
     %p Reminder that if order is lower number, is earlier in the comic stream (like the first one). We also only show published ones. So there could be an earlier comic that is published while a later one should be first, but is unpublished
     %h1 Comics
     %br

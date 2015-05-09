@@ -8,7 +8,7 @@ puts Dir.pwd
 User.destroy_all
 case Rails.env
 when "development"
-  User.create!(name: 'BadAdmin', password: 'ihatepies12', email: 'thisbetterbeacompliment@badcomics.ca', country_code: '1', phone_number: '9058697375')
+  User.create!(name: 'BadAdmin', password: 'ihatepies12', email: 'thisbetterbeacompliment@badcomics.ca', country_code: '1', phone_number: '9055162020')
   image = Image.new(:comic => File.new('app/assets/images/Cake_1.jpg', "r"))
   image.title = "Cake"
   image.order = 1
@@ -22,14 +22,14 @@ when "development"
     country_code: @user.country_code
   )
   if authy == {}
-    params = {'email' => 'thisbetterbeacompliment@badcomics.ca', 'cellphone' => '9058697375', 'country_code' => '1'}
+    params = {'email' => 'thisbetterbeacompliment@badcomics.ca', 'cellphone' => '9055162020', 'country_code' => '1'}
     x = Net::HTTP.post_form(URI.parse('https://api.authy.com/protected/json/users/new?api_key='+Figaro.env.authy_key), params)
     puts x.body
   else
     @user.update(authy_id: authy.id)
   end
 when "production"
-  User.create!(name: 'BadAdmin', password: 'ihatepies12', email: 'thisbetterbeacompliment@badcomics.ca', country_code: '1', phone_number: '9058697375')
+  User.create!(name: 'BadAdmin', password: 'ihatepies12', email: 'thisbetterbeacompliment@badcomics.ca', country_code: '1', phone_number: '9055162020')
   image = Image.new(:comic => File.new('app/assets/images/Cake_1.jpg', "r"))
   image.title = "Cake"
   image.order = 1
@@ -43,7 +43,7 @@ when "production"
     country_code: @user.country_code
   )
   if authy == {}
-    params = {'email' => 'thisbetterbeacompliment@badcomics.ca', 'cellphone' => '9058697375', 'country_code' => '1'}
+    params = {'email' => 'thisbetterbeacompliment@badcomics.ca', 'cellphone' => '9055162020', 'country_code' => '1'}
     x = Net::HTTP.post_form(URI.parse('https://api.authy.com/protected/json/users/new?api_key='+Figaro.env.authy_key), params)
     puts x.body
   else
