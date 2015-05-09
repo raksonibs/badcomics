@@ -20,7 +20,6 @@ class SubscribersController < ApplicationController
         format.html { redirect_to :root }
         format.json { render json: @subscriber }
         #  shouldn't redirect, should be ajax request
-        redirect_to :root
       else
         flash[:notice] = "This email is already subscribed!"
         # binding.pry

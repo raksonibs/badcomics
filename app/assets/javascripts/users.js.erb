@@ -125,31 +125,11 @@ $(document).ready(function() {
     dataType: 'json'
   })
 
-  $('.box').on("ajax:success", function(e,data, status, xhr) {
-  }).on("ajax:error", function(e, data, status, xhr) {
-    $('.note-text').text("Nice as that email is, it already is subscribed. Your mother's isn't though.")
-    $('.flag.note.notice').slideDown();
-      setTimeout(function() {
-        $('.flag.note.notice').slideUp();
-      }, 5000);
-  })
+  var email = ''
 
   $('.box').submit(function() {
-    var email = $($('input[type="email"]')[0]).val()
+    email = $($('input[type="email"]')[0]).val()
     if (email !== "") {
-      // console.log('good email')
-      $('.conf-cont').fadeIn().next().delay(5000).fadeOut();
-      $('.success-text').text("You've subscribed "+email+". We love you "+email+"! Confetti for "+ email+"!")
-
-      $('.flag.note.success').slideDown();
-
-      setTimeout(function() {
-        $('.flag.note.success').slideUp();
-      }, 10000);
-      setTimeout(function() {
-        $('.conf-cont').fadeOut();
-      }, 10000);
-
     } else {
       $('.flag.note.error').slideDown();
       setTimeout(function() {
@@ -157,6 +137,28 @@ $(document).ready(function() {
       }, 5000);
     }
   })
+
+  $('.box').on("ajax:success", function(e,data, status, xhr) {
+    $('.conf-cont').fadeIn().next().delay(5000).fadeOut();
+    $('.success-text').text("You've subscribed "+email+". We love you "+email+"! Confetti for "+ email+"!")
+
+    $('.flag.note.success').slideDown();
+
+    setTimeout(function() {
+      $('.flag.note.success').slideUp();
+    }, 10000);
+    setTimeout(function() {
+      $('.conf-cont').fadeOut();
+    }, 10000);
+  }).on("ajax:error", function(e, data, status, xhr) {
+    $('.note-text').text("Nice as that email is, it already is subscribed. Your mother's isn't though.")
+    // debugger
+    $('.flag.note.notice').slideDown();
+      setTimeout(function() {
+        $('.flag.note.notice').slideUp();
+      }, 5000);
+  })
+
 
   $('.submarine-hidden').one('click', function() {
     $('.icons').animate({
