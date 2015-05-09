@@ -108,6 +108,7 @@ p.disclaimer {
 .soon-clouds {
   -webkit-transition: all 2s ease;
   -ms-transition: all 2s ease;
+  -moz-transition: all 2s ease;
           transition: all 2s ease;
 }
 
@@ -165,6 +166,7 @@ li.nav a,
 li.nav {
   -webkit-transition: all 1s ease;
   -ms-transition: all 1s ease;
+  -moz-transition: all 1s ease;
           transition: all 1s ease;
 }
 
@@ -265,6 +267,7 @@ input[type="email"].subscriber-email {
   text-align:center;
   -webkit-transition: border-color 0.6s ease;
   -ms-transition: border-color 0.6s ease;
+  -moz-transition: border-color 0.6s ease;
           transition: border-color 0.6s ease;
 }
 
@@ -288,6 +291,7 @@ input[type="email"].subscriber-email {
    color: #464c4c;
    -webkit-transition: color 0.3s ease;
    -ms-transition: color 0.3s ease;
+   -moz-transition: color 0.3s ease;
            transition: color 0.3s ease;
 }
 
@@ -295,6 +299,7 @@ input[type="email"].subscriber-email {
    color: transparent;
    -webkit-transition: color 0.3s ease;
    -ms-transition: color 0.3s ease;
+   -moz-transition: color 0.3s ease;
            transition: color 0.3s ease;
 }
 
@@ -305,6 +310,7 @@ input[type="email"]:focus {
   border-bottom:solid 4px #00AEEF;
   -webkit-transition: border-color 1s ease;
   -ms-transition: border-color 1s ease;
+  -moz-transition: border-color 1s ease;
           transition: border-color 1s ease;
 }
 
@@ -365,6 +371,7 @@ input[type="submit"] {
   text-transform:uppercase;
   -webkit-transition: color 0.5s ease;
   -ms-transition: color 0.5s ease;
+  -moz-transition: color 0.5s ease;
           transition: color 0.5s ease;
   outline:none;
   border:none;
@@ -387,6 +394,7 @@ input[type="submit"]:hover {
   cursor:pointer;
   -webkit-transition: color 0.5s ease;
   -ms-transition: color 0.5s ease;
+  -moz-transition: color 0.5s ease;
           transition: color 0.5s ease;
 }
 
@@ -408,6 +416,7 @@ input[type="submit"]:hover {
   position: relative;
   -webkit-transition: left 1s ease;
   -ms-transition: left 1s ease;
+  -moz-transition: left 1s ease;
           transition: left 1s ease;
 }
 
@@ -437,6 +446,7 @@ input[type="submit"]:hover {
 .arrow-vert {
   -webkit-transition: all 2s ease;
   -ms-transition: all 2s ease;
+  -moz-transition: all 2s ease;
           transition: all 2s ease;
 }
 

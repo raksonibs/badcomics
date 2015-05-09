@@ -26,9 +26,11 @@
 .midCloud {
   -webkit-transform: matrix(0.125, 0, 0, 0.125, 0, 0);
       -ms-transform: matrix(0.125, 0, 0, 0.125, 0, 0);
+      -moz-transform: matrix(0.125, 0, 0, 0.125, 0, 0);
           transform: matrix(0.125, 0, 0, 0.125, 0, 0);
   -webkit-animation: steam 4s 2s infinite;
   -ms-animation: steam 4s 2s infinite;
+  -moz-animation: steam 4s 2s infinite;
   animation: steam 4s 2s infinite;
   width: 9% !important;
 }
@@ -36,6 +38,7 @@
 .bigCloud {
   -webkit-transform: matrix(0.5, 0, 0, 0.5, 0, 0);
       -ms-transform: matrix(0.5, 0, 0, 0.5, 0, 0);
+      -moz-transform: matrix(0.5, 0, 0, 0.5, 0, 0);
           transform: matrix(0.5, 0, 0, 0.5, 0, 0);
   -webkit-animation: steam-delay-second 4s 2s infinite;
 }
@@ -48,6 +51,7 @@
   100% { 
     -webkit-transform: translate(-15%, -35%) rotateZ(20deg);
     -ms-transform: translate(-15%, -35%) rotateZ(20deg); 
+    -moz-transform: translate(-15%, -35%) rotateZ(20deg); 
     transform: translate(-15%, -35%) rotateZ(20deg);
   }
 }
