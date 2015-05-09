@@ -7,7 +7,7 @@
   html,body {
     margin: 0; 
     padding: 0;
-    background-color:#f4f7fc;  
+    background-color: #899EC9;  
     line-height: 10px;
   }
   img {
@@ -28,6 +28,14 @@
   p {
     margin: 0px 20px;
     padding: 0;
+  }
+
+  .image-small-fb {
+    width: 12%;
+  }
+
+  .image-small {
+    width: 15%;
   }
   /* Client-specific Styles */
   div, p, a, li, td { -webkit-text-size-adjust:none; }
@@ -93,36 +101,39 @@
       width: 300px!important;
       text-align:center!important;
     }
+    .welcome-gif {
+      width: 75%;
+    }
     table[class="devicewidth2"] {
       text-align: center!important;
       width: 290px!important;
     }
   }
 </style>
-<body bgcolor="#f4f7fc" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
-  <div style="background-color:#f4f7fc;margin:0;padding:0;">
+<body bgcolor="#899EC9" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+  <div style="background-color:#899EC9;margin:0;padding:0;">
 
-    <table class="devicewidth" width="600" cellspacing="0" cellpadding="0" border="0" align="center" bgcolor="#f4f7fc" height="20">
+    <table class="devicewidth" width="600" cellspacing="0" cellpadding="0" border="0" align="center" bgcolor="#899EC9" height="20">
       <tr width="600" height="20">
         <td width="600" style="line-height:0px">
           &nbsp;
         </td>
       </tr>
     </table>
-    <table class="devicewidth" width="600" cellspacing="0" cellpadding="0" border="0" align="center" bgcolor="#f4f7fc">
+    <table class="devicewidth" width="600" cellspacing="0" cellpadding="0" border="0" align="center" bgcolor="#899EC9">
       <tr>
         <td width="150" style="width:150px;" align="center" style="text-align:center;">
         </td>
       </tr>
     </table>
-    <table class="devicewidth" width="600" cellspacing="0" cellpadding="0" border="0" align="center" bgcolor="#f4f7fc" height="20">
+    <table class="devicewidth" width="600" cellspacing="0" cellpadding="0" border="0" align="center" bgcolor="#899EC9" height="20">
       <tr width="600" height="20">
         <td width="600" style="line-height:20px">
           &nbsp;
         </td>
       </tr>
     </table>
-    <table class="devicewidth" style="border-radius: 10px; border: 1px solid #d3d6db; width: 600px; display: block; border-collapse: separate;" width="600" cellspacing="0" cellpadding="0" border="0"  align="center" bgcolor="#f4f7fc">
+    <table class="devicewidth" style="border-radius: 10px; border: 1px solid #d3d6db; width: 600px; display: block; border-collapse: separate;" width="600" cellspacing="0" cellpadding="0" border="0"  align="center" bgcolor="#899EC9">
     <td width="150" style="width:150px;" align="center" style="text-align:center;">
       <%= yield %>
         </td>
@@ -136,7 +147,7 @@
       </tr>
     </table>
 
-    <table class="devicewidth" style="border-radius: 10px; border: 1px solid #d3d6db; width: 600px; display: block; border-collapse: separate;" width="600" cellspacing="0" cellpadding="0" border="0"  align="center" bgcolor="#f4f7fc">
+    <table class="devicewidth" style="border-radius: 10px; border: 1px solid #d3d6db; width: 600px; display: block; border-collapse: separate;" width="600" cellspacing="0" cellpadding="0" border="0"  align="center" bgcolor="#899EC9">
       <tr width="600" height="20">
         <td width="600" style="line-height:0px">
           &nbsp;
@@ -145,13 +156,13 @@
 
       <tr width="600" align="center">
         <td width="auto" valign="middle">
-          <%= image_tag "facebook.png", input_html: { class: 'large-1 small-1 medium-1 columns'} %>
-        <%= image_tag "twitter.png", input_html: { class: 'large-1 small-1 medium-1 columns'} %>
+          <img src="https://s3-us-west-2.amazonaws.com/badcomics/images/comics/facebook.png" alt="" class="image-small-fb">
+          <img src="https://s3-us-west-2.amazonaws.com/badcomics/images/comics/twitter.png" alt="" class="image-small">
           
           <p style="display:inline-block;vertical-align:middle;font-size:12px;font-family: Arial, Helvetica, sans-serif,Tahoma;color:#706c69;line-height:16px;"><br/>
-            <a href="thisbetterbeacompliment@badomics.ca">thisbetterbeacompliment@badomics.ca</a> | 
+            <a href="thisbetterbeacompliment@badcomics.ca">thisbetterbeacompliment@badomics.ca</a> | 
             <a href="badcomics.ca">badcomics.ca</a>
-            <br>1 De Boers, Toronto ON M3J 0G6 <br>
+            <br>Toronto, Canada <br>
 
             <a href="<%= @hostname + unsubscribe_path(@subscriber)%>" target="_blank"> Don't like our stuff? Too bad. Just kidding. Unsubscribe Here.</a></p>
           </td>
@@ -164,7 +175,7 @@
           </td>
         </tr>
       </table>
-      <table class="devicewidth" width="600" cellspacing="0" cellpadding="0" border="0" align="center" bgcolor="#f4f7fc">
+      <table class="devicewidth" width="600" cellspacing="0" cellpadding="0" border="0" align="center" bgcolor="#fff">
         <tr width="600" align="center">
           <td width="auto" valign="middle">
             
