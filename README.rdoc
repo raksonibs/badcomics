@@ -28,8 +28,10 @@ dev
 -> editor for quick comics with characters used already ( not vital)
 -> shop branch with merch (NO) -> will work on if have time.
 -> rspec (NO)
--> copy for emails + work on production (YES) -> need to do
+
 -> make weekly (YES) -> kinda done
+
+-> copy for emails + work on production (YES) -> need to do
 -> contact page with contact vals (YES NECESSARY) -> kinda done?
 -> contact iamges and stuff animations -> need to do
 -> check browser compatbility

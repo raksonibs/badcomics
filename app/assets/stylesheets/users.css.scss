@@ -263,7 +263,7 @@ li.nav {
   width: 56%;
   height: 100%;
   position: absolute;
-  left: 80px;
+  left: 37px;
   color: red;
   font-size: 40px;
   z-index: 10;
@@ -337,12 +337,12 @@ input[type="email"]:focus {
           transition: border-color 1s ease;
 }
 
-
 @media only screen and (max-width: 830px) {
   .box {
     left: 30px !important;
     top: -170px !important;
     height: 75%;
+    width: 45%;
   }
 
   input[type="submit"] {
@@ -358,6 +358,40 @@ input[type="email"]:focus {
     height: 75%;
   }
 } 
+
+@media only screen and (max-width: 656px) {
+  .icons .submarine-hidden {
+    width: 11% !important;
+  }
+
+  img.facebook-icon, img.back, img.twitter-icon {
+    width: 70% !important;
+  }
+
+  .icons .contact-guy {
+    width: 7% !important;
+  }
+
+  .box {
+    height: 50% !important;
+    top: -140px !important;
+  }
+
+  img.twitter-icon, 
+  .contact-guy {
+    position: relative;
+    left: -21px;
+  }
+
+  input[type="submit"] {
+    width: 235px !important;
+    margin: 0 !important;
+    font-size: 0.5em !important;
+    height: 27px !important;
+  }
+}
+
+
 
 @media only screen and (max-width: 593px) {
   .box {
@@ -441,10 +475,6 @@ input[type="submit"]:hover {
   -ms-transition: left 1s ease;
   -moz-transition: left 1s ease;
           transition: left 1s ease;
-}
-
-.icons.shifted {
-  left: 25%;
 }
 
 .container {
