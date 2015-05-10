@@ -2,11 +2,11 @@ class ImagesController < ApplicationController
   before_filter :set_subscriber
 
   def edit
-    @image = Image.find(params[:id])
+    @image = Image.friendly.find(params[:id])
   end
 
   def update
-    @image = Image.find(params[:id])
+    @image = Image.friendly.find(params[:id])
     @image.comic = params[:image][:comic] unless params[:image][:comic].nil?
 
     if @image.update(image_params)
@@ -26,7 +26,7 @@ class ImagesController < ApplicationController
   end
 
   def destroy
-    @image = Image.find(params[:id])
+    @image = Image.friendly.find(params[:id])
     @image.destroy!
     redirect_to home_path(current_user)
   end

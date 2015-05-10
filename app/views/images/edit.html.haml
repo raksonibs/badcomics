@@ -3,7 +3,10 @@
     = simple_form_for @image do |f|
       = f.input :title
       = f.input :large_img
-      Currently this comic file. upload a new one below.
+      Currently this comic file:
       = @image.comic_file_name
+      %br
+      %br
+      Upload a new one below.
       = f.file_field :comic
       = f.submit
