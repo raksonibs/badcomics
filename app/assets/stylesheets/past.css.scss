@@ -1,0 +1,49 @@
+.comic-past.shaded {
+  /*animation: shady 4s linear infinite;
+  -webkit-animation: shady 4s linear infinite;
+  -moz-animation: shady 4s linear infinite;
+  box-sizing: border-box;
+  display: inline-block;
+  background: #036C81;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 0 5px rgba(0,0,0,0.4);*/
+  cursor: pointer;
+  display: inline-block;
+}
+
+.small-note {
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+}
+
+@keyframes shady {
+  0% {box-shadow: 0 0 0 0px rgba(0,0,0,0.4), 0 0 0 0px rgba(3, 108, 129, 0.5);}
+  20% {box-shadow: 0 0 0 100px rgba(0,0,0,0.4), 0 0 0 0px rgba(3, 108, 129, 0);}
+  20.1% {box-shadow: 0 0 0 0px rgba(0,0,0,0.4), 0 0 0 0px rgba(3, 108, 129, 0.5);}
+  50% {box-shadow: 0 0 0 0px rgba(0,0,0,0.4), 0 0 0 0px rgba(3, 108, 129, 0.5);}
+  70% {box-shadow: 0 0 0 100px rgba(0,0,0,0.4), 0 0 0 0px rgba(3, 108, 129, 0);}
+  70.1% {box-shadow: 0 0 0 0px rgba(0,0,0,0.4), 0 0 0 0px rgba(3, 108, 129, 0.5);}
+  100% {box-shadow: 0 0 0 0px rgba(0,0,0,0.4), 0 0 0 0px rgba(3, 108, 129, 0.5);}
+}
+
+@-webkit-keyframes shady {
+  0% {box-shadow: 0 0 0 0px rgba(0,0,0,0.4), 0 0 0 0px rgba(3, 108, 129, 0.5);}
+  20% {box-shadow: 0 0 0 100px rgba(0,0,0,0.4), 0 0 0 0px rgba(3, 108, 129, 0);}
+  20.1% {box-shadow: 0 0 0 0px rgba(0,0,0,0.4), 0 0 0 0px rgba(3, 108, 129, 0.5);}
+  50% {box-shadow: 0 0 0 0px rgba(0,0,0,0.4), 0 0 0 0px rgba(3, 108, 129, 0.5);}
+  70% {box-shadow: 0 0 0 100px rgba(0,0,0,0.4), 0 0 0 0px rgba(3, 108, 129, 0);}
+  70.1% {box-shadow: 0 0 0 0px rgba(0,0,0,0.4), 0 0 0 0px rgba(3, 108, 129, 0.5);}
+  100% {box-shadow: 0 0 0 0px rgba(0,0,0,0.4), 0 0 0 0px rgba(3, 108, 129, 0.5);}
+}
+
+@-moz-keyframes shady {
+  0% {box-shadow: 0 0 0 0px rgba(0,0,0,0.4), 0 0 0 0px rgba(3, 108, 129, 0.5);}
+  20% {box-shadow: 0 0 0 100px rgba(0,0,0,0.4), 0 0 0 0px rgba(3, 108, 129, 0);}
+  20.1% {box-shadow: 0 0 0 0px rgba(0,0,0,0.4), 0 0 0 0px rgba(3, 108, 129, 0.5);}
+  50% {box-shadow: 0 0 0 0px rgba(0,0,0,0.4), 0 0 0 0px rgba(3, 108, 129, 0.5);}
+  70% {box-shadow: 0 0 0 100px rgba(0,0,0,0.4), 0 0 0 0px rgba(3, 108, 129, 0);}
+  70.1% {box-shadow: 0 0 0 0px rgba(0,0,0,0.4), 0 0 0 0px rgba(3, 108, 129, 0.5);}
+  100% {box-shadow: 0 0 0 0px rgba(0,0,0,0.4), 0 0 0 0px rgba(3, 108, 129, 0.5);}
+}

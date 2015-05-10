@@ -29,7 +29,13 @@ $(document).ready(function() {
   })
 
   if (!([].equals($('.past')))) {
-    
+    if ($('.comic-past').length >= 3 ) {
+      var arrComics = $('.comic-past')
+      var selected = $(arrComics[Math.floor(Math.random() * arrComics.length)])
+      selected.addClass('shaded');
+      // selected.css('background-color', 'red')
+      selected.append('<p class="small-note"> > Pssstt. Pick this one. </p>')
+    }
   }
 
   $('.comic-img-load').load(function() {
