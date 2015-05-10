@@ -171,8 +171,11 @@
         <img class="midCloud" src="http://i221.photobucket.com/albums/dd22/djmid71/cloud__0000s_0011_Cloud_zps0caeeec1.png">       
         <%= image_tag "Submarine_1.png", id: 'sub-hover', class: 'submarine-hidden' %>
       </div>
-      <%= image_tag "facebook.png", input_html: { class: 'large-1 small-1 medium-1 columns'} %>
-      <%= image_tag "twitter.png", input_html: { class: 'large-1 small-1 medium-1 columns'} %>
+      <%= image_tag "facebook.png", class: 'facebook-icon' %>
+      <div class="twitter-stuff">
+        <p class="dialogue">Poo-tee-weet?</p>
+        <%= image_tag "twitter.png", class: 'twitter-icon' %>
+      </div>
       <a href="<%= new_contact_path %>" title="Contact Link">
         <%= image_tag "Contact_1.jpg", class: 'contact-guy' %>
       </a>

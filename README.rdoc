@@ -54,6 +54,11 @@ dev
 
 -> view images for kacper (save, publish?) (YES) -> done
 
+- animations
+- weekly email change to published over week (not uploaded)
+- contact gif fix
+- random on past big this one
+
 
 
 -sketch 3
@@ -62,3 +67,5 @@ dev
 - pack (sunscreen, checklist)
 -  badcomics push
 - update site
+- read about israel
+- connect leds
