@@ -7,6 +7,9 @@
         <%= f.input :name, :required => true %>
         <%= f.input :email, :required => true, class: 'better-email' %>
         <%= f.input :message, :as => :text, :required => true %>
+        <div class= "hidden">
+          <%= f.input :nickname, :hint => 'Leave this field blank!' %>
+        </div>
         <div>
           </br>
           <%= f.button :submit, 'Send message', :class=> "button radius primary" %>
