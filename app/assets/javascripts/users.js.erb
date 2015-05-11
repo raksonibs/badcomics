@@ -153,6 +153,22 @@ $(document).ready(function() {
     }
   })
 
+  $('.contact-form').on("ajax:success", function(e,data, status, xhr) {
+    $('.note-text').text("Thanks for contacting us. It better be good.")
+    // debugger
+    $('.flag.note.notice').slideDown();
+      setTimeout(function() {
+        $('.flag.note.notice').slideUp();
+      }, 5000);
+    }).on("ajax:error", function(e, data, status, xhr) {
+      $('.note-text').text("Thanks for contacting us. It better be good.")
+    // debugger
+    $('.flag.note.notice').slideDown();
+      setTimeout(function() {
+        $('.flag.note.notice').slideUp();
+      }, 5000);
+    })
+
   $('.box').on("ajax:success", function(e,data, status, xhr) {
     $('.conf-cont').fadeIn().next().delay(5000).fadeOut();
     $('.success-text').text("You've subscribed "+email+". We love you "+email+"! Confetti for "+ email+"!")

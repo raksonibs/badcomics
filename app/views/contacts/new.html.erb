@@ -3,7 +3,7 @@
     <div class="left shift-right">
       <h3>We take messages. And smoke signals. </h3>
 
-      <%= simple_form_for @contact, :html => {:class => 'form-horizontal' } do |f| %>
+      <%= simple_form_for @contact, :html => {:class => 'form-horizontal contact-form' }, remote: true do |f| %>
         <%= f.input :name, :required => true %>
         <%= f.input :email, :required => true %>
         <%= f.input :message, :as => :text, :required => true %>
