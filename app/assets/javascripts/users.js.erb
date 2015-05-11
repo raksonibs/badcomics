@@ -192,16 +192,18 @@ $(document).ready(function() {
 
   var windowsize = $(window).width();
 
+  if (windowsize < 500) {
+    // $('.icons').animate({
+    //   left: "+=47%"
+    // }, function() {
+    //   $('.box').css('display', 'inline-block');
+    // })
+  }
+
 
   $('.submarine-hidden').one('click', function() {
     windowsize = $(window).width();
-    if (windowsize < 500) {
-      $('.icons').animate({
-        left: "+=47%"
-      }, function() {
-        $('.box').css('display', 'inline-block');
-      })
-     } else if (windowsize < 670) {
+     if (windowsize < 670) {
       $('.icons').animate({
         left: "+=60%"
       }, function() {
