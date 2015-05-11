@@ -19,7 +19,7 @@
   text-transform: uppercase;
   width: 14rem;
   top: -40px;
-  right: 24%;
+  right: 30%;
   display: none;
 }
 .dialogue::before {
@@ -47,7 +47,16 @@
 
 @media only screen and (max-width: 650px) {
   .dialogue {
-    right: 19% !important;
+    right: 32% !important;
+    font-size: 1rem !important;
+    width: 12em !important;
+    padding: 0.1rem !important;
+  }
+} 
+
+@media only screen and (max-width: 560px) {
+  .dialogue {
+    right: 32% !important;
     font-size: 1rem !important;
     width: 12em !important;
     padding: 0.1rem !important;
