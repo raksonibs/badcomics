@@ -1,11 +1,11 @@
 <div class="container row">
-  <div class="large-12 small-12 columns">
+  <div class="large-12 small-12 columns contact-holder">
     <div class="left shift-right">
       <h3>We take messages. And smoke signals. </h3>
 
       <%= simple_form_for @contact, :html => {:class => 'form-horizontal contact-form' }, remote: true do |f| %>
         <%= f.input :name, :required => true %>
-        <%= f.input :email, :required => true %>
+        <%= f.input :email, :required => true, class: 'better-email' %>
         <%= f.input :message, :as => :text, :required => true %>
         <div>
           </br>
@@ -14,7 +14,7 @@
       <% end %>
     </div>
 
-    <div class="right shift-left">
+    <div class="right shift-left contact-wheel">
       <%= image_tag "ContactPS.gif" %>
     </div>
   </div>

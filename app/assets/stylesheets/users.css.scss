@@ -343,8 +343,8 @@ input[type="email"].subscriber-email {
 
 
 input[type="email"]:focus {
-   outline:none;
-   border:none;
+  outline:none;
+  border:none;
   border-bottom:solid 4px #00AEEF;
   -webkit-transition: border-color 1s ease;
   -ms-transition: border-color 1s ease;
@@ -367,7 +367,7 @@ input[type="email"]:focus {
     height: 35px !important;
   }
 
-  input[type="email"] {
+  .box input[type="email"] {
     width: 275px !important;
     font-size: 0.7em;
     height: 75%;
@@ -423,7 +423,7 @@ input[type="email"]:focus {
     height: 25px !important;
   }
 
-  input[type="email"] {
+  .box input[type="email"] {
     width: 200px !important;
     font-size: 0.3em;
     height: 50%;
@@ -554,10 +554,28 @@ input[type="submit"]:hover {
 
 .shift-right {
   position: relative;
-  left: 100px;
+  display: inline-block;
+  left: 5px;
 }
 
 .shift-left {
   position: relative;
-  left: -100px;
+  left: -5px;
+  display: inline-block;
+}
+
+@media only screen and (max-width: 745px) { 
+  .left.shift-left,
+  .right.shift-right {
+    clear: both !important;
+    float: none !important;
+  }
+
+  .shift-left {
+    left: -25%;
+  }
+
+  .contact-holder {
+    text-align: center !important;
+  }
 }
