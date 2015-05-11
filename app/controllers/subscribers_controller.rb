@@ -12,9 +12,10 @@ class SubscribersController < ApplicationController
     @oldsub = Subscriber.find_by(email: @subscriber.email)
 
     respond_to do |format|
-
-      if !@oldsub.nil? || @subscriber.save
+      if (!@oldsub.nil? && @oldsub.subscribed == false )|| @subscriber.save
         @subscriber = @oldsub.nil? ? @subscriber : @oldsub 
+        @subscriber.subscribed = true
+        @subscriber.save!
 
         hostname = request.original_url || "http://badcomics.ca" 
         BadMailer.intro_email(@subscriber, hostname).deliver
@@ -42,7 +43,7 @@ class SubscribersController < ApplicationController
     begin
       @subscriber = Subscriber.find(params[:subscriber_id])
       @subscriber.subscribed = false
-      @subscriber.save
+      @subscriber.save!
       flash[:notice] = "Fine you unsubscribed asshole"
       redirect_to :root
     rescue
