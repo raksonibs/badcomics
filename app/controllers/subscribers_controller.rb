@@ -9,9 +9,12 @@ class SubscribersController < ApplicationController
     # set delayjob for sending intro email?
     # at intro send for person, set subscriber.intro_sent = true
 
+    @oldsub = Subscriber.find_by(email: @subscriber.email)
+
     respond_to do |format|
 
-      if @subscriber.save
+      if !@oldsub.nil? || @subscriber.save
+        @subscriber = @oldsub.nil? ? @subscriber : @oldsub 
 
         hostname = request.original_url || "http://badcomics.ca" 
         BadMailer.intro_email(@subscriber, hostname).deliver
@@ -39,6 +42,7 @@ class SubscribersController < ApplicationController
     begin
       @subscriber = Subscriber.find(params[:subscriber_id])
       @subscriber.subscribed = false
+      @subscriber.save
       flash[:notice] = "Fine you unsubscribed asshole"
       redirect_to :root
     rescue
