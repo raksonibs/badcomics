@@ -14,6 +14,11 @@ class BadMailer < ActionMailer::Base
     mail(to: @subscriber.email, subject: "It's a trap!")
   end
 
+  def contact_to_us(user)
+    @contact = user
+    mail(to:  "thisbetterbeacompliment@badcomics.ca", subject: 'We were contacted!')
+  end
+
   def weekly_email(subscriber, hostname, showThisOne, published)
     @showThisOne = showThisOne
     @published = published

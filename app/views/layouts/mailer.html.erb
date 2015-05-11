@@ -166,8 +166,9 @@
             <a href="thisbetterbeacompliment@badcomics.ca">thisbetterbeacompliment@badomics.ca</a> | 
             <a href="http://www.badcomics.ca">badcomics.ca</a>
             <br>Toronto, Canada <br>
-
-            <a href="<%= @hostname + unsubscribe_path(@subscriber)%>" target="_blank"> Don't like our stuff? Too bad. Just kidding. Unsubscribe Here.</a></p>
+            <% unless @subscriber.nil? %>
+              <a href="<%= @hostname + unsubscribe_path(@subscriber)%>" target="_blank"> Don't like our stuff? Too bad. Just kidding. Unsubscribe Here.</a></p>
+            <% end %>
           </td>
         </tr>
 

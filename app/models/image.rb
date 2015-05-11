@@ -4,8 +4,6 @@ class Image < ActiveRecord::Base
 
   belongs_to :user
 
-  scope :published, where(published: true)
-
   include FriendlyId
 
   friendly_id :title
