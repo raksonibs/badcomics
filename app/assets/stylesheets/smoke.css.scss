@@ -2,7 +2,7 @@
 ------------------------------------------ */
 
 .submarine-hidden:after {
-  -webkit-animation: steam 4s 2s infinite;
+  -webkit-animation: rock 4s 2s infinite;
 }
 
 .sub-stuff {
@@ -12,11 +12,11 @@
 
 .icons {
   position: relative;
-  left: -6%;
+  left: -2%;
 }
 
 .midCloud {
-  visibility: hidden;
+  display: none;
   /*display: block !important;*/
   position: relative;
   left: 10%;
