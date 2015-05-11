@@ -3,6 +3,7 @@
 
 #sub-hover:hover {
   -webkit-animation: rock 4s 2s infinite;
+  animation: rock 4s 2s infinite;
 }
 
 .sub-stuff {
@@ -58,4 +59,8 @@
 
 @-webkit-keyframes rock {
   50%  { -webkit-transform: rotate(-5deg) translateY(-10px); }
+}
+
+@keyframes rock {
+  50%  { ransform: rotate(-5deg) translateY(-10px); }
 }
