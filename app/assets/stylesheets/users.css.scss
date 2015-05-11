@@ -41,6 +41,17 @@
   }
 }
 
+.small-note {
+  background: url(/assets/outline_t.png) no-repeat center center fixed;
+  -webkit-background-size: cover;
+
+-moz-background-size: cover;
+
+-o-background-size: cover;
+
+background-size: cover;
+}
+
 .header {
   margin-top: 20px;
   /*height: 22%;*/
