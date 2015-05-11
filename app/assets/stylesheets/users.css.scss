@@ -262,8 +262,8 @@ li.nav {
     margin-left: 0px;
   }
 
-  .buttons li.nav {
-    font-size: 1.15em;
+  .buttons li.nav a {
+    font-size: 1.10em;
   }
 }
 
@@ -406,8 +406,6 @@ input[type="email"]:focus {
   }
 }
 
-
-
 @media only screen and (max-width: 593px) {
   .box {
     left: 10px !important;
@@ -427,6 +425,9 @@ input[type="email"]:focus {
     width: 200px !important;
     font-size: 0.3em;
     height: 50%;
+    padding: 0;
+    margin: 0;
+    margin-top: 22px;
   }
 } 
 
