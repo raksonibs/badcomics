@@ -56,6 +56,7 @@
 
 .facebook-stuff {
   perspective: 1000;
+  -webkit-perspective: 1000;
   display: inline;
 }
 
@@ -68,6 +69,7 @@
 .flipper {
   transition: 0.6s;
   transform-style: preserve-3d;
+  -webkit-transform-style: preserve-3d;
 
   position: relative;
   display: inline-block;
@@ -81,6 +83,7 @@
 /* hide back of pane during swap */
 .front, .back {
   backface-visibility: hidden;
+   -webkit-backface-visibility: hidden;
 }
 
 .back {
@@ -96,11 +99,13 @@
   z-index: 2;
   /* for firefox 31 */
   transform: rotateY(0deg);
+  -webkit-transform: rotateY(0deg);
 }
 
 /* back, initially hidden pane */
 .back {
   transform: rotateY(180deg);
+  -webkit-transform: rotateY(180deg);
 }
 
 .facebook-stuff {
@@ -109,6 +114,7 @@
 
 .back {
   transform: rotateX(180deg);
+  -webkit-transform: rotateX(180deg);
 }
 
 .flipper {
@@ -117,4 +123,5 @@
 
 .facebook-stuff:hover .flipper {
   transform: rotateX(-180deg);
+  -webkit-transform: rotateX(-180deg);
 }
