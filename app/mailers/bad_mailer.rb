@@ -11,7 +11,7 @@ class BadMailer < ActionMailer::Base
     else
       @hostname = "http://badcomics.ca" 
     end
-    mail(to: @subscriber.email, subject: "It's a trap!")
+    mail(to: @subscriber.email, subject: "Welcome, here's a gif-t")
   end
 
   def contact_to_us(user)

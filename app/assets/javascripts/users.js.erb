@@ -153,13 +153,18 @@ $(document).ready(function() {
     }
   })
 
+
   $('.contact-form').on("ajax:success", function(e,data, status, xhr) {
+    $('.disable-please').attr('disabled', 'disabled').text('Sending...');
+
     $('.note-text').text("Thanks for contacting us. It better be good.")
     // debugger
     $('.flag.note.notice').slideDown();
       setTimeout(function() {
         $('.flag.note.notice').slideUp();
       }, 5000);
+
+
     }).on("ajax:error", function(e, data, status, xhr) {
       $('.note-text').text("Thanks for contacting us. It better be good.")
     // debugger
@@ -169,6 +174,10 @@ $(document).ready(function() {
       }, 5000);
     })
 
+  // $('.disable-please').click(function() {
+  //   $('.disable-please').attr('disabled', 'disabled').text('Sending...');
+  // })
+  
   $('.box').on("ajax:success", function(e,data, status, xhr) {
     $('.conf-cont').fadeIn().next().delay(5000).fadeOut();
     $('.success-text').text("You've subscribed "+email+". We love you "+email+"! Confetti for "+ email+"!")
@@ -196,13 +205,13 @@ $(document).ready(function() {
     windowsize = $(window).width();
     if (windowsize < 500) {
       $('.icons').animate({
-        left: "+=16.5%"
+        left: "+=18%"
       }, function() {
         $('.box').css('display', 'inline-block');
       })
     } else if (windowsize < 750) {
       $('.icons').animate({
-        left: "+=35.5%"
+        left: "+=3%"
       }, function() {
         $('.box').css('display', 'inline-block');
       })

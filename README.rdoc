@@ -71,3 +71,5 @@ dev
 - update site
 - read about israel
 - connect leds
+-> publish finance presentation
+-> write letters
