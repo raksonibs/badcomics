@@ -66,3 +66,5 @@ gem 's3_direct_upload'
 gem 'friendly_id'
 
 gem 'pg'
+
+gem 'rollbar', '~> 1.5.1'
