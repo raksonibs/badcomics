@@ -8,5 +8,5 @@
  *= require_self
  *= require foundation_and_overrides
  *= require jquery-ui/sortable
-
+ *= require font-awesome
  */
