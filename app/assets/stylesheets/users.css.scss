@@ -93,7 +93,7 @@ background-size: cover;
 }
 
 body {
-  background: #899EC9;
+  background: #6599FF;
   height: 100%;
   webkit-transform-style: preserve-3d;
   -webkit-transform-style: preserve-3d;
@@ -448,7 +448,7 @@ input[type="submit"] {
   height:50px;
   font-size: 0.80em;
   background:transparent;
-  color: #899EC9;
+  color: #6599FF;
   border:none;
   text-align:center;
   letter-spacing:0.15em;
@@ -522,16 +522,16 @@ input[type="submit"]:hover {
   left: -15%;
 }
 
-.comic-vert,
-.arrow-vert {
+.comic-vert {
   -webkit-transition: all 2s ease;
   -ms-transition: all 2s ease;
   -moz-transition: all 2s ease;
           transition: all 2s ease;
 }
 
+
 .arrow-vert {
-  visibility: hidden;
+  visibility: hidden !important;
 }
 
 /*.comic-vert {

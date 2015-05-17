@@ -9,7 +9,6 @@ $(document).ready(function() {
       if ($(value).hasClass('smaller-next')) {
         $(value).css('position', 'relative').css('top', '50%').css('transform', 'translateY('+((height/2)-70)+'px)').css('visibility', 'visible');
       } else {
-
         $(value).css('position', 'relative').css('top', '50%').css('transform', 'translateY('+((height/2)-50)+'px)').css('visibility', 'visible');
       }
     })
@@ -50,6 +49,10 @@ $(document).ready(function() {
       } else {
         $(value).css('position', 'relative').css('top', '50%').css('transform', 'translateY('+((height/2)-50)+'px)').css('visibility', 'visible');
       }
+
+      $.each($('.arrow-vert'), function( index, value) {
+        $(value).style('visibility', 'visible', 'important')
+      })
     })
   })
 
