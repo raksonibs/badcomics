@@ -599,3 +599,7 @@ input[type="submit"]:hover {
 .hidden {
   display: none;
 }
+
+.disable-please:click {
+  disabled: disabled;
+}

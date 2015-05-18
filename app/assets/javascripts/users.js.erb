@@ -163,7 +163,6 @@ $(document).ready(function() {
 
 
   $('.contact-form').on("ajax:success", function(e,data, status, xhr) {
-    $('.disable-please').attr('disabled', 'disabled').text('Sending...');
 
     $('.note-text').text("Thanks for contacting us. It better be good.")
     // debugger
@@ -180,9 +179,10 @@ $(document).ready(function() {
       }, 5000);
     })
 
-  // $('.disable-please').click(function() {
-  //   $('.disable-please').attr('disabled', 'disabled').text('Sending...');
-  // })
+  $('.disable-please').click(function() {
+    console.log('yello yello')
+    $('.disable-please').hide();
+  })
   
   $('.box').on("ajax:success", function(e,data, status, xhr) {
     $('.conf-cont').fadeIn().next().delay(5000).fadeOut();
@@ -198,7 +198,6 @@ $(document).ready(function() {
     }, 10000);
   }).on("ajax:error", function(e, data, status, xhr) {
     $('.note-text').text("Nice as that email is, it already is subscribed. Your mother's isn't though.")
-    // debugger
     $('.flag.note.notice').slideDown();
       setTimeout(function() {
         $('.flag.note.notice').slideUp();
