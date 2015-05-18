@@ -1,10 +1,8 @@
 $(document).ready(function() {
 
   if (!([].equals($('#img-shown')))) {
-    var height = document.getElementById('img-shown').clientHeight;
-      // console.log(height)
-    $.each($('.arrow-vert'), function( index, value ) {
-      // console.log(value)
+    var height = document.getElementById('img-shown').clientHeight;      
+    $.each($('.arrow-vert'), function( index, value ) {      
       // $(value).css('display', 'flex').css('align-items', 'center').css('justify-content', 'center')
       if ($(value).hasClass('smaller-next')) {
         $(value).css('position', 'relative').css('top', '50%').css('transform', 'translateY('+((height/2)-70)+'px)').css('visibility', 'visible');
@@ -37,14 +35,11 @@ $(document).ready(function() {
     }
   }
 
-  $('.comic-img-load').load(function() {
-    // console.log('loaded')
+  $('.comic-img-load').load(function() {    
 
     $('#img-shown').style('visibility', 'hidden', 'important')
-    var height = document.getElementById('img-shown').clientHeight;
-    // console.log(height)
-    $.each($('.arrow-vert'), function( index, value ) {
-      // console.log(value)
+    var height = document.getElementById('img-shown').clientHeight;    
+    $.each($('.arrow-vert'), function( index, value ) {      
       // $(value).css('display', 'flex').css('align-items', 'center').css('justify-content', 'center')
       if ($(value).hasClass('smaller-next')) {
         $(value).css('position', 'relative').css('top', '50%').css('transform', 'translateY('+((height/2)-70)+'px)').css('visibility', 'visible');
@@ -57,8 +52,7 @@ $(document).ready(function() {
       })
 
     })
-    $('#img-shown').style('visibility', 'visible', 'important')
-    console.log('loaded')
+    $('#img-shown').style('visibility', 'visible', 'important')    
   })
 
   $('.contact-guy').hover(function() {
@@ -162,8 +156,8 @@ $(document).ready(function() {
   })
 
 
-  $('.contact-form').on("ajax:success", function(e,data, status, xhr) {
-
+  $('.contact-form').on("ajax:success", function(e,data, status, xhr) {    
+    // $('.disable-please').hide();
     $('.note-text').text("Thanks for contacting us. It better be good.")
     // debugger
     $('.flag.note.notice').slideDown();
@@ -172,18 +166,13 @@ $(document).ready(function() {
       }, 5000);
 
 
-    }).on("ajax:error", function(e, data, status, xhr) {
+    }).on("ajax:error", function(e, data, status, xhr) {      
       $('.flag.note.error').slideDown();
       setTimeout(function() {
         $('.flag.note.error').slideUp();
       }, 5000);
     })
 
-  $('.disable-please').click(function() {
-    console.log('yello yello')
-    $('.disable-please').hide();
-  })
-  
   $('.box').on("ajax:success", function(e,data, status, xhr) {
     $('.conf-cont').fadeIn().next().delay(5000).fadeOut();
     $('.success-text').text("You've subscribed "+email+". We love you "+email+"! Confetti for "+ email+"!")

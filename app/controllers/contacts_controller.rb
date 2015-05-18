@@ -8,7 +8,7 @@ class ContactsController < ApplicationController
     if @contact.valid?
       BadMailer.contact_to_us(@contact).deliver
       respond_to do |format|
-        format.js {}
+        format.js { render json: { good: 'good' }, status: 200 }
         format.html { redirect_to :root }
       end
     else
