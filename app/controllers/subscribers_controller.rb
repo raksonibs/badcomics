@@ -28,7 +28,7 @@ class SubscribersController < ApplicationController
         flash[:notice] = "This email is already subscribed!"
         # binding.pry
         format.html { render :new }
-        format.json { render json: @subscriber.errors, status: :unprocessable_entity}
+        format.json { render json: @subscriber.errors, status: :unprocessable_entity }
       end
     end
 

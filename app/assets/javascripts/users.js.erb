@@ -174,11 +174,9 @@ $(document).ready(function() {
 
 
     }).on("ajax:error", function(e, data, status, xhr) {
-      $('.note-text').text("Thanks for contacting us. It better be good.")
-    // debugger
-    $('.flag.note.notice').slideDown();
+      $('.flag.note.error').slideDown();
       setTimeout(function() {
-        $('.flag.note.notice').slideUp();
+        $('.flag.note.error').slideUp();
       }, 5000);
     })
 
