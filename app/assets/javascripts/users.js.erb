@@ -39,6 +39,8 @@ $(document).ready(function() {
 
   $('.comic-img-load').load(function() {
     // console.log('loaded')
+
+    $('#img-shown').style('visibility', 'hidden', 'important')
     var height = document.getElementById('img-shown').clientHeight;
     // console.log(height)
     $.each($('.arrow-vert'), function( index, value ) {
@@ -53,7 +55,10 @@ $(document).ready(function() {
       $.each($('.arrow-vert'), function( index, value) {
         $(value).style('visibility', 'visible', 'important')
       })
+
     })
+    $('#img-shown').style('visibility', 'visible', 'important')
+    console.log('loaded')
   })
 
   $('.contact-guy').hover(function() {
