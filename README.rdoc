@@ -2,13 +2,6 @@ generate aws.yml file
 
 - make sure to create application.yml file first. Create user via script. Run seed file. visit /twofactor
 
--> need funny animations for each image
--> want to make multiupload work
--> problem with prev next on changes
--> make look better
-
--> confetti when subscribe
--> fix unsubscribe
 -> welcome email
 -> weekly digest
 -> make look better
