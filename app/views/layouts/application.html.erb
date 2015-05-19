@@ -132,37 +132,12 @@
         </div>
       </div>
       <div class="row">
-        <div class="large-12 small-12 columns">
+        <div class="large-12 small-12 columns non-centered-header">
               <div class="row">
-                <% if !User.allPublishedImages.empty? %>
-                <li class="hovered">
-                  <%= image_tag "outline_t.png" %>
-                </li>
-                <div class="large-1 small-1 columns">
-                  <li class="nav first">
-                    <%= link_to "Today", root_url %>
-                  </li>
-                </div>
-                <div class="large-1 small-1 columns">
-                  <li class="nav">
-                    <%= link_to "Past", past_path %>
-                  </li>
-                </div>
-                <div class="large-1 small-1 columns">
-                  <li class="nav">
-                    <%= link_to 'About', about_path %>
-                  </li>
-                </div>
-                <div class="large-1 small-1 columns">
-                  <% randomId = User.allPublishedImages.sample.id %>
-                  <li class="nav">
-                    <%= link_to "Random", random_path(randomId) %>
-                  </li>
-                </div>
                 <div class="large-1 small-1 columns">
                   <li class="nav-social">
                     <a href="<%= new_contact_path %>" title="Contact Link">
-                      <%= image_tag "Contact_1.jpg", class: 'contact-guy' %>
+                      <%= image_tag "Contact_1.jpg", class: 'contact-guy header-guy' %>
                     </a>
                     </li>
                   </div>
@@ -180,11 +155,37 @@
                       </a>
                     </li>
                   </div>
-                  <div class="large-1 small-1 columns">
+                  <div class="large-1 small-1 columns last-social">
                     <li class="nav-social">
                       <%= image_tag "Submarine_1.png" %>
                     </li>
                   </div>
+
+                <% if !User.allPublishedImages.empty? %>
+                <li class="hovered">
+                  <%= image_tag "outline_t.png" %>
+                </li>
+                <div class="large-2 small-2 columns">
+                  <li class="nav first">
+                    <%= link_to "Today", root_url %>
+                  </li>
+                </div>
+                <div class="large-2 small-2 columns">
+                  <li class="nav">
+                    <%= link_to "Past", past_path %>
+                  </li>
+                </div>
+                <div class="large-2 small-2 columns">
+                  <li class="nav">
+                    <%= link_to 'About', about_path %>
+                  </li>
+                </div>
+                <div class="large-2 small-2 columns last-social">
+                  <% randomId = User.allPublishedImages.sample.id %>
+                  <li class="nav">
+                    <%= link_to "Random", random_path(randomId) %>
+                  </li>
+                </div>
                   <% else %>                    
                     Nothing is published. Publish something
                   <% end %>

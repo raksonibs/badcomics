@@ -178,10 +178,6 @@ input.button {
   color: white;
 }
 
-li.nav.first {
-  margin-left: 18px;
-}
-
 .images-unsubscribe {
   display: none;
   font-size: 2.7em;
@@ -217,20 +213,22 @@ li.nav {
   text-align: center;
 }
 
-.buttons li.nav a {
+li.nav a {
   font-family: 'Acki-Preschool' !important;
-  margin: 7px;
+  margin-right: 7px;
   font-size: 2.7em;
+  position: relative;
+  left: -3px;
 }
 
 @media only screen and (max-width: 906px) {
-  .buttons li.nav a {
+  li.nav a {
     font-size: 2.0em;
   }
 }
 
 @media only screen and (max-width: 720px) {
-  .buttons li.nav a {
+  li.nav a {
     font-size: 1.5em;
   }
 
@@ -249,7 +247,7 @@ li.nav {
     margin-left: 10px;
   }
 
-  .buttons li.nav a {
+  li.nav a {
     font-size: 1.25em;
   }
 } 
@@ -267,7 +265,7 @@ li.nav {
     margin-left: 0px;
   }
 
-  .buttons li.nav a {
+  li.nav a {
     font-size: 1.10em;
   }
 }
@@ -532,6 +530,15 @@ li {
   list-style-type: none;
 }
 
+.last-social {
+  float: left !important;
+}
+
+.non-centered-header {
+  position: relative;
+  left: 16%;
+}
+
 /*.comic-vert {
   display: flex;
   flex-direction: column;
@@ -560,6 +567,10 @@ li {
   height: 75%;
   width: 9.5% !important;
   margin-left: 10px;
+}
+
+.contact-guy.header-guy {
+  width: 60.5% !important;
 }
 
 .shift-right {
