@@ -528,6 +528,10 @@ input[type="submit"]:hover {
   visibility: hidden !important;
 }
 
+li {
+  list-style-type: none;
+}
+
 /*.comic-vert {
   display: flex;
   flex-direction: column;

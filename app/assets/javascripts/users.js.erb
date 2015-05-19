@@ -35,6 +35,17 @@ $(document).ready(function() {
     }
   }
 
+  $('.nav-social').hover(function() {
+    console.log('akdmaskdasd')
+    $(this).stop().animate({
+        top: -50
+      }, 900, "easeOutBounce");
+    }, function() {
+      $(this).stop().animate({
+          top: 0
+      }, 900, "easeOutBounce");
+    });
+
   $('.comic-img-load').load(function() {    
 
     $('#img-shown').style('visibility', 'hidden', 'important')
