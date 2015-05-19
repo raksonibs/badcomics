@@ -1,46 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-    <title><%= content_for?(:title) ? yield(:title) : 'Bad Comics' %></title>
+  <title><%= content_for?(:title) ? yield(:title) : 'Bad Comics' %></title>
 
-    <%= stylesheet_link_tag    "application" %>
-    <%= javascript_include_tag "vendor/modernizr" %>
-    <%= csrf_meta_tags %>
-  </head>
+  <%= stylesheet_link_tag    "application" %>
+  <%= javascript_include_tag "vendor/modernizr" %>
+  <%= csrf_meta_tags %>
+</head>
 
-  <body>
+<body>
 
   <div id="background-wrap">
     <div class="x1 backwards">
-        <div class="cloud"></div>
+      <div class="cloud"></div>
     </div>
 
     <div class="x2">
-        <div class="cloud"></div>
+      <div class="cloud"></div>
     </div>
 
     <div class="x3 backwards">
-        <div class="cloud"></div>
+      <div class="cloud"></div>
     </div>
 
     <div class="x4">
-        <div class="cloud"></div>
+      <div class="cloud"></div>
     </div>
 
     <div class="x5">
-        <div class="cloud"></div>
+      <div class="cloud"></div>
     </div>
 
     <div class="x3">
-        <div class="cloud"></div>
+      <div class="cloud"></div>
     </div>
 
     <div class="x4 backwards">
-        <div class="cloud"></div>
+      <div class="cloud"></div>
     </div>
   </div>
 
@@ -69,167 +69,183 @@
 
   <div id="nav">
     <% if current_user %>
-      <%= link_to "Upload A Comic", home_path(current_user.id) %> | 
-      <%= link_to "Logout", :logout, method: :post %>
+    <%= link_to "Upload A Comic", home_path(current_user.id) %> | 
+    <%= link_to "Logout", :logout, method: :post %>
     <% else %>
-      <!-- <%= link_to "Register", new_user_path %> | -->
-      <!-- <%= link_to "Login", :login %> -->
+    <!-- <%= link_to "Register", new_user_path %> | -->
+    <!-- <%= link_to "Login", :login %> -->
     <% end %>
   </div>
   
   <div class="row">
     
-      <div class="container-notifications columns large-12 small-12">
-  
-        <div class="flag note notice">
-          <div class="flag__image note__icon">
-            <i class="fa fa-heart"></i>
-          </div>
-          <div class="flag__body note__text note-text">
-          </div>
-          <a href="#" class="note__close">
-            <i class="fa fa-times"></i>
-          </a>
+    <div class="container-notifications columns large-12 small-12">
+      
+      <div class="flag note notice">
+        <div class="flag__image note__icon">
+          <i class="fa fa-heart"></i>
         </div>
-          
+        <div class="flag__body note__text note-text">
+        </div>
+        <a href="#" class="note__close">
+          <i class="fa fa-times"></i>
+        </a>
+      </div>
+      
 
-        <div class="flag note success note--success">
-          <div class="flag__image note__icon">
-            <i class="fa fa-check"></i>
-          </div>
-          <div class="flag__body note__text success-text">
-          </div>
-          <a href="#" class="note__close">
-            <i class="fa fa-times"></i>
-          </a>
+      <div class="flag note success note--success">
+        <div class="flag__image note__icon">
+          <i class="fa fa-check"></i>
         </div>
-          
-        <div class="flag note error note--error">
-          <div class="flag__image note__icon">
-            <i class="fa fa-times"></i>
-          </div>
-          <div class="flag__body note__text">
-            Hey that isn't an actual email! You tricky hobbit!
-          </div>
-          <a href="#" class="note__close">
-            <i class="fa fa-times"></i>
-          </a>
+        <div class="flag__body note__text success-text">
         </div>
-          
-  
-  </div>
-
-<div class="row container header">
-  <div class="large-12 small-12 columns logo">
-    <div class="row">
-      <div class="large-3 small-3 columns logo">
-        <h1><%= image_tag "logo.png", class: 'logo-img', alt: 'Bad Comics' %></h1>
+        <a href="#" class="note__close">
+          <i class="fa fa-times"></i>
+        </a>
       </div>
-      <div class="large-5 small-5 columns">
-        
-        <h1><%= image_tag "NewestHeader.png", class: 'header-img'%></h1>      
+      
+      <div class="flag note error note--error">
+        <div class="flag__image note__icon">
+          <i class="fa fa-times"></i>
+        </div>
+        <div class="flag__body note__text">
+          Hey that isn't an actual email! You tricky hobbit!
+        </div>
+        <a href="#" class="note__close">
+          <i class="fa fa-times"></i>
+        </a>
       </div>
-      </div>
+      
+      
     </div>
-    <div class="row">
-      <div class="large-12 small-12 columns">
-        <ul class="button-group">
-          <div class="links-nav">
-            <div class="row">
-              <% if !User.allPublishedImages.empty? %>
-                <li class="hovered"><%= image_tag "outline_t.png" %></li>
-                <div class="large-3 small-3 columns">
-                  <li class="nav first"><%= link_to "Today", root_url %></li>
-                </div>
-                <div class="large-3 small-3 columns">
-                  <li class="nav"><%= link_to "Past", past_path %></li>
-                </div>
-                <div class="large-3 small-3 columns">
-                  <li class="nav"><%= link_to 'About', about_path %></li>
-                </div>
-                <div class="large-3 small-3 columns">
-                  <% randomId = User.allPublishedImages.sample.id %>
-                  <li class="nav"><%= link_to "Random", random_path(randomId) %></li>
-                </div>
-                <div class="large-3 small-3 columns">
-                  <li class="nav"><a href="<%= new_contact_path %>" title="Contact Link">
-                  <%= image_tag "Contact_1.jpg", class: 'contact-guy' %>
+
+    <div class="row container header">
+      <div class="large-12 small-12 columns logo">
+        <div class="row">
+          <div class="large-3 small-3 columns logo">
+            <h1><%= image_tag "logo.png", class: 'logo-img', alt: 'Bad Comics' %></h1>
+          </div>
+          <div class="large-5 small-5 columns">
+            
+            <h1><%= image_tag "NewestHeader.png", class: 'header-img'%></h1>      
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="large-12 small-12 columns">
+          <ul class="button-group">
+            <div class="links-nav">
+              <div class="row">
+                <% if !User.allPublishedImages.empty? %>
+                <li class="hovered">
+                  <%= image_tag "outline_t.png" %>
+                </li>
+                <div class="large-1 small-1 columns">
+                  <li class="nav first">
+                    <%= link_to "Today", root_url %>
                   </li>
                 </div>
-                <div class="large-3 small-3 columns">
-                  <li class="nav"><a href="http://twitter.com/badcomicsdotca" target="_blank"><%= image_tag "twitter.png", class: 'twitter-icon' %></a></li>
-                </div>
-                <div class="large-3 small-3 columns">
-                  <li class="nav"><a href="http://facebook.com/badcomicsdotca" target="_blank">
-                    <%= image_tag "facebook.png", class: 'facebook-icon front' %>
-                    <%= image_tag "FacebookLike.jpg", class: 'facebook-icon back' %>
-                  </a>
-                  </li>
-                </div>
-                <div class="large-3 small-3 columns">
+                <div class="large-1 small-1 columns">
                   <li class="nav">
-                    <%= image_tag "Submarine_1.png", id: 'sub-hover', class: 'submarine-hidden' %>           
+                    <%= link_to "Past", past_path %>
                   </li>
                 </div>
-                <% else %>
+                <div class="large-1 small-1 columns">
+                  <li class="nav">
+                    <%= link_to 'About', about_path %>
+                  </li>
+                </div>
+                <div class="large-1 small-1 columns">
+                  <% randomId = User.allPublishedImages.sample.id %>
+                  <li class="nav">
+                    <%= link_to "Random", random_path(randomId) %>
+                  </li>
+                </div>
+                <div class="large-1 small-1 columns">
+                  <li class="nav">
+                    <a href="<%= new_contact_path %>" title="Contact Link">
+                      <%= image_tag "Contact_1.jpg", class: 'contact-guy' %>
+                    </li>
+                  </div>
+                  <div class="large-1 small-1 columns">
+                    <li class="nav">
+                      <a href="http://twitter.com/badcomicsdotca" target="_blank">
+                        <%= image_tag "twitter.png", class: 'twitter-icon' %>
+                      </a>
+                    </li>
+                  </div>
+                  <div class="large-1 small-1 columns">
+                    <li class="nav">
+                      <a href="http://facebook.com/badcomicsdotca" target="_blank">
+                        <%= image_tag "facebook.png", class: 'facebook-icon front' %>
+                        <%= image_tag "FacebookLike.jpg", class: 'facebook-icon back' %>
+                      </a>
+                    </li>
+                  </div>
+                  <div class="large-1 small-1 columns">
+                    <li class="nav">
+                      <%= image_tag "Submarine_1.png", id: 'sub-hover', class: 'submarine-hidden' %>     
+                    </li>
+                  </div>
+                  <% else %>
                   Nothing is published. Publish something
-                <% end %>
-              </div>
-            </div>          
-          </div>
-        </ul>
-      </div> 
+                  <% end %>
+                </div>
+              </div>          
+            </div>
+          </ul>
+        </div> 
+      </div>
     </div>
- </div>
- <br>
+    <br>
 
     <%= yield %>
     <%= javascript_include_tag "application" %>
-<br>
+    <br>
 
-<div class="row container">
-  <div class="icon-text">
-  
-    <div class="icons">
+    <div class="row container">
+      <div class="icon-text">
+        
+        <div class="icons">
 
-      <div class="sub-stuff">
-        <img class="midCloud" src="http://i221.photobucket.com/albums/dd22/djmid71/cloud__0000s_0011_Cloud_zps0caeeec1.png">       
-        <%= image_tag "Submarine_1.png", id: 'sub-hover', class: 'submarine-hidden' %>
-      </div>
-      <div class="facebook-stuff">
-        <div class="flipper">
-          <a href="http://facebook.com/badcomicsdotca" target="_blank">
-            <%= image_tag "facebook.png", class: 'facebook-icon front' %>
-            <%= image_tag "FacebookLike.jpg", class: 'facebook-icon back' %>
+          <div class="sub-stuff">
+            <img class="midCloud" src="http://i221.photobucket.com/albums/dd22/djmid71/cloud__0000s_0011_Cloud_zps0caeeec1.png">       
+            <%= image_tag "Submarine_1.png", id: 'sub-hover', class: 'submarine-hidden' %>
+          </div>
+          <div class="facebook-stuff">
+            <div class="flipper">
+              <a href="http://facebook.com/badcomicsdotca" target="_blank">
+                <%= image_tag "facebook.png", class: 'facebook-icon front' %>
+                <%= image_tag "FacebookLike.jpg", class: 'facebook-icon back' %>
+              </a>
+            </div>
+          </div>
+          <div class="twitter-stuff">
+            <p class="dialogue">Poo-tee-weet?</p>
+            <a href="http://twitter.com/badcomicsdotca" target="_blank"><%= image_tag "twitter.png", class: 'twitter-icon' %></a>
+          </div>
+          <a href="<%= new_contact_path %>" title="Contact Link">
+            <%= image_tag "Contact_1.jpg", class: 'contact-guy' %>
           </a>
         </div>
-      </div>
-      <div class="twitter-stuff">
-        <p class="dialogue">Poo-tee-weet?</p>
-        <a href="http://twitter.com/badcomicsdotca" target="_blank"><%= image_tag "twitter.png", class: 'twitter-icon' %></a>
-      </div>
-      <a href="<%= new_contact_path %>" title="Contact Link">
-        <%= image_tag "Contact_1.jpg", class: 'contact-guy' %>
-      </a>
-    </div>
-    <div class="large-8 small-8 medium-8 columns">
-      <%= simple_form_for @subscriber, html: { class: 'box' }, remote: true do |f| %>
-        <%= f.input :email, label: false, class: 'subscriber-email large-4 columns' %>
-        <%= f.button :submit, :label => 'Subscribe', value: 'Subscribe', class: 'subscriber-submit large-2 columns' %>
-      <% end %>
-    </div>
-    <div class="row">
-      <div class="large-12 small-12 columns disclaimer-text">
-        <p class="disclaimer">These comics aren't meant to offend anyone. Except you - you nosey, little twerp.</p>
-        <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png" /></a>
-        <a href="https://flattr.com/submit/auto?user_id=Badcomics&url=http%3A%2F%2Fbadcomics.ca" target="_blank"><img src="//button.flattr.com/flattr-badge-large.png" alt="Flattr this" title="Flattr this" border="0"></a>
+        <div class="large-8 small-8 medium-8 columns">
+          <%= simple_form_for @subscriber, html: { class: 'box' }, remote: true do |f| %>
+          <%= f.input :email, label: false, class: 'subscriber-email large-4 columns' %>
+          <%= f.button :submit, :label => 'Subscribe', value: 'Subscribe', class: 'subscriber-submit large-2 columns' %>
+          <% end %>
+        </div>
+        <div class="row">
+          <div class="large-12 small-12 columns disclaimer-text">
+            <p class="disclaimer">These comics aren't meant to offend anyone. Except you - you nosey, little twerp.</p>
+            <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png" /></a>
+            <a href="https://flattr.com/submit/auto?user_id=Badcomics&url=http%3A%2F%2Fbadcomics.ca" target="_blank"><img src="//button.flattr.com/flattr-badge-large.png" alt="Flattr this" title="Flattr this" border="0"></a>
+          </div>
+        </div>
+        
       </div>
     </div>
-    
-  </div>
-</div>
-<br>
-<br>
-<br>
+    <br>
+    <br>
+    <br>
   </body>
-</html>
+  </html>
