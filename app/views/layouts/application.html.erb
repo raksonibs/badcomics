@@ -120,15 +120,21 @@
   </div>
 
 <div class="row container header">
-  <div class="large-5 small-5 columns logo">
-    <h1><%= image_tag "logo.png", class: 'logo-img' %></h1>
-  </div>
-  <div class="large-7 small-7 columns buttons">
+  <div class="large-12 small-12 columns logo">
+    <div class="row">
+      <div class="large-3 small-3 columns logo">
+        <h1><%= image_tag "logo.png", class: 'logo-img', alt: 'Bad Comics' %></h1>
+      </div>
+      <div class="large-5 small-5 columns">
+        
+        <h1><%= image_tag "NewestHeader.png", class: 'header-img'%></h1>      
+      </div>
+      </div>
+    </div>
     <div class="row">
       <div class="large-12 small-12 columns">
-        <ul class="right button-group">
-          <li class='header-image'><%= image_tag "NewestHeader.png", class: 'header-img'%></li>
-          <div class="large-12 small-12 columns links-nav">
+        <ul class="button-group">
+          <div class="links-nav">
             <div class="row">
               <% if !User.allPublishedImages.empty? %>
                 <li class="hovered"><%= image_tag "outline_t.png" %></li>
@@ -145,6 +151,26 @@
                   <% randomId = User.allPublishedImages.sample.id %>
                   <li class="nav"><%= link_to "Random", random_path(randomId) %></li>
                 </div>
+                <div class="large-3 small-3 columns">
+                  <li class="nav"><a href="<%= new_contact_path %>" title="Contact Link">
+                  <%= image_tag "Contact_1.jpg", class: 'contact-guy' %>
+                  </li>
+                </div>
+                <div class="large-3 small-3 columns">
+                  <li class="nav"><a href="http://twitter.com/badcomicsdotca" target="_blank"><%= image_tag "twitter.png", class: 'twitter-icon' %></a></li>
+                </div>
+                <div class="large-3 small-3 columns">
+                  <li class="nav"><a href="http://facebook.com/badcomicsdotca" target="_blank">
+                    <%= image_tag "facebook.png", class: 'facebook-icon front' %>
+                    <%= image_tag "FacebookLike.jpg", class: 'facebook-icon back' %>
+                  </a>
+                  </li>
+                </div>
+                <div class="large-3 small-3 columns">
+                  <li class="nav">
+                    <%= image_tag "Submarine_1.png", id: 'sub-hover', class: 'submarine-hidden' %>           
+                  </li>
+                </div>
                 <% else %>
                   Nothing is published. Publish something
                 <% end %>
@@ -154,7 +180,6 @@
         </ul>
       </div> 
     </div>
-   </div>
  </div>
  <br>
 

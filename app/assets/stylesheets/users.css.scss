@@ -52,16 +52,16 @@
   }
 }
 
-.header-image {
+.header-img {
   width: 100% !important;
   max-width: 100%;
   height: 10%;
   margin-bottom: 6px !important;
 }
 
-.header-image img {
-  width: 100% !important;
-  max-width: 100%;
+.header-img {
+  left: -50% !important;
+  position: relative !important;
 }
 
 /*.logo-img {
@@ -73,6 +73,11 @@
   width: 100%;
   height: 120px;
 }*/
+
+.logo {
+  position: relative;
+  left: 3%;
+}
 
 @font-face {
   font-family: 'tomhand';    
