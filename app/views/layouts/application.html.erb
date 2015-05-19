@@ -165,22 +165,22 @@
                 <li class="hovered">
                   <%= image_tag "outline_t.png" %>
                 </li>
-                <div class="large-2 small-2 columns">
+                <div class="large-1 small-1 columns linky-link">
                   <li class="nav first">
                     <%= link_to "Today", root_url %>
                   </li>
                 </div>
-                <div class="large-2 small-2 columns">
+                <div class="large-1 small-1 columns linky-link">
                   <li class="nav">
                     <%= link_to "Past", past_path %>
                   </li>
                 </div>
-                <div class="large-2 small-2 columns">
+                <div class="large-1 small-1 columns linky-link">
                   <li class="nav">
                     <%= link_to 'About', about_path %>
                   </li>
                 </div>
-                <div class="large-2 small-2 columns last-social">
+                <div class="large-1 small-1 columns linky-link last-social">
                   <% randomId = User.allPublishedImages.sample.id %>
                   <li class="nav">
                     <%= link_to "Random", random_path(randomId) %>
