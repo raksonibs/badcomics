@@ -16,6 +16,15 @@ test:
   username: myapp
   password: password1
 
+staging:
+  adapter: postgresql
+  encoding: unicode
+  database: badcomics_staging
+  host: localhost
+  pool: 5
+  username: myapp
+  password: password1
+
 production:
   adapter: postgresql
   encoding: unicode
