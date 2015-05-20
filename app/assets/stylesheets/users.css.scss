@@ -647,3 +647,24 @@ li {
 .linky-link {
   margin-left: 9px;
 }
+
+#spinner {
+  display: none;
+}
+
+#img-shown {
+  visibility: hidden !important;
+}
+
+.striking {
+  text-decoration: line-through;
+}
+
+#rotate-pie {
+  -webkit-animation: rotation 2s infinite linear;
+}
+
+@-webkit-keyframes rotation {
+    from {-webkit-transform: rotate(0deg);}
+    to   {-webkit-transform: rotate(359deg);}
+}

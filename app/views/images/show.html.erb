@@ -21,6 +21,10 @@
     <% end %>
 
     <div class="large-8 small-8 columns comic-img <%= @image.is_last? ? 'shift-left': '' %>">
+      <div id="spinner">
+        <%= image_tag 'Pie_1.png', id: 'rotate-pie' %>
+        <h2>Loading <em class='striking'>Pie</em> Image...</h2>
+      </div>
       <%= image_tag @image.comic, class: 'comic-img-load', id: 'img-shown' %>
     </div>
 

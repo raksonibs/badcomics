@@ -1,6 +1,7 @@
 $(document).ready(function() {
 
   if (!([].equals($('#img-shown')))) {
+    $('#spinner').fadeIn()
     var height = document.getElementById('img-shown').clientHeight;      
     $.each($('.arrow-vert'), function( index, value ) {      
       // $(value).css('display', 'flex').css('align-items', 'center').css('justify-content', 'center')
@@ -36,7 +37,6 @@ $(document).ready(function() {
   }
 
   $('.nav-social').hover(function() {
-    console.log('akdmaskdasd')
     $(this).stop().animate({
         top: -50
       }, 900, "easeOutBounce");
@@ -47,7 +47,6 @@ $(document).ready(function() {
     });
 
   $('.comic-img-load').load(function() {    
-
     $('#img-shown').style('visibility', 'hidden', 'important')
     var height = document.getElementById('img-shown').clientHeight;    
     $.each($('.arrow-vert'), function( index, value ) {      
@@ -63,6 +62,10 @@ $(document).ready(function() {
       })
 
     })
+  })
+
+  $('#img-shown').load(function() {
+    $('#spinner').fadeOut()
     $('#img-shown').style('visibility', 'visible', 'important')    
   })
 
