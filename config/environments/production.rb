@@ -116,9 +116,9 @@ Rails.application.configure do
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
 
-  config.absolute_site_url = 'https://blooming-depths-6271.herokuapp.com/images/Car'
-  config.action_controller.asset_host = 'https://blooming-depths-6271.herokuapp.com/images/Car'
-  config.action_mailer.asset_host = 'https://blooming-depths-6271.herokuapp.com/images/Car'
+  config.absolute_site_url = 'badcomics.ca'
+  config.action_controller.asset_host = 'badcomics.ca'
+  config.action_mailer.asset_host = 'badcomics.ca'
 
 
 end
