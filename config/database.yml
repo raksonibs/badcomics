@@ -17,13 +17,10 @@ test:
   password: password1
 
 staging:
-  adapter: postgresql
-  encoding: unicode
-  database: badcomics_staging
-  host: localhost
+  adapter: sqlite3
+  database: db/staging.sqlite3
   pool: 5
-  username: myapp
-  password: password1
+  timeout: 5000
 
 production:
   adapter: postgresql
