@@ -1,0 +1,6 @@
+.row.container
+  .large-12.small-12.columns
+    %h5 So you want to subscribe eh?
+    = simple_form_for @subscriber, html: { class: 'box-non' }, remote: true do |f|
+      = f.input :email, label: false, class: 'subscriber-email large-4 columns'
+      = f.button :submit, :label => 'Subscribe', value: 'Subscribe', class: 'subscriber-submit large-2 columns'

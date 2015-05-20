@@ -53,6 +53,8 @@ Rails.application.routes.draw do
   match '/404', to: 'users#error_404', via: :all
   match '/422', to: 'users#error_422', via: :all
   match '/500', to: 'users#error_us', via: :all
+
+  get '/new_sub', to: 'subscribers#new'
   
   get '*path' => redirect('/404')
 end

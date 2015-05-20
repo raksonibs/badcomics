@@ -277,7 +277,7 @@ li.nav a {
   text-align: center
 }
 
-.box{
+.box, .box-non {
   width: 56%;
   height: 100%;
   position: absolute;
@@ -287,6 +287,13 @@ li.nav a {
   z-index: 10;
   display: none;
   top: -192px;
+}
+
+.box-non {
+  top: 0;
+  display: block;
+  position: relative;
+  width: 90%;
 }
 
 .base-cont {
@@ -611,4 +618,22 @@ li {
 
 .disable-please:click {
   disabled: disabled;
+}
+
+.nav-social {
+  -webkit-transition: all 2s ease;
+  -ms-transition: all 2s ease;
+  -moz-transition: all 2s ease;
+          transition: all 2s ease;        
+}
+
+.nav-social:hover {
+
+  -ms-transform: rotate(-360deg); /* IE 9 */
+    -webkit-transform: rotate(-360deg); /* Safari */
+    transform: rotate(-360deg);
+}
+
+.first-link {
+  margin-left: 20px !important;
 }

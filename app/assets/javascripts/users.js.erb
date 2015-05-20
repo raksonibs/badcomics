@@ -155,7 +155,7 @@ $(document).ready(function() {
 
   var email = ''
 
-  $('.box').submit(function() {
+  $('.box, .box-non').submit(function() {
     email = $($('input[type="email"]')[0]).val()
     if (email !== "") {
     } else {
@@ -184,7 +184,7 @@ $(document).ready(function() {
       }, 5000);
     })
 
-  $('.box').on("ajax:success", function(e,data, status, xhr) {
+  $('.box, .box-non').on("ajax:success", function(e,data, status, xhr) {
     $('.conf-cont').fadeIn().next().delay(5000).fadeOut();
     $('.success-text').text("You've subscribed "+email+". We love you "+email+"! Confetti for "+ email+"!")
 
