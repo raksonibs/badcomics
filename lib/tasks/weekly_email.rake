@@ -11,7 +11,7 @@ namespace :weekly_email do
       BadMailer.weekly_email(subscriber, hostname, @showThisOne, @publishedLessShow).deliver
     end
 
-    puts "#{@subscribers.count} Emails went out with #{@publishedComicsThisWeek.count} comics. #{@showThisOne.title} is the image shown in the email"
+    puts "#{@subscribers.count} Emails went out with #{@publishedComicsThisWeek.count} comics."
 
   end
   

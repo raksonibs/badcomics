@@ -1,8 +1,15 @@
 .row
   .large-12.small-12.columns.welcome.center
-    %div
-      Hiya! We did a lot on Bad Comics this week. Here is one comic we published. Here are the titles of the other ones. Check the site for more!
-    = image_tag @showThisOne.comic
+    %tr
+      %td
+        = image_tag "first.png"
+    %tr
+      %td
+        Women come and go, speaking of Bad Comics-o.
+
+        Here are the comics we published this week. Check the site for more!
     -# NTD: Make these links
     - @published.each do |image|
-      = image.title
+      %tr
+        %td
+          %a{:href => "#{image_url(image)}"}
