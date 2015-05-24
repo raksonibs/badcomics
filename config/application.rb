@@ -15,7 +15,7 @@ module Badcomics
         g.fixture_replacement :factory_girl, :dir => "spec/factories"
     end
 
-    config.serve_static_assets = true
+    # config.serve_static_assets = true
 
     config.time_zone
     config.generators.stylesheets = false
