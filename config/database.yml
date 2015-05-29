@@ -4,8 +4,6 @@ development:
   database: badcomics_development
   host: localhost
   pool: 5
-  username: myapp
-  password: password1
 
 test:
   adapter: postgresql
@@ -13,8 +11,6 @@ test:
   database: badcomics_test
   host: localhost
   pool: 5
-  username: myapp
-  password: password1
 
 production:
   adapter: postgresql
@@ -22,5 +18,3 @@ production:
   database: badcomics_production
   host: localhost
   pool: 5
-  username: myapp
-  password: password1
