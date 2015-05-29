@@ -55,6 +55,7 @@ group :production do
   # Server
   gem 'unicorn'
   # gem 'hooves', require: "hooves/default"
+  gem 'rollbar', '~> 1.5.1'
 end
 
 gem 'authy'
@@ -68,5 +69,3 @@ gem 's3_direct_upload'
 gem 'friendly_id'
 
 gem 'pg'
-
-gem 'rollbar', '~> 1.5.1'
