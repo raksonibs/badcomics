@@ -67,9 +67,9 @@ GEM
       thor (~> 0.14)
     font-awesome-rails (4.3.0.0)
       railties (>= 3.2, < 5.0)
-    foundation-rails (5.5.0.0)
+    foundation-rails (5.4.3.1)
       railties (>= 3.1.0)
-      sass (>= 3.2.0, < 3.4)
+      sass (>= 3.2.0)
     friendly_id (5.1.0)
       activerecord (>= 4.0.0)
     globalid (0.3.5)
@@ -228,7 +228,7 @@ DEPENDENCIES
   coffee-rails (~> 4.0.0)
   figaro
   font-awesome-rails
-  foundation-rails
+  foundation-rails (= 5.4.3.1)
   friendly_id
   haml
   jbuilder (~> 2.0)

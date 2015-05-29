@@ -35,7 +35,7 @@ gem 'haml'
 
 gem "paperclip", "~> 4.2"
 
-gem 'foundation-rails'
+gem 'foundation-rails', '5.4.3.1'
 
 gem 'sorcery'
 
