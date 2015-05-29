@@ -16,5 +16,5 @@ production:
   adapter: postgresql
   encoding: unicode
   database: badcomics_production
-  host:
+  host: localhost
   pool: 5
