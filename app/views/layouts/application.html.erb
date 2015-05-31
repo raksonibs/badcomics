@@ -146,6 +146,34 @@
         </div>
       </div>
     </div>
+
+    <div class="row">
+      <div class="large-12 small-12 columns non-centered-header">
+        <% if !User.allPublishedImages.empty? %>
+        <li class="hovered">
+          <%= image_tag "outline_t.png" %>
+        </li>
+        <div class="large-3 small-3 columns linky-link">
+          <li class="nav">
+            <%= link_to "Past", past_path %>
+          </li>
+        </div>
+        <div class="large-3 small-3 columns linky-link last-social">
+          <% randomId = User.allPublishedImages.sample.id %>
+          <li class="nav">
+            <%= link_to "Random", random_path(randomId) %>
+          </li>
+        </div>
+        <div class="large-3 small-3 columns linky-link">
+          <li class="nav">
+            <%= link_to 'About', about_path %>
+          </li>
+        </div>
+        <% else %>                    
+        Nothing is published. Publish something
+        <% end %>
+      </div>
+    </div>
     
      
 
