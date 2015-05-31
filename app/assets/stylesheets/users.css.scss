@@ -29,6 +29,13 @@
   font-style: normal;
 }
 
+@font-face {
+  font-family: 'tomhand';    
+  src: url('/assets/tomhand.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
 .links-nav {
   margin-left: 0;
   padding-left: 0;
@@ -67,29 +74,24 @@
   flex-direction: column;
 }
 
-/*.fish-icon {
-  max-width: 10%;
+.fish-line {
+  width: 40% !important;
 }
 
-/*.sub-fish {
-  max-width: 47px;
-}*/
+.fish-text {
+  margin: 0;
+  padding: 0;
+  font-family: 'tomhand' !important;
+  font-weight: 900; 
+}
 
-/*.fishing-icons {
+.fishing {
   position: relative;
-  top: -7px;
-  left: -23px;
-}*/
+  left: -20px;
+}
 
 .linky-link:last-of-type {
   float: left !important;
-}
-
-@font-face {
-  font-family: 'tomhand';    
-  src: url('/assets/tomhand.ttf') format('truetype');
-  font-weight: normal;
-  font-style: normal;
 }
 
 body {
@@ -535,7 +537,6 @@ input[type="submit"]:hover {
   background: white;
   border-radius: 28px;
   padding-top: 2px;
-  padding-bottom: 20px;
 
   .comic-img {
     height: auto;
