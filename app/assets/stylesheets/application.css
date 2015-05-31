@@ -5,8 +5,9 @@
  * file per style scope.
  *
  *= require_tree .
- *= require_self
  *= require foundation_and_overrides
+ *= require social-share-button
  *= require jquery-ui/sortable
  *= require font-awesome
+ *= require_self
  */

@@ -1,6 +1,7 @@
 //= require jquery
 //= require jquery_ujs
 //= require jquery-ui/sortable
+//= require social-share-button
 //= require s3_direct_upload
 //= require foundation
 //= require turbolinks

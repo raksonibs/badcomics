@@ -69,3 +69,5 @@ gem 's3_direct_upload'
 gem 'friendly_id'
 
 gem 'pg'
+
+gem 'social-share-button'
