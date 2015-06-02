@@ -135,11 +135,13 @@
 
           <div class="large-3 small-3 columns fishing">
             
-            <%= image_tag "Submarine_1.png", class: 'fish-line' %>
+            <%= link_to new_subscriber_path do %>
+              <%= image_tag "Submarine_1.png", class: 'fish-line' %>
+            <% end %>
             <p class='fish-text'>Subscribe</p>
-            <%= image_tag "facebook.png", class: 'fish-line' %>
+            <a href="http://facebook.com/badcomicsdotca" target="_blank"><%= image_tag "facebook.png", class: 'fish-line' %></a>
             <p class='fish-text'> Facebook </p>
-            <%= image_tag "twitter.png", class: 'fish-line' %>
+            <a href="http://twitter.com/badcomicsdotca" target="_blank"><%= image_tag "twitter.png", class: 'fish-line' %></a>
             <p class='fish-text'> Twitter </p>
           </div>
           
