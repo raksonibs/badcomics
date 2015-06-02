@@ -674,6 +674,8 @@ li {
 
 #spinner {
   display: none;
+  text-align: center;
+  margin: auto;
 }
 
 #img-shown {
@@ -686,6 +688,7 @@ li {
 
 #rotate-pie {
   -webkit-animation: rotation 2s infinite linear;
+  width: 50%;
 }
 
 @-webkit-keyframes rotation {
