@@ -240,4 +240,12 @@ $(document).ready(function() {
       })
     }
   })
+
+  setTimeout(function() {
+    $('#spinner').fadeOut();
+    $('#img-shown').style('visibility', 'visible', 'important');
+    $.each($('.arrow-vert'), function( index, value) {
+      $(value).style('visibility', 'visible', 'important')
+    })
+  }, 1000);
 })
