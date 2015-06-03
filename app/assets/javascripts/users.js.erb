@@ -31,7 +31,6 @@ $(document).ready(function() {
 
   $('#sub-hover').hover(function() {
       $('.midCloud').css('visibility', 'visible')
-      // $('.icons').css('position', 'relative').css('left', '-5%')
     }, function() {
       $('.midCloud').css('visibility', 'hidden')
   })
@@ -56,7 +55,7 @@ $(document).ready(function() {
       }, 900, "easeOutBounce");
     });
 
-  $('.comic-img-load').load(function() {    
+  $('.comic-img-load').load(function() { 
     $('#img-shown').style('visibility', 'hidden', 'important')
     var height = document.getElementById('img-shown').clientHeight;    
     $.each($('.arrow-vert'), function( index, value ) {      
