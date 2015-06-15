@@ -150,7 +150,7 @@
     </div>
 
     <div class="row">
-      <div class="large-12 small-12 columns non-centered-header">
+      <div class="large-12 small-12 columns">
         <% if !User.allPublishedImages.empty? %>
         <li class="hovered">
           <%= image_tag "outline_t.png" %>
@@ -169,6 +169,11 @@
         <div class="large-3 small-3 columns linky-link">
           <li class="nav">
             <%= link_to 'About', about_path %>
+          </li>
+        </div>
+        <div class="large-3 small-3 columns linky-link">
+          <li class="nav">
+            <%= link_to 'Contact', new_contact_path %>
           </li>
         </div>
         <% else %>                    
@@ -193,32 +198,6 @@
 
     <div class="icons">
 
-      <div class="sub-stuff">
-        <img class="midCloud" src="http://i221.photobucket.com/albums/dd22/djmid71/cloud__0000s_0011_Cloud_zps0caeeec1.png">       
-        <%= image_tag "Submarine_1.png", id: 'sub-hover', class: 'submarine-hidden' %>
-      </div>
-      <div class="facebook-stuff">
-        <div class="flipper">
-          <a href="http://facebook.com/badcomicsdotca" target="_blank">
-            <%= image_tag "facebook.png", class: 'facebook-icon front' %>
-            <%= image_tag "FacebookLike.jpg", class: 'facebook-icon back' %>
-          </a>
-        </div>
-      </div>
-      <div class="twitter-stuff">
-        <p class="dialogue">Poo-tee-weet?</p>
-        <a href="http://twitter.com/badcomicsdotca" target="_blank"><%= image_tag "twitter.png", class: 'twitter-icon' %></a>
-      </div>
-      <a href="<%= new_contact_path %>" title="Contact Link">
-        <%= image_tag "Contact_1.jpg", class: 'contact-guy' %>
-      </a>
-    </div>
-    <div class="large-8 small-8 medium-8 columns">
-      <%= simple_form_for @subscriber, html: { class: 'box' }, remote: true do |f| %>
-      <%= f.input :email, label: false, class: 'subscriber-email large-4 columns' %>
-      <%= f.button :submit, :label => 'Subscribe', value: 'Subscribe', class: 'subscriber-submit large-2 columns' %>
-      <% end %>
-    </div>
     <div class="row">
       <div class="large-12 small-12 columns disclaimer-text">
         <p class="disclaimer">These comics aren't meant to offend anyone. Except you - you nosey, little twerp.</p>
