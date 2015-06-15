@@ -1,19 +1,6 @@
 $(document).ready(function() {
 
-  if (!([].equals($('#img-shown')))) {
-    $('#spinner').fadeIn()
-    var height = document.getElementById('img-shown').clientHeight;      
-    $.each($('.arrow-vert'), function( index, value ) {      
-      // $(value).css('display', 'flex').css('align-items', 'center').css('justify-content', 'center')
-      if ($(value).hasClass('smaller-next')) {
-        $(value).css('position', 'relative').css('top', '50%').css('transform', 'translateY('+((height/2)-70)+'px)').css('visibility', 'visible');
-      } else {
-        $(value).css('position', 'relative').css('top', '50%').css('transform', 'translateY('+((height/2)-50)+'px)').css('visibility', 'visible');
-      }
-    })
-  }
-
-  $('.logo-head, .arrow-vert').click(function() {
+  $('.logo-head').click(function() {    
     setTimeout(function() {
       $('#spinner').fadeOut();
       $('#img-shown').style('visibility', 'visible', 'important');
@@ -55,7 +42,12 @@ $(document).ready(function() {
       }, 900, "easeOutBounce");
     });
 
-  $('.comic-img-load').load(function() { 
+  if (!([].equals($('.comic-img-load')))) {
+    $('#spinner').fadeIn()
+  }
+
+  $('.comic-img-load').load(function() {
+    $(this).removeClass('not-loading')     
     $('#img-shown').style('visibility', 'hidden', 'important')
     var height = document.getElementById('img-shown').clientHeight;    
     $.each($('.arrow-vert'), function( index, value ) {      
@@ -66,17 +58,35 @@ $(document).ready(function() {
         $(value).css('position', 'relative').css('top', '50%').css('transform', 'translateY('+((height/2)-50)+'px)').css('visibility', 'visible');
       }
 
-      $.each($('.arrow-vert'), function( index, value) {
-        $(value).style('visibility', 'visible', 'important')
-      })
-
     })
-  })
-
-  $('#img-shown').load(function() {
+    $.each($('.arrow-vert'), function( index, value) {
+      $(value).style('visibility', 'visible', 'important')
+    })    
     $('#spinner').fadeOut()
     $('#img-shown').style('visibility', 'visible', 'important')    
   })
+
+  if (!([].equals($('.comic-img-load')))) {
+    if ($('#img-shown').css('visibility') === 'hidden' && document.getElementById("img-shown").complete) {      
+      setTimeout(function() {
+        $('#spinner').fadeOut()
+        $('#img-shown').style('visibility', 'visible', 'important')
+        var height = document.getElementById('img-shown').clientHeight;        
+        $.each($('.arrow-vert'), function( index, value ) {      
+          // $(value).css('display', 'flex').css('align-items', 'center').css('justify-content', 'center')
+          if ($(value).hasClass('smaller-next')) {
+            $(value).css('position', 'relative').css('top', '50%').css('transform', 'translateY('+((height/2)-70)+'px)').css('visibility', 'visible');
+          } else {
+            $(value).css('position', 'relative').css('top', '50%').css('transform', 'translateY('+((height/2)-50)+'px)').css('visibility', 'visible');
+          }
+
+        })
+        $.each($('.arrow-vert'), function( index, value) {
+          $(value).style('visibility', 'visible', 'important')
+        })
+      }, 1000)
+    }
+  }
 
   $('.contact-guy').hover(function() {
     $(this).attr('src', '/assets/ContactSmallGif.gif').css('height', '100%')
@@ -240,12 +250,4 @@ $(document).ready(function() {
       })
     }
   })
-
-  setTimeout(function() {
-    $('#spinner').fadeOut();
-    $('#img-shown').style('visibility', 'visible', 'important');
-    $.each($('.arrow-vert'), function( index, value) {
-      $(value).style('visibility', 'visible', 'important')
-    })
-  }, 1000);
 })
