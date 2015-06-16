@@ -21,14 +21,14 @@ class ImagesController < ApplicationController
     if @image.published?
       # redirect_to @image
     else
-      redirect_to normal_path
+      redirect_to home_path(current_user.id)
     end
   end
 
   def destroy
     @image = Image.friendly.find(params[:id])
     @image.destroy!
-    redirect_to home_path(current_user)
+    redirect_to home_path(current_user.id)
   end
 
   private
