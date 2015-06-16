@@ -693,3 +693,14 @@ li {
 .contact-form {
   padding-left: 10px;
 }
+
+.comments {
+  text-align: center;
+  margin: 0 auto; 
+
+  .dis-comments {
+    position: relative;
+    left: 16%;
+    margin-top: 10px;
+  }
+}
