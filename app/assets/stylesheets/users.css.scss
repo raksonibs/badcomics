@@ -118,6 +118,8 @@ h3 {
   font-family: 'tomhand' !important;
   font-size: 1.15em;
   font-weight: 900;
+  margin-top: 10px;
+  text-align: center;
 }
 
 h2 {
@@ -634,26 +636,6 @@ li {
   display: inline-block;
 }
 
-@media only screen and (max-width: 723px) { 
-  .left.shift-left,
-  .right.shift-right {
-    clear: both !important;
-    float: none !important;
-  }
-
-  .shift-left {
-    left: -7%;
-  }
-
-  .shift-right {
-    left: 5%;
-  }
-
-  .contact-holder {
-    text-align: center !important;
-  }
-}
-
 .hidden {
   display: none;
 }
@@ -706,4 +688,8 @@ li {
 
 .share-center {
   text-align: center;
+}
+
+.contact-form {
+  padding-left: 10px;
 }
