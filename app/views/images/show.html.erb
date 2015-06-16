@@ -42,12 +42,11 @@
     <% end %>
     <div class="row">
       <div class="large-12 small-12 columns share-center">
-        
         <%= social_share_button_tag(@image.title, :url => "#{image_url(@image)}", :popup => "true") %>
       </div>
     </div>
 
-    <div class="row comments">
+    <!-- <div class="row comments">
       <div class="large-8 small-8 columns share-center dis-comments">
         
           <div id="disqus_thread"></div>
@@ -64,7 +63,7 @@
           </script>
           <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
       </div>
-    </div>
+    </div> -->
   </div>
 
   <% else %>
