@@ -1,6 +1,6 @@
 GIT
   remote: git@github.com:raksonibs/social-share-button.git
-  revision: 4ff0b501aae845b3442eaefb8e231bb8f8747780
+  revision: 60796e273c0be11011fafdb88a864bb33e2e92fd
   specs:
     social-share-button (0.1.9)
       coffee-rails
