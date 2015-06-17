@@ -179,7 +179,7 @@ $(document).ready(function() {
 
   $('.box, .box-non').submit(function() {
     email = $($('input[type="email"]')[0]).val()
-    if (email !== "") {
+    if (validateEmail(email)) {
     } else {
       $('.flag.note.error').slideDown();
       setTimeout(function() {
@@ -187,6 +187,11 @@ $(document).ready(function() {
       }, 5000);
     }
   })
+
+  function validateEmail(email) {
+    var re = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
+    return re.test(email);
+  }
 
 
   $('.contact-form').on("ajax:success", function(e,data, status, xhr) {    
