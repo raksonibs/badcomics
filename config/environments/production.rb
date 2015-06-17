@@ -119,6 +119,7 @@ Rails.application.configure do
   config.absolute_site_url = 'badcomics.ca'
   config.action_controller.asset_host = 'badcomics.ca'
   config.action_mailer.asset_host = 'badcomics.ca'
+  config.action_mailer.default_url_options = { :host => 'badcomics.ca' }
 
 
 end

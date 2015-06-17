@@ -1,13 +1,41 @@
 .row
   .large-12.small-12.columns.welcome.center
+    %br
     %tr
       %td
-        = image_tag "first.png"
+        Here at Bad Comics we have been working on a lot this week. For example, this comic:
+    %br
     %tr
       %td
-        Women come and go, speaking of Bad Comics-o.
-
-        Here are the comics we published this week. Check the site for more!
+        = image_tag @showThisOne.comic
+    %br
+    %tr
+      %td
+        What about this one: 
+    %br
+    %tr
+      %td
+        = image_tag "comic_1.gif"
+    %br
+    %tr
+      %td
+        Just kidding, we didn't publish that one. We also didn't publish this one either:
+    %br
+    %tr
+      %td
+        = image_tag "old_comic1.jpeg"
+    %br
+    %tr
+      %td
+        I mean what is that one even about? But we did publish this last week and we thought it was pretty good:
+    %br
+    %tr
+      %td
+        = image_tag @publishedLastWeek.comic
+    %br
+    %tr
+      %td
+        Here is a bunch of other things we published as well. Check em out:
     -# NTD: Make these links
     - @published.each do |image|
       %tr

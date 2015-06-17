@@ -19,8 +19,9 @@ class BadMailer < ActionMailer::Base
     mail(to:  "thisbetterbeacompliment@badcomics.ca", subject: 'We were contacted!')
   end
 
-  def weekly_email(subscriber, hostname, showThisOne, published)
+  def weekly_email(subscriber, hostname, showThisOne, published, lastWeekComic)
     @showThisOne = showThisOne
+    @publishedLastWeek = lastWeekComic
     @published = published
     @subscriber = subscriber
     if Rails.env.development?
