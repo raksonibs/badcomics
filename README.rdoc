@@ -67,3 +67,6 @@ dev
 -> publish finance presentation
 -> write letters
 ssh root@104.131.76.121
+
+
+- have motor turning once photodiode on and then person hanging as if sky diving from fan below with lights and shit.
