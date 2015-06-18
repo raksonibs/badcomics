@@ -1,6 +1,6 @@
 GIT
   remote: git@github.com:raksonibs/social-share-button.git
-  revision: f0249a06d069889909ae655b077eb966a93b4f24
+  revision: 90fbc81c05e7f5cc27336222b89a85311de2c353
   specs:
     social-share-button (0.1.9)
       coffee-rails
@@ -141,7 +141,7 @@ GEM
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
       slop (~> 3.4)
-    rack (1.6.1)
+    rack (1.6.2)
     rack-test (0.6.3)
       rack (>= 1.0)
     rails (4.2.0)
