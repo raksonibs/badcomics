@@ -1,0 +1,91 @@
+<table class="twelve columns">
+  <tr>
+    <td class="panel">
+      <p>Here at Bad Comics we have been working on a lot this week. For example, this comic:</p>
+    </td>
+    <td class="expander"></td>
+  </tr>
+</table>
+
+<table class="twelve columns">
+  <tr>
+    <td>
+      <!-- <h1>Welcome, Daneel Olivan</h1>
+      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et.</p> -->
+      <%= image_tag @showThisOne.comic %>
+    </td>
+    <td class="expander"></td>
+  </tr>
+</table>
+
+<table class="twelve columns">
+  <tr>
+    <td class="panel">
+      <p>Or how about this sucker!</p>
+    </td>
+    <td class="expander"></td>
+  </tr>
+</table>
+
+<table class="twelve columns">
+  <tr>
+    <td>
+      <!-- <h1>Welcome, Daneel Olivan</h1>
+      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et.</p> -->
+      <%= image_tag "comic_1.gif" %>
+    </td>
+    <td class="expander"></td>
+  </tr>
+</table>
+
+<table class="twelve columns">
+  <tr>
+    <td class="panel">
+      <p>Just kidding, we didn't publish that one. We also certainly didn't publish this one either:</p>
+    </td>
+    <td class="expander"></td>
+  </tr>
+</table>
+
+<table class="twelve columns">
+  <tr>
+    <td>
+      <!-- <h1>Welcome, Daneel Olivan</h1>
+      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et.</p> -->
+      <%= image_tag "old_comic1.jpeg", class: 'old-image-shift' %>
+    </td>
+    <td class="expander"></td>
+  </tr>
+</table>
+
+<table class="twelve columns">
+  <tr>
+    <td class="panel">
+      <p>I mean what was that one even about? But we did publish this last week and we thought it was pretty good:</p>
+    </td>
+    <td class="expander"></td>
+  </tr>
+</table>
+
+<table class="twelve columns">
+  <tr>
+    <td>
+      <!-- <h1>Welcome, Daneel Olivan</h1>
+      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et.</p> -->
+      <%= image_tag @publishedLastWeek.comic %>
+    </td>
+    <td class="expander"></td>
+  </tr>
+</table>
+
+<table class="twelve columns">
+  <tr>
+    <td class="panel">
+      <p>Here is a bunch of other things we published this week as well. If you click, we both win.</p>
+      <% @published.each do |image| %>
+        <a href="<%= image_url(image)%>"><%= image.title %></p>
+      <% end %>
+    </td>
+    <td class="expander"></td>
+  </tr>
+</table>
