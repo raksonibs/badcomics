@@ -24,7 +24,7 @@ class BadMailer < ActionMailer::Base
     else
       @hostname = "http://badcomics.ca" 
     end
-    mail(to: @subscriber.email, subject: "Your Weekly Bad Comics")
+    mail(to: @subscriber.email, subject: "The Good Stuff at Bad Comics")
     redirect_to :weekly_email
   end
 
@@ -43,6 +43,6 @@ class BadMailer < ActionMailer::Base
     else
       @hostname = "http://badcomics.ca" 
     end
-    mail(to: @subscriber.email, subject: "Your Weekly Bad Comics")
+    mail(to: @subscriber.email, subject: "The Good Stuff at Bad Comics")
   end
 end
