@@ -46,7 +46,7 @@
 <table class="twelve columns" style="border-spacing: 0;border-collapse: collapse;padding: 0;vertical-align: top;text-align: left;margin: 0 auto;width: 580px;">
   <tr style="padding: 0;vertical-align: top;text-align: left;">
     <td style="word-break: break-word;-webkit-hyphens: auto;-moz-hyphens: auto;hyphens: auto;padding: 0px 0px 10px;vertical-align: top;text-align: left;color: #222222;font-family: &quot;Helvetica&quot;, &quot;Arial&quot;, sans-serif;font-weight: normal;margin: 0;line-height: 19px;font-size: 14px;border-collapse: collapse !important;">      
-      <img src="https://s3-us-west-2.amazonaws.com/badcomics/images/comics/old_comic1.jpeg" alt="" class="old-image-shift" style="outline: none;text-decoration: none;-ms-interpolation-mode: bicubic;width: auto;max-width: 100%; position:relative; left:22%;">
+      <img src="https://s3-us-west-2.amazonaws.com/badcomics/images/comics/old_comic1.jpeg" alt="" class="old-image-shift" style="position:relative; left:22%;outline: none;text-decoration: none;-ms-interpolation-mode: bicubic;width: auto;max-width: 100%; position:relative; left:22%;">
     </td>
     <td class="expander" style="word-break: break-word;-webkit-hyphens: auto;-moz-hyphens: auto;hyphens: auto;padding: 0 !important;vertical-align: top;text-align: left;color: #222222;font-family: &quot;Helvetica&quot;, &quot;Arial&quot;, sans-serif;font-weight: normal;margin: 0;line-height: 19px;font-size: 14px;visibility: hidden;width: 0px;border-collapse: collapse !important;"></td>
   </tr>
@@ -75,9 +75,10 @@
     <td class="panel" style="word-break: break-word;-webkit-hyphens: auto;-moz-hyphens: auto;hyphens: auto;padding: 10px !important;vertical-align: top;text-align: left;color: #222222;font-family: &quot;Helvetica&quot;, &quot;Arial&quot;, sans-serif;font-weight: normal;margin: 0;line-height: 19px;font-size: 14px;background: #f2f2f2;border: 1px solid #d9d9d9;border-collapse: collapse !important;">
       <p style="margin: 0;margin-bottom: 10px;color: #222222;font-family: &quot;Helvetica&quot;, &quot;Arial&quot;, sans-serif;font-weight: normal;padding: 0;text-align: left;line-height: 19px;font-size: 14px;">Here is a bunch of other things we published this week as well. If you click, we both win.</p>
       <% @published.each do |image| %>
-        <a href="&lt;%= image_url(image)%&gt;" style="color: #2ba6cb;text-decoration: none;"><%= image.title %>
+        <a href="<%= image_url(image)%>" style="color: #2ba6cb;text-decoration: none;"><%= image.title %></a>
+        <br>
       <% end %>
-    </a></td>
+    </td>
     <td class="expander" style="word-break: break-word;-webkit-hyphens: auto;-moz-hyphens: auto;hyphens: auto;padding: 0 !important;vertical-align: top;text-align: left;color: #222222;font-family: &quot;Helvetica&quot;, &quot;Arial&quot;, sans-serif;font-weight: normal;margin: 0;line-height: 19px;font-size: 14px;visibility: hidden;width: 0px;border-collapse: collapse !important;"></td>
   </tr>
 </table>
