@@ -1,8 +1,8 @@
 development:
-  access_key_id: AKIAIBWU44X4BXY4LWPQ
-  secret_access_key: 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
+  access_key_id: AKIAIX67TLP7FJEML7HQ
+  secret_access_key: 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
   bucket: 'badcomics'
 production:
-  access_key_id: AKIAJJEWJX2ECRZ2CLTA
-  secret_access_key: 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
+  access_key_id: AKIAIHEPE5WQZ7RJAYHQ
+  secret_access_key: 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
   bucket: 'badcomics'
