@@ -46,7 +46,12 @@ Rails.application.routes.draw do
   get '/save_order' => 'users#save_order', as: :save_order
 
   get '/store' => 'store#index', as: :store
-  get '/store/:cart_id/:product_id' => 'store#add_to_cart', as: :add_to_cart
+#   scope :format => true, :constraints => { :format => 'json' } do
+#   get '/bar' => "bar#index_with_json"
+# end
+  scope :format => true, :constraints => { :format => 'json' } do
+    get '/store/:cart_id/:product_id' => 'store#add_to_cart', as: :add_to_cart
+  end
 
   resources :registrations
   resources :products

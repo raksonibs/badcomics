@@ -19,9 +19,9 @@ class StoreController < ApplicationController
   def add_to_cart
     @cart = Cart.find(params[:cart_id])    
     @product = Product.find(params[:product_id])    
-    @cart.products << @product  
+    @cart.products << @product
     respond_to do |format|
-      format.js{ render 'add_to_cart', locals: { :@cart => @cart } }
+      format.json { render json: @cart}
     end
   end
 

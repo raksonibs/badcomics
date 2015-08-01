@@ -53,11 +53,11 @@ if Subscriber.all.count <= 0
 end
 
 Product.destroy_all
-@product_one = Product.new({name: 'Bad Comics Shirt', colour: 'White', description: 'This is a great shirt, buy it', price: 100, image_url: Image.last.comic}).save
-@product_two = Product.new({name: 'Bad Comics Umbrella', colour: 'Black', description: 'For males and females', price: 50, image_url: Image.first.comic}).save
-@product_three = Product.new({name: 'Bad Comics Cups', colour: nil, description: 'Drink blood', price: 250, image_url: Image.all[-2].comic}).save
-@product_four = Product.new({name: 'Bad Comics Poster', colour: nil, description: 'Basically a large, stickyless post-it note with stuff already scribbled on it', price: 10, image_url: Image.all[-4].comic}).save
-@product_five = Product.new({name: 'Bad Comics Festival Custom Card', colour: nil, description: 'Custom stuff', price: 30, image_url: Image.all[-3].comic}).save
-@product_six = Product.new({name: 'Bad Comics Birthday Card', colour: nil, description: 'Custom stuff', price: 2, image_url: Image.all[-5].comic}).save
+@product_one = Product.new({name: 'Shirt', colour: 'White', description: 'This is a great shirt, buy it', price: 100, image_url: Image.last.comic}).save
+@product_two = Product.new({name: 'Umbrella', colour: 'Black', description: 'For males and females', price: 50, image_url: Image.first.comic}).save
+@product_three = Product.new({name: 'Cups', colour: nil, description: 'Drink blood', price: 250, image_url: Image.all[-2].comic}).save
+@product_four = Product.new({name: 'Poster', colour: nil, description: 'Basically a large, stickyless post-it note with stuff already scribbled on it', price: 10, image_url: Image.all[-4].comic}).save
+@product_five = Product.new({name: 'Festival Custom Card', colour: nil, description: 'Custom stuff', price: 30, image_url: Image.all[-3].comic}).save
+@product_six = Product.new({name: 'Birthday Card', colour: nil, description: 'Custom stuff', price: 2, image_url: Image.all[-5].comic}).save
 
 
