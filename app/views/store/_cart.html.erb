@@ -1,3 +1,4 @@
-<p> <%= current_cart.name %> </p>
-<p> <%= current_cart.products.count %> </p>
-<p> Price <%= current_cart.products.map(&:price).inject(:+) %></p>
+<% @cart = @cart || current_cart %>
+<p class="cart-name"> <%= @cart.name %> </p>
+<p> Number of items: <span class="cart-items"> <%= @cart.products.count %> </span></p>
+<p> Price: <span class="cart-price"><%= @cart.products.map(&:price).inject(0){ |sum, i| sum + i } %></span></p>

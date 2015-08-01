@@ -17,12 +17,11 @@ class StoreController < ApplicationController
   end
 
   def add_to_cart
-    @cart = Cart.find(params[:cart_id])
-    @product = Product.find(params[:product_id])
-    @cart.products << @product
+    @cart = Cart.find(params[:cart_id])    
+    @product = Product.find(params[:product_id])    
+    @cart.products << @product  
     respond_to do |format|
-      format.html
-      format.js
+      format.js{ render 'add_to_cart', locals: { :@cart => @cart } }
     end
   end
 
