@@ -5,13 +5,15 @@
       
     </div>
     <p> List all products </p>
+    <ul class="clearing-thumbs" data-clearing>
+
     <% @products.each do |product| %>
-      <p><%= product.name %><br>
-      <%= product.price %><br>
-      <%= product.description %><br>
-      </p>
+      <li><a href="<%= product.image_url %>" data-caption="<%= product.name %>" data-clearing-interchange="[#{product.image_url}, (default)], [#{product.image_url}, (large)]"><img src="#{product.image_url}"><%= product.name %></a></li><br>
+      <p>
       <%= link_to 'Add to Cart', add_to_cart_path(current_cart.id, product.id) %>
+      </p>
     <% end %>
+    </ul>
     <%= render 'form' %>
   </div>
 </div>
