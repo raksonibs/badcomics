@@ -1,6 +1,17 @@
 <div class="row container">
   <div class="large-12 small-12 columns">
+    <div id="cart">
+      <%= render 'cart' %>
+      
+    </div>
     <p> List all products </p>
+    <% @products.each do |product| %>
+      <p><%= product.name %><br>
+      <%= product.price %><br>
+      <%= product.description %><br>
+      </p>
+      <%= link_to 'Add to Cart', add_to_cart_path(current_cart.id, product.id) %>
+    <% end %>
     <%= render 'form' %>
   </div>
 </div>

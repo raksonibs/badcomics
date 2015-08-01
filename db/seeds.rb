@@ -4,50 +4,60 @@ require 'net/http'
 puts "Creating Admin User"
 
 puts Dir.pwd
-
-User.destroy_all
-case Rails.env
-when "development"
-  User.create!(name: 'BadAdmin', password: 'ihatepies12', email: 'thisbetterbeacompliment@badcomics.ca', country_code: '1', phone_number: '9055162020')
-  image = Image.new(:comic => File.new('app/assets/images/Cake_1.jpg', "r"))
-  image.title = "Cake"
-  image.order = 1
-  image.published = true
-  User.last.images << image
-  User.last.save!
-  @user = User.last
-  authy = Authy::API.register_user(
-    email: @user.email,
-    cellphone: @user.phone_number,
-    country_code: @user.country_code
-  )
-  if authy == {}
-    params = {'email' => 'thisbetterbeacompliment@badcomics.ca', 'cellphone' => '9055162020', 'country_code' => '1'}
-    x = Net::HTTP.post_form(URI.parse('https://api.authy.com/protected/json/users/new?api_key='+Figaro.env.authy_key), params)
-    puts x.body
-  else
-    @user.update(authy_id: authy.id)
-  end
-when "production"
-  User.create!(name: 'BadAdmin', password: 'ihatepies12', email: 'thisbetterbeacompliment@badcomics.ca', country_code: '1', phone_number: '9055162020')
-  image = Image.new(:comic => File.new('app/assets/images/Cake_1.jpg', "r"))
-  image.title = "Cake"
-  image.order = 1
-  image.published = true
-  User.last.images << image
-  User.last.save!
-  @user = User.last
-  authy = Authy::API.register_user(
-    email: @user.email,
-    cellphone: @user.phone_number,
-    country_code: @user.country_code
-  )
-  if authy == {}
-    params = {'email' => 'thisbetterbeacompliment@badcomics.ca', 'cellphone' => '9055162020', 'country_code' => '1'}
-    x = Net::HTTP.post_form(URI.parse('https://api.authy.com/protected/json/users/new?api_key='+Figaro.env.authy_key), params)
-    puts x.body
-  else
-    @user.update(authy_id: authy.id)
+if Subscriber.all.count <= 0
+  User.destroy_all
+  case Rails.env
+  when "development"
+    User.create!(name: 'BadAdmin', password: 'ihatepies12', email: 'thisbetterbeacompliment@badcomics.ca', country_code: '1', phone_number: '9055162020')
+    image = Image.new(:comic => File.new('app/assets/images/Cake_1.jpg', "r"))
+    image.title = "Cake"
+    image.order = 1
+    image.published = true
+    User.last.images << image
+    User.last.save!
+    @user = User.last
+    authy = Authy::API.register_user(
+      email: @user.email,
+      cellphone: @user.phone_number,
+      country_code: @user.country_code
+    )
+    if authy == {}
+      params = {'email' => 'thisbetterbeacompliment@badcomics.ca', 'cellphone' => '9055162020', 'country_code' => '1'}
+      x = Net::HTTP.post_form(URI.parse('https://api.authy.com/protected/json/users/new?api_key='+Figaro.env.authy_key), params)
+      puts x.body
+    else
+      @user.update(authy_id: authy.id)
+    end
+  when "production"
+    User.create!(name: 'BadAdmin', password: 'ihatepies12', email: 'thisbetterbeacompliment@badcomics.ca', country_code: '1', phone_number: '9055162020')
+    image = Image.new(:comic => File.new('app/assets/images/Cake_1.jpg', "r"))
+    image.title = "Cake"
+    image.order = 1
+    image.published = true
+    User.last.images << image
+    User.last.save!
+    @user = User.last
+    authy = Authy::API.register_user(
+      email: @user.email,
+      cellphone: @user.phone_number,
+      country_code: @user.country_code
+    )
+    if authy == {}
+      params = {'email' => 'thisbetterbeacompliment@badcomics.ca', 'cellphone' => '9055162020', 'country_code' => '1'}
+      x = Net::HTTP.post_form(URI.parse('https://api.authy.com/protected/json/users/new?api_key='+Figaro.env.authy_key), params)
+      puts x.body
+    else
+      @user.update(authy_id: authy.id)
+    end
   end
 end
+
+Product.destroy_all
+@product_one = Product.new({name: 'Bad Comics Shirt', colour: 'White', description: 'This is a great shirt, buy it', price: 100}).save
+@product_two = Product.new({name: 'Bad Comics Umbrella', colour: 'Black', description: 'For males and females', price: 50}).save
+@product_three = Product.new({name: 'Bad Comics Cups', colour: nil, description: 'Drink blood', price: 250}).save
+@product_four = Product.new({name: 'Bad Comics Poster', colour: nil, description: 'Basically a large, stickyless post-it note with stuff already scribbled on it', price: 10}).save
+@product_five = Product.new({name: 'Bad Comics Festival Custom Card', colour: nil, description: 'Custom stuff', price: 30}).save
+@product_six = Product.new({name: 'Bad Comics Birthday Card', colour: nil, description: 'Custom stuff', price: 2}).save
+
 

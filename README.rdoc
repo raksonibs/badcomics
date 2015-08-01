@@ -8,3 +8,10 @@ dev
 -> two factor authetnication -> NOW
 6178422
 -> think about sharing!
+
+-> colours should be an array of options in the actual product, or toggable stuff or something
+-> products are just all products, but can refer to a cart id. once in cart, can be in multiple carts right?, by multiple people in different browsers without signing up. 
+-> so each user gets there own cart, and the carts products are updated
+carts.products << product
+-> Kacper should have an interface in the admin to update the store, like the products, their descriptions, everything, price, etc. 
+-> have to save the cart if go to other pages accidentally, save it in session I think?

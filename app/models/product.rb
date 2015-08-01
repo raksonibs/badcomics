@@ -1,3 +1,3 @@
 class Product < ActiveRecord::Base
-  belongs_to :cart
+  has_and_belongs_to_many :cart
 end

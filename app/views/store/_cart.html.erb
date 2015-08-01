@@ -1,0 +1,3 @@
+<p> <%= current_cart.name %> </p>
+<p> <%= current_cart.products.count %> </p>
+<p> Price <%= current_cart.products.map(&:price).inject(:+) %></p>

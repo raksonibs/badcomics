@@ -46,6 +46,7 @@ Rails.application.routes.draw do
   get '/save_order' => 'users#save_order', as: :save_order
 
   get '/store' => 'store#index', as: :store
+  post '/store/:cart_id/:product_id' => 'store#add_to_cart', as: :add_to_cart
 
   resources :registrations
   resources :products

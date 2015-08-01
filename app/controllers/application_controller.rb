@@ -4,10 +4,18 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   # before_filter :require_login
 
-  helper_method :current_user
+  helper_method :current_user, :current_cart
   helper_method :signed_in?
 
   before_filter :set_subscriber
+
+  def current_cart
+    @current_cart ||= Cart.find_by_id(session[:cart])
+    return @current_cart if @current_cart
+    Cart.new({name: 'New Cart'}).save
+    session[:cart] = Cart.last.id
+    @current_cart = Cart.last
+  end
 
   def current_user
     begin

@@ -1,8 +1,7 @@
 class StoreController < ApplicationController
   def index
     @registration = Registration.new
-    @cart = Cart.new
-    @cart.name = "Test Cart"
+    @products = Product.all
   end
 
   def create
@@ -15,6 +14,16 @@ class StoreController < ApplicationController
   rescue e
     flash[:error] = e.message
     render :new
+  end
+
+  def add_to_cart
+    @cart = Cart.find(params[:cart_id])
+    @product = Product.find(params[:product_id])
+    @cart.products << @product
+    respond_to do |format|
+      format.html
+      format.js
+    end
   end
 
   private
