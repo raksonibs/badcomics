@@ -1,5 +1,8 @@
 class StoreController < ApplicationController
   def index
+    @registration = Registration.new
+    @cart = Cart.new
+    @cart.name = "Test Cart"
   end
 
   def create
