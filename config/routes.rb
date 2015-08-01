@@ -45,6 +45,8 @@ Rails.application.routes.draw do
 
   get '/save_order' => 'users#save_order', as: :save_order
 
+  get '/store' => 'store#index', as: :store_path
+
   match '/contacts', to: 'contacts#new', via: 'get'
   resources "contacts", only: [:new, :create]
 
