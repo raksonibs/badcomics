@@ -73,3 +73,5 @@ gem 'pg'
 gem 'social-share-button', :git => "git@github.com:raksonibs/social-share-button.git"
 
 gem 'stripe'
+
+gem 'masonry-rails'

@@ -3,6 +3,7 @@
 //= require jquery-ui/sortable
 //= require social-share-button
 //= require s3_direct_upload
+//= require masonry/jquery.masonry
 //= require foundation
 //= require turbolinks
 //= require_tree .

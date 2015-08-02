@@ -17,6 +17,37 @@
   z-index: 100;
 }
 
+img.product-small {
+  max-height: 250px;
+}
+
 .reveal-modal.open {
   margin-bottom: 50px;
 }
+
+#masonry-container {
+  background: lightblue;
+  padding: 5px;
+  margin-bottom: 20px;
+  border-radius: 5px;
+  clear: both;
+  -webkit-border-radius: 5px;
+     -moz-border-radius: 5px;
+          border-radius: 5px;
+}
+
+.clearfix:before, .clearfix:after { content: ""; display: table; }
+.clearfix:after { clear: both; }
+.clearfix { zoom: 1; }
+
+.product-container_1 { width: 80px; }
+.product-container_2 { width: 180px; }
+.product-container_3 { width: 280px; }
+.product-container_4 { width: 380px; }
+.product-container_5 { width: 480px; }
+
+.product-container_1 img { max-width: 80px; }
+.product-container_2 img { max-width: 180px; }
+.product-container_3 img { max-width: 280px; }
+.product-container_4 img { max-width: 380px; }
+.product-container_5 img { max-width: 480px; }
