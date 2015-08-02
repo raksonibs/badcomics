@@ -101,6 +101,8 @@ class UsersController < ApplicationController
   def home
     @images = current_user.images.order(:order)
     @user = current_user
+    @products = Product.all
+    @product= Product.new
   end
 
   def upload    
@@ -114,7 +116,7 @@ class UsersController < ApplicationController
         # Don't forget to mention :avatar(field name)
 
       end      
-      redirect_to :home
+      redirect_to home_path(current_user.id)
     end
   end
 

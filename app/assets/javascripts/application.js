@@ -8,17 +8,6 @@
 //= require turbolinks
 //= require_tree .
 
-
-// var re = /http:\/\/www\.badcomics\.ca/;
-// var redirectCount = 0;
-// // var re = /http:\/\//;
-// if (re.exec(window.location.href) !== "" && redirectCount === 0) {
-//   // CORS not working, hacky approach NTD: Fix this.
-//   console.log('matched')
-//   window.location.replace('http://badcomics.ca');
-//   redirectCount += 1;
-// }
-
 $(function(){ $(document).foundation(); });
 
 (function($) {    
