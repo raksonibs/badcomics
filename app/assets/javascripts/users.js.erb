@@ -210,27 +210,13 @@ $(document).ready(function() {
     })
 
   $('.add-to-cart').on("ajax:success", function(e, data, status, xhr) {
-    console.log('test')
+    $('.cart-price').text(data.price)
+    $('.cart-items').text(data.item_count)
   })
 
-  $('.add-to-cart').on('click', function() {
-    console.log('test')
-    var cartNum = $(this).data('cart-id')
-    var productNum = $(this).data('product-id')
-    var url =  '/store/' + cartNum + '/' + productNum
-    $.ajax({
-      url: url,
-      method: 'GET',
-      data: {product_id: productNum,
-            cart_id: cartNum},
-      dataType: 'json',
-      success: function(data) {
-        console.log('success')        
-      }, 
-      error: function(data) {        
-        console.log('error')
-      }
-    })
+  $('.add-to-cart').on("ajax:error", function(e, data, status, xhr) {
+    $('.note-text').text("Something screwed up with the cart. Trying re-spending your hard earned money.")
+    $('.flag.note.notice').slideDown();
   })
 
   $('.box, .box-non').on("ajax:success", function(e,data, status, xhr) {

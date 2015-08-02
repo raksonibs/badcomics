@@ -21,7 +21,7 @@ class StoreController < ApplicationController
     @product = Product.find(params[:product_id])    
     @cart.products << @product
     respond_to do |format|
-      format.json { render json: @cart}
+      format.json
     end
   end
 
