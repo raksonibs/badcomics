@@ -173,3 +173,7 @@ img.product-small {
 [class*="column"] + [class*="column"]:last-child {
   float: left;
 }
+
+.stripe-key {
+  visibility: hidden;
+}

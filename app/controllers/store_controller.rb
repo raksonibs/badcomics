@@ -4,10 +4,11 @@ class StoreController < ApplicationController
     @products = Product.all
   end
 
-  def create
+  def create_customer
     @registration = Registration.new registration_params.merge(email: stripe_params["stripeEmail"],
                                                                card_token: stripe_params["stripeToken"])
     raise "Please, check registration errors" unless @registration.valid?
+    binding.pry
     @registration.process_payment
     @registration.save
     redirect_to @registration, notice: 'Registration was successfully created.'

@@ -19,7 +19,8 @@ $(document).ready(function() {
     // $('.stripe-button').attr('data-description', textProd)
   })
 
-  var kaey = $('.hidden.stripe-key').text()
+  var kaey = $('.stripe-key').data('key')
+
   var handler = StripeCheckout.configure({
     key: kaey,
     token: function(token) {

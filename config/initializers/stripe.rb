@@ -1,6 +1,6 @@
 Rails.configuration.stripe = {
-    :publishable_key => Figaro.env.stripe_key,
-    :secret_key      => Figaro.env.stripe_secret
+    :publishable_key => Figaro.env.stripe_publishable_key,
+    :secret_key      => Figaro.env.stripe_secret_key
 }
 
-Stripe.api_key = Figaro.env.stripe_secret
+Stripe.api_key = Figaro.env.stripe_secret_key

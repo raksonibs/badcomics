@@ -16,7 +16,8 @@
   <% end %>
 <% end %>
 
-<div class="hidden stripe-key"><%= Figaro.env.stripe_key%></div>
+<div class="stripe-key" data-key="<%= Figaro.env.stipe_publishable_key %>">
+</div>
 
 <script src="https://checkout.stripe.com/checkout.js"></script>
 
