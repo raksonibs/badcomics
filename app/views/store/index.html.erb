@@ -7,7 +7,7 @@
     <p> List all products </p>
     <div id="masonry-container" class="transitions-enabled infinite-scroll clearfix row">
       <% @products.each_with_index do |product, index| %>
-        <div class="large-4 small-4 columns product-container">
+        <div class="large-4 small-6 columns product-container">
           <a href="#" data-reveal-id="<%= product.name.downcase.gsub(" ", '-' ) %>">
           <%= image_tag product.image_url, class: 'product-small' %><br>
           <%= product.name %>

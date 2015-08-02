@@ -16,6 +16,9 @@ class StoreController < ApplicationController
     render :new
   end
 
+  def test
+  end
+
   def add_to_cart
     @cart = Cart.find(params[:cart_id])    
     @product = Product.find(params[:product_id])    

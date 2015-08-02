@@ -46,6 +46,8 @@ Rails.application.routes.draw do
   get '/save_order' => 'users#save_order', as: :save_order
 
   get '/store' => 'store#index', as: :store
+
+  get '/test_page' => 'store#test'
 #   scope :format => true, :constraints => { :format => 'json' } do
 #   get '/bar' => "bar#index_with_json"
 # end
