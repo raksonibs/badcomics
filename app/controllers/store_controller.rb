@@ -19,6 +19,12 @@ class StoreController < ApplicationController
   def test
   end
 
+  def checkout
+    respond_to do |format|
+      format.js
+    end
+  end
+
   def add_to_cart
     @cart = Cart.find(params[:cart_id])    
     @product = Product.find(params[:product_id])    

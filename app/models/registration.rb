@@ -1,5 +1,5 @@
 class Registration < ActiveRecord::Base
-  
+  has_one :cart
   def process_payment
     customer = Stripe::Customer.create email: email,
                                        card: card_token

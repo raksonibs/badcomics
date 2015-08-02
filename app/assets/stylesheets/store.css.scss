@@ -17,6 +17,10 @@
   z-index: 100;
 }
 
+#checkout-tab {
+  text-align: center;
+}
+
 img.product-small {
   max-height: 250px;
 }
@@ -164,4 +168,8 @@ img.product-small {
   46% {
     opacity: 0.8;
   }
+}
+
+[class*="column"] + [class*="column"]:last-child {
+  float: left;
 }

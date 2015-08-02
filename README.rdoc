@@ -16,3 +16,5 @@ carts.products << product
 -> Kacper should have an interface in the admin to update the store, like the products, their descriptions, everything, price, etc. 
 -> have to save the cart if go to other pages accidentally, save it in session I think?
 -> want to use masonry esque effect for products
+
+-> 4242 4242 4242 4242 any ccv
