@@ -8,13 +8,6 @@
  *= require foundation_and_overrides
  *= require social-share-button
  *= require jquery-ui/sortable
- *= require 'masonry/basic'
- *= require 'masonry/centered'
- *= require 'masonry/fluid'
- *= require 'masonry/gutters'
- *= require 'masonry/infinitescroll'
- *= require 'masonry/right-to-left'
- *= require 'masonry/transitions'
  *= require font-awesome
  *= require_self
  */

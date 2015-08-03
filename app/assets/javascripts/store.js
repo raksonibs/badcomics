@@ -85,7 +85,7 @@ console.log('test-store')
 
   $('.add-to-cart').on('click', function () {
     var cart = $('.shopping-cart');
-    var imgtodrag = $(this).parent().find('img').eq(0);
+    var imgtodrag = $(this).parent().parent().find('img').eq(0);
     if (imgtodrag) {
       var imgclone = imgtodrag.clone()
       .offset({
@@ -122,10 +122,10 @@ console.log('test-store')
     }
   });
 
-  $('.product-container img').hover(function() {
-    $(this).parent().parent().find('.hidden-dets').css('visibility','visible').hide().fadeIn('slow');
+  $('.product-container').hover(function() {
+    $(this).find('.hidden-dets').css('visibility','visible').hide().fadeIn('slow');
   }, function() {
-    $(this).parent().parent().find('.hidden-dets').css('visibility','hidden')
+    $(this).find('.hidden-dets').css('visibility','hidden')
   })
 
   // Close Checkout on page navigation

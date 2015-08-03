@@ -1,5 +1,5 @@
 <% @cart = @cart || current_cart %>
-<div class="row container">
+<div class="row container store-front">
   <div class="large-12 small-12 columns">
   <div class="sign">
       <!-- <div class="neon-blue" id="title">L<span id="fade">ate</span> Nights</div> -->
@@ -34,16 +34,17 @@
     <div id="masonry-container" class="transitions-enabled infinite-scroll clearfix row">
       <% @products.each_with_index do |product, index| %>
         <div class="product-container">
-          <a href="#" data-reveal-id="<%= product.name.downcase.gsub(" ", '-' ) %>">
+          <a href="#" class="darken" data-reveal-id="<%= product.name.downcase.gsub(" ", '-' ) %>">
           <%= image_tag product.product_image, class: 'product-small' %><br>
           </a>
+            
           <div class="hidden-dets">
             <%= product.name %> (<%= product.price %>)
             <%= link_to ' - Add to Cart', add_to_cart_path(current_cart.id, product.id, 'json'), data: {cart_id: "#{current_cart.id}", product_id: "#{product.id}"}, class: 'add-to-cart', remote: true%>
           </div>
           </div>
           <div id="<%= product.name.downcase.gsub(" ", '-' ) %>" class="reveal-modal" data-reveal>
-            <%= image_tag product.image_url %>
+            <%= image_tag product.product_image %>
             <h2><%= product.name %> <small><%= product.price %></small></h2>
             <p class="lead"><%= product.description %></p>
             <%= link_to 'Add to Cart', add_to_cart_path(current_cart.id, product.id, 'json'), data: {cart_id: "#{current_cart.id}", product_id: "#{product.id}"}, class: 'add-to-cart modal-cart', remote: true%>
