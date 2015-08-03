@@ -1,12 +1,13 @@
+@-webkit-keyframes shake {
+  0% { -webkit-transform: scale(1); }
+  50% { -webkit-transform: scale(0.9); }
+  100% { -webkit-transform: scale(1); }
+}
+
 .product-image {
   width: 50px;
   height: 50px;
 }
-
-/*#store-title {
-  text-align: center;
-  font-size: 6em;
-}*/
 
 #cart {
   position: fixed;
@@ -15,6 +16,23 @@
   width: 100%;
   background: lightblue;
   z-index: 100;
+  text-align: center;
+}
+
+.shopping-cart {
+  display: inline-block;
+  background: url('http://cdn1.iconfinder.com/data/icons/jigsoar-icons/24/_cart.png') no-repeat 0 0;
+  width: 24px;
+  height: 24px;
+  margin: 0 10px 0 0;
+}
+
+.shopping-cart.shake {
+  -webkit-animation-name: shake;
+  -webkit-animation-duration: 200ms;
+  -webkit-transform-origin:50% 50%;
+  -webkit-animation-iteration-count: 4;
+  -webkit-animation-timing-function: linear;
 }
 
 #checkout-tab {

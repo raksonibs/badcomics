@@ -36,7 +36,7 @@
         <div class="large-4 small-6 columns product-container">
           <a href="#" data-reveal-id="<%= product.name.downcase.gsub(" ", '-' ) %>">
           <%= image_tag product.product_image, class: 'product-small' %><br>
-          <%= product.name %>
+          <%= product.name %> (<%= product.price %>)
           </a>
           <div id="<%= product.name.downcase.gsub(" ", '-' ) %>" class="reveal-modal" data-reveal>
             <%= image_tag product.image_url %>

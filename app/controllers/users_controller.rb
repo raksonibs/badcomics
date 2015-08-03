@@ -43,7 +43,6 @@ class UsersController < ApplicationController
 
   def normal
     @image = User.latestImage
-    # binding.pry
     redirect_to @image
   end
 
