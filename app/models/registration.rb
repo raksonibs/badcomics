@@ -2,11 +2,16 @@ class Registration < ActiveRecord::Base
   has_one :cart
   def process_payment
     customer = Stripe::Customer.create email: email,
-                                       card: card_token
-    binding.pry
+                                       card: token
+
+    cart = self.cart
+
+    description = cart.products.map(&:name).join(" -  ")
+    price = self.price
+
     Stripe::Charge.create customer: customer.id,
-                          amount: product.price * 100,
-                          description: product.name,
+                          amount: price.round * 100,
+                          description: description,
                           currency: 'usd'
 
   end

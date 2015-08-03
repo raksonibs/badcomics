@@ -118,8 +118,6 @@ $(function() {
         return el.id + ' = ' + $(el).index();
       }));
 
-      console.log('ajax?')
-
       $.ajax({
         url: "/save_order",
         type: "GET",

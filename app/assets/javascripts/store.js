@@ -20,14 +20,35 @@ $(document).ready(function() {
   })
 
   var kaey = $('.stripe-key').data('key')
+  console.log('4242 4242 4242 4242')
 
   var handler = StripeCheckout.configure({
     key: kaey,
     token: function(token) {
-      // Use the token to create the charge with a server-side script.
-      // You can access the token ID with `token.id`
+
+      var totalPrice = $('.cart-tab-total').text()
+      console.log('test-token')
+      console.log(token)
+      var email = token['email']
+      var token = token['id']
+      $.ajax({
+        url: "/payment",
+        type: "GET",
+        dataType: "json",
+        data: { email: email,
+                token: token,
+                price: totalPrice },
+        success: function(data) {
+          console.log('success')
+        },
+        error: function(data) {
+          console.log('error')
+        }
+      })
     }
   });
+
+console.log('test-store')
 
   $('#customButton').on('click', function(e) {
     // Open Checkout with further options
@@ -46,6 +67,5 @@ $(document).ready(function() {
   $(window).on('popstate', function() {
     handler.close();
   });
-
 
 })

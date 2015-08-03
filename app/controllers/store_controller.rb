@@ -5,13 +5,17 @@ class StoreController < ApplicationController
   end
 
   def create_customer
-    @registration = Registration.new registration_params.merge(email: stripe_params["stripeEmail"],
-                                                               card_token: stripe_params["stripeToken"])
+    @registration = Registration.new registration_params.merge(email: params["email"], token: params["token"])
+
+    @registration.cart = current_cart
+    
     raise "Please, check registration errors" unless @registration.valid?
-    binding.pry
     @registration.process_payment
     @registration.save
-    redirect_to @registration, notice: 'Registration was successfully created.'
+    respond_to do |format|
+      format.js
+    end
+    # redirect_to store_path, notice: 'Your money is successfully in our bank account.'
   rescue e
     flash[:error] = e.message
     render :new
@@ -36,7 +40,7 @@ class StoreController < ApplicationController
   end
 
   private
-  def stripe_params
-    params.permit :stripeEmail, :stripeToken
+  def registration_params
+    params.permit :email, :token, :cart_id, :price
   end
 end

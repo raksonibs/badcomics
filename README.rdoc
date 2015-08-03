@@ -18,3 +18,5 @@ carts.products << product
 -> want to use masonry esque effect for products
 
 -> 4242 4242 4242 4242 any ccv
+
+-> going to need to get https for payments!
