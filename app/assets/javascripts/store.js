@@ -24,20 +24,47 @@ $(document).ready(function() {
 
   var handler = StripeCheckout.configure({
     key: kaey,
-    token: function(token) {
+    token: function(token, args) {
 
       var totalPrice = $('.cart-tab-total').text()
       console.log('test-token')
       console.log(token)
       var email = token['email']
       var token = token['id']
+      var billing_address_city = args['billing_address_city']
+      var billing_address_country = args['billing_address_country']
+      var billing_address_country_code = args['billing_address_country_code']
+      var billing_address_line1 = args['billing_address_line1']
+      var billing_address_zip = args['billing_address_zip']
+      var billing_name = args['billing_name']
+
+      var shipping_address_city = args['shipping_address_city']
+      var shipping_address_country = args['shipping_address_country']
+      var shipping_address_country_code = args['shipping_address_country_code']
+      var shipping_address_line1 = args['shipping_address_line1']
+      var shipping_address_zip = args['shipping_address_zip']
+      var shipping_name = args['shipping_name']
+
       $.ajax({
         url: "/payment.json",
         type: "GET",
         dataType: "json",
         data: { email: email,
                 token: token,
-                price: totalPrice },
+                price: totalPrice,
+                billing_address_city: billing_address_city,
+                billing_address_country: billing_address_country,
+                billing_address_country_code: billing_address_country_code,
+                billing_address_line1: billing_address_line1,
+                billing_address_zip: billing_address_zip,
+                billing_name: billing_name,
+                shipping_address_city: shipping_address_city,
+                shipping_address_country: shipping_address_country,
+                shipping_address_country_code: shipping_address_country_code,
+                shipping_address_line1: shipping_address_line1,
+                shipping_address_zip: shipping_address_zip,
+                shipping_name: shipping_name
+                 },
         success: function(data) {
           console.log('success')
           // $('#checkout-tab').foundation('reveal', 'close');
@@ -78,7 +105,9 @@ console.log('test-store')
     handler.open({
       name: 'The Store',
       description: textProd,
-      amount: parseInt(cartTotal)*100
+      amount: parseInt(cartTotal)*100,
+      shippingAddress: true,
+      billingAddress: true
     });
     e.preventDefault();
   });
