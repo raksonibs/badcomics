@@ -14,5 +14,6 @@ class Registration < ActiveRecord::Base
                           description: description,
                           currency: 'usd'
 
+
   end
 end

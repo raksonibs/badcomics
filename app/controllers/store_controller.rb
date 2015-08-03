@@ -8,17 +8,18 @@ class StoreController < ApplicationController
     @registration = Registration.new registration_params.merge(email: params["email"], token: params["token"])
 
     @registration.cart = current_cart
-    
+
     raise "Please, check registration errors" unless @registration.valid?
     @registration.process_payment
     @registration.save
     respond_to do |format|
-      format.js
+      format.json{ render json: { good: 'good' }, status: 200 }
     end
     # redirect_to store_path, notice: 'Your money is successfully in our bank account.'
   rescue e
-    flash[:error] = e.message
-    render :new
+    respond_to do |format|
+      format.json{ render json: @registration.errors, status: :unprocessable_entity }
+    end
   end
 
   def test

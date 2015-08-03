@@ -1,21 +1,3 @@
-<%= form_for @registration, url: payment_path, html: { class: "basic-grey" } do |f| %>
-  <% if @registration.errors.any? %>
-    <div id="error_explanation">
-      <h2>
-        <%= pluralize(@registration.errors.count, "error") %>
-        prohibited this registration from being saved:
-      </h2>
-      <ul>
-        <% @registration.errors.full_messages.each do |message| %>
-          <li>
-            <%= message %>
-          </li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
-<% end %>
-
 <div class="stripe-key" data-key="<%= Figaro.env.stipe_publishable_key %>">
 </div>
 

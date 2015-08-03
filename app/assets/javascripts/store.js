@@ -32,7 +32,7 @@ $(document).ready(function() {
       var email = token['email']
       var token = token['id']
       $.ajax({
-        url: "/payment",
+        url: "/payment.json",
         type: "GET",
         dataType: "json",
         data: { email: email,
@@ -40,9 +40,29 @@ $(document).ready(function() {
                 price: totalPrice },
         success: function(data) {
           console.log('success')
+          // $('#checkout-tab').foundation('reveal', 'close');
+          var audioMoney = new Audio('/assets/money.mp3')
+          audioMoney.play();
+          $('.conf-cont').css('z-index', '10000')
+          $('.container-notifications').css('z-index', '10000')
+          $('.conf-cont').fadeIn().next().delay(5000).fadeOut();
+          $('.success-text').text("We all love money in da bank. Tanx.")
+
+          $('.flag.note.success').slideDown();
+
+          setTimeout(function() {
+            $('.flag.note.success').slideUp();
+            $('.conf-cont').fadeOut();
+            audioMoney.pause()
+          }, 10000);
         },
         error: function(data) {
           console.log('error')
+          $('.note-text').text("Something didn't work. Try again because we need money.")
+          $('.flag.note.notice').slideDown();
+            setTimeout(function() {
+              $('.flag.note.notice').slideUp();
+            }, 5000);
         }
       })
     }

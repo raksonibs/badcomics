@@ -49,10 +49,10 @@ Rails.application.routes.draw do
 
   get '/test_page' => 'store#test'
 
-  get '/payment' => 'store#create_customer', as: :payment
   # get '/checkout' => 'store#checkout'
   scope :format => true, :constraints => { :format => 'json' } do
     get '/store/:cart_id/:product_id' => 'store#add_to_cart', as: :add_to_cart
+    get '/payment' => 'store#create_customer', as: :payment
   end
 
   resources :registrations

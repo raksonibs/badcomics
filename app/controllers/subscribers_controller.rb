@@ -20,13 +20,11 @@ class SubscribersController < ApplicationController
         hostname = request.original_url || "http://badcomics.ca" 
         BadMailer.intro_email(@subscriber, hostname).deliver
         flash[:notice] = "You are signed up noob!"
-        # binding.pry
         format.html { redirect_to :root }
         format.json { render json: @subscriber }
         #  shouldn't redirect, should be ajax request
       else
         flash[:notice] = "This email is already subscribed!"
-        # binding.pry
         format.html { render :new }
         format.json { render json: @subscriber.errors, status: :unprocessable_entity }
       end
