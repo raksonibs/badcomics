@@ -122,6 +122,12 @@ console.log('test-store')
     }
   });
 
+  $('.product-container img').hover(function() {
+    $(this).parent().parent().find('.hidden-dets').css('visibility','visible').hide().fadeIn('slow');
+  }, function() {
+    $(this).parent().parent().find('.hidden-dets').css('visibility','hidden')
+  })
+
   // Close Checkout on page navigation
   $(window).on('popstate', function() {
     handler.close();

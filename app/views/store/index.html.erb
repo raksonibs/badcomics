@@ -33,11 +33,15 @@
     <br>
     <div id="masonry-container" class="transitions-enabled infinite-scroll clearfix row">
       <% @products.each_with_index do |product, index| %>
-        <div class="large-4 small-6 columns product-container">
+        <div class="product-container">
           <a href="#" data-reveal-id="<%= product.name.downcase.gsub(" ", '-' ) %>">
           <%= image_tag product.product_image, class: 'product-small' %><br>
-          <%= product.name %> (<%= product.price %>)
           </a>
+          <div class="hidden-dets">
+            <%= product.name %> (<%= product.price %>)
+            <%= link_to ' - Add to Cart', add_to_cart_path(current_cart.id, product.id, 'json'), data: {cart_id: "#{current_cart.id}", product_id: "#{product.id}"}, class: 'add-to-cart', remote: true%>
+          </div>
+          </div>
           <div id="<%= product.name.downcase.gsub(" ", '-' ) %>" class="reveal-modal" data-reveal>
             <%= image_tag product.image_url %>
             <h2><%= product.name %> <small><%= product.price %></small></h2>
@@ -46,8 +50,6 @@
             <a class="close-reveal-modal">&#215;</a>
           <br>
           </div>
-            <%= link_to ' - Add to Cart', add_to_cart_path(current_cart.id, product.id, 'json'), data: {cart_id: "#{current_cart.id}", product_id: "#{product.id}"}, class: 'add-to-cart', remote: true%>
-        </div>
     <% end %>
     </div>
   </div>

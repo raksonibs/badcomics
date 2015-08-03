@@ -3,6 +3,10 @@ require 'net/http'
 
 puts "Creating Admin User"
 
+def seed_image(file_name)
+  File.open(File.join(Rails.root, "/app/assets/images/#{file_name}"))
+end
+
 puts Dir.pwd
 if Subscriber.all.count <= 0
   User.destroy_all
@@ -53,11 +57,11 @@ if Subscriber.all.count <= 0
 end
 
 Product.destroy_all
-@product_one = Product.new({name: 'Shirt', colour: 'White', description: 'This is a great shirt, buy it', price: 100, product_image: Image.last.comic}).save
-@product_two = Product.new({name: 'Umbrella', colour: 'Black', description: 'For males and females', price: 50, product_image: Image.first.comic}).save
-@product_three = Product.new({name: 'Cups', colour: nil, description: 'Drink blood', price: 250, product_image: Image.all[-2].comic}).save
-@product_four = Product.new({name: 'Poster', colour: nil, description: 'Basically a large, stickyless post-it note with stuff already scribbled on it', price: 10, product_image: Image.all[-4].comic}).save
-@product_five = Product.new({name: 'Festival Custom Card', colour: nil, description: 'Custom stuff', price: 30, product_image: Image.all[-3].comic}).save
-@product_six = Product.new({name: 'Birthday Card', colour: nil, description: 'Custom stuff', price: 2, product_image: Image.all[-5].comic}).save
+@product_one = Product.new({name: 'Shirt', colour: 'White', description: 'This is a great shirt, buy it', price: 100, product_image: seed_image('babies.png')}).save
+@product_two = Product.new({name: 'Umbrella', colour: 'Black', description: 'For males and females', price: 50, product_image: seed_image('car.png')}).save
+@product_three = Product.new({name: 'Cups', colour: nil, description: 'Drink blood', price: 250, product_image: seed_image('bigcastle.jpg')}).save
+@product_four = Product.new({name: 'Poster', colour: nil, description: 'Basically a large, stickyless post-it note with stuff already scribbled on it', price: 10, product_image: seed_image('growingup.png')}).save
+@product_five = Product.new({name: 'Festival Custom Card', colour: nil, description: 'Custom stuff', price: 30, product_image: seed_image('mickeymouse.png')}).save
+@product_six = Product.new({name: 'Birthday Card', colour: nil, description: 'Custom stuff', price: 2, product_image: seed_image('smallcastle.jpg')}).save
 
 
