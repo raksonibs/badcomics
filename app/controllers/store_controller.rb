@@ -32,6 +32,7 @@ class StoreController < ApplicationController
     @cart = Cart.find(params[:cart_id])    
     @product = Product.find(params[:product_id])    
     @cart.products << @product
+    @products = @cart.products
     respond_to do |format|
       format.json
     end

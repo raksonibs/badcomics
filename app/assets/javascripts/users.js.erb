@@ -1,5 +1,10 @@
 $(document).ready(function() {
 
+  var calculateTax = function(price) {
+    var updatePrice = price * 0.09;
+    return updatePrice
+  }
+
   $('.logo-head').click(function() {    
     setTimeout(function() {
       $('#spinner').fadeOut();
@@ -212,6 +217,28 @@ $(document).ready(function() {
   $('.add-to-cart').on("ajax:success", function(e, data, status, xhr) {
     $('.cart-price').text(data.price)
     $('.cart-items').text(data.item_count)
+    $('.cart-tab-price').text(data.price)
+    // Have to update the cart as well, would be great to pass the entire json opbject
+    var fullItemsDescription = []
+    var fullItemsImages = data.images
+    $.each(data.products, function(index, value) {
+      fullItemsDescription.push(value.name + " | " + value.price.toString())
+      // fullItemsImages.push(value.product_image_file_name)
+    })
+    // <div class="large-2 small-2 columns">
+    //         <img class="cart-image" src="https://badcomics.s3.amazonaws.com/products/product_images/76/original/mickeymouse.png?1438575290" alt="Mickeymouse">
+    //         <span class="product-details"> Festival Custom Card | 30.0</span>
+    //       </div>
+    var htmlString = ""
+    $('.cart-details').html("")
+    for (var i = fullItemsDescription.length - 1; i >= 0; i--) {
+      var description = fullItemsDescription[i]
+      var image = fullItemsImages[i]
+      htmlString += '<div class="large-2 small-2 columns">' + '<img class="cart-image" src="' + image + '" alt="">' + '<span class="product-details">' + description + '</span></div>' 
+    };
+
+    $('.cart-details').html(htmlString)
+
   })
 
   $('.add-to-cart').on("ajax:error", function(e, data, status, xhr) {

@@ -6,7 +6,8 @@ $(document).ready(function() {
 
   $('#checkout').click(function() {
     // route to update cart
-    var subTotal = parseInt($('.cart-tab-price').text())
+    
+    var subTotal = parseInt($('.cart-price').text())
     var tax = calculateTax(subTotal);
     $('.cart-tab-tax').text(tax)
     var shipping = 5.00
@@ -14,6 +15,7 @@ $(document).ready(function() {
     $('.cart-tab-total').text(total)
 
     var textProd = $('.product-details').text()
+    // e.preventDefault();
 
     // $('.stripe-button').attr('data-amount', total.toString())
     // $('.stripe-button').attr('data-description', textProd)
@@ -95,11 +97,12 @@ $(document).ready(function() {
     }
   });
 
-console.log('test-store')
+  console.log('test-store')
 
   $('#customButton').on('click', function(e) {
     // Open Checkout with further options
     var cartTotal = $('.cart-tab-total').text()
+    console.log(cartTotal)
     var textProd = $('.product-details').text()
 
     handler.open({
@@ -115,6 +118,9 @@ console.log('test-store')
   $('.add-to-cart').on('click', function () {
     var cart = $('.shopping-cart');
     var imgtodrag = $(this).parent().parent().find('img').eq(0);
+
+    var newCartPrice = $('.cart-price').text()
+
     if (imgtodrag) {
       var imgclone = imgtodrag.clone()
       .offset({
