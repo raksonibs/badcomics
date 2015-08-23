@@ -36,6 +36,23 @@
   font-style: normal;
 }
 
+.external-store {
+  width: 150px;
+  height: 75px;
+  bottom: 1%;
+  left: 90%;
+  position: fixed;
+  background-image: url(/assets/outline_t.png);
+  background-size: cover;
+  text-align: center;
+  transform: rotate(-35deg);
+}
+
+.store-notice {
+  top: 20px;
+  position: relative;
+}
+
 .links-nav {
   margin-left: 0;
   padding-left: 0;
@@ -243,11 +260,19 @@ li.nav {
   li.nav a {
     font-size: 2.0em;
   }
+
+  .external-store {
+    left: 85%;
+  }
 }
 
 @media only screen and (max-width: 720px) {
   li.nav a {
     font-size: 1.5em;
+  }
+
+  .external-store {
+    left: 80%;
   }
 
   .fish-text {
@@ -265,6 +290,10 @@ li.nav {
 } 
 
 @media only screen and (max-width: 593px) {
+  .external-store {
+    left: 70%;
+  }
+
   li.nav.first {
     margin-left: 10px;
   }
