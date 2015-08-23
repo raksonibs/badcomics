@@ -36,6 +36,38 @@
   font-style: normal;
 }
 
+.product-image-modal {
+  width: 60%;
+  float: left;
+}
+
+.product-details-modal {
+  font-family: 'tomhand' !important;
+  width: 39%;
+  float: left;
+  top: 45px;
+  position: relative;
+}
+
+.hidden-dets, .add-to-cart {
+  font-family: 'tomhand' !important;
+  font-weight: 100;
+}
+
+.add-to-cart-container {
+  background-image: url(/assets/outline_t.png);
+  background-size: cover;
+  height: 62px;
+  width: 125px;
+  margin: auto;
+  margin-bottom: 25px;
+
+  .modal-cart {
+    position: relative;
+    top: 15px;
+  }
+}
+
 .external-store {
   width: 150px;
   height: 75px;
@@ -277,6 +309,21 @@ li.nav {
 
   .fish-text {
     margin-bottom: 15px;
+  }
+
+  .product-image-modal {
+    width: 100%;
+    float: left;
+  }
+
+  .product-details-modal {
+    width: 100%;
+    float: left;
+  }
+
+  .add-to-cart-container {
+
+    margin-bottom: 25px;
   }
 
   .container.header {

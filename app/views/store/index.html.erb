@@ -44,12 +44,19 @@
           </div>
           </div>
           <div id="<%= product.name.downcase.gsub(" ", '-' ) %>" class="reveal-modal" data-reveal>
-            <%= image_tag product.product_image %>
-            <h2><%= product.name %> <small><%= product.price %></small></h2>
-            <p class="lead"><%= product.description %></p>
-            <%= link_to 'Add to Cart', add_to_cart_path(current_cart.id, product.id, 'json'), data: {cart_id: "#{current_cart.id}", product_id: "#{product.id}"}, class: 'add-to-cart modal-cart', remote: true%>
+            <div class="product-image-modal">
+              <%= image_tag product.product_image %>
+            </div>
+            <div class="product-details-modal">
+              <h2><%= product.name %> <small><%= product.price %></small></h2>
+              <p class="lead"><%= product.description %></p>
+              <div class="add-to-cart-container">
+                
+                <%= link_to 'Add to Cart', add_to_cart_path(current_cart.id, product.id, 'json'), data: {cart_id: "#{current_cart.id}", product_id: "#{product.id}"}, class: 'add-to-cart modal-cart', remote: true%>
+              </div>
+              
+            </div>
             <a class="close-reveal-modal">&#215;</a>
-          <br>
           </div>
     <% end %>
     </div>
