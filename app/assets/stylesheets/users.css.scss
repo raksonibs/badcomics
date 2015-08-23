@@ -790,3 +790,12 @@ p.share-txt {
 #no-posts {
   display: none !important;
 }
+
+div.modal-image-small {
+  width: 65px !important;
+  display: inline-block;
+}
+
+.modal-image-small:hover {
+  cursor: pointer;
+}

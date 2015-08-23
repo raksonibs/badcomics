@@ -49,19 +49,23 @@
 
     %h2 Change the Store!
     - @products.each do |product|
-      = product.name 
-      = image_tag product.product_image, class: 'smaller-image-admin'
+      = product.name      
+      - product.product_images.each do |image|
+        = image_tag image.store_image, class: 'smaller-image-admin'
       = product.price
       = product.description
       = link_to 'Edit | ', edit_product_path(product)
       = link_to 'Destroy', product, method: :delete, data: { confirm: 'Are you sure?' }
       %br
     %h3 New Product
-    = form_for @product, method: :post do |form|
+    = form_for @product, method: :post, :html => { :multipart => true } do |form|
       = form.label :name, "Product name"
       = form.text_field :name, class: 'input-comic-title'
-      = form.label :product_image, "Upload Product Image"
-      = form.file_field :product_image
+      = form.label :product_image, "Upload product_image"
+      = form.file_field :product_image, :multiple =>:true
+      -# = form.fields_for :store_images do |builder|
+      -#   = builder.label :store_image, "Image File"
+      -#   = builder.file_field :store_image
       = form.label :price, "Price"
       = form.number_field(:price)
       = form.label :description, "Description"

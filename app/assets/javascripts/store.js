@@ -4,6 +4,11 @@ $(document).ready(function() {
     return updatePrice
   }
 
+  $('.modal-image-small').click(function() {
+    var thisImage = $(this).find('img').attr('src')
+    $('.current-modal-image').attr('src', thisImage)
+  })
+
   $('#checkout').click(function() {
     // route to update cart
     

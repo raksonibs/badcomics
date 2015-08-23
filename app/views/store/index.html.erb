@@ -12,7 +12,7 @@
         <div class="row cart-details">
         <% @cart.products.each do |product| %>
           <div class="large-2 small-2 columns">
-            <%= image_tag product.product_image, class: 'cart-image' %>
+            <%= image_tag product.product_images.first.store_image, class: 'cart-image' %>
             <span class="product-details"> <%= product.name %> | <%= product.price %></span>
           </div>
         <% end %>
@@ -35,7 +35,7 @@
       <% @products.each_with_index do |product, index| %>
         <div class="product-container">
           <a href="#" class="darken" data-reveal-id="<%= product.name.downcase.gsub(" ", '-' ) %>">
-          <%= image_tag product.product_image, class: 'product-small' %><br>
+          <%= image_tag product.product_images.first.store_image, class: 'product-small' %><br>
           </a>
             
           <div class="hidden-dets">
@@ -45,7 +45,16 @@
           </div>
           <div id="<%= product.name.downcase.gsub(" ", '-' ) %>" class="reveal-modal" data-reveal>
             <div class="product-image-modal">
-              <%= image_tag product.product_image %>
+              <% if product.product_images.size > 1 %>
+              <%= image_tag product.product_images.first.store_image, class: 'current-modal-image' %>
+              <% product.product_images.each_with_index do |image, index| %>
+                <div class="modal-image-small">
+                  <%= image_tag image.store_image %>
+                </div>               
+              <% end %>
+              <% else %>
+                <%= image_tag product.product_images.first.store_image %>
+              <% end %>
             </div>
             <div class="product-details-modal">
               <h2><%= product.name %> <small><%= product.price %></small></h2>

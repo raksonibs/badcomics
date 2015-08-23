@@ -102,6 +102,7 @@ class UsersController < ApplicationController
     @user = current_user
     @products = Product.all
     @product= Product.new
+    @product_images = @product.product_images.build
   end
 
   def upload    
