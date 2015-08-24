@@ -41,9 +41,13 @@ a.darken:hover img {
   bottom: 0;
   left: 0;
   width: 100%;
-  background: lightblue;
   z-index: 100;
   text-align: center;
+  background: lightblue;
+  -moz-border-radius: 0px;
+  -webkit-border-radius: 10px 10px 0px 0px;
+  border-radius: 10px 10px 0px 0px;
+  padding-top: 10px;
 }
 
 .shopping-cart {
@@ -238,4 +242,8 @@ img.product-small {
 
 .close-reveal-modal:hover {
   color: #FFD700;
+}
+
+.cart-tabs {
+  font-family: 'tomhand' !important;
 }

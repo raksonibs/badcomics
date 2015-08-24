@@ -9,6 +9,7 @@
     <div class="row">
       <div class="large-12 small-12 columns">
         <h2>Checkout </h2>
+        <a class="btn-close trigger close-reveal-modal">&#215;</a>
         <div class="row cart-details">
         <% @cart.products.each do |product| %>
           <div class="large-2 small-2 columns">
@@ -43,30 +44,22 @@
             <%= link_to ' - Add to Cart', add_to_cart_path(current_cart.id, product.id, 'json'), data: {cart_id: "#{current_cart.id}", product_id: "#{product.id}"}, class: 'add-to-cart', remote: true%>
           </div>
           </div>
-          <div id="<%= product.name.downcase.gsub(" ", '-' ) %>" class="reveal-modal" data-reveal>
-            <div class="product-image-modal">
-              <% if product.product_images.size > 1 %>
-              <%= image_tag product.product_images.first.store_image, class: 'current-modal-image' %>
-              <% product.product_images.each_with_index do |image, index| %>
-                <div class="modal-image-small">
-                  <%= image_tag image.store_image %>
-                </div>               
-              <% end %>
-              <% else %>
-                <%= image_tag product.product_images.first.store_image %>
-              <% end %>
-            </div>
-            <div class="product-details-modal">
-              <h2><%= product.name %> <small><%= product.price %></small></h2>
+          <div id="<%= product.name.downcase.gsub(" ", '-' ) %>" class="reveal-modal modal-wrapper" data-reveal>
+            <div class="modal">
+              <div class="head">
+                <h2><%= product.name %> <small><%= product.price %></small></h2>
+                <a class="btn-close trigger close-reveal-modal">&#215;</a>
+              </div>
+              <div class="content">
+              <%= image_tag product.product_images.first.store_image %>
               <p class="lead"><%= product.description %></p>
               <div class="add-to-cart-container">
                 
                 <%= link_to 'Add to Cart', add_to_cart_path(current_cart.id, product.id, 'json'), data: {cart_id: "#{current_cart.id}", product_id: "#{product.id}"}, class: 'add-to-cart modal-cart', remote: true%>
               </div>
-              
+              </div>
             </div>
-            <a class="close-reveal-modal">&#215;</a>
-          </div>
+          </div>          
     <% end %>
     </div>
   </div>

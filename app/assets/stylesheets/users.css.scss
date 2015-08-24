@@ -68,6 +68,25 @@
   }
 }
 
+#checkout:hover,
+#customButton:hover {
+  background-image: url(/assets/outline_t.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  padding: 15px 15px 15px 15px;
+}
+
+#customButton {
+  background-color: white;
+  border-color: black;
+  font-size: 2rem;
+}
+
+#customButton:hover {
+  color: black;
+}
+
 .external-store {
   width: 150px;
   height: 75px;
