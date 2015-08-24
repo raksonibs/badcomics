@@ -5,9 +5,6 @@
       = f.input :price
       = f.input :description
       Currently this image for this product:
-      = @product.product_image_file_name
-      %br
-      %br
-      Upload a new one below.
-      = f.file_field :product_image
-      = f.submit
+      = f.text_field :name, class: 'input-comic-title'
+      = f.label :product_image, "Upload product_image"
+      = f.file_field :product_image, :multiple =>:true
