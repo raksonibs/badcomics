@@ -36,6 +36,19 @@ namespace :weekly_email do
     puts "#{@subscribers.count} Emails went out with #{@published.count} comics."
 
   end
+
+  desc 'Sends store email'
+  task :store_email => :environment do 
+    @subscribers = Subscriber.all.where(subscribed: true)
+    @products = Product.all
+    hostname = "badcomics.ca"
+    @subscribers.each do |subscriber|
+      BadMailer.store_email(subscriber, hostname).deliver
+    end
+
+    puts "#{@subscribers.count} Emails went out."
+
+  end
   
 
 end
