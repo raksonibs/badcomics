@@ -14,8 +14,9 @@ class BadMailer < ActionMailer::Base
     mail(to: @subscriber.email, subject: "Welcome, here's a gif-t")
   end
 
-  def store_email(subscriber, hostname)
+  def store_email(subscriber, hostname, products)
     @subscriber = subscriber
+    @products = products
     if Rails.env.development?
       @hostname = "http://localhost:3000" 
     else

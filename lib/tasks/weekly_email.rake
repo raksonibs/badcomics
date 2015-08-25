@@ -43,7 +43,7 @@ namespace :weekly_email do
     @products = Product.all
     hostname = "badcomics.ca"
     @subscribers.each do |subscriber|
-      BadMailer.store_email(subscriber, hostname).deliver
+      BadMailer.store_email(subscriber, hostname, @products).deliver
     end
 
     puts "#{@subscribers.count} Emails went out."
