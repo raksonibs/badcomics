@@ -369,9 +369,13 @@ li.nav {
   }
 } 
 
-@media only screen and (max-width: 520px) {
+@media only screen and (max-width: 450px) {
   .buttons {
     width: 60%;
+  }
+
+  .external-store {
+    left: 68%;
   }
 
   .logo {
