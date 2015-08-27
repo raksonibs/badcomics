@@ -22,7 +22,7 @@ class BadMailer < ActionMailer::Base
     else
       @hostname = "http://badcomics.ca" 
     end
-    mail(to: @subscriber.email, subject: "Welcome, here's a gif-t")
+    mail(to: @subscriber.email, subject: "The Bad Comics Store!!!!!!!")
   end
 
   def test_weekly_email(subscriber, hostname, showThisOne, published, lastWeekComic)
