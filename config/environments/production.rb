@@ -117,11 +117,9 @@ Rails.application.configure do
   config.active_record.dump_schema_after_migration = false
   # 'https://blooming-depths-6271.herokuapp.com'
   config.absolute_site_url = 'badcomics.ca'
-  config.action_controller.asset_host = 'badcomics.ca'
-  config.action_mailer.asset_host = 'badcomics.ca'
+  config.action_controller.asset_host = 'https://badcomics.ca'
+  config.action_mailer.asset_host = 'https://badcomics.ca'
   config.action_mailer.default_url_options = { :host => 'badcomics.ca' }
-
-  config.asset_path = "https://www.badcomics.ca/assets/"
 
 
 end
