@@ -121,5 +121,7 @@ Rails.application.configure do
   config.action_mailer.asset_host = 'badcomics.ca'
   config.action_mailer.default_url_options = { :host => 'badcomics.ca' }
 
+  config.asset_path = "https://www.badcomics.ca/assets/"
+
 
 end
