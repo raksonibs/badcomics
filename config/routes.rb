@@ -54,6 +54,7 @@ Rails.application.routes.draw do
     get '/store/:cart_id/:product_id' => 'store#add_to_cart', as: :add_to_cart
     get '/payment' => 'store#create_customer', as: :payment
   end
+  get '/store/:cart_id/remove_from_cart/:product_id' => 'store#remove_from_cart', as: :remove_from_cart
 
   resources :registrations
   resources :products

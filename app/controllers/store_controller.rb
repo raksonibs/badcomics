@@ -22,6 +22,22 @@ class StoreController < ApplicationController
   def test
   end
 
+  def remove_from_cart
+    @cart = current_cart   
+    @product = Product.find(params[:product_id])
+    # need to detect how many times duplicate happens
+    howManyEqualThisProduct = @cart.products.select{|e| e.id == @product.id }.count - 1
+    @cart.products.delete(@product)
+    howManyEqualThisProduct.times do |time|
+      @cart.products << @product
+    end
+    @products = @cart.products
+
+    @registration = Registration.new
+    @products = Product.all
+    redirect_to store_path
+  end
+
   def checkout
     respond_to do |format|
       format.js

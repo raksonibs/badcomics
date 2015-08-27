@@ -214,7 +214,7 @@ $(document).ready(function() {
       }, 5000);
     })
 
-  $('.add-to-cart').on("ajax:success", function(e, data, status, xhr) {
+  $('.add-to-cart, .remove-product').on("ajax:success", function(e, data, status, xhr) {
     $('.cart-price').text(data.price)
     $('.cart-items').text(data.item_count)
     $('.cart-tab-price').text(data.price)
@@ -222,7 +222,7 @@ $(document).ready(function() {
     var fullItemsDescription = []
     var fullItemsImages = data.images
     $.each(data.products, function(index, value) {
-      fullItemsDescription.push(value.name + " | " + value.price.toString())
+      fullItemsDescription.push(value.name + " | " + value.price.toString() + '<a href="/store/'+data.cart+'/remove_from_cart/'+value.id+'.json">X</a>')
       // fullItemsImages.push(value.product_image_file_name)
     })
     // <div class="large-2 small-2 columns">
@@ -234,14 +234,14 @@ $(document).ready(function() {
     for (var i = fullItemsDescription.length - 1; i >= 0; i--) {
       var description = fullItemsDescription[i]
       var image = fullItemsImages[i]
-      htmlString += '<div class="large-2 small-2 columns">' + '<img class="cart-image" src="' + image + '" alt="">' + '<span class="product-details">' + description + '</span></div>' 
+      htmlString += '<div class="large-4 small-4 columns">' + '<img class="cart-image" src="' + image + '" alt="">' + '<span class="product-details">' + description + '</span></div>' 
     };
 
     $('.cart-details').html(htmlString)
 
   })
 
-  $('.add-to-cart').on("ajax:error", function(e, data, status, xhr) {
+  $('.add-to-cart, .remove-product').on("ajax:error", function(e, data, status, xhr) {
     $('.note-text').text("Something screwed up with the cart. Trying re-spending your hard earned money.")
     $('.flag.note.notice').slideDown();
   })

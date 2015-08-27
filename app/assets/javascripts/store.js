@@ -9,7 +9,7 @@ $(document).ready(function() {
     $('.current-modal-image').attr('src', thisImage)
   })
 
-  $('#checkout').click(function() {
+  $('#checkout, #cart-checkout').click(function() {
     // route to update cart
     
     var subTotal = parseInt($('.cart-price').text())
