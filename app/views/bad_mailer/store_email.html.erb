@@ -3,6 +3,7 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
   <title>Test</title>
   <style>
 
@@ -34,6 +35,134 @@
       *[class="link-bump"] {font-size:21px !important;}
       *[class="100p-mob"] {width:100% !important; height:auto !important;}
     }
+
+    a {
+  text-decoration: none;
+}
+
+.thick-underline {
+  border-bottom: 1px solid #c9e27f;
+  box-shadow: inset 0 -7px 0 #c9e27f;
+  color: rgba(15, 35, 59, 0.55);
+  -webkit-transition: all .25s ease-in-out;
+          transition: all .25s ease-in-out;
+  padding: 2px 2px 0 2px;
+}
+.thick-underline:hover {
+  background-color: #c9e27f;
+}
+
+.highlighted {
+  box-shadow: inset 0 -.45em .85em #f1e12d;
+  color: black;
+  -webkit-transition: box-shadow 0.25s cubic-bezier(0.32, 0.75, 0.25, 1);
+          transition: box-shadow 0.25s cubic-bezier(0.32, 0.75, 0.25, 1);
+}
+.highlighted:hover {
+  box-shadow: inset 0 -1.15em 0 #f1e12d;
+}
+
+.underline-slide, .background-slide {
+  color: #3588b4;
+  position: relative;
+  padding-bottom: 2px;
+}
+.underline-slide:after, .background-slide:after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 2px;
+  background-color: #6ebde7;
+  width: 0%;
+  display: block;
+  -webkit-transition: width .5s ease-in-out;
+          transition: width .5s ease-in-out;
+}
+.underline-slide:hover, .background-slide:hover {
+  color: black;
+}
+.underline-slide:hover:after, .background-slide:hover:after {
+  width: 100%;
+}
+
+.background-slide {
+  color: #e76ea7;
+  z-index: 3;
+}
+.background-slide:after {
+  background: rgba(231, 110, 167, 0.4);
+  height: 1.25em;
+  z-index: -1;
+}
+.background-slide:hover {
+  color: black;
+}
+
+.growing-border {
+  color: #e44040;
+  padding-bottom: 2px;
+  border-bottom: 0px solid black;
+  -webkit-transition: all .2s ease-in-out;
+          transition: all .2s ease-in-out;
+}
+.growing-border:hover {
+  border-bottom-width: 3px;
+}
+
+.border-grow-center {
+  color: #994cb9;
+  position: relative;
+  padding-bottom: 2px;
+}
+.border-grow-center:after {
+  content: '';
+  height: 2px;
+  background: #742794;
+  width: 0;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+.border-grow-center:hover:after {
+  width: 100%;
+  -webkit-animation-duration: .8s;
+          animation-duration: .8s;
+  -webkit-animation-name: bordergrow;
+          animation-name: bordergrow;
+  -webkit-animation-iteration-count: 1;
+          animation-iteration-count: 1;
+}
+
+@-webkit-keyframes bordergrow {
+  0% {
+    left: 50%;
+    width: 10%;
+  }
+  100% {
+    left: 0;
+    width: 100%;
+  }
+}
+
+@keyframes bordergrow {
+  0% {
+    left: 50%;
+    width: 10%;
+  }
+  100% {
+    left: 0;
+    width: 100%;
+  }
+}
+
+img.100p-mob {
+    width: 50% !important;
+  }
+
+  * {
+    font-family: 'Roboto', sans-serif !important;
+  }
     
     
   </style>
@@ -56,17 +185,12 @@
             </tr>
 
             <tr>
-              <td align="right" style="font-size:11px; color:#333333; font-family:Arial, Helvetica, sans-serif;">
+              <td align="right" style="padding-left:10px;font-size:11px; color:#333333;">
                 Email looking strange? <a href="##" style="color:#ad2f70; text-decoration:none;">View it in browser. Or put on your glasses. Or get glasses. Invest in your future, christ.</a>
               </td>
             </tr>
           </table>
 
-          <table border="0" cellpadding="0" cellspacing="0" class="100p" width="640">
-            <tr>
-              <td height="20"></td>
-            </tr>
-          </table>
 
           <table border="0" cellpadding="0" cellspacing="0" class="100p" width="640">
             <tr>
@@ -78,8 +202,9 @@
             <tr>
               <td valign="top">
                 <table border="0" cellpadding="0" cellspacing="0">
+                  <br>
                   <tr>
-                    <td align="left" style="font-size:24px; color:#ad2f70; font-family:Helvetica, Arial, sans-serif;">Hi.</td>
+                    <td align="left" style="padding-left:10px;font-size:24px; color:#ad2f70; font-family:Helvetica, Arial, sans-serif;">Hi.</td>
                   </tr>
 
                   <tr>
@@ -87,14 +212,12 @@
                   </tr>
 
                   <tr>
-                    <td align="left" style="font-size:20px; color:#ad2f70; font-family:Helvetica, Arial, sans-serif;">It's been a while.</td>
+                    <td align="left" style="padding-left:10px;font-size:20px; color:#ad2f70; font-family:Helvetica, Arial, sans-serif;">It's been a while.</td>
                   </tr>
 
                   <tr>
-                    <td align="left" class="font-bump" style="font-size:14px; color:#333333; font-family:Arial, Helvetica, sans-serif;">
-                      But while you have been enjoying the summer, it's enveloping heat, we have been working, anticipating, waiting. <br>
-                      <br>
-                      Deep underground in our private labratory we have been making something unstoppable, something diabolical, something so bad, it is illegal already in 185 countries...<br>
+                    <td align="left" class="font-bump" style="padding-left:10px;font-size:14px; color:#333333;">
+                      But while you have been enjoying the summer, we have been working, making, building... <br>
                       <br>
                     </td>
                   </tr>
@@ -109,53 +232,50 @@
                 <table border="0" cellpadding="0" cellspacing="0">
 
                   <tr>
-                    <td align="center" valign="top"><img alt="" border="0" class="100p-mob" src="<%= @products.first.product_images.first.store_image %>" style="display:block"></td>
+                    <td align="center" valign="top"><img alt="" border="0" class="100p-mob" src="https://s3-us-west-2.amazonaws.com/badcomics/images/comics/store.png" style="display:block"></td>
                   </tr>
 
                   <tr>
-                    <td align="left" class="font-bump" style="font-size:14px; color:#333333; font-family:Arial, Helvetica, sans-serif;">
-                      It's a store! Damn, that's hot you are probably thinking.<br>
-
-                      <br>
-                      And you're right! Our deals so hot, hot, hot, some would say we contribute to global warming..
+                    <td align="left" class="font-bump" style="padding-left:10px;font-size:14px; color:#333333;">
+                      We have deals so hot, hot, hot, some would say we contribute to global warming...
                       <br><br>
-                      They would be wrong.<br><br>
-                      Not only does this store not contribute to global warming, it has cool stuff! It has some of this: <br>
+                      They would be wrong. <a href="https://badcomics.ca/store" class="growing-border">Skip the rest and just go there by clicking here.</a><br><br>
+                      Not only does this store not contribute to global warming, it has some cool stuff! Like this: <br>
                       </td>
                       </tr>
-                      <td align="center" valign="top"><img alt="" border="0" class="100p-mob" src="<%= @products.first.product_images.first.store_image %>" style="display:block"></td>
+                      <td align="center" valign="top"><img alt="" border="0" class="100p-mob" src="<%= @clown_shirt.product_images.first.store_image %>" style="display:block;width:50% !important;left: 25%;position:relative;"></td>
                     </tr>
                     <tr>
-                    <td align="left" class="font-bump" style="font-size:14px; color:#333333; font-family:Arial, Helvetica, sans-serif;">
-                      And some of that:<br>                      
+                    <td align="left" class="font-bump" style="padding-left:10px;font-size:14px; color:#333333;">
+                      And this:<br>                      
                       </td>
                       </tr>
                     <tr>
 
-                      <td align="center" valign="top"><img alt="" border="0" class="100p-mob" src="<%= @products.first.product_images.first.store_image %>" style="display:block"></td>
+                      <td align="center" valign="top"><img alt="" border="0" class="100p-mob" src="<%= @goose_shirt.product_images.first.store_image %>" style="display:block;width:50% !important;left: 25%;position:relative;"></td>
                     </tr>
                     <tr>
-                    <td align="left" class="font-bump" style="font-size:14px; color:#333333; font-family:Arial, Helvetica, sans-serif;">
+                    <td align="left" class="font-bump" style="padding-left:10px;font-size:14px; color:#333333;">
                       And so many of these that I can't even move around in my bedroom, literally, these cups are everywhere. <br>
                     </td>
                     </tr>
                     <tr>
-                    <td align="center" valign="top"><img alt="" border="0" class="100p-mob" src="<%= @products.first.product_images.first.store_image %>" style="display:block"></td>
+                    <td align="center" valign="top"><img alt="" border="0" class="100p-mob" src="<%= @cups.product_images.first.store_image %>" style="display:block;width:50% !important;left: 25%;position:relative;"></td>
                     </tr>
                     <tr>
-                    <td align="left" class="font-bump" style="font-size:14px; color:#333333; font-family:Arial, Helvetica, sans-serif;">
-                      So what are you waiting for? Global Warming? Click here.<br>
-                      <br>Better yet click here to stop global warming!<br>
+                    <td align="left" class="font-bump" style="padding-left:10px;font-size:14px; color:#333333;">
+                      So what are you waiting for? Global Warming? <a class="thick-underline" href="https://badcomics.ca/store">Click here.</a><br>
+                      <br><a class="thick-underline" href="https://badcomics.ca/store">Better yet click here to stop global warming!</a><br>
                       <br>
-                      Click on any of these links to get our Opening 30% off sale! Also, these cups can be used to decrease the ocean levels!<br>
+                      <a class="underline-slide" href="https://badcomics.ca/store">Click on any of these links to get our Opening 30% off regular prices sale! Also, these cups can be</a> <a class="underline-slide" href="https://badcomics.ca/store">used to decrease the ocean levels!</a><br><br>
 
-                      Or heck, we get you, you like the planet a little bit warmer. And so we have nice t-shirts for any weather.<br>
+                      <a class="highlighted" href="https://badcomics.ca/store">Or heck, we get you, you like the planet a little bit warmer. And so we have nice t-shirts for any weather.</a><br>
                       <br>
-                       Or postcards you can send to loved ones and tell them about global warming.<br>
+                       Or postcards you can send to loved ones and tell them about global warming. <a class="highlighted" href="https://badcomics.ca/store">Postcards here!</a><br><br>
 
-                      Or you could say to hell with this inevitable proverbial burning ship and realize you just like the 30% off. Cool. So do we. It's yours.<br>
+                      <a class="underline-slide" href="https://badcomics.ca/store">Or you could say to hell with this inevitable proverbial burning ship and realize you just like the 30% </a> <a class="border-grow-center" href="https://badcomics.ca/store">off. Cool. So do we. It's yours.</a><br>
                       <br>
-                      Heating up the planet, the Bad Comics Team<br>
+                      Heating up the planet, <br>the Bad Comics Team<br>
                       </td>
                     </tr>
                     </td>

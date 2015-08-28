@@ -17,6 +17,10 @@ class BadMailer < ActionMailer::Base
   def store_email(subscriber, hostname, products)
     @subscriber = subscriber
     @products = products
+
+    @cups = Product.find_by_name("Hic-cup")
+    @clown_shirt = Product.find_by_name('Clown Shirt')
+    @goose_shirt = Product.find_by_name('Goose Shirt')
     if Rails.env.development?
       @hostname = "http://localhost:3000" 
     else
