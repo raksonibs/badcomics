@@ -4,6 +4,34 @@ $(document).ready(function() {
     return updatePrice
   }
 
+  var calculateSale = function(price) {
+    var salePrice = price * 0.3;
+    return salePrice
+  }
+
+  var rainbowText = function(item) {
+    var angle = 0;
+    var p = item[0];
+    var text = p.textContent.split('');
+    var len = text.length;
+    var phaseJump = 360 / len;
+    var spans;
+
+    p.innerHTML = text.map(function (char) {
+      return '<span>' + char + '</span>';
+    }).join('');
+
+    spans = p.children;
+
+    (function wheee () {
+      for (var i = 0; i < len; i++) {
+        spans[i].style.color = 'hsl(' + (angle + Math.floor(i * phaseJump)) + ', 55%, 70%)';
+      }
+      angle++;
+      requestAnimationFrame(wheee);
+    })();
+  }
+
   $('.modal-image-small').click(function() {
     var thisImage = $(this).find('img').attr('src')
     $('.current-modal-image').attr('src', thisImage)
@@ -14,9 +42,13 @@ $(document).ready(function() {
     
     var subTotal = parseInt($('.cart-price').text())
     var tax = calculateTax(subTotal);
+    var saleMinus = calculateSale(subTotal);
     $('.cart-tab-tax').text(tax)
+
+    $('.cart-tab-sale').text(saleMinus)
+    rainbowText($('.cart-tab-sale').parent())
     var shipping = 5.00
-    var total = subTotal + tax + shipping
+    var total = subTotal + tax + shipping - saleMinus
     $('.cart-tab-total').text(total)
 
     var textProd = $('.product-details').text()
@@ -25,6 +57,11 @@ $(document).ready(function() {
     // $('.stripe-button').attr('data-amount', total.toString())
     // $('.stripe-button').attr('data-description', textProd)
   })
+
+  var sale = []
+  sale.push(document.getElementById('sale-happening'))
+  rainbowText(sale)
+
 
   var kaey = $('.stripe-key').data('key')
 

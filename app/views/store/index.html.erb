@@ -4,6 +4,7 @@
   <div class="sign">
       <!-- <div class="neon-blue" id="title">The<span id="fade">ate</span> Nights</div> -->
       <div class="neon-blue"> <span class="neon-purple">The</span> <span class="neon-purple" id="trav">Store</span></div>
+      <div id="sale-happening">30% off everything! Including dignity!</div>
    </div>
   <div id="checkout-tab" class="reveal-modal" data-reveal>
     <div class="row">
@@ -20,6 +21,7 @@
         </div>
         <hr>
         <h5> Subtotal: <span class='cart-tab-price'> <%= @cart.products.map(&:price).inject(0){ |sum, i| sum + i } %> </span></h5>
+        <h5 class="colour-sale"> Sale: -<span class="cart-tab-sale"></span> (30%)</h5>
         <h5> Tax: <span class='cart-tab-tax'></span></h5>
         <h5> Shipping: <span class='cart-tab-shipping'>5.00</span></h5>
         <h5> Total: <span class='cart-tab-total'></span></h5>
