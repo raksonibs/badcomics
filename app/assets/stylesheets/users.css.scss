@@ -822,3 +822,17 @@ div.modal-image-small {
 .modal-image-small:hover {
   cursor: pointer;
 }
+
+.subscriber-submit-container {
+  width: 100%;
+  height: 100%;
+}
+
+.subscriber-submit:hover,
+.disable-please:hover {
+  background-image: url(/assets/outline_t.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-color: #fff !important;
+}

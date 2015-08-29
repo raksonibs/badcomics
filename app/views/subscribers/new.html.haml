@@ -3,4 +3,5 @@
     %h5 If you subscribe now, Cecil the lion comes back.
     = simple_form_for @subscriber, html: { class: 'box-non' }, remote: true do |f|
       = f.input :email, label: false, placeholder: 'Input your work/ashley madison email here', class: 'subscriber-email large-4 columns'
-      = f.button :submit, :label => 'Subscribe', value: 'Subscribe', class: 'subscriber-submit large-2 columns'
+      .subscriber-submit-container
+        = f.button :submit, :label => 'Subscribe', value: 'Subscribe', class: 'subscriber-submit large-2 columns'
