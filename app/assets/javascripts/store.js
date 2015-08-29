@@ -57,10 +57,12 @@ $(document).ready(function() {
     // $('.stripe-button').attr('data-amount', total.toString())
     // $('.stripe-button').attr('data-description', textProd)
   })
-
-  var sale = []
-  sale.push(document.getElementById('sale-happening'))
-  rainbowText(sale)
+  
+  if( $('#sale-happening').length ) {
+    var sale = []
+    sale.push(document.getElementById('sale-happening'))
+    rainbowText(sale)    
+  }
 
 
   var kaey = $('.stripe-key').data('key')
