@@ -27,15 +27,12 @@ $(document).ready(function() {
   })
 
   var kaey = $('.stripe-key').data('key')
-  console.log('4242 4242 4242 4242')
 
   var handler = StripeCheckout.configure({
     key: kaey,
     token: function(token, args) {
 
       var totalPrice = $('.cart-tab-total').text()
-      console.log('test-token')
-      console.log(token)
       var email = token['email']
       var token = token['id']
       var billing_address_city = args['billing_address_city']
@@ -73,7 +70,6 @@ $(document).ready(function() {
                 shipping_name: shipping_name
                  },
         success: function(data) {
-          console.log('success')
           // $('#checkout-tab').foundation('reveal', 'close');
           var audioMoney = new Audio('/assets/money.mp3')
           audioMoney.play();
@@ -91,7 +87,6 @@ $(document).ready(function() {
           }, 10000);
         },
         error: function(data) {
-          console.log('error')
           $('.note-text').text("Something didn't work. Try again because we need money.")
           $('.flag.note.notice').slideDown();
             setTimeout(function() {
@@ -102,12 +97,10 @@ $(document).ready(function() {
     }
   });
 
-  console.log('test-store')
 
   $('#customButton').on('click', function(e) {
     // Open Checkout with further options
     var cartTotal = $('.cart-tab-total').text()
-    console.log(cartTotal)
     var textProd = $('.product-details').text()
 
     handler.open({
