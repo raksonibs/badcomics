@@ -1,11 +1,11 @@
 $(document).ready(function() {
   var calculateTax = function(price) {
-    var updatePrice = price * 0.09;
+    var updatePrice = Math.round(price * 0.09 * 100)/100;
     return updatePrice
   }
 
   var calculateSale = function(price) {
-    var salePrice = price * 0.66;
+    var salePrice = Math.round(price * 0.67 * 100)/100
     return salePrice
   }
 
