@@ -1,10 +1,14 @@
 .row.container
   .large-12.small-12.columns
-    = simple_form_for @product do |f|
-      = f.input :name
-      = f.input :price
-      = f.input :description
-      Currently this image for this product:
-      = f.text_field :name, class: 'input-comic-title'
-      = f.label :product_image, "Upload product_image"
-      = f.file_field :product_image, :multiple =>:true
+    = simple_form_for @product do |form|
+      = form.input :name
+      = form.input :price
+      = form.input :description
+      Currently these images for this product:
+      %br
+      - @product.product_images.each do |prod|
+        = image_tag prod.store_image
+        %br
+      = form.label :product_image, "Upload product_image"
+      = form.file_field :product_image, :multiple =>:true
+      = form.submit

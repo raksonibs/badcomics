@@ -55,8 +55,6 @@
 }
 
 .add-to-cart-container {
-  background-image: url(/assets/outline_t.png);
-  background-size: cover;
   height: 62px;
   width: 125px;
   margin: auto;
@@ -66,6 +64,11 @@
     position: relative;
     top: 15px;
   }
+}
+
+.add-to-cart-container:hover {
+  background-image: url(/assets/outline_t.png);
+  background-size: cover;
 }
 
 #checkout:hover,

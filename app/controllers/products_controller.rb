@@ -25,9 +25,14 @@ class ProductsController < ApplicationController
 
   def update
     @product = Product.find(params[:id])
-    @product.product_image = params[:product][:product_image] unless params[:product][:product_image].nil?
 
-    if @product.update(product_params)
+    if @product.update_attributes(product_params)
+      unless params[:product][:product_image].nil?
+        @product.product_images.destroy_all
+        params[:product][:product_image].each do |picture|      
+          @product.product_images.create(:store_image=> picture)
+        end
+      end
       render :edit
     else
       render :edit

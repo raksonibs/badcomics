@@ -53,7 +53,19 @@
                   <a class="btn-close trigger close-reveal-modal">&#215;</a>
                 </div>
                 <div class="content">
-                <%= image_tag product.product_images.first.store_image %>
+                <div class="product-image-modal">
+                  <% if product.product_images.size > 1 %>
+                    <%= image_tag product.product_images.first.store_image, class: 'current-modal-image' %>
+                    <% product.product_images.each_with_index do |image, index| %>
+                      <div class="modal-image-small">
+                        <%= image_tag image.store_image %>
+                      </div>               
+                    <% end %>
+                  <% else %>
+                    <%= image_tag product.product_images.first.store_image %>
+                  <% end %>
+                </div>
+
                 <p class="lead"><%= product.description %></p>
                 <div class="add-to-cart-container">
                   
