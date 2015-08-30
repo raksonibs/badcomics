@@ -66,13 +66,9 @@
   }
 }
 
-.add-to-cart-container:hover {
-  background-image: url(/assets/outline_t.png);
-  background-size: cover;
-}
-
 #checkout:hover,
-#customButton:hover {
+#customButton:hover,
+.add-to-cart-button:hover {
   background-image: url(/assets/outline_t.png);
   background-size: contain;
   background-repeat: no-repeat;

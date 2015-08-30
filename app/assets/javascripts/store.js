@@ -5,7 +5,7 @@ $(document).ready(function() {
   }
 
   var calculateSale = function(price) {
-    var salePrice = price * 0.3;
+    var salePrice = price * 0.66;
     return salePrice
   }
 
@@ -48,7 +48,7 @@ $(document).ready(function() {
     $('.cart-tab-sale').text(saleMinus)
     rainbowText($('.cart-tab-sale').parent())
     var shipping = 5.00
-    var total = subTotal + tax + shipping - saleMinus
+    var total = tax + shipping + saleMinus
     $('.cart-tab-total').text(total)
 
     var textProd = $('.product-details').text()
@@ -61,7 +61,17 @@ $(document).ready(function() {
   if( $('#sale-happening').length ) {
     var sale = []
     sale.push(document.getElementById('sale-happening'))
-    rainbowText(sale)    
+    rainbowText(sale)
+
+    var oldPrices = $('.new-price')
+
+    $.each(oldPrices, function(index, value) {
+      var oldPrice = $(value).text()
+      var newPrice = calculateSale(oldPrice)
+      $(value).text(newPrice)
+
+      rainbowText([value])
+    })
   }
 
 
@@ -195,9 +205,9 @@ $(document).ready(function() {
   });
 
   $('.product-container').hover(function() {
-    $(this).find('.hidden-dets').css('visibility','visible').hide().fadeIn('slow');
+    $(this).find('.hidden-dets').css({opacity: 0.0, visibility: "visible"}).animate({opacity: 1.0});
   }, function() {
-    $(this).find('.hidden-dets').css('visibility','hidden')
+    $(this).find('.hidden-dets').css({opacity: 1.0, visibility: "hidden"}).animate({opacity: 0.0});
   })
 
   // Close Checkout on page navigation

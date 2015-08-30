@@ -21,7 +21,7 @@
         </div>
         <hr>
         <h5> Subtotal: <span class='cart-tab-price'> <%= @cart.products.map(&:price).inject(0){ |sum, i| sum + i } %> </span></h5>
-        <h5 class="colour-sale"> Sale: -<span class="cart-tab-sale"></span> (30%)</h5>
+        <h5 class="colour-sale"> Sale Total: <span class="cart-tab-sale"></span> (30%)</h5>
         <h5> Tax: <span class='cart-tab-tax'></span></h5>
         <h5> Shipping: <span class='cart-tab-shipping'>5.00</span></h5>
         <h5> Total: <span class='cart-tab-total'></span></h5>
@@ -42,14 +42,14 @@
             </a>
               
             <div class="hidden-dets">
-              <%= product.name %> (<%= product.price %>)
+              <%= product.name %> <span class="old-price">(<%= product.price %>)</span>(<span class="new-price"><%= product.price %></span>)
               <%= link_to ' - Add to Cart', add_to_cart_path(current_cart.id, product.id, 'json'), data: {cart_id: "#{current_cart.id}", product_id: "#{product.id}"}, class: 'add-to-cart', remote: true%>
             </div>
             </div>
             <div id="<%= product.name.downcase.gsub(" ", '-' ) %>" class="reveal-modal modal-wrapper" data-reveal>
               <div class="modal">
                 <div class="head">
-                  <h2><%= product.name %> <small><%= product.price %></small></h2>
+                  <h2><%= product.name %> <small class="old-price"><%= product.price %></small> <small class="new-price"><%= product.price %></small></h2>
                   <a class="btn-close trigger close-reveal-modal">&#215;</a>
                 </div>
                 <div class="content">
@@ -69,7 +69,7 @@
                 <p class="lead"><%= product.description %></p>
                 <div class="add-to-cart-container">
                   
-                  <%= link_to 'Add to Cart', add_to_cart_path(current_cart.id, product.id, 'json'), data: {cart_id: "#{current_cart.id}", product_id: "#{product.id}"}, class: 'add-to-cart modal-cart', remote: true%>
+                  <%= link_to 'Add to Cart', add_to_cart_path(current_cart.id, product.id, 'json'), data: {cart_id: "#{current_cart.id}", product_id: "#{product.id}"}, class: 'add-to-cart modal-cart add-to-cart-button', remote: true%>
                 </div>
                 </div>
               </div>
