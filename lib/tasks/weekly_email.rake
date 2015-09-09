@@ -39,7 +39,7 @@ namespace :weekly_email do
 
   desc 'Sends store email'
   task :store_email => :environment do 
-    @subscribers = Subscriber.all.where(subscribed: true)
+    @subscribers = Subscriber.all.where(subscribed: true).first
     @products = Product.all
     hostname = "badcomics.ca"
     @subscribers.each do |subscriber|
