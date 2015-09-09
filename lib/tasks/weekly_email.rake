@@ -42,7 +42,7 @@ namespace :weekly_email do
     @subscribers = Subscriber.all.where(subscribed: true)
     @products = Product.all
     hostname = "badcomics.ca"
-    [@subscribers.first].each do |subscriber|
+    @subscribers.each do |subscriber|
       BadMailer.store_email(subscriber, hostname, @products).deliver
     end
 
