@@ -843,6 +843,163 @@ p.center-images {
     width: 50% !important;
   }
 
+
+    #outlook a {padding:0;}     
+    body{width:100% !important; -webkit-text-size-adjust:100%; -ms-text-size-adjust:100%; margin:0; padding:0;}     
+    .ReadMsgBody {width: 100%;}
+    .ExternalClass {width:100%;} 
+    .backgroundTable {margin:0 auto; padding:0; width:100%;!important;} 
+    table td {border-collapse: collapse;}
+    .ExternalClass * {line-height: 115%;}
+    
+    
+    /* End reset */
+    @media screen and (max-width: 630px){
+
+      *[class="container"] { width: 320px !important; padding:0px !important}                                 
+      *[class="mobile-column"] {display: block;}
+      *[class="mob-column"] {float: none !important;width: 100% !important;}         
+      *[class="mobile-padding"] {padding-left:10px !important;padding-right:10px !important;}         
+      *[class="hide"] {display:none !important;}          
+      *[class="100p"] {width:100% !important; height:auto !important;}            
+      *[class="mobile-column-blog"] {padding-bottom:20px;display:block;}
+      
+      
+    }
+    @media screen and (max-width: 450px){
+      *[class="mobhide"] {display:none !important;}    
+      *[class="font-bump"] {font-size:16px !important;}
+      *[class="link-bump"] {font-size:21px !important;}
+      *[class="100p-mob"] {width:100% !important; height:auto !important;}
+    }
+
+    a {
+  text-decoration: none;
+}
+
+.thick-underline {
+  border-bottom: 1px solid #c9e27f;
+  box-shadow: inset 0 -7px 0 #c9e27f;
+  color: rgba(15, 35, 59, 0.55);
+  -webkit-transition: all .25s ease-in-out;
+          transition: all .25s ease-in-out;
+  padding: 2px 2px 0 2px;
+}
+.thick-underline:hover {
+  background-color: #c9e27f;
+}
+
+.highlighted {
+  box-shadow: inset 0 -.45em .85em #f1e12d;
+  color: black;
+  -webkit-transition: box-shadow 0.25s cubic-bezier(0.32, 0.75, 0.25, 1);
+          transition: box-shadow 0.25s cubic-bezier(0.32, 0.75, 0.25, 1);
+}
+.highlighted:hover {
+  box-shadow: inset 0 -1.15em 0 #f1e12d;
+}
+
+.underline-slide, .background-slide {
+  color: #3588b4;
+  position: relative;
+  padding-bottom: 2px;
+}
+.underline-slide:after, .background-slide:after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 2px;
+  background-color: #6ebde7;
+  width: 0%;
+  display: block;
+  -webkit-transition: width .5s ease-in-out;
+          transition: width .5s ease-in-out;
+}
+.underline-slide:hover, .background-slide:hover {
+  color: black;
+}
+.underline-slide:hover:after, .background-slide:hover:after {
+  width: 100%;
+}
+
+.background-slide {
+  color: #e76ea7;
+  z-index: 3;
+}
+.background-slide:after {
+  background: rgba(231, 110, 167, 0.4);
+  height: 1.25em;
+  z-index: -1;
+}
+.background-slide:hover {
+  color: black;
+}
+
+.growing-border {
+  color: #e44040;
+  padding-bottom: 2px;
+  border-bottom: 0px solid black;
+  -webkit-transition: all .2s ease-in-out;
+          transition: all .2s ease-in-out;
+}
+.growing-border:hover {
+  border-bottom-width: 3px;
+}
+
+.border-grow-center {
+  color: #994cb9;
+  position: relative;
+  padding-bottom: 2px;
+}
+.border-grow-center:after {
+  content: '';
+  height: 2px;
+  background: #742794;
+  width: 0;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+.border-grow-center:hover:after {
+  width: 100%;
+  -webkit-animation-duration: .8s;
+          animation-duration: .8s;
+  -webkit-animation-name: bordergrow;
+          animation-name: bordergrow;
+  -webkit-animation-iteration-count: 1;
+          animation-iteration-count: 1;
+}
+
+@-webkit-keyframes bordergrow {
+  0% {
+    left: 50%;
+    width: 10%;
+  }
+  100% {
+    left: 0;
+    width: 100%;
+  }
+}
+
+@keyframes bordergrow {
+  0% {
+    left: 50%;
+    width: 10%;
+  }
+  100% {
+    left: 0;
+    width: 100%;
+  }
+}
+
+img.100p-mob {
+    width: 50% !important;
+  }
+
+  * {
+    font-family: 'Roboto', sans-serif !important;
+  }
 </style>
 <body style="min-width: 100%;-webkit-text-size-adjust: 100%;-ms-text-size-adjust: 100%;margin: 0;padding: 0;background: #8FBC8F;color: #222222;font-family: &quot;Helvetica&quot;, &quot;Arial&quot;, sans-serif;font-weight: normal;text-align: left;line-height: 19px;font-size: 14px;width: 100% !important;">
   <table class="body" style="border-spacing: 0;border-collapse: collapse;padding: 0;vertical-align: top;text-align: left;height: 100%;width: 100%;color: #222222;font-family: &quot;Helvetica&quot;, &quot;Arial&quot;, sans-serif;font-weight: normal;margin: 0;line-height: 19px;font-size: 14px;">
