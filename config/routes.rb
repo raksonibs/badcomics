@@ -34,6 +34,8 @@ Rails.application.routes.draw do
 
   get '/random/:id' => 'users#random', as: :random
 
+  get '/replay' => 'users#replay'
+
   get '/about' => 'users#about', as: :about
 
   get '/first' => 'users#first', as: :first

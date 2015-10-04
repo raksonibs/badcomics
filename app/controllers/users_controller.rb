@@ -22,6 +22,9 @@ class UsersController < ApplicationController
   def contact
   end
 
+  def replay
+  end
+
   def twofactor
     flash.now[:alert] = 'Two factor set up correctly'
     redirect_to :root

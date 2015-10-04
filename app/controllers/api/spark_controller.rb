@@ -3,9 +3,9 @@ class Api::SparkController < ApplicationController
 
   before_action :set_wrapper
 
-  def replay    
-    @number_of_companies = @wrapper.replay
-    respond_with @number_of_companies
+  def replay
+    @result = @wrapper.replay
+    respond_with @result
   end
 
   private

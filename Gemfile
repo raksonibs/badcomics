@@ -75,3 +75,5 @@ gem 'social-share-button', :git => "git@github.com:raksonibs/social-share-button
 gem 'stripe'
 
 gem 'httparty'
+
+ gem 'responders', '~> 2.0' 
