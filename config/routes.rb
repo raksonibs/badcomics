@@ -2,6 +2,12 @@ Rails.application.routes.draw do
 
   root 'users#normal'
 
+  namespace :api do 
+    resource :spark, controller: 'spark' do 
+      get 'replay'
+    end
+  end
+
   get '/home/:user_id' => 'users#home', as: :home
 
   post '/upload/:user_id' => 'users#upload', :as => :upload
