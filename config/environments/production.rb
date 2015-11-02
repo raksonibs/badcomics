@@ -64,7 +64,7 @@ Rails.application.configure do
   config.active_support.deprecation = :notify
 
   # For ActionMailer emails
-  config.action_mailer.default_url_options = { host: "badcomics.ca", protocol: 'https' }
+  config.action_mailer.default_url_options = { host: "badcomics.ca", protocol: 'http' }
 
   config.assets.version = '1.0'
   config.serve_static_assets = true
@@ -117,8 +117,8 @@ Rails.application.configure do
   config.active_record.dump_schema_after_migration = false
   # 'https://blooming-depths-6271.herokuapp.com'
   config.absolute_site_url = 'badcomics.ca'
-  config.action_controller.asset_host = 'https://badcomics.ca'
-  config.action_mailer.asset_host = 'https://badcomics.ca'
+  config.action_controller.asset_host = 'http://badcomics.ca'
+  config.action_mailer.asset_host = 'http://badcomics.ca'
   config.action_mailer.default_url_options = { :host => 'badcomics.ca' }
 
 
