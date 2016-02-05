@@ -76,6 +76,6 @@ gem 'stripe'
 
 gem 'httparty'
 
- gem 'responders', '~> 2.0' 
+gem 'responders', '~> 2.0' 
 
- gem 'rspec'
+gem 'rspec'

@@ -2,7 +2,11 @@ Rails.application.routes.draw do
 
   root 'users#normal'
 
-  namespace :api do 
+  namespace :api, defaults: {format: 'json'} do
+    namespace :v1 do       
+     resources :comics, :only => [:index]
+    end
+
     resource :spark, controller: 'spark' do 
       get 'replay'
     end

@@ -1,1 +1,3 @@
 Code for Badcomics.ca
+
+API for badcomics.ca native.
