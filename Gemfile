@@ -79,3 +79,5 @@ gem 'httparty'
 gem 'responders', '~> 2.0' 
 
 gem 'rspec'
+
+gem "rails-erd"
